@@ -57,7 +57,7 @@ const features = [
     {
       name: 'Much cheaper than a court bailiff',
       description:
-        'Relying on a court bailiff to certify a draw cost 500€ on average in France. One draw with us costs 20€ and even less if you buy in bulk. That\'s at least 25 times cheaper.',
+        'Relying on a court bailiff to certify a draw cost 500€ on average in France. One draw with us costs 29€ and even less if you buy in bulk.',
       icon: CurrencyDollarIcon,
     },
     {
@@ -135,6 +135,63 @@ const footerNavigation = {
         },
     ],
 }
+
+const tiers = [
+    {
+        name: 'Hobby',
+        id: 'tier-freelancer',
+        href: '#join-community',
+        packagePrice: '29',
+        description: 'For individuals looking only for a single draw.',
+        features: [
+            'One draw',
+            'Instant deploy only',
+            'Up to 10,000 participants',
+            'Up to 3 winners',
+            '48-hour support response time'
+        ],
+        mostPopular: true,
+    },
+    {
+      name: 'Pro',
+      id: 'tier-startup',
+      href: '#',
+      packagePrice: '17',
+      savePercentage: '40',
+      description: 'For people who organise draws on a regular basis, like social media influencers.',
+      features: [
+        'Pre-purchase 10 draws',
+        'Deploy now or later',
+        'Up to 1,000,000 participants',
+        'Up to 100 winners',
+        '24-hour support response time',
+      ],
+      mostPopular: false,
+      availableSoon: true
+    },
+    {
+      name: 'Enterprise',
+      id: 'tier-enterprise',
+      href: '#',
+      packagePrice: '12',
+      savePercentage: '60',
+      description: 'For teams & businesses who are organizing draws at scale.',
+      features: [
+        'Pre-purchase 100 draws',
+        'Deploy now or later',
+        'Up to 10,000,000 participants',
+        'Up to 1000 winners',
+        '1-hour, dedicated support response time',
+      ],
+      bestValue: false,
+      availableSoon: true
+    },
+  ]
+  
+function classNames(...classes: string[]) {
+    return classes.filter(Boolean).join(' ')
+  }
+
 
 export default function Example() {
 
@@ -275,18 +332,20 @@ export default function Example() {
                   </a>
                 </div>
               </div>
-              {/* <div className="mt-16 flow-root sm:mt-24">
+
+              <div className="mt-16 flow-root sm:mt-24">
                 <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                   <img
-                    src="/verify-win.png"
+                    src="/graphique-technique.png"
                     alt="App screenshot"
                     width={2432}
                     height={1442}
                     className="rounded-md shadow-2xl ring-1 ring-gray-900/10"
                   />
                 </div>
-              </div> */}
-              <div className="mt-16 flow-root sm:mt-24">
+              </div>
+
+              {/* <div className="mt-16 flow-root sm:mt-24">
                 <div className="-m-2 p-2 lg:-m-4 lg:p-4">
                   <img
                     src="/verify-win.png"
@@ -295,7 +354,8 @@ export default function Example() {
                     height={1442}
                   />
                 </div>
-              </div>
+              </div> */}
+              
             </div>
           </div>
           <div
@@ -414,7 +474,7 @@ export default function Example() {
                 <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                     <div className="mx-auto max-w-2xl lg:text-center">
                         <h2 className="text-base font-semibold leading-7 text-indigo-600">Regular draws are boring and unreliable</h2>
-                        <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl no-wrap">
+                        <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                             Unlock a new level of customer experience
                         </p>
                         <p className="mt-6 text-lg leading-8 text-gray-600">
@@ -443,8 +503,10 @@ export default function Example() {
                 {/* Powered By  */}
                 <section className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                     <div style={{boxSizing: 'border-box', margin: '0px auto', maxWidth: '1200px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                        <h2 data-main-heading="true" style={{margin: '0px', backgroundImage: 'linear-gradient(rgb(85, 85, 85), rgb(0, 0, 0))', backgroundPositionX: '0%', backgroundPositionY: '0%', backgroundSize: 'auto', backgroundAttachment: 'scroll', backgroundOrigin: 'padding-box', backgroundColor: 'rgba(0, 0, 0, 0)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'rgba(0, 0, 0, 0)', boxSizing: 'border-box', fontSize: '32px', lineHeight: '40px', letterSpacing: '-1.28px', fontWeight: 700, color: 'rgb(17, 17, 17)', textAlign: 'center', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                            Built on a foundation of decentralized, battle-tested technologies
+                        <h2 data-main-heading="true" className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl text-center">
+                            Built on a foundation of decentralized,
+                            <br />
+                            battle-tested technologies
                         </h2>
                         <div data-version="v1" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: '0 1 auto', gap: '0px', position: 'relative', height: '264px', overflow: 'hidden', width: 'calc(100% + 16px * 2)', left: '-16px', outlineColor: 'rgb(37, 99, 235)', boxSizing: 'border-box', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
                             <svg fill="none" height="264" role="img" viewBox="0 0 891 264" width="891" data-lines="true" aria-label="A bunch of connecting lines that form into the CPU, with the text Powered By on top of the the CPU. Gradient lines are animating along the drawn lines, dissolving into the CPU in the center." style={{boxSizing: 'border-box', transform: 'matrix(1, 0, 0, 1, -2.5, 0)', position: 'absolute', top: '0px', outlineColor: 'rgb(37, 99, 235)', display: 'block', verticalAlign: 'middle', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
@@ -688,6 +750,106 @@ export default function Example() {
 
 
 
+{/* Pricing section */}
+<div className="py-24 sm:pt-48">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-4xl text-center">
+              <h2 className="text-base font-semibold leading-7 text-indigo-600">Simple pricing</h2>
+              <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                The more you buy, the cheaper it gets
+              </p>
+            </div>
+            {/* <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
+                The more you buy, the cheaper it gets
+            </p> */}
+            <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+              {tiers.map((tier, tierIdx) => (
+                <div
+                  key={tier.id}
+                  className={classNames(
+                    tier.mostPopular ? 'lg:z-10 lg:rounded-b-none' : 'lg:mt-8',
+                    tierIdx === 1 ? 'lg:rounded-none' : '',
+                    tierIdx === tiers.length - 1 ? 'lg:rounded-l-none' : '',
+                    'flex flex-col justify-between rounded-3xl bg-white p-8 ring-1 ring-gray-200 xl:p-10'
+                  )}
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-x-4">
+                      <h3
+                        id={tier.id}
+                        className={classNames(
+                          (tier.mostPopular || tier.bestValue) ? 'text-indigo-600' : 'text-gray-900',
+                          'text-lg font-semibold leading-8'
+                        )}
+                      >
+                        {tier.name}
+                      </h3>
+                      {tier.mostPopular ? (
+                        <p className="rounded-full bg-indigo-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-indigo-600">
+                          Most popular
+                        </p>
+                      ) : null}
+
+                    {tier.bestValue ? (
+                        <p className="rounded-full bg-indigo-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-indigo-600">
+                          Best value
+                        </p>
+                    ) : null}
+                    </div>
+                    <p className="mt-4 text-sm leading-6 text-gray-600">{tier.description}</p>
+                    <p className="mt-6 flex items-center justify-between gap-x-1">
+                      <span>
+                        <span className="text-4xl font-bold tracking-tight text-gray-900">{tier.packagePrice}€</span>
+                        <span className="text-sm font-semibold leading-6 text-gray-600">/draw</span>
+                      </span>
+
+                      {tier.savePercentage ? (
+                        <p className="rounded-full bg-orange-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-orange-600">
+                          Save {tier.savePercentage}%
+                        </p>
+                      ) : null}
+                    </p>
+                    <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
+                      {tier.features.map((feature) => (
+                        <li key={feature} className="flex gap-x-3">
+                          <CheckIcon className="h-6 w-5 flex-none text-indigo-600" aria-hidden="true" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {/* <a
+                    href={tier.href}
+                    aria-describedby={tier.id}
+                    className={classNames(
+                      tier.mostPopular
+                        ? 'bg-indigo-600 text-white shadow-sm hover:bg-indigo-500'
+                        : 'text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300',
+                      'mt-8 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                    )}
+                  > */}
+                    <button type="button" disabled={tier.availableSoon}
+                    className={classNames(
+                        tier.mostPopular
+                          ? 'bg-indigo-600 text-white shadow-sm hover:bg-indigo-500'
+                          : 'text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300',
+                          tier.availableSoon ? 'cursor-not-allowed' : '',
+                        'mt-8 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                      )}>
+                    {tier.availableSoon ? (
+                        'Available soon'
+                      ) : (
+                        'Launch draw'
+                      )}
+                      </button>
+                  {/* </a> */}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+
 
                 
 
@@ -706,13 +868,13 @@ export default function Example() {
                         />
                     </div>
                     <div className="mx-auto max-w-2xl text-center">
-                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                            Boost your brand image.
+                        <h2 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                            Looking for more ?
                             <br />
-                            Start using Verifiable Draws today.
+                            Join our community.
                         </h2>
                         <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-                            Whether you want to start a free trial, ask for a partnership, or you are just curious about the project, we invite you to join our Discord community where we will be able to assist you.
+                            Whether you have a question, want to ask for a partnership, or you are just curious about the project, we invite you to join our Discord community where we will be able to assist you.
                         </p>
                         <div className="mt-10 flex items-center justify-center gap-x-6">
                             <a
@@ -721,7 +883,7 @@ export default function Example() {
                                 target="_blank"
                                 className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Join the community
+                                Open Discord
                             </a>
                         </div>
                     </div>

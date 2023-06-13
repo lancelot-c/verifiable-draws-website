@@ -153,10 +153,3 @@ svg path {
         mask-position: 120%;
     }
   }
-
-  .no-wrap {
-    overflow: inherit;
-    white-space: nowrap;
-    position: relative;
-    right: 25px;
-  }
