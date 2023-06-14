@@ -96,7 +96,7 @@ const footerNavigation = {
     social: [
         {
             name: 'Discord',
-            href: 'https://discord.gg/vKXPFYc3',
+            href: 'https://discord.gg/3YjqW9MP7H',
             icon: (props: any) => (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="24px" height="24px" viewBox="0 -28.5 256 256" version="1.1" preserveAspectRatio="xMidYMid">
                 <g>
@@ -234,9 +234,9 @@ export default function Example() {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                        <a href="#join-community" className="text-sm font-semibold leading-6 text-gray-900">
+                        {/* <a href="#join-community" className="text-sm font-semibold leading-6 text-gray-900">
                             Log in <span aria-hidden="true">&rarr;</span>
-                        </a>
+                        </a> */}
                     </div>
         </nav>
         {/* <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -472,7 +472,7 @@ export default function Example() {
 
                 {/* Feature section */}
                 <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
-                    <div className="mx-auto max-w-2xl lg:text-center">
+                    <div className="mx-auto max-w-2xl text-center">
                         <h2 className="text-base font-semibold leading-7 text-indigo-600">Regular draws are boring and unreliable</h2>
                         <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                             Unlock a new level of customer experience
