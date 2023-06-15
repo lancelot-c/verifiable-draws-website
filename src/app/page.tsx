@@ -138,13 +138,12 @@ const footerNavigation = {
 
 const tiers = [
     {
-        name: 'Hobby',
+        name: 'Single draw',
         id: 'tier-freelancer',
         href: '#join-community',
         packagePrice: '29',
         description: 'For individuals looking only for a single draw.',
         features: [
-            'One draw',
             'Instant deploy only',
             'Up to 10,000 participants',
             'Up to 3 winners',
@@ -153,14 +152,13 @@ const tiers = [
         mostPopular: true,
     },
     {
-      name: 'Pro',
+      name: '10 draws',
       id: 'tier-startup',
       href: '#',
       packagePrice: '17',
       savePercentage: '40',
       description: 'For people who organise draws on a regular basis, like social media influencers.',
       features: [
-        'Pre-purchase 10 draws',
         'Deploy now or later',
         'Up to 1,000,000 participants',
         'Up to 100 winners',
@@ -170,14 +168,13 @@ const tiers = [
       availableSoon: true
     },
     {
-      name: 'Enterprise',
+      name: '100 draws',
       id: 'tier-enterprise',
       href: '#',
       packagePrice: '12',
       savePercentage: '60',
       description: 'For teams & businesses who are organizing draws at scale.',
       features: [
-        'Pre-purchase 100 draws',
         'Deploy now or later',
         'Up to 10,000,000 participants',
         'Up to 1000 winners',
@@ -290,12 +287,6 @@ export default function Example() {
 
       <main className="isolate">
 
-      <img
-              className="gold-medal"
-              src="/medaille-or-lepine-small.png"
-              alt="Médaille d'or du Concours Lépine 2023"
-            />
-
                 {/* Hero section */}
         <div className="relative pt-14">
           <div
@@ -313,11 +304,16 @@ export default function Example() {
           <div className="py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-2xl text-center">
+              <img
+              className="gold-medal lg:azeaze"
+              src="/medaille-or-lepine-small.png"
+              alt="Médaille d'or du Concours Lépine 2023"
+            />
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Build a brand that everyone trust
+                  Build a company that everyone trust
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                <span className="italic">Verifiable Draws</span> enables you to organize random draws and contests which are impossible to rig thanks to decentralized technologies,
+                <span className="italic">Verifiable Draws</span> enables you to organize random draws and contests which are completely transparent thanks to decentralized technologies,
                                 allowing you to prove the whole world that your company is trustworthy.
                 </p>
                 <div className="mt-10 flex items-center justify-center gap-x-6">
