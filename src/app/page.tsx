@@ -349,13 +349,7 @@ export default function Example() {
             /> */}
             
             <svg viewBox="0 0 500.26 65.37">
-                {/* <defs>
-                    <style>
-                        .cls-1{
-                            fill: none;
-                        }.cls-2{fill:#fff;}.cls-3{fill:#fbea00;}
-                    </style>
-                </defs> */}
+            
                 <g id="Calque_2" data-name="Calque 2">
                     <g id="vecto">
                         <g id="Presse">
@@ -384,6 +378,14 @@ export default function Example() {
                 </g>
             </svg>
             
+            {/* <img
+              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+              src="/presse-citron-logo.png"
+              alt="Presse Citron"
+              width={158}
+              height={48}
+            /> */}
+
             <img
               className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
               src="/fidealis-logo.png"
@@ -846,7 +848,7 @@ export default function Example() {
                         </div>
                     </div>
                     <div
-                        className="absolute left-1/2 right-0 top-full -z-10 hidden -translate-y-1/2 transform-gpu overflow-hidden blur-3xl sm:block"
+                        className="absolute left-1/2 right-0 top-3/4 -z-10 hidden -translate-y-1/2 transform-gpu overflow-hidden blur-3xl sm:block"
                         aria-hidden="true"
                     >
                         <div className="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
@@ -869,7 +871,7 @@ export default function Example() {
                     <div className="border-t border-white/10 pt-8 md:flex md:items-center md:justify-between">
                         <div className="flex space-x-6 md:order-2">
                             {footerNavigation.social.map((item) => (
-                                <a key={item.name} href={item.href} className="text-gray-500 hover:text-gray-400">
+                                <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
                                     <span className="sr-only">{item.name}</span>
                                     <item.icon className="h-6 w-6" aria-hidden="true" />
                                 </a>
