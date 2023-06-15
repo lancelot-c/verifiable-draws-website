@@ -1,27 +1,13 @@
-// import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
 import {
-    ArrowPathIcon,
     ArrowTrendingUpIcon,
-    BanknotesIcon,
     Bars3Icon,
     BuildingLibraryIcon,
-    CheckBadgeIcon,
     CheckIcon,
-    ChevronRightIcon,
-    CloudArrowUpIcon,
-    Cog6ToothIcon,
     CurrencyDollarIcon,
-    FingerPrintIcon,
     GlobeEuropeAfricaIcon,
-    LockClosedIcon,
-    QrCodeIcon,
     RocketLaunchIcon,
-    ServerIcon,
     ShieldCheckIcon,
-    XMarkIcon,
 } from '@heroicons/react/24/solid'
-import { BoltIcon, CalendarDaysIcon, UsersIcon } from '@heroicons/react/24/outline'
 
 const navigation: any[] = [
     // { name: 'Product', href: '#' },
@@ -69,30 +55,6 @@ const features = [
   ]
   
 const footerNavigation = {
-    solutions: [
-        { name: 'Hosting', href: '#' },
-        { name: 'Data Services', href: '#' },
-        { name: 'Uptime Monitoring', href: '#' },
-        { name: 'Enterprise Services', href: '#' },
-    ],
-    support: [
-        { name: 'Pricing', href: '#' },
-        { name: 'Documentation', href: '#' },
-        { name: 'Guides', href: '#' },
-        { name: 'API Reference', href: '#' },
-    ],
-    company: [
-        { name: 'About', href: '#' },
-        { name: 'Blog', href: '#' },
-        { name: 'Jobs', href: '#' },
-        { name: 'Press', href: '#' },
-        { name: 'Partners', href: '#' },
-    ],
-    legal: [
-        { name: 'Claim', href: '#' },
-        { name: 'Privacy', href: '#' },
-        { name: 'Terms', href: '#' },
-    ],
     social: [
         {
             name: 'Discord',
@@ -301,33 +263,33 @@ export default function Example() {
               }}
             />
           </div>
-          <div className="py-24 sm:py-32">
+          <div className="py-0 lg:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-2xl text-center">
-              <img
-              className="gold-medal lg:azeaze"
-              src="/medaille-or-lepine-small.png"
-              alt="Médaille d'or du Concours Lépine 2023"
-            />
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Build a company that everyone trust
-                </h1>
-                <p className="mt-6 text-lg leading-8 text-gray-600">
-                <span className="italic">Verifiable Draws</span> enables you to organize random draws and contests which are completely transparent thanks to decentralized technologies,
-                                allowing you to prove the whole world that your company is trustworthy.
-                </p>
-                <div className="mt-10 flex items-center justify-center gap-x-6">
-                  <a
-                    href="#join-community"
-                    className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    Launch Draw
-                  </a>
-                  <a href="#join-community" className="text-sm font-semibold leading-6 text-gray-900">
-                    Live Demo <span aria-hidden="true">→</span>
-                  </a>
+                <div className="mx-auto max-w-2xl text-center">
+                    <img
+                        className="gold-medal m-auto -z-10 lg:absolute"
+                        src="/medaille-or-lepine-small.png"
+                        alt="Médaille d'or du Concours Lépine 2023"
+                    />
+                    <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                    Build a company that everyone trust
+                    </h1>
+                    <p className="mt-6 text-lg leading-8 text-gray-600">
+                        <span className="italic">Verifiable Draws</span> enables you to organize random draws and contests which are completely transparent thanks to decentralized technologies,
+                        allowing you to prove the whole world that your company is trustworthy.
+                    </p>
+                    <div className="mt-10 flex items-center justify-center gap-x-6">
+                        <a
+                            href="#join-community"
+                            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            Launch Draw
+                        </a>
+                        <a href="#join-community" className="text-sm font-semibold leading-6 text-gray-900">
+                            Live Demo <span aria-hidden="true">→</span>
+                        </a>
+                    </div>
                 </div>
-              </div>
 
               <div className="mt-16 flow-root sm:mt-24">
                 <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
@@ -714,7 +676,7 @@ export default function Example() {
                                         </svg>
                                     </span>
                                     <span data-subtitle="true" style={{boxSizing: 'border-box', fontSize: '14px', lineHeight: '21px', letterSpacing: '-0.14px', color: 'rgb(102, 102, 102)', margin: '0px', maxWidth: '440.918px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                                        Our algorithm is a smart contract, a verifiable software running on the Ethereum blockchain.
+                                        Our algorithm is a smart contract, which is a verifiable software running on the Ethereum blockchain.
                                         {/* A decentralized blockchain and a set of tools which enable people to transact and communicate without being controlled by a central authority. */}
                                     </span>
                                 </div>
@@ -800,9 +762,9 @@ export default function Example() {
                       </span>
 
                       {tier.savePercentage ? (
-                        <p className="rounded-full bg-orange-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-orange-600">
+                        <span className="rounded-full bg-orange-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-orange-600">
                           Save {tier.savePercentage}%
-                        </p>
+                        </span>
                       ) : null}
                     </p>
                     <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
