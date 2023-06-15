@@ -434,13 +434,13 @@ export default function Example() {
                 {/* Feature section */}
                 <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                     <div className="mx-auto max-w-2xl text-center">
-                        <h2 className="text-base font-semibold leading-7 text-indigo-600">Regular draws are boring and unreliable</h2>
+                        <h2 className="text-base font-semibold leading-7 text-indigo-600">Regular draws are a black box</h2>
                         <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                             Unlock a new level of customer experience
                         </p>
-                        <p className="mt-6 text-lg leading-8 text-gray-600">
+                        {/* <p className="mt-6 text-lg leading-8 text-gray-600">
                             Our verifiable draws have unique properties which make them an order of magnitude better than regular draws without adding complexity.
-                        </p>
+                        </p> */}
                     </div>
                     <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
                         <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
