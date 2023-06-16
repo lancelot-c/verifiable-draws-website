@@ -19,19 +19,19 @@ const features = [
     {
       name: 'Verifiable by design',
       description:
-        'We give participants the proof that the draw is fair and random. This proof is easily verifiable by anyone even non technical people.',
+        'Even non-technical people can easily verify the draw because we provide a short step-by-step guide that anyone can follow.',
       icon: ShieldCheckIcon,
     },
     {
       name: 'Top notch brand image',
       description:
-        'Using transparent algorithms in your company is one of the best way to boost your brand image, and make people and the media talk about you.',
+        'Using transparent algorithms when interacting with your customers is one of the best way to boost your brand image.',
       icon: RocketLaunchIcon,
     },
     {
       name: 'Say goodbye to disputes',
       description:
-        'Contestations are hopeless because there is an undeniable scientific proof certifying the result of the draw, thus saving you time and money.',
+        'Contestations of the results are hopeless because there is an undeniable scientific proof certifying that the draw is fair and random.',
       icon: BuildingLibraryIcon,
     },
     {
@@ -40,18 +40,18 @@ const features = [
         'Because it is verifiable, the draw easily earns the public trust, turning suspicious people into potential participants.',
       icon: ArrowTrendingUpIcon,
     },
-    {
-      name: 'Much cheaper than a court bailiff',
-      description:
-        'Relying on a court bailiff to certify a draw cost 500€ on average in France. One draw with us costs 29€ and even less if you buy in bulk.',
-      icon: CurrencyDollarIcon,
-    },
-    {
-      name: 'Works online & offline',
-      description:
-        'Your real world draws can also be verifiable because we provide you with QR codes that you can share with real world participants.',
-      icon: GlobeEuropeAfricaIcon,
-    },
+    // {
+    //   name: 'Much cheaper than a court bailiff',
+    //   description:
+    //     'Relying on a court bailiff to certify a draw cost 500€ on average in France. One draw with us costs 29€ and even less if you buy in bulk.',
+    //   icon: CurrencyDollarIcon,
+    // },
+    // {
+    //   name: 'Works online & offline',
+    //   description:
+    //     'Your real world draws can also be verifiable because we provide you with QR codes that you can share with real world participants.',
+    //   icon: GlobeEuropeAfricaIcon,
+    // },
   ]
   
 
@@ -434,13 +434,13 @@ export default function Example() {
                 {/* Feature section */}
                 <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                     <div className="mx-auto max-w-2xl text-center">
-                        <h2 className="text-base font-semibold leading-7 text-indigo-600">Regular draws are a black box</h2>
+                        <h2 className="text-base font-semibold leading-7 text-indigo-600">Stop using black box algorithms</h2>
                         <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                             Unlock a new level of customer experience
                         </p>
-                        {/* <p className="mt-6 text-lg leading-8 text-gray-600">
-                            Our verifiable draws have unique properties which make them an order of magnitude better than regular draws without adding complexity.
-                        </p> */}
+                        <p className="mt-6 text-lg leading-8 text-gray-600">
+                            A verifiable draw is like a regular random draw, except that it is 100% transparent and verifiable by the participants.
+                        </p>
                     </div>
                     <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
                         <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
@@ -762,7 +762,9 @@ export default function Example() {
                     <p className="mt-6 flex items-center justify-between gap-x-1">
                       <span>
                         <span className="text-4xl font-bold tracking-tight text-gray-900">{tier.packagePrice}€</span>
-                        <span className="text-sm font-semibold leading-6 text-gray-600">/draw</span>
+                        <span className="text-sm font-semibold leading-6 text-gray-600">
+                            {tierIdx > 0 ? '/draw' : null}
+                        </span>
                       </span>
 
                       {tier.savePercentage ? (
