@@ -17,9 +17,9 @@ const navigation: any[] = [
   ]
 const features = [
     {
-      name: 'Verifiable by design',
+      name: 'Reliable by design',
       description:
-        'Even non-technical people can easily verify the draw because we provide a short step-by-step guide that anyone can follow.',
+        'It is impossible for anyone, even us, to rig our draws because our algorithm is end-to-end decentralized.',
       icon: ShieldCheckIcon,
     },
     {
@@ -37,7 +37,7 @@ const features = [
     {
       name: 'Increase participation rate',
       description:
-        'Because it is verifiable, the draw easily earns the public trust, turning suspicious people into potential participants.',
+        'Because it is transparent, the draw easily earn the public trust, turning suspicious onlookers into potential participants.',
       icon: ArrowTrendingUpIcon,
     },
     // {
@@ -439,7 +439,7 @@ export default function Example() {
                             Unlock a new level of customer experience
                         </p>
                         <p className="mt-6 text-lg leading-8 text-gray-600">
-                            A verifiable draw is like a regular random draw, except that it is 100% transparent and verifiable by the participants.
+                            A verifiable draw is like a regular random draw, except that it is 100% decentralized, transparent, and verifiable by the participants.
                         </p>
                     </div>
                     <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
@@ -658,7 +658,7 @@ export default function Example() {
                                         </svg>
                                     </span>
                                     <span data-subtitle="true" style={{boxSizing: 'border-box', fontSize: '14px', lineHeight: '21px', letterSpacing: '-0.14px', color: 'rgb(102, 102, 102)', margin: '0px', maxWidth: '440.918px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                                        The draw parameters are stored on IPFS, a.k.a. the decentralised web. They cannot be modified once the draw is published.
+                                        The webpage of the draw is stored on IPFS which guarantees that the draw parameters cannot be modified once the draw is published.
                                         {/* A distributed file storage protocol that allows computers all over the globe to store and serve files as part of a giant peer-to-peer network. */}
                                     </span>
                                 </div>
@@ -679,8 +679,7 @@ export default function Example() {
                                         </svg>
                                     </span>
                                     <span data-subtitle="true" style={{boxSizing: 'border-box', fontSize: '14px', lineHeight: '21px', letterSpacing: '-0.14px', color: 'rgb(102, 102, 102)', margin: '0px', maxWidth: '440.918px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                                        Our algorithm is a smart contract, which is a verifiable software running on the Ethereum blockchain.
-                                        {/* A decentralized blockchain and a set of tools which enable people to transact and communicate without being controlled by a central authority. */}
+                                        A random number is associated to the draw in our smart contract, which is a verifiable software running on the Ethereum blockchain.
                                     </span>
                                 </div>
                             </a>
@@ -700,7 +699,7 @@ export default function Example() {
                                         </svg>
                                     </span>
                                     <span data-subtitle="true" style={{boxSizing: 'border-box', fontSize: '14px', lineHeight: '21px', letterSpacing: '-0.14px', color: 'rgb(102, 102, 102)', margin: '0px', maxWidth: '440.918px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                                        The random numbers used in our draws are provided by Chainlink VRF which is currently the most secure random number generator on the blockchain.
+                                        The random numbers are provided by Chainlink VRF which is currently the most secure random number generator on Ethereum.
                                         {/* A provably fair and verifiable random number generator that enables smart contracts to access random values without compromising security. */}
                                     </span>
                                 </div>
