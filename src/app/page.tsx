@@ -757,7 +757,8 @@ export default function Example() {
                         </p>
                     ) : null}
                     </div>
-                    <p className="mt-4 text-sm leading-6 text-gray-600">{tier.description}</p>
+                    <p className="mt-4 text-sm leading-6">&nbsp;</p>
+                    {/* <p className="mt-4 text-sm leading-6 text-gray-600">{tier.description}</p> */}
                     <p className="mt-6 flex items-center justify-between gap-x-1">
                       <span>
                         <span className="text-4xl font-bold tracking-tight text-gray-900">{tier.packagePrice}€</span>
