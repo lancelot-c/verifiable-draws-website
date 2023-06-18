@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import {
     ArrowTrendingUpIcon,
     Bars3Icon,
@@ -59,7 +61,7 @@ const tiers = [
     {
         name: 'Single draw',
         id: 'tier-freelancer',
-        href: '#join-community',
+        href: '/launch-draw',
         packagePrice: '29',
         description: 'For individuals looking only for a single draw.',
         features: [
@@ -73,7 +75,7 @@ const tiers = [
     {
       name: '10 draws',
       id: 'tier-startup',
-      href: '#',
+      href: '#join-community',
       packagePrice: '17',
       savePercentage: '40',
       description: 'For people who organise draws on a regular basis, like social media influencers.',
@@ -89,7 +91,7 @@ const tiers = [
     {
       name: '100 draws',
       id: 'tier-enterprise',
-      href: '#',
+      href: '#join-community',
       packagePrice: '12',
       savePercentage: '60',
       description: 'For teams & businesses who are organizing draws at scale.',
@@ -282,15 +284,15 @@ export default function Example() {
                         allowing you to prove the whole world that your company is trustworthy.
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
-                        <a
-                            href="#join-community"
+                        <Link
+                            href="/launch-draw"
                             className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Launch Draw
-                        </a>
-                        <a href="#join-community" className="text-sm font-semibold leading-6 text-gray-900">
+                        </Link>
+                        <Link href="#join-community" className="text-sm font-semibold leading-6 text-gray-900">
                             Live Demo <span aria-hidden="true">→</span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
@@ -781,31 +783,32 @@ export default function Example() {
                       ))}
                     </ul>
                   </div>
-                  {/* <a
+                  <Link
                     href={tier.href}
                     aria-describedby={tier.id}
+                    // disabled={tier.availableSoon}
                     className={classNames(
                       tier.mostPopular
                         ? 'bg-indigo-600 text-white shadow-sm hover:bg-indigo-500'
                         : 'text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300',
                       'mt-8 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
                     )}
-                  > */}
-                    <button type="button" disabled={tier.availableSoon}
+                  >
+                    {/* <button type="button" disabled={tier.availableSoon}
                     className={classNames(
                         tier.mostPopular
                           ? 'bg-indigo-600 text-white shadow-sm hover:bg-indigo-500'
                           : 'text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300',
                           tier.availableSoon ? 'cursor-not-allowed' : '',
                         'mt-8 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                      )}>
+                      )}> */}
                     {tier.availableSoon ? (
                         'Available soon'
                       ) : (
                         'Launch draw'
                       )}
-                      </button>
-                  {/* </a> */}
+                      {/* </button> */}
+                  </Link>
                 </div>
               ))}
             </div>
