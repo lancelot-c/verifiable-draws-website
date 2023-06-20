@@ -1,7 +1,23 @@
 "use client"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link'
+
+import React from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+import CheckoutForm from "./CheckoutForm";
+
+if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY){
+    throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable is not set")
+}
+
+// Make sure to call loadStripe outside of a component’s render to avoid
+// recreating the Stripe object on every render.
+// This is your test publishable API key.
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
 
 // import DrawService from 'src/services/DrawService';
 
@@ -211,6 +227,18 @@ export default function Page() {
     const { register, trigger, formState: { errors, isValid } } = useForm<FormInputs>();
     const [currentStep, setCurrentStep] = useState<StepNumber>(3)
     const [selectedStep, setSelectedStep] = useState<StepNumber>(currentStep)
+    const [clientSecret, setClientSecret] = useState('');
+
+    useEffect(() => {
+        // Create PaymentIntent as soon as the page loads
+        fetch("/api/create-payment-intent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ items: [{ id: "1 draw" }] }),
+        })
+          .then((res) => res.json())
+          .then((data) => setClientSecret(data.clientSecret));
+    }, []);
 
     function previousStep() {
         setSelectedStep(selectedStep - 1 as any)
@@ -239,6 +267,14 @@ export default function Page() {
             }
         }
     }
+
+    const appearance = {
+        theme: 'stripe' as const,
+      };
+      const options = {
+        clientSecret,
+        appearance,
+      };
 
     return (
         <div className="mx-auto max-w-7xl px-6 sm:pt-32 lg:px-8 min-h-full">
@@ -331,7 +367,7 @@ export default function Page() {
             </nav>
 
             {/* Form */}
-            <form className="mt-12">
+            <div className="mt-12">
                 {
                     (selectedStep === 1) && (
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -446,6 +482,20 @@ export default function Page() {
                     )
                 }
 
+                {
+                    (selectedStep === 4) && (
+                        <div className="mt-10">
+
+                            {clientSecret && (
+                                <Elements options={options} stripe={stripePromise}>
+                                    <CheckoutForm />
+                                </Elements>
+                            )}
+
+                        </div>
+                    )
+                }
+
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                     {
                         (selectedStep > 1 && selectedStep < steps.length) && (
@@ -483,7 +533,7 @@ export default function Page() {
                     }
                 </div>
 
-            </form>
+            </div>
 
             {/* <q-stepper v-model="step" ref="stepper" color="primary" header-nav animated flat> */}
 
