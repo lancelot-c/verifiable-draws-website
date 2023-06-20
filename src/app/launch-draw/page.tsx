@@ -1,3 +1,8 @@
+"use client"
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import Link from 'next/link'
+
 // import DrawService from 'src/services/DrawService';
 
 // const step = ref(3);
@@ -6,8 +11,8 @@
 const drawNamePlaceholder = '2026 FIFA World Cup Draw';
 // const drawTitle = ref(titlePlaceholder);
 
-const drawRulesPlaceholder = 
-`48 countries have been selected during the 2026 FIFA World Cup qualification phase.
+const drawRulesPlaceholder =
+    `48 countries have been selected during the 2026 FIFA World Cup qualification phase.
 Competing countries will now be divided into twelve groups of four teams (groups A to K).
 
 This draw will output the list of countries randomly shuffled.
@@ -21,57 +26,57 @@ The first 4 countries of the list will form the group A, the next 4 will form gr
 //     { label: 'Importer la liste des participants depuis un fichier .csv ou .txt', value: 'file', disable: true }
 // ];
 
-// const participantsPlaceholder = `Argentine
-// Brésil
-// Angleterre
-// France
-// Espagne
-// Belgique
-// Portugal
-// Allemagne
-// Pays-Bas
-// Uruguay
-// Croatie
-// Danemark
-// Mexique
-// Etats-Unis
-// Sénégal
-// Pays de Galles
-// Pologne
-// Australie
-// Japon
-// Maroc
-// Suisse
-// Ghana
-// Corée du Sud
-// Cameroon
-// Serbie
-// Canada
-// Costa Rica
-// Tunisie
-// Arabie Saoudite
-// Iran
-// Equateur
-// Chine
-// Inde
-// Indonésie
-// Pakistan
-// Nigeria
-// Bangladesh
-// Russie
-// Éthiopie
-// Philippines
-// Égypte
-// Viêt Nam
-// République démocratique du Congo
-// Turquie
-// Thaïlande
-// Tanzanie
-// Afrique du Sud
-// Italie`;
+const drawParticipantsPlaceholder = `Argentina
+Brazil
+England
+France
+Spain
+Belgium
+Portugal
+Germany
+Netherlands
+Uruguay
+Croatia
+Denmark
+Mexico
+United States
+Senegal
+Wales
+Poland
+Australia
+Japan
+Morocco
+Switzerland
+Ghana
+South Korea
+Cameroon
+Serbia
+Canada
+Costa Rica
+Tunisia
+Saudi Arabia
+Iran
+Ecuador
+China
+India
+Indonesia
+Pakistan
+Nigeria
+Bangladesh
+Russia
+Ethiopia
+Philippines
+Egypt
+Vietnam
+Democratic Republic of the Congo
+Turkey
+Thailand
+Tanzania
+South Africa
+Italy`;
 
 // const drawParticipants = ref(participantsPlaceholder);
-// const nbWinnersPlaceholder = '48';
+const drawNbWinnersPlaceholder = '48';
 // const drawNbWinners = ref(nbWinnersPlaceholder);
 
 // const ipfsCid = ref('');
@@ -157,7 +162,7 @@ The first 4 countries of the list will form the group A, the next 4 will form gr
 //     const second = 0;
 //     const drawScheduledAt = date.buildDate({ year, month, day, hour, minute, second });
 //     const drawScheduledAtTimestamp = Number(date.formatDate(drawScheduledAt, 'X'));
-    
+
 //     const createdDraw = await DrawService.create(drawTitle.value, drawRules.value, drawParticipants.value, drawNbWinners.value, drawScheduledAtTimestamp);
 
 //     ipfsCid.value = createdDraw.data.ipfsCidString;
@@ -170,46 +175,100 @@ The first 4 countries of the list will form the group A, the next 4 will form gr
 //     step.value = 1;
 // }
 
-const steps = [
-    { id: 'Step 1', name: 'Draw name and rules', href: '#', status: 'current' },
-    { id: 'Step 2', name: 'Participants', href: '#', status: 'upcoming' },
-    { id: 'Step 3', name: 'Schedule', href: '#', status: 'upcoming' },
-    { id: 'Step 4', name: 'Purchase', href: '#', status: 'upcoming' },
-    { id: 'Step 5', name: 'Share', href: '#', status: 'upcoming' },
-  ]
+const showErrorsOnBlur = true
+type StepNumber = 1 | 2 | 3 | 4 | 5
 
-let currentStep = 1
+const steps = [
+    { name: 'Draw name and rules', href: '#rules' },
+    { name: 'Participants', href: '#participants' },
+    { name: 'Schedule', href: '#schedule' },
+    { name: 'Purchase', href: '#purchase' },
+    { name: 'Share', href: '#share' },
+]
+
+type FormInputs = {
+    step1: {
+        name: string
+        rules: string
+    },
+    step2: {
+        participants: string
+        nbWinners: number
+    },
+    step3: {
+
+    },
+    step4: {
+
+    },
+    step5: {
+
+    },
+}
 
 export default function Page() {
-  return (
-    <div className="mx-auto max-w-7xl px-6 sm:pt-32 lg:px-8 min-h-full">
 
-        {/* Background gradients */}
-        <div
-            className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-            aria-hidden="true"
-        >
-            <div
-                className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                style={{
-                    clipPath:
-                    'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                }}
-            />
-        </div>
+    const { register, trigger, formState: { errors, isValid } } = useForm<FormInputs>();
+    const [currentStep, setCurrentStep] = useState<StepNumber>(3)
+    const [selectedStep, setSelectedStep] = useState<StepNumber>(currentStep)
 
-        <div
-            className="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(20%)]"
-            aria-hidden="true"
-        >
+    function previousStep() {
+        setSelectedStep(selectedStep - 1 as any)
+    }
+
+    async function nextStep(inputsToValidate: keyof FormInputs) {
+
+
+        if (!isValid) {
+            await trigger([inputsToValidate]);
+            console.log(errors)
+            return;
+        }
+
+        if (selectedStep + 1 > currentStep) {
+            setCurrentStep(currentStep + 1 as any)
+        }
+
+        setSelectedStep(selectedStep + 1 as any)
+    }
+
+    function goToStep(stepNumber: number) {
+        return () => {
+            if (stepNumber <= currentStep) {
+                setSelectedStep(stepNumber as any)
+            }
+        }
+    }
+
+    return (
+        <div className="mx-auto max-w-7xl px-6 sm:pt-32 lg:px-8 min-h-full">
+
+            {/* Background gradients */}
+            {/* <div
+                className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+                aria-hidden="true"
+            >
+                <div
+                    className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                    style={{
+                        clipPath:
+                            'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+                    }}
+                />
+            </div>
+
             <div
-                className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-                style={{
-                    clipPath:
-                    'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                }}
-            />
-        </div>
+                className="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(20%)]"
+                aria-hidden="true"
+            >
+                <div
+                    className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+                    style={{
+                        clipPath:
+                            'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+                    }}
+                />
+            </div> */}
 
 
 
@@ -219,109 +278,217 @@ export default function Page() {
             </p>
 
             <nav aria-label="Progress">
-      <ol role="list" className="space-y-4 md:flex md:space-x-8 md:space-y-0">
-        {steps.map((step) => (
-          <li key={step.name} className="md:flex-1">
-            {step.status === 'complete' ? (
-              <a
-                href={step.href}
-                className="group flex flex-col border-l-4 border-indigo-600 py-2 pl-4 hover:border-indigo-800 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
-              >
-                <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-800">{step.id}</span>
-                <span className="text-sm font-medium">{step.name}</span>
-              </a>
-            ) : step.status === 'current' ? (
-              <a
-                href={step.href}
-                className="flex flex-col border-l-4 border-indigo-600 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
-                aria-current="step"
-              >
-                <span className="text-sm font-medium text-indigo-600">{step.id}</span>
-                <span className="text-sm font-medium">{step.name}</span>
-              </a>
-            ) : (
-              <a
-                href={step.href}
-                className="group flex flex-col border-l-4 border-gray-200 py-2 pl-4 hover:border-gray-300 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
-              >
-                <span className="text-sm font-medium text-gray-500 group-hover:text-gray-700">{step.id}</span>
-                <span className="text-sm font-medium">{step.name}</span>
-              </a>
-            )}
-          </li>
-        ))}
-      </ol>
-    </nav>
+                <ol role="list" className="space-y-4 md:flex md:space-x-8 md:space-y-0">
+                    {steps.map((step, index) => (
+                        <li key={step.name} className="md:flex-1">
+                            {selectedStep > index + 1 ? (
+                                // Completed step
+                                <a
+                                    href={step.href}
+                                    onClick={goToStep(index + 1)}
+                                    className={`group flex flex-col border-l-4 border-indigo-600 py-2 pl-4 hover:border-indigo-800 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
+                                    ${isValid ? '' : ''}`}
+                                >
+                                    <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-800">Step {index + 1}</span>
+                                    <span className="text-sm font-medium">{step.name}</span>
+                                </a>
+                            ) : selectedStep === index + 1 ? (
+                                // Ongoing step
+                                <a
+                                    href={step.href}
+                                    onClick={goToStep(index + 1)}
+                                    className="pointer-events-none flex flex-col border-l-4 border-indigo-600 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
+                                    aria-current="step"
+                                >
+                                    <span className="text-sm font-medium text-indigo-600">Step {index + 1}</span>
+                                    <span className="text-sm font-medium">{step.name}</span>
+                                </a>
+                            ) : currentStep >= index + 1 ? (
+                                // Upcoming available step
+                                <a
+                                    href={step.href}
+                                    onClick={goToStep(index + 1)}
+                                    className={`group flex flex-col border-l-4 border-indigo-300 py-2 pl-4 hover:border-indigo-600 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
+                                    ${isValid ? '' : 'pointer-events-none'}`}
+                                >
+                                    <span className="text-sm font-medium text-indigo-300 group-hover:text-indigo-600">Step {index + 1}</span>
+                                    <span className="text-sm font-medium">{step.name}</span>
+                                </a>
+                            ) : (
+                                // Upcoming unavailable step
+                                <a
+                                    href={step.href}
+                                    onClick={goToStep(index + 1)}
+                                    className="pointer-events-none group flex flex-col border-l-4 border-gray-200 py-2 pl-4 hover:border-gray-300 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
+                                >
+                                    <span className="text-sm font-medium text-gray-500 group-hover:text-gray-700">Step {index + 1}</span>
+                                    <span className="text-sm font-medium">{step.name}</span>
+                                </a>
+                            )}
+                        </li>
+                    ))}
+                </ol>
+            </nav>
 
-
-    
-    {
-        (currentStep == 1) && (
+            {/* Form */}
             <form className="mt-12">
+                {
+                    (selectedStep === 1) && (
+                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                            <div className="sm:col-span-4">
+                                <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Name
+                                </label>
+                                <div className="mt-2">
+                                    <div className={`flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset sm:max-w-md
+                                        ${errors.step1?.name && showErrorsOnBlur ? 'ring-red-600' : 'focus-within:ring-indigo-600'}`}>
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            placeholder={drawNamePlaceholder}
+                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
+                                            ${errors.step1?.name && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                            {...register("step1.name", { required: true })}
+                                            onBlur={() => trigger("step1.name")}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
 
-{/* border-b border-gray-900/10 pb-12 */}
-<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-4">
-              <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                Name
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    autoComplete="username"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder={drawNamePlaceholder}
-                  />
+
+
+                            <div className="col-span-full">
+                                <label htmlFor="rules" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Rules
+                                </label>
+                                <div className="mt-2">
+                                    <textarea
+                                        rows={6}
+                                        id="rules"
+                                        placeholder={drawRulesPlaceholder}
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
+                                        ${errors.step1?.rules && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step1.rules", { required: true })}
+                                        onBlur={() => trigger("step1.rules")}
+                                    />
+                                </div>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">Rules should be written in natural language</p>
+                            </div>
+
+                        </div>
+                    )
+                }
+
+
+                {
+                    (selectedStep === 2) && (
+                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+                            <div className="col-span-full">
+                                <label htmlFor="participants" className="block text-sm font-medium leading-6 text-gray-900">
+                                    List of participants
+                                </label>
+                                <div className="mt-2">
+                                    <textarea
+                                        rows={10}
+                                        id="participants"
+                                        placeholder={drawParticipantsPlaceholder}
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
+                                        ${errors.step2?.participants && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step2.participants", { required: true })}
+                                        onBlur={() => trigger("step2.participants")}
+                                    />
+                                </div>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">Each line should contain only one participant</p>
+                            </div>
+
+                            <div className="sm:col-span-2">
+                                <label htmlFor="nbWinners" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Number of participants to draw
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="number"
+                                        id="nbWinners"
+                                        min="0"
+                                        placeholder={drawNbWinnersPlaceholder}
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
+                                        ${errors.step2?.nbWinners && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step2.nbWinners", { required: true })}
+                                        onBlur={() => trigger("step2.nbWinners")}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+
+                {
+                    (selectedStep === 3) && (
+                        <div className="mt-10">
+
+                            <div className="text-center">
+                                <label htmlFor="scheduledFor" className="block text-sm font-medium leading-6 text-gray-900">
+                                    When should the draw be triggered ?
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="datetime-local"
+                                        id="scheduledFor"
+                                        name="scheduledFor"
+                                        defaultValue="2018-06-12T19:30"
+                                        min="2018-06-07T00:00"
+                                    ></input>
+                                </div>
+                            </div>
+
+                        </div>
+                    )
+                }
+
+                <div className="mt-6 flex items-center justify-end gap-x-6">
+                    {
+                        (selectedStep > 1 && selectedStep < steps.length) && (
+                            <button
+                                onClick={previousStep}
+                                className="text-sm font-semibold leading-6 text-gray-900"
+                            >
+                                Back
+                            </button>
+                        )
+                    }
+                    {
+                        (selectedStep < steps.length) && (
+                            <button
+                                type="button"
+                                onClick={async () => { await nextStep(`step${selectedStep}`) }}
+                                className={`rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600
+                                ${isValid ? 'bg-indigo-600 hover:bg-indigo-500' : 'bg-indigo-300 pointer-events-none'}`}
+                            >
+                                Continue
+                            </button>
+                        )
+                    }
+                    {
+                        (selectedStep === steps.length) && (
+                            <Link href="/">
+                                <button
+                                    type="button"
+                                    className="rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
+                                >
+                                    Finish
+                                </button>
+                            </Link>
+                        )
+                    }
                 </div>
-              </div>
-            </div>
-
-
-
-            <div className="col-span-full">
-              <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
-                Rules
-              </label>
-              <div className="mt-2">
-                <textarea
-                  id="about"
-                  name="about"
-                  rows={6}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  defaultValue={''}
-                  placeholder={drawRulesPlaceholder}
-                />
-              </div>
-              <p className="mt-3 text-sm leading-6 text-gray-600">Rules should be written in natural language</p>
-            </div>
-
-</div>
-
-
-
-            <div className="mt-6 flex items-center justify-end gap-x-6">
-        {/* <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
-          Cancel
-        </button> */}
-        <button
-          type="submit"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Continue
-        </button>
-      </div>
 
             </form>
-        )
-    }
-          
+
             {/* <q-stepper v-model="step" ref="stepper" color="primary" header-nav animated flat> */}
 
 
-                {/* <q-step :name="1" title="Nom du tirage et règles" icon="settings" :done="step > 1" :header-nav="step > 1 && step != 4 && !loading">
+            {/* <q-step :name="1" title="Nom du tirage et règles" icon="settings" :done="step > 1" :header-nav="step > 1 && step != 4 && !loading">
                     <q-input outlined v-model="drawTitle" class="q-my-lg" :input-style="{ fontSize: '1.3em', lineHeight: '26px' }" label="Nom du tirage" :placeholder="titlePlaceholder"
                             :rules="[val => !!val || 'Ce champ est requis']" />
 
@@ -336,7 +503,7 @@ export default function Page() {
                 </q-step> */}
 
 
-                {/* <q-step :name="2" title="Participants" icon="group" :done="step > 2" :header-nav="step > 2 && step != 4 && !loading">
+            {/* <q-step :name="2" title="Participants" icon="group" :done="step > 2" :header-nav="step > 2 && step != 4 && !loading">
                     <div class="step-inner-content">
                         <div class="step-inner-content__text">
                             Comment voulez-vous récupérer la liste des participants ?
@@ -362,7 +529,7 @@ export default function Page() {
                 </q-step> */}
 
 
-                {/* <q-step :name="3" title="Date et heure de déclenchement" icon="event" :done="step > 3" :header-nav="step > 3 && step != 4 && !loading">
+            {/* <q-step :name="3" title="Date et heure de déclenchement" icon="event" :done="step > 3" :header-nav="step > 3 && step != 4 && !loading">
                     <div class="step-inner-content">
                         <div class="step-inner-content__text">
                             <p class="text-center q-my-lg">
@@ -386,7 +553,7 @@ export default function Page() {
                 </q-step> */}
 
 
-                {/* <q-step :name="4" title="Partager le tirage" icon="sms" :done="step > 4" :header-nav="false">
+            {/* <q-step :name="4" title="Partager le tirage" icon="sms" :done="step > 4" :header-nav="false">
                     <div class="step-inner-content">
                         <div class="step-inner-content__text">
                             <p class="text-center q-my-lg">
@@ -427,9 +594,9 @@ export default function Page() {
             {/* </q-stepper> */}
 
 
-            
+
 
 
         </div>
-  )
+    )
 }

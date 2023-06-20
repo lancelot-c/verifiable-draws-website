@@ -61,6 +61,7 @@ const tiers = [
         description: 'For individuals looking only for a single draw.',
         features: [
             'Instant deploy only',
+            'Immediate or scheduled draw',
             'Up to 10,000 participants',
             'Up to 3 winners',
             '48-hour support response time'
@@ -76,6 +77,7 @@ const tiers = [
       description: 'For people who organise draws on a regular basis, like social media influencers.',
       features: [
         'Deploy now or later',
+        'Immediate or scheduled draw',
         'Up to 1,000,000 participants',
         'Up to 100 winners',
         '24-hour support response time',
@@ -92,6 +94,7 @@ const tiers = [
       description: 'For teams & businesses who are organizing draws at scale.',
       features: [
         'Deploy now or later',
+        'Immediate or scheduled draw',
         'Up to 10,000,000 participants',
         'Up to 1000 winners',
         '1-hour, dedicated support response time',
