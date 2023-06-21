@@ -1,22 +1,22 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link'
 
 import React from "react";
-import { loadStripe } from "@stripe/stripe-js";
+import * as stripeJs from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
-import CheckoutForm from "./CheckoutForm";
+import CheckoutForm from "../../components/CheckoutForm";
 
-if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY){
+if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
     throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable is not set")
 }
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 // This is your test publishable API key.
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = stripeJs.loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 
 // import DrawService from 'src/services/DrawService';
@@ -193,6 +193,8 @@ const drawNbWinnersPlaceholder = '48';
 
 const showErrorsOnBlur = true
 type StepNumber = 1 | 2 | 3 | 4 | 5
+const startAtStep = 1
+const paymentStep = 4
 
 const steps = [
     { name: 'Draw name and rules', href: '#rules' },
@@ -225,20 +227,20 @@ type FormInputs = {
 export default function Page() {
 
     const { register, trigger, formState: { errors, isValid } } = useForm<FormInputs>();
-    const [currentStep, setCurrentStep] = useState<StepNumber>(3)
+    const [currentStep, setCurrentStep] = useState<StepNumber>(startAtStep)
     const [selectedStep, setSelectedStep] = useState<StepNumber>(currentStep)
     const [clientSecret, setClientSecret] = useState('');
 
-    useEffect(() => {
+    function createPaymentIntent() {
         // Create PaymentIntent as soon as the page loads
         fetch("/api/create-payment-intent", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ items: [{ id: "1 draw" }] }),
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ items: [{ id: "1 draw" }] }),
         })
-          .then((res) => res.json())
-          .then((data) => setClientSecret(data.clientSecret));
-    }, []);
+            .then((res) => res.json())
+            .then((data) => setClientSecret(data.clientSecret));
+    }
 
     function previousStep() {
         setSelectedStep(selectedStep - 1 as any)
@@ -255,6 +257,10 @@ export default function Page() {
 
         if (selectedStep + 1 > currentStep) {
             setCurrentStep(currentStep + 1 as any)
+
+            if (currentStep + 1 === paymentStep) {
+                createPaymentIntent();
+            }
         }
 
         setSelectedStep(selectedStep + 1 as any)
@@ -268,19 +274,33 @@ export default function Page() {
         }
     }
 
-    const appearance = {
-        theme: 'stripe' as const,
-      };
-      const options = {
+
+    const options: stripeJs.StripeElementsOptions = {
         clientSecret,
-        appearance,
-      };
+        fonts: [{cssSrc: 'https://fonts.googleapis.com/css?family=Inter'}],
+        appearance: {
+            theme: 'stripe',
+            variables: {
+                fontFamily: 'Inter',
+                colorPrimary: '#4f46e5', // = Tailwind indigo-600 color
+            },
+            disableAnimations: false,
+            // rules: {
+            //     '#submit': {
+            //         border: '10px solid #E0E6EB',
+            //         boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(18, 42, 66, 0.02)',
+            //       }
+            // },
+            labels: 'above'
+        },
+        loader: 'always',
+    };
 
     return (
         <div className="mx-auto max-w-7xl px-6 sm:pt-32 lg:px-8 min-h-full">
 
             {/* Background gradients */}
-            {/* <div
+            <div
                 className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
                 aria-hidden="true"
             >
@@ -304,7 +324,7 @@ export default function Page() {
                             'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
                     }}
                 />
-            </div> */}
+            </div>
 
 
 
@@ -482,23 +502,21 @@ export default function Page() {
                     )
                 }
 
-                {
-                    (selectedStep === 4) && (
-                        <div className="mt-10">
+                {/* Payment step, hidden by default but needs to always be in the DOM
+                to prevent re-rendering when the user switch between steps */}
+                <div className={`mt-10 m-auto w-1/2 ${selectedStep === paymentStep ? '' : 'hidden'}`}>
 
-                            {clientSecret && (
-                                <Elements options={options} stripe={stripePromise}>
-                                    <CheckoutForm />
-                                </Elements>
-                            )}
+                    {clientSecret && (
+                        <Elements options={options} stripe={stripePromise}>
+                            <CheckoutForm />
+                        </Elements>
+                    )}
 
-                        </div>
-                    )
-                }
+                </div>
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                     {
-                        (selectedStep > 1 && selectedStep < steps.length) && (
+                        (selectedStep > 1 && selectedStep < steps.length && selectedStep !== paymentStep) && (
                             <button
                                 onClick={previousStep}
                                 className="text-sm font-semibold leading-6 text-gray-900"
@@ -508,7 +526,7 @@ export default function Page() {
                         )
                     }
                     {
-                        (selectedStep < steps.length) && (
+                        (selectedStep < steps.length && selectedStep !== paymentStep) && (
                             <button
                                 type="button"
                                 onClick={async () => { await nextStep(`step${selectedStep}`) }}

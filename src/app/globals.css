@@ -155,3 +155,7 @@ svg path {
         mask-position: 120%;
     }
 }
+
+.p-FieldLabel {
+    background-color: red;
+}
