@@ -2,21 +2,21 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link'
-
 import React from "react";
-import * as stripeJs from "@stripe/stripe-js";
+import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { CheckCircleIcon } from '@heroicons/react/20/solid'
+import CheckoutForm from "./CheckoutForm";
+const stripePublicKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
 
-import CheckoutForm from "../../components/CheckoutForm";
-
-if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-    throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable is not set")
+if (!stripePublicKey) {
+    throw new Error("stripePublicKey is undefined")
 }
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 // This is your test publishable API key.
-const stripePromise = stripeJs.loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(stripePublicKey);
 
 
 // import DrawService from 'src/services/DrawService';
@@ -193,8 +193,9 @@ const drawNbWinnersPlaceholder = '48';
 
 const showErrorsOnBlur = true
 type StepNumber = 1 | 2 | 3 | 4 | 5
-const startAtStep = 1
+const startAtStep = 3
 const paymentStep = 4
+const shareStep = 5
 
 const steps = [
     { name: 'Draw name and rules', href: '#rules' },
@@ -214,7 +215,7 @@ type FormInputs = {
         nbWinners: number
     },
     step3: {
-
+        scheduledAt: string
     },
     step4: {
 
@@ -224,26 +225,41 @@ type FormInputs = {
     },
 }
 
+let ipfsCidString: string, drawFilename: string;
+
 export default function Page() {
 
     const { register, trigger, formState: { errors, isValid } } = useForm<FormInputs>();
     const [currentStep, setCurrentStep] = useState<StepNumber>(startAtStep)
     const [selectedStep, setSelectedStep] = useState<StepNumber>(currentStep)
-    const [clientSecret, setClientSecret] = useState('');
+    const [clientSecret, setClientSecret] = useState<string>('');
+
+    // Form inputs
+    const [inputName, setInputName] = useState<string>('');
+    const [inputRules, setInputRules] = useState<string>('');
+    const [inputParticipants, setInputParticipants] = useState<string>('');
+    const [inputNbWinners, setInputNbWinners] = useState<number>(1);
+
+    const dt = new Date();
+    const safetyCushion = 5; // number of minutes to add as a safety net
+    dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset() + safetyCushion);
+    const inputScheduledAtMinValue = dt.toISOString().slice(0, 16);
+    const inputScheduledAtDefaultValue = dt.toISOString().slice(0, 16);
+    const [inputScheduledAt, setInputScheduledAt] = useState<string>(inputScheduledAtDefaultValue);
 
     function createPaymentIntent() {
         // Create PaymentIntent as soon as the page loads
         fetch("/api/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ items: [{ id: "1 draw" }] }),
+            // body: JSON.stringify({ items: [{ id: "1 draw" }] }),
         })
             .then((res) => res.json())
             .then((data) => setClientSecret(data.clientSecret));
     }
 
     function previousStep() {
-        setSelectedStep(selectedStep - 1 as any)
+        setSelectedStep(selectedStep - 1 as StepNumber)
     }
 
     async function nextStep(inputsToValidate: keyof FormInputs) {
@@ -256,28 +272,30 @@ export default function Page() {
         }
 
         if (selectedStep + 1 > currentStep) {
-            setCurrentStep(currentStep + 1 as any)
+            setCurrentStep(currentStep + 1 as StepNumber)
 
             if (currentStep + 1 === paymentStep) {
                 createPaymentIntent();
             }
         }
 
-        setSelectedStep(selectedStep + 1 as any)
+        setSelectedStep(selectedStep + 1 as StepNumber)
     }
 
-    function goToStep(stepNumber: number) {
+    function goToStep(stepNumber: StepNumber) {
         return () => {
-            if (stepNumber <= currentStep) {
-                setSelectedStep(stepNumber as any)
+            if (stepNumber > currentStep) {
+                setCurrentStep(stepNumber)
             }
+
+            setSelectedStep(stepNumber)
         }
     }
 
 
-    const options: stripeJs.StripeElementsOptions = {
+    const options: StripeElementsOptions = {
         clientSecret,
-        fonts: [{cssSrc: 'https://fonts.googleapis.com/css?family=Inter'}],
+        fonts: [{ cssSrc: 'https://fonts.googleapis.com/css?family=Inter' }],
         appearance: {
             theme: 'stripe',
             variables: {
@@ -285,16 +303,54 @@ export default function Page() {
                 colorPrimary: '#4f46e5', // = Tailwind indigo-600 color
             },
             disableAnimations: false,
-            // rules: {
-            //     '#submit': {
-            //         border: '10px solid #E0E6EB',
-            //         boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(18, 42, 66, 0.02)',
-            //       }
-            // },
             labels: 'above'
         },
         loader: 'always',
     };
+
+
+    async function onPaymentSuccess(paymentIntent: PaymentIntent) {
+
+        // if (!inputName || !inputRules || !inputParticipants || !inputNbWinners || !inputScheduledAt) {
+        //     return;
+        // }
+
+        const inputScheduledAtParsed = 13;
+
+        goToStep(5)();
+        //[ipfsCidString, drawFilename] = await 
+        deployDraw(paymentIntent.id, inputName, inputRules, inputParticipants, inputNbWinners, inputScheduledAtParsed);
+    }
+
+    // goToStep(5)();
+    // deployDraw('paymentIntent.id', inputName, inputRules, inputParticipants, inputNbWinners, 13);
+
+    async function deployDraw(paymentIntentId: string, drawTitle: string, drawRules: string, drawParticipants: string, drawNbWinners: number, drawScheduledAt: number) {
+        
+        fetch("/api/deploy-draw", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ paymentIntentId, drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                const [ipfsCidString, drawFilename] = [data.ipfsCidString, data.drawFilename]
+                console.log('pingouin')
+                console.log('ipfsCidString', ipfsCidString, 'drawFilename', drawFilename)
+            });
+    }
+
+    // const handleSubmit = async (e: any) => {
+    //     console.log('handleSubmit called')
+    //     e.preventDefault();
+
+    //     const form = e.target;
+    //     const formData = new FormData(form);
+    //     console.log('formData', formData);
+
+    //     const formJson = Object.fromEntries(formData.entries());
+    //     console.log('formJson', formJson);
+    // };
 
     return (
         <div className="mx-auto max-w-7xl px-6 sm:pt-32 lg:px-8 min-h-full">
@@ -341,9 +397,9 @@ export default function Page() {
                                 // Completed step
                                 <a
                                     href={step.href}
-                                    onClick={goToStep(index + 1)}
+                                    onClick={goToStep(index + 1 as StepNumber)}
                                     className={`group flex flex-col border-l-4 border-indigo-600 py-2 pl-4 hover:border-indigo-800 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
-                                    ${isValid ? '' : ''}`}
+                                    ${isValid && selectedStep !== shareStep ? '' : 'pointer-events-none'}`}
                                 >
                                     <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-800">Step {index + 1}</span>
                                     <span className="text-sm font-medium">{step.name}</span>
@@ -352,7 +408,6 @@ export default function Page() {
                                 // Ongoing step
                                 <a
                                     href={step.href}
-                                    onClick={goToStep(index + 1)}
                                     className="pointer-events-none flex flex-col border-l-4 border-indigo-600 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                                     aria-current="step"
                                 >
@@ -363,7 +418,7 @@ export default function Page() {
                                 // Upcoming available step
                                 <a
                                     href={step.href}
-                                    onClick={goToStep(index + 1)}
+                                    onClick={goToStep(index + 1 as StepNumber)}
                                     className={`group flex flex-col border-l-4 border-indigo-300 py-2 pl-4 hover:border-indigo-600 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
                                     ${isValid ? '' : 'pointer-events-none'}`}
                                 >
@@ -374,7 +429,6 @@ export default function Page() {
                                 // Upcoming unavailable step
                                 <a
                                     href={step.href}
-                                    onClick={goToStep(index + 1)}
                                     className="pointer-events-none group flex flex-col border-l-4 border-gray-200 py-2 pl-4 hover:border-gray-300 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                                 >
                                     <span className="text-sm font-medium text-gray-500 group-hover:text-gray-700">Step {index + 1}</span>
@@ -387,7 +441,7 @@ export default function Page() {
             </nav>
 
             {/* Form */}
-            <div className="mt-12">
+            <form className="mt-12">
                 {
                     (selectedStep === 1) && (
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -406,6 +460,8 @@ export default function Page() {
                                             ${errors.step1?.name && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
                                             {...register("step1.name", { required: true })}
                                             onBlur={() => trigger("step1.name")}
+                                            onChange={(e) => { setInputName(e.target.value) }}
+                                            value={inputName}
                                         />
                                     </div>
                                 </div>
@@ -426,6 +482,8 @@ export default function Page() {
                                         ${errors.step1?.rules && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
                                         {...register("step1.rules", { required: true })}
                                         onBlur={() => trigger("step1.rules")}
+                                        onChange={(e) => { setInputRules(e.target.value) }}
+                                        value={inputRules}
                                     />
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-600">Rules should be written in natural language</p>
@@ -453,6 +511,8 @@ export default function Page() {
                                         ${errors.step2?.participants && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
                                         {...register("step2.participants", { required: true })}
                                         onBlur={() => trigger("step2.participants")}
+                                        onChange={(e) => { setInputParticipants(e.target.value) }}
+                                        value={inputParticipants}
                                     />
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-600">Each line should contain only one participant</p>
@@ -472,6 +532,8 @@ export default function Page() {
                                         ${errors.step2?.nbWinners && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
                                         {...register("step2.nbWinners", { required: true })}
                                         onBlur={() => trigger("step2.nbWinners")}
+                                        onChange={(e) => { setInputNbWinners(e.target.value as unknown as number) }}
+                                        value={inputNbWinners}
                                     />
                                 </div>
                             </div>
@@ -484,16 +546,20 @@ export default function Page() {
                         <div className="mt-10">
 
                             <div className="text-center">
-                                <label htmlFor="scheduledFor" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="scheduledAt" className="block text-sm font-medium leading-6 text-gray-900">
                                     When should the draw be triggered ?
                                 </label>
                                 <div className="mt-2">
                                     <input
                                         type="datetime-local"
-                                        id="scheduledFor"
-                                        name="scheduledFor"
-                                        defaultValue="2018-06-12T19:30"
-                                        min="2018-06-07T00:00"
+                                        id="scheduledAt"
+                                        min={inputScheduledAtMinValue}
+                                        className={`block m-auto rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
+                                        ${errors.step3?.scheduledAt && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step3.scheduledAt", { required: true })}
+                                        onBlur={() => trigger("step3.scheduledAt")}
+                                        onChange={(e) => { setInputScheduledAt(e.target.value) }}
+                                        value={inputScheduledAt}
                                     ></input>
                                 </div>
                             </div>
@@ -504,15 +570,56 @@ export default function Page() {
 
                 {/* Payment step, hidden by default but needs to always be in the DOM
                 to prevent re-rendering when the user switch between steps */}
-                <div className={`mt-10 m-auto w-1/2 ${selectedStep === paymentStep ? '' : 'hidden'}`}>
+                <div className={`flex items-center mt-10 w-full ${selectedStep === paymentStep ? '' : 'hidden'}`}>
 
-                    {clientSecret && (
-                        <Elements options={options} stripe={stripePromise}>
-                            <CheckoutForm />
-                        </Elements>
-                    )}
+                    <p className="flex-auto w-64 mt-0 px-24 py-16 border-r border-gray-200 text-md font-light tracking-wide text-gray-800 sm:text-md text-center">
+                        <span className="italic">Verifiable Draws</span> is the only draw platform preventing all kinds of fraud.
+                        <br /><br />
+                        Therefore, by choosing us, you are contributing to make the world a better place and inspiring others to do the same.
+                        <br /><br />
+                        This is the last step before deploying your draw.<br />
+                        The decentralized world awaits you. ✨
+                    </p>
+                    <div className="flex-auto px-24 w-32">
+                        <p className="mt-0 text-xl font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-xl text-center">
+                            Purchase a single draw
+                        </p>
+
+                        <p className="mt-0 text-base font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-base text-center">
+                            Total: 29,00€
+                        </p>
+
+                        {clientSecret && (
+                            <Elements options={options} stripe={stripePromise}>
+                                <CheckoutForm onPaymentSuccess={onPaymentSuccess} />
+                            </Elements>
+                        )}
+                    </div>
 
                 </div>
+
+                {
+                    (selectedStep === 5) && (
+                        <div className="mt-10">
+
+                            <div className="rounded-md bg-green-50 border-2 border-green-800 p-4">
+                                <div className="flex">
+                                    <div className="flex-shrink-0">
+                                        <CheckCircleIcon className="h-5 w-5 text-green-800" aria-hidden="true" />
+                                    </div>
+                                    <div className="ml-3">
+                                        <p className="text-sm font-medium text-green-800">Payment successful</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <Link href={`https://${ ipfsCidString }.ipfs.dweb.link/${ drawFilename }`}>
+                                https://{ ipfsCidString }.ipfs.dweb.link/{ drawFilename }
+                            </Link>
+
+                        </div>
+                    )
+                }
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                     {
@@ -551,7 +658,7 @@ export default function Page() {
                     }
                 </div>
 
-            </div>
+            </form>
 
             {/* <q-stepper v-model="step" ref="stepper" color="primary" header-nav animated flat> */}
 

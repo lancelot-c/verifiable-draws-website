@@ -1,22 +1,23 @@
 import { NextResponse } from 'next/server'
-import env from 'dotenv'
-env.config({ path: '/.env.local' });
 import Stripe from 'stripe'
+const { NEXT_PUBLIC_STRIPE_ENV, STRIPE_SECRET_KEY_PROD, STRIPE_SECRET_KEY_TEST } = process.env;
+const stripeSecretKey = (NEXT_PUBLIC_STRIPE_ENV === 'test') ? STRIPE_SECRET_KEY_TEST : STRIPE_SECRET_KEY_PROD;
 
-if (!process.env.STRIPE_SECRET_KEY) {
-    throw new Error("STRIPE_SECRET_KEY environment variable is not set")
+if (!stripeSecretKey) {
+    throw new Error("stripeSecretKey is undefined")
 }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+const stripe = new Stripe(stripeSecretKey, {
   apiVersion: "2022-11-15",
   typescript: true,
 });
  
+const drawPrice = 29.00; // in euros
 
 const calculateOrderAmount = (nbDraws: number) => {
     // Calculate the order total on the server to prevent
     // people from directly manipulating the amount on the client
-    return 2900 * nbDraws;
+    return drawPrice * 100 * nbDraws;
 };
 
 export async function POST() {

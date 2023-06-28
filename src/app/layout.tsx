@@ -9,8 +9,8 @@ import {
 } from '@heroicons/react/24/solid'
 
 export const metadata = {
-  title: 'Verifiable Draws - Build a brand that everyone trust',
-  description: 'Organize random draws and contests which are impossible to rig thanks to decentralized technologies, allowing you to prove the whole world that your company is trustworthy.',
+  title: 'Verifiable Draws - Build a company that everyone trust',
+  description: 'Verifiable Draws enables you to organize random draws and contests which are completely transparent thanks to decentralized technologies, allowing you to prove the whole world that your company is trustworthy.',
 }
 
 const navigation: any[] = [
