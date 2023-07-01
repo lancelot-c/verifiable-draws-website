@@ -1,20 +1,13 @@
 /** @type {import('next').NextConfig} */
 
-const nextConfig = {}
-module.exports = nextConfig
+const nextConfig = {};
 
-// module.exports = {
-//     webpack: (
-//         config,
-//         { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
-//     ) => {
-
-//         webpack.externals = {
-//             bufferutil: "bufferutil",
-//             "utf-8-validate": "utf-8-validate",
-//         }
-
-//         // Important: return the modified config
-//         return config
-//     },
-// }
+module.exports = {
+    ...nextConfig,
+    webpack: (config, { isServer }) => {
+        if (isServer) {
+            config.externals.push({ bufferutil: "bufferutil", "utf-8-validate": "utf-8-validate", });
+        }
+        return config;
+    },
+}
