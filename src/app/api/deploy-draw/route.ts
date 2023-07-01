@@ -1,46 +1,43 @@
 import { NextResponse } from 'next/server'
-// import Stripe from 'stripe'
+import Stripe from 'stripe'
 import { kv } from "@vercel/kv";
-import fs from 'fs'
+import fs from 'fs';
 const fsPromises = fs.promises;
 import path from 'path'
-// import hardhat from 'hardhat';
-import { ethers } from "ethers";
+import { ethers } from 'ethers';
 import crypto from 'crypto'
 import { Web3Storage, getFilesFromPath } from 'web3.storage';
-// import { Wallet } from 'ethers';
-const network = 'mainnet';
+const network = process.env.DEFAULT_NETWORK;
 // const gasStationURL = (network == 'mainnet') ? process.env.MAINNET_GAS_STATION_URL : process.env.TESTNET_GAS_STATION_URL;
-const providerURL = ((network == 'mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL) as string;
+const providerBaseURL = ((network == 'mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL) as string;
+const providerKey = ((network == 'mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY) as string;
+const providerURL = `${providerBaseURL}${providerKey}`;
 const contractAddress = ((network == 'mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
-const abi = JSON.parse(fs.readFileSync(`/src/assets/${process.env.CONTRACT_NAME}.json`, 'utf-8')).abi;
+const filePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
+
+
 
 let provider: ethers.Wallet | undefined;
 if (process.env.WALLET_PRIVATE_KEY) {
-    provider = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY); //, ethers.provider);
+    const p = new ethers.JsonRpcProvider(providerURL)
+    provider = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, p);
 }
 
 let contract: any | undefined;
-if (contractAddress && provider) {
-    contract = new ethers.Contract(
-        contractAddress,
-        abi,
-        provider
-    );
+
+
+
+const stripeSecretKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.STRIPE_SECRET_KEY_TEST : process.env.STRIPE_SECRET_KEY_PROD;
+
+if (!stripeSecretKey) {
+    throw new Error("stripeSecretKey is undefined")
 }
 
+const stripe = new Stripe(stripeSecretKey, {
+  apiVersion: "2022-11-15",
+  typescript: true,
+});
 
-
-// const stripeSecretKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.STRIPE_SECRET_KEY_TEST : process.env.STRIPE_SECRET_KEY_PROD;
-
-// if (!stripeSecretKey) {
-//     throw new Error("stripeSecretKey is undefined")
-// }
-
-// const stripe = new Stripe(stripeSecretKey, {
-//   apiVersion: "2022-11-15",
-//   typescript: true,
-// });
 
 export async function POST(request: Request) {
 
@@ -118,19 +115,16 @@ async function createDraw(
         const [drawFilepath, folderName] = await generateDrawFile(drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
 
         // Pin draw file on IPFS
-        const rootCid = await pinOnIPFS(drawFilepath, drawTitle)
-            .then((cid) => {
-                // Rename draw file to match IPFS CID
-                // renameFolderToIPFS_CID(folderName, cid);
+        const rootCid = await pinOnIPFS(drawFilepath, drawTitle);
 
-                // Delete draw from filesystem
-                deleteDraw(folderName);
+        // Rename draw file to match IPFS CID
+        // renameFolderToIPFS_CID(folderName, rootCid);
 
-                // Publish draw on smart contract
-                publishOnSmartContract(cid, drawScheduledAt, entropyNeeded);
+        // Delete draw from filesystem
+        deleteDraw(folderName);
 
-                return cid;
-            });
+        // Publish draw on smart contract
+        await publishOnSmartContract(rootCid, drawScheduledAt, entropyNeeded);
 
         const drawFilename = path.basename(drawFilepath)
         return [rootCid, drawFilename]
@@ -157,7 +151,7 @@ async function computeEntropyNeeded(nbParticipants: number, nbWinners: number): 
 }
 
 async function generateDrawFile(drawTitle: string, drawRules: string, drawParticipants: string, drawNbWinners: number, unix_timestamp: number) {
-    const templateFilepath = '/src/draws/template.html';
+    const templateFilepath = path.join(process.cwd(), '/src/draws/template.html');
 
     const content = await fsPromises.readFile(templateFilepath, 'utf8');
 
@@ -176,9 +170,9 @@ async function generateDrawFile(drawTitle: string, drawRules: string, drawPartic
         .replaceAll('{{ drawNbWinners }}', drawNbWinners.toString());
 
     const fileHash = sha256(newContent);
-    const drawTempFilepath = `./draws/${fileHash}/draw.html`;
+    const drawTempFilepath = path.join(process.cwd(), `src/draws/${fileHash}/draw.html`);
 
-    await fs.promises.mkdir(`./draws/${fileHash}`).catch(console.error);
+    await fs.promises.mkdir(path.join(process.cwd(), `src/draws/${fileHash}`)).catch(console.error);
     await fsPromises.writeFile(drawTempFilepath, newContent, 'utf8');
     return [drawTempFilepath, fileHash];
 
@@ -214,11 +208,22 @@ async function pinOnIPFS(filepath: string, drawTitle: string): Promise<string> {
 }
 
 function deleteDraw(folderName: string) {
-    fs.rmSync(`./draws/${folderName}`, { recursive: true, force: true });
+    fs.rmSync(path.join(process.cwd(), `src/draws/${folderName}`), { recursive: true, force: true });
 }
 
 async function publishOnSmartContract(v1CidString: string, scheduledAt: number, entropyNeeded: number) {
     console.log(`Publish draw ${v1CidString} on smart contract ${contractAddress}\n`);
+
+    const jsonData = await fsPromises.readFile(filePath);
+    const abi = JSON.parse(jsonData.toString()).abi;
+
+    if (contractAddress && provider) {
+        contract = new ethers.Contract(
+            contractAddress,
+            abi,
+            provider
+        );
+    }
 
     const launchDraw = await contract.launchDraw(v1CidString, scheduledAt, entropyNeeded);
     await launchDraw.wait();
