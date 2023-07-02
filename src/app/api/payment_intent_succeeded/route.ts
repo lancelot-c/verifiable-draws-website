@@ -42,14 +42,12 @@ export async function POST(request: Request) {
     switch (event?.type) {
         case 'payment_intent.succeeded':
             const paymentIntentSucceeded = event.data.object as any;
-            // Then define and call a function to handle the event payment_intent.succeeded
-            // console.log('payment_intent.succeeded received')
-            // console.log(paymentIntentSucceeded)
 
             try {
                 await kv.set(paymentIntentSucceeded.id, 0);
+                console.log(`Added ${paymentIntentSucceeded.id} : 0 in the KV store.`)
               } catch (error) {
-                throw new Error(`Can't add ${paymentIntentSucceeded.id} to the KV store`)
+                throw new Error(`Can't add ${paymentIntentSucceeded.id} : 0 to the KV store`)
             }
 
             break;

@@ -41,22 +41,12 @@ const stripe = new Stripe(stripeSecretKey, {
 
 export async function POST(request: Request) {
 
-    console.log('POST deploy-draw kangoo');
-
     const body = await request.json()
     const paymentIntentId: string = body.paymentIntentId
 
-    // 0 = not delivered yet, 1 = delivered
-    const orderStatus = await kv.get(paymentIntentId);
-
-    // Ignore request if wrong order status
-    if (orderStatus === undefined || orderStatus === null) {
-        throw new Error(`order ${paymentIntentId} doesn't exist`)
-    } else if (orderStatus === 1) {
-        throw new Error(`order ${paymentIntentId} was already delivered`)
-    } else if (orderStatus !== 0) {
-        throw new Error(`unknown status for order ${paymentIntentId} : ${orderStatus}`)
-    }
+    // Cancel the request if something is wrong with the payment
+    await verifyPayment(paymentIntentId);
+    console.log(`Payment ${paymentIntentId} is valid. Draw deployment in progress...`);
 
     // Deploy draw
     const drawTitle: string = body.drawTitle;
@@ -76,6 +66,7 @@ export async function POST(request: Request) {
         // Set order as delivered
         try {
             await kv.set(paymentIntentId, 1);
+            console.log(`Set ${paymentIntentId} : 1 in the KV store.`)
         } catch (error) {
             throw new Error(`Can't set ${paymentIntentId} value in the KV store`)
         }
@@ -86,6 +77,51 @@ export async function POST(request: Request) {
     }
  
     return NextResponse.json(data)
+}
+
+async function verifyPayment(paymentIntentId: string): Promise<0> {
+    return new Promise(async (resolve) => {
+
+        // 0 = not delivered yet, 1 = delivered
+        const orderStatus = await kv.get(paymentIntentId);
+        if (orderStatus === 0) {
+            return resolve(orderStatus);
+        }
+
+        const retryResult = await kvRetryGet(paymentIntentId);
+        return resolve(retryResult);
+    });
+}
+
+async function kvRetryGet(paymentIntentId: string, delay = 3000, retries = 3): Promise<0> {
+    return new Promise(async (resolve) => {
+
+        console.log(`KV retry get() for ${paymentIntentId} - delay:${delay} - retries:${retries}`);
+
+        if (retries === 0) {
+            throw new Error(`wrong use of kvRetryGet, retries should be > 0`)
+        }
+
+        setTimeout(async () => {
+            const orderStatus = await kv.get(paymentIntentId);
+
+            if (orderStatus === undefined || orderStatus === null) {
+                if (--retries > 0) {
+                    await kvRetryGet(paymentIntentId, delay * 2, retries);
+                } else {
+                    throw new Error(`No value in KV store for ${paymentIntentId} after ${retries+1} get() attempts`)
+                }
+            } else if (orderStatus === 1) {
+                throw new Error(`Order ${paymentIntentId} was already delivered`)
+            } else if (orderStatus !== 0) {
+                throw new Error(`Unknown status for order ${paymentIntentId} : ${orderStatus}`)
+            }
+
+            return resolve(0);
+
+        }, delay);
+
+    });
 }
 
 async function createDraw(
@@ -151,7 +187,7 @@ async function computeEntropyNeeded(nbParticipants: number, nbWinners: number): 
 }
 
 async function generateDrawFile(drawTitle: string, drawRules: string, drawParticipants: string, drawNbWinners: number, unix_timestamp: number) {
-    const templateFilepath = path.join(process.cwd(), '/src/draws/template.html');
+    const templateFilepath = path.join(process.cwd(), '/src/draws/template_fr.html');
 
     const content = await fsPromises.readFile(templateFilepath, 'utf8');
 

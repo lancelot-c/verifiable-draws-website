@@ -17,6 +17,35 @@ if (!stripePublicKey) {
 // recreating the Stripe object on every render.
 const stripePromise = loadStripe(stripePublicKey);
 
+
+const steps = [
+    { name: 'Draw name and rules', href: '#step1' },
+    { name: 'Participants', href: '#step2' },
+    { name: 'Schedule', href: '#step3' },
+    { name: 'Purchase', href: '#step4' },
+    { name: 'Share the link', href: '#step5' },
+]
+
+type FormInputs = {
+    step1?: {
+        name: string
+        rules: string
+    },
+    step2?: {
+        participants: string
+        nbWinners: number
+    },
+    step3?: {
+        scheduledAt: string
+    },
+    step4?: {
+
+    },
+    step5?: {
+
+    },
+}
+
 const drawNamePlaceholder = '2026 FIFA World Cup Draw';
 
 const drawRulesPlaceholder =
@@ -75,64 +104,45 @@ Tanzania
 South Africa
 Italy`;
 
-
 const drawNbWinnersPlaceholder = '48';
 
-const showErrorsOnBlur = true
-type StepNumber = 1 | 2 | 3 | 4 | 5
-const startAtStep = 1
-const paymentStep = 4
-const shareStep = 5
 
-const steps = [
-    { name: 'Draw name and rules', href: '#step1' },
-    { name: 'Participants', href: '#step2' },
-    { name: 'Schedule', href: '#step3' },
-    { name: 'Purchase', href: '#step4' },
-    { name: 'Share the link', href: '#step5' },
-]
-
-type FormInputs = {
-    step1?: {
-        name: string
-        rules: string
-    },
-    step2?: {
-        participants: string
-        nbWinners: number
-    },
-    step3?: {
-        scheduledAt: string
-    },
-    step4?: {
-
-    },
-    step5?: {
-
-    },
-}
 
 export default function Page() {
 
-    const { register, trigger, formState: { errors, isValid } } = useForm<FormInputs>();
+    const dt = new Date();
+    const safetyCushion = 0; // number of minutes to add as a safety net
+    dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset() + safetyCushion);
+    const scheduledAtMinValue = dt.toISOString().slice(0, 16);
+    const scheduledAtDefaultValue = scheduledAtMinValue;
+
+    const { register, trigger, getValues, formState: { errors, isValid } } = useForm<FormInputs>({
+        defaultValues: {
+            step1: {
+                name: drawNamePlaceholder,
+                rules: drawRulesPlaceholder
+            },
+            step2: {
+                participants: drawParticipantsPlaceholder,
+                nbWinners: Number(drawNbWinnersPlaceholder)
+            },
+            step3: {
+                scheduledAt: scheduledAtDefaultValue
+            }
+        }
+    });
+
+    const showErrorsOnBlur = true
+    type StepNumber = 1 | 2 | 3 | 4 | 5
+    const startAtStep = 3
+    const paymentStep = 4
+    const shareStep = 5
+
     const [currentStep, setCurrentStep] = useState<StepNumber>(startAtStep)
     const [selectedStep, setSelectedStep] = useState<StepNumber>(currentStep)
     const [clientSecret, setClientSecret] = useState<string>('');
     const [drawLink, setDrawLink] = useState<string>('');
     const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | undefined>(undefined);
-
-    // Form inputs
-    const [inputName, setInputName] = useState<string>('');
-    const [inputRules, setInputRules] = useState<string>('');
-    const [inputParticipants, setInputParticipants] = useState<string>('');
-    const [inputNbWinners, setInputNbWinners] = useState<number>(1);
-
-    const dt = new Date();
-    const safetyCushion = 0; // number of minutes to add as a safety net
-    dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset() + safetyCushion);
-    const inputScheduledAtMinValue = dt.toISOString().slice(0, 16);
-    const inputScheduledAtDefaultValue = dt.toISOString().slice(0, 16);
-    const [inputScheduledAt, setInputScheduledAt] = useState<string>(inputScheduledAtDefaultValue);
 
     useEffect(() => {
         if (currentStep !== paymentStep) {
@@ -166,17 +176,18 @@ export default function Page() {
 
         let ignore = false;
 
-        const drawScheduledAt = Math.ceil(getTimestampFromIso(inputScheduledAt) / 1000); // in seconds
+        const [drawTitle, drawRules, drawParticipants, drawNbWinners] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners"]);
+        const drawScheduledAt = Math.ceil(getTimestampFromIso(getValues("step3.scheduledAt")) / 1000); // in seconds
 
         fetch("/api/deploy-draw", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 paymentIntentId: paymentIntent.id,
-                drawTitle: inputName,
-                drawRules: inputRules,
-                drawParticipants: inputParticipants,
-                drawNbWinners: inputNbWinners,
+                drawTitle,
+                drawRules,
+                drawParticipants,
+                drawNbWinners,
                 drawScheduledAt
             }),
         })
@@ -241,7 +252,9 @@ export default function Page() {
 
     async function onPaymentSuccess(paymentIntent: PaymentIntent) {
 
-        if (!inputName || !inputRules || !inputParticipants || !inputNbWinners || !inputScheduledAt) {
+        const [drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners", "step3.scheduledAt"]);
+
+        if (!drawTitle || !drawRules || !drawParticipants || !drawNbWinners || !drawScheduledAt) {
             return;
         }
 
@@ -250,9 +263,10 @@ export default function Page() {
     }
 
     function validateScheduledAtFn() {
-        return getTimestampFromIso(inputScheduledAt) >= getTimestampFromIso(inputScheduledAtMinValue)
+        return getTimestampFromIso(getValues("step3.scheduledAt")) >= getTimestampFromIso(scheduledAtMinValue)
     }
 
+    // get timestamp in ms from partial iso string
     function getTimestampFromIso(iso: string) {
         const isoStr = `${iso}:00.000Z`;
         const date = new Date(isoStr);
@@ -263,7 +277,7 @@ export default function Page() {
     }
 
     function copyDrawLinkToClipboard() {
-        navigator.clipboard.writeText(drawLink).then(() => {}, (err) => {
+        navigator.clipboard.writeText(drawLink).then(() => { }, (err) => {
             console.error('Async: Could not copy text: ', err);
         });
     }
@@ -372,11 +386,11 @@ export default function Page() {
                                             id="name"
                                             placeholder={drawNamePlaceholder}
                                             className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
-                                            ${!inputName && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                            {...register("step1.name", { required: true })}
-                                            onBlur={() => trigger("step1.name")}
-                                            onChange={(e) => { setInputName(e.target.value); }}
-                                            value={inputName}
+                                            ${errors.step1?.name && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                            {...register("step1.name", {
+                                                required: 'Name is required',
+                                                onBlur: () => { trigger("step1.name"); },
+                                            })}
                                         />
                                     </div>
                                 </div>
@@ -394,11 +408,11 @@ export default function Page() {
                                         id="rules"
                                         placeholder={drawRulesPlaceholder}
                                         className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
-                                        ${!inputRules && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                        {...register("step1.rules", { required: 'true' })}
-                                        onBlur={() => trigger("step1.rules")}
-                                        onChange={(e) => { setInputRules(e.target.value); }}
-                                        value={inputRules}
+                                        ${errors.step1?.rules && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step1.rules", {
+                                            required: 'Rules are required',
+                                            onBlur: () => { trigger("step1.rules"); },
+                                        })}
                                     />
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-600">Rules should be written in natural language</p>
@@ -423,11 +437,11 @@ export default function Page() {
                                         id="participants"
                                         placeholder={drawParticipantsPlaceholder}
                                         className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
-                                        ${!inputParticipants && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                        {...register("step2.participants", { required: true })}
-                                        onBlur={() => trigger("step2.participants")}
-                                        onChange={(e) => { setInputParticipants(e.target.value) }}
-                                        value={inputParticipants}
+                                        ${errors.step2?.participants && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step2.participants", {
+                                            required: 'List of participants is required',
+                                            onBlur: () => { trigger("step2.participants"); },
+                                        })}
                                     />
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-600">Each line should contain only one participant</p>
@@ -444,11 +458,11 @@ export default function Page() {
                                         min="0"
                                         placeholder={drawNbWinnersPlaceholder}
                                         className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
-                                        ${!inputNbWinners && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                        {...register("step2.nbWinners", { required: true })}
-                                        onBlur={() => trigger("step2.nbWinners")}
-                                        onChange={(e) => { setInputNbWinners(e.target.value as unknown as number) }}
-                                        value={inputNbWinners}
+                                        ${errors.step2?.nbWinners && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step2.nbWinners", {
+                                            required: 'Number of participants to draw is required',
+                                            onBlur: () => { trigger("step2.nbWinners"); },
+                                        })}
                                     />
                                 </div>
                             </div>
@@ -461,23 +475,22 @@ export default function Page() {
                         <div className="mt-10">
 
                             <div className="text-center">
-                                <label htmlFor="scheduledAt" className="block text-sm font-medium leading-6 text-gray-900">
-                                    When should the draw be triggered ?
+                                <label htmlFor="scheduledAt" className="block text-sm font-normal leading-6 text-gray-900">
+                                Choose the date and time at which the draw will be triggered.<br />
+                                ({(Intl.DateTimeFormat().resolvedOptions().timeZone)} time zone detected)
                                 </label>
-                                <p className="text-sm mt-2 mb-4">
-                                    Select a date and time in your current timezone ({ (Intl.DateTimeFormat().resolvedOptions().timeZone) } detected)
-                                </p>
                                 <div className="mt-2">
                                     <input
                                         type="datetime-local"
                                         id="scheduledAt"
-                                        min={inputScheduledAtMinValue}
+                                        min={scheduledAtMinValue}
                                         className={`block m-auto rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
-                                        ${!inputScheduledAt && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                        {...register("step3.scheduledAt", { required: true, validate: validateScheduledAtFn })}
-                                        onBlur={() => trigger("step3.scheduledAt")}
-                                        onChange={(e) => { setInputScheduledAt(e.target.value) }}
-                                        value={inputScheduledAt}
+                                        ${errors.step3?.scheduledAt && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step3.scheduledAt", {
+                                            required: 'Scheduled date and time is required',
+                                            validate: validateScheduledAtFn,
+                                            onBlur: () => { trigger("step3.scheduledAt"); },
+                                        })}
                                     ></input>
                                 </div>
                             </div>
@@ -485,13 +498,13 @@ export default function Page() {
                             <div className="rounded-md bg-blue-50 p-4 mt-8">
                                 <div className="flex">
                                     <div className="flex-shrink-0">
-                                    <InformationCircleIcon className="h-5 w-5 text-blue-400" aria-hidden="true" />
+                                        <InformationCircleIcon className="h-5 w-5 text-blue-400" aria-hidden="true" />
                                     </div>
                                     <div className="ml-3 flex-1 md:flex md:justify-between">
-                                    <p className="text-sm text-blue-700">
-                                        In order to be verifiable, the draw has to occur after the draw link is shared to the participants. Otherwise, nothing guarantees that you did not intentionally run several draws in parallel and only shared the one whose result you like best.
-                                        For this reason, we recommend you to choose a date and time which is at least 30 minutes in the future and to share the draw link immediately after it is generated.
-                                    </p>
+                                        <p className="text-sm text-blue-700">
+                                            In order to be verifiable, the draw has to occur after the draw link is shared to the participants. Otherwise, nothing guarantees that you did not intentionally run several draws in parallel and only shared the one whose result you like best.
+                                            For this reason, <span className="font-semibold">we recommend you to choose a date and time which is at least 30 minutes in the future and to share the draw link immediately after it is generated</span>.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -505,7 +518,7 @@ export default function Page() {
                 <div className={`flex items-center mt-10 w-full ${selectedStep === paymentStep ? '' : 'hidden'}`}>
 
                     <p className="flex-auto w-64 mt-0 px-24 py-16 border-r border-gray-200 text-md font-light tracking-wide text-gray-800 sm:text-md text-center">
-                        <span className="italic">Verifiable Draws</span> is the only draw platform preventing all kinds of fraud.
+                        <span className="italic">Verifiable Draws</span> is the only draw platform in the world which prevents all kinds of fraud.
                         <br /><br />
                         Therefore, by choosing us, you are contributing to make the world a better place and inspiring others to do the same.
                         <br /><br />
@@ -556,14 +569,14 @@ export default function Page() {
                                                 </svg>
                                             </div>
                                             <div className="ml-3">
-                                            <h3 className="text-sm font-medium text-yellow-800">
-                                                Deploying the draw on IPFS and Ethereum.
-                                            </h3>
-                                            <div className="mt-2 text-sm text-yellow-700">
-                                                <p>
-                                                    This action generally takes about a minute, please wait without closing the page.
-                                                </p>
-                                            </div>
+                                                <h3 className="text-sm font-medium text-yellow-800">
+                                                    Deploying the draw on IPFS and Ethereum.
+                                                </h3>
+                                                <div className="mt-2 text-sm text-yellow-700">
+                                                    <p>
+                                                        This action generally takes about a minute, please wait without closing the page.
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -574,7 +587,7 @@ export default function Page() {
                                             You can now share the following link to the participants so that they can access the draw details.
                                         </p>
 
-                                        <div className="rounded-md border-2 border-gray-700 my-12 px-8 py-4 text-xl flex justify-center">
+                                        <div className="rounded-md bg-white/50 ring-2 ring-indigo-800 my-12 px-8 py-4 text-xl flex justify-center">
                                             <div className="text-ellipsis overflow-hidden mx-2">
                                                 {drawLink}
                                             </div>
