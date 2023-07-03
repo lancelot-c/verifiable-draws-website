@@ -111,7 +111,7 @@ const drawNbWinnersPlaceholder = '48';
 export default function Page() {
 
     const dt = new Date();
-    const safetyCushion = 0; // number of minutes to add as a safety net
+    const safetyCushion = 30; // number of minutes to add as a safety net
     dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset() + safetyCushion);
     const scheduledAtMinValue = dt.toISOString().slice(0, 16);
     const scheduledAtDefaultValue = scheduledAtMinValue;
@@ -119,12 +119,12 @@ export default function Page() {
     const { register, trigger, getValues, formState: { errors, isValid } } = useForm<FormInputs>({
         defaultValues: {
             step1: {
-                name: drawNamePlaceholder,
-                rules: drawRulesPlaceholder
+                name: '',
+                rules: ''
             },
             step2: {
-                participants: drawParticipantsPlaceholder,
-                nbWinners: Number(drawNbWinnersPlaceholder)
+                participants: '',
+                nbWinners: undefined
             },
             step3: {
                 scheduledAt: scheduledAtDefaultValue
@@ -134,7 +134,7 @@ export default function Page() {
 
     const showErrorsOnBlur = true
     type StepNumber = 1 | 2 | 3 | 4 | 5
-    const startAtStep = 3
+    const startAtStep = 1
     const paymentStep = 4
     const shareStep = 5
 
@@ -404,7 +404,7 @@ export default function Page() {
                                 </label>
                                 <div className="mt-2">
                                     <textarea
-                                        rows={6}
+                                        rows={10}
                                         id="rules"
                                         placeholder={drawRulesPlaceholder}
                                         className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
@@ -604,6 +604,11 @@ export default function Page() {
                                                 </svg>
                                             </div>
                                         </div>
+
+                                        <p className="mt-8 text-md">
+                                            If you need further assistance please join our Discord server, we will be happy to help you.<br />
+                                            Thank you for using our service and making the world more decentralized.
+                                        </p>
                                     </div>
                                 )
                             }

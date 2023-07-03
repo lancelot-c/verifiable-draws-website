@@ -187,7 +187,7 @@ async function computeEntropyNeeded(nbParticipants: number, nbWinners: number): 
 }
 
 async function generateDrawFile(drawTitle: string, drawRules: string, drawParticipants: string, drawNbWinners: number, unix_timestamp: number) {
-    const templateFilepath = path.join(process.cwd(), '/src/draws/template_fr.html');
+    const templateFilepath = path.join(process.cwd(), '/src/draws/template_en.html');
 
     const content = await fsPromises.readFile(templateFilepath, 'utf8');
 
