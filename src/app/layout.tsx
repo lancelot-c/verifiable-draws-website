@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -82,7 +83,7 @@ export default function RootLayout({
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <Link href="/" className="-m-1.5 p-1.5">
                         <div className="flex lg:flex-1 items-center">
-                            <img
+                            <Image
                                 className="h-8 w-auto"
                                 src="/vd-logo.svg"
                                 alt=""
@@ -121,7 +122,7 @@ export default function RootLayout({
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
-                <img
+                <Image
                   className="h-8 w-auto"
                   src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                   alt=""

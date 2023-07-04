@@ -202,7 +202,7 @@ export default function Page() {
         return () => {
             ignore = true;
         };
-    }, [currentStep, paymentIntent])
+    }, [currentStep, paymentIntent, getValues])
 
     function previousStep() {
         setSelectedStep(selectedStep - 1 as StepNumber)
