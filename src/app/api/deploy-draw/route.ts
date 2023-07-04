@@ -7,7 +7,7 @@ import path from 'path'
 import { ethers } from 'ethers';
 import crypto from 'crypto'
 import { Web3Storage, getFilesFromPath } from 'web3.storage';
-const network = process.env.DEFAULT_NETWORK;
+const network = (process.env.NEXT_PUBLIC_ENV === 'dev') ? 'testnet' : 'mainnet';
 // const gasStationURL = (network == 'mainnet') ? process.env.MAINNET_GAS_STATION_URL : process.env.TESTNET_GAS_STATION_URL;
 const providerBaseURL = ((network == 'mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL) as string;
 const providerKey = ((network == 'mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY) as string;
@@ -27,7 +27,7 @@ let contract: any | undefined;
 
 
 
-const stripeSecretKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.STRIPE_SECRET_KEY_TEST : process.env.STRIPE_SECRET_KEY_PROD;
+const stripeSecretKey = (process.env.NEXT_PUBLIC_ENV === 'dev') ? process.env.STRIPE_SECRET_KEY_TEST : process.env.STRIPE_SECRET_KEY_PROD;
 
 if (!stripeSecretKey) {
     throw new Error("stripeSecretKey is undefined")

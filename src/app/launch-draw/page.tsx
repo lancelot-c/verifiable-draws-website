@@ -7,7 +7,7 @@ import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe
 import { Elements } from "@stripe/react-stripe-js";
 import { CheckCircleIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
 import CheckoutForm from "./CheckoutForm";
-const stripePublicKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
+const stripePublicKey = (process.env.NEXT_PUBLIC_ENV === 'dev') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
 
 if (!stripePublicKey) {
     throw new Error("stripePublicKey is undefined")

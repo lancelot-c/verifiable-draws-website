@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
-const { NEXT_PUBLIC_STRIPE_ENV, STRIPE_SECRET_KEY_PROD, STRIPE_SECRET_KEY_TEST } = process.env;
-const stripeSecretKey = (NEXT_PUBLIC_STRIPE_ENV === 'test') ? STRIPE_SECRET_KEY_TEST : STRIPE_SECRET_KEY_PROD;
+const { NEXT_PUBLIC_ENV, STRIPE_SECRET_KEY_PROD, STRIPE_SECRET_KEY_TEST } = process.env;
+const stripeSecretKey = (NEXT_PUBLIC_ENV === 'dev') ? STRIPE_SECRET_KEY_TEST : STRIPE_SECRET_KEY_PROD;
 
 if (!stripeSecretKey) {
     throw new Error("stripeSecretKey is undefined")
