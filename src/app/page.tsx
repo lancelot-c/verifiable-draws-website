@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 import {
     ArrowTrendingUpIcon,
@@ -137,7 +138,7 @@ export default function Example() {
           <div className="py-0 lg:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl text-center">
-                    <img
+                    <Image
                         className="gold-medal m-auto -z-10 lg:absolute"
                         src="/medaille-or-lepine-small.png"
                         alt="Médaille d'or du Concours Lépine 2023"
@@ -164,7 +165,7 @@ export default function Example() {
 
               <div className="mt-16 flow-root sm:mt-24">
                 <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-                  <img
+                  <Image
                     src="/graphique-technique.png"
                     alt="App screenshot"
                     width={2432}
@@ -176,7 +177,7 @@ export default function Example() {
 
               {/* <div className="mt-16 flow-root sm:mt-24">
                 <div className="-m-2 p-2 lg:-m-4 lg:p-4">
-                  <img
+                  <Image
                     src="/verify-win.png"
                     alt="App screenshot"
                     width={2432}
@@ -204,14 +205,14 @@ export default function Example() {
         {/* Logo cloud */}
         <div className="mx-auto max-w-7xl pt-32 px-6 lg:px-8 lg:pt-0">
           <div className="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5  grayscale-[90%]">
-            <img
+            <Image
               className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
               src="/fdj-logo.png"
               alt="Transistor"
               width={158}
               height={48}
             />
-            {/* <img
+            {/* <Image
               className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
               src="/hdjp-logo.jpg"
               alt="Reform"
@@ -249,27 +250,27 @@ export default function Example() {
                 </g>
             </svg> */}
             
-            <img
+            <Image
               className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
               src="/presse-citron-nav.svg"
               alt="Presse Citron"
             />
 
-            <img
+            <Image
               className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
               src="/fidealis-logo.png"
               alt="Tuple"
               width={158}
               height={48}
             />
-            <img
+            <Image
               className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
               src="/tf1-logo.png"
               alt="SavvyCal"
               width={158}
               height={48}
             />
-            <img
+            <Image
               className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
               src="/kastel-co-logo.png"
               alt="Statamic"
@@ -512,7 +513,7 @@ export default function Example() {
                         <div data-version="v1" className="flex flex-row flex-wrap sm:flex-nowrap gap-8 items-center justify-center">
                             <Link data-version="v1" className="foundation_card" style={{WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)', color: 'rgb(0, 116, 222)', textDecoration: 'none solid rgb(0, 116, 222)', transition: 'background 0.15s ease 0s', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', flex: '0 1 auto', gap: '0px', width: '100%', minHeight: '240px', borderRadius: '12px', padding: '24px', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 0px 1px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgb(250, 250, 250) 0px 0px 0px 6px inset', background: '#fff', position: 'relative', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)', touchAction: 'pan-y'}} data-variant="react" href="https://ipfs.tech/" rel="noopener" target="_blank">
                                 <div data-icon="true" style={{boxSizing: 'border-box', height: '40px', display: 'flex', alignItems: 'center', marginBottom: 'auto', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                                    <img
+                                    <Image
                                         className="h-14 w-auto"
                                         src="/ipfs-logo-without-text.svg"
                                         alt=""
@@ -533,7 +534,7 @@ export default function Example() {
                             </Link>
                             <Link data-version="v1" className="foundation_card" style={{WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)', color: 'rgb(0, 116, 222)', textDecoration: 'none solid rgb(0, 116, 222)', transition: 'background 0.15s ease 0s', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', flex: '0 1 auto', gap: '0px', width: '100%', minHeight: '240px', borderRadius: '12px', padding: '24px', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 0px 1px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgb(250, 250, 250) 0px 0px 0px 6px inset', background: '#fff', position: 'relative', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)', touchAction: 'pan-y'}} data-variant="turbo" href="https://ethereum.org/" rel="noopener" target="_blank">
                                 <div data-icon="true" style={{boxSizing: 'border-box', height: '40px', display: 'flex', alignItems: 'center', marginBottom: 'auto', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                                <img
+                                <Image
                                     className="h-14 w-auto"
                                     src="/ethereum-logo.png"
                                     alt=""
@@ -553,7 +554,7 @@ export default function Example() {
                             </Link>
                             <Link data-version="v1" className="foundation_card" style={{WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)', color: 'rgb(0, 116, 222)', textDecoration: 'none solid rgb(0, 116, 222)', transition: 'background 0.15s ease 0s', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', flex: '0 1 auto', gap: '0px', width: '100%', minHeight: '240px', borderRadius: '12px', padding: '24px', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 0px 1px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgb(250, 250, 250) 0px 0px 0px 6px inset', background: '#fff', position: 'relative', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)', touchAction: 'pan-y'}} data-variant="swc" href="https://chain.link/vrf" rel="noopener" target="_blank">
                                 <div data-icon="true" style={{boxSizing: 'border-box', height: '40px', display: 'flex', alignItems: 'center', marginBottom: 'auto', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                                <img
+                                <Image
                                     className="h-14 w-auto"
                                     src="/chainlink-logo.png"
                                     alt=""

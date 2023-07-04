@@ -1,31 +1,52 @@
 "use client"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link'
-
 import React from "react";
-import * as stripeJs from "@stripe/stripe-js";
+import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { CheckCircleIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
+import CheckoutForm from "./CheckoutForm";
+const stripePublicKey = (process.env.NEXT_PUBLIC_ENV === 'dev') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
 
-import CheckoutForm from "../../components/CheckoutForm";
-
-if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-    throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable is not set")
+if (!stripePublicKey) {
+    throw new Error("stripePublicKey is undefined")
 }
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
-// This is your test publishable API key.
-const stripePromise = stripeJs.loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(stripePublicKey);
 
 
-// import DrawService from 'src/services/DrawService';
+const steps = [
+    { name: 'Draw name and rules', href: '#step1' },
+    { name: 'Participants', href: '#step2' },
+    { name: 'Schedule', href: '#step3' },
+    { name: 'Purchase', href: '#step4' },
+    { name: 'Share the link', href: '#step5' },
+]
 
-// const step = ref(3);
-// const loading = ref(false);
+type FormInputs = {
+    step1?: {
+        name: string
+        rules: string
+    },
+    step2?: {
+        participants: string
+        nbWinners: number
+    },
+    step3?: {
+        scheduledAt: string
+    },
+    step4?: {
+
+    },
+    step5?: {
+
+    },
+}
 
 const drawNamePlaceholder = '2026 FIFA World Cup Draw';
-// const drawTitle = ref(titlePlaceholder);
 
 const drawRulesPlaceholder =
     `48 countries have been selected during the 2026 FIFA World Cup qualification phase.
@@ -33,14 +54,6 @@ Competing countries will now be divided into twelve groups of four teams (groups
 
 This draw will output the list of countries randomly shuffled.
 The first 4 countries of the list will form the group A, the next 4 will form group B, and so on, until group K.`;
-// const drawRules = ref(rulesPlaceholder);
-
-// const participantsRetrieval = ref('manual');
-// let options = [
-//     { label: 'Écrire manuellement la liste des participants', value: 'manual' },
-//     { label: 'Récupérer la liste des participants sur un réseau social (Youtube, Instagram, Twitter, TikTok, LinkedIn)', value: 'socialMedia', disable: true },
-//     { label: 'Importer la liste des participants depuis un fichier .csv ou .txt', value: 'file', disable: true }
-// ];
 
 const drawParticipantsPlaceholder = `Argentina
 Brazil
@@ -91,163 +104,111 @@ Tanzania
 South Africa
 Italy`;
 
-// const drawParticipants = ref(participantsPlaceholder);
 const drawNbWinnersPlaceholder = '48';
-// const drawNbWinners = ref(nbWinnersPlaceholder);
 
-// const ipfsCid = ref('');
-// const drawFilename = ref('');
 
-// const myLocale = {
-//     /* starting with Sunday */
-//     days: 'Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi'.split('_'),
-//     daysShort: 'Dim_Lun_Mar_Mer_Jeu_Ven_Sam'.split('_'),
-//     months: 'Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Août_Septembre_Octobre_Novembre_Décembre'.split('_'),
-//     monthsShort: 'Jan_Fev_Mars_Avr_Mai_Juin_Juil_Août_Sept_Oct_Nov_Dec'.split('_'),
-//     firstDayOfWeek: 1, // 0-6, 0 - Sunday, 1 Monday, ...
-//     format24h: true,
-//     pluralDay: 'jours'
-// };
-
-// const safetyMinutes = 0; // Should be 5
-// const minimumScheduledAt = ref(date.addToDate(Date.now(), { minutes: safetyMinutes }));
-// const drawScheduledAtDate = ref(date.formatDate(minimumScheduledAt.value, 'YYYY/MM/DD'));
-// const drawScheduledAtTime = ref(date.formatDate(minimumScheduledAt.value, 'HH:mm'));
-
-// function dateOptionsFn(d: string) {
-//     minimumScheduledAt.value = date.addToDate(Date.now(), { minutes: safetyMinutes });
-//     const minimumDate = date.formatDate(minimumScheduledAt.value, 'YYYY/MM/DD');
-
-//     return d >= minimumDate;
-// }
-
-// function timeOptionsFn(hr: number, min: number | null) {
-
-//     minimumScheduledAt.value = date.addToDate(Date.now(), { minutes: safetyMinutes });
-//     const minimumDate = date.formatDate(minimumScheduledAt.value, 'YYYY/MM/DD');
-
-//     if (drawScheduledAtDate.value > minimumDate) {
-//         return true;
-//     }
-
-//     const minimumHr = Number(date.formatDate(minimumScheduledAt.value, 'HH'));
-//     const minimumMin = Number(date.formatDate(minimumScheduledAt.value, 'mm'));
-
-//     if (hr > minimumHr) {
-//         return true;
-//     }
-
-//     if (hr < minimumHr) {
-//         return false;
-//     }
-
-//     if (min === null) {
-//         return true;
-//     } else if (min >= 0 && min <= 59 && min >= minimumMin) {
-//         return true;
-//     }
-
-//     return false;
-// }
-
-// function copyIPFSLinkToClipboard() {
-//     navigator.clipboard.writeText(`https://${ipfsCid.value}.ipfs.dweb.link/${drawFilename.value}`).then(() => {
-//         console.log('Async: Copying to clipboard was successful!');
-//     }, (err) => {
-//         console.error('Async: Could not copy text: ', err);
-//     });
-// }
-
-// function downloadQrCode() {
-//     let link = document.createElement('a');
-//     link.href = 'http://localhost:9000/src/assets/qr-code.png';
-//     link.download = 'qr-code.png';
-//     document.body.appendChild(link);
-//     link.click();
-//     document.body.removeChild(link);
-// }
-
-// async function deployDraw() {
-
-//     loading.value = true;
-//     const year = Number(date.formatDate(drawScheduledAtDate.value, 'YYYY'));
-//     const month = Number(date.formatDate(drawScheduledAtDate.value, 'MM'));
-//     const day = Number(date.formatDate(drawScheduledAtDate.value, 'DD'));
-//     const hour = Number(drawScheduledAtTime.value.split(':')[0]);
-//     const minute = Number(drawScheduledAtTime.value.split(':')[1]);
-//     const second = 0;
-//     const drawScheduledAt = date.buildDate({ year, month, day, hour, minute, second });
-//     const drawScheduledAtTimestamp = Number(date.formatDate(drawScheduledAt, 'X'));
-
-//     const createdDraw = await DrawService.create(drawTitle.value, drawRules.value, drawParticipants.value, drawNbWinners.value, drawScheduledAtTimestamp);
-
-//     ipfsCid.value = createdDraw.data.ipfsCidString;
-//     drawFilename.value = createdDraw.data.drawFilename;
-//     step.value = 4;
-//     loading.value = false;
-// }
-
-// function reset() {
-//     step.value = 1;
-// }
-
-const showErrorsOnBlur = true
-type StepNumber = 1 | 2 | 3 | 4 | 5
-const startAtStep = 1
-const paymentStep = 4
-
-const steps = [
-    { name: 'Draw name and rules', href: '#rules' },
-    { name: 'Participants', href: '#participants' },
-    { name: 'Schedule', href: '#schedule' },
-    { name: 'Purchase', href: '#purchase' },
-    { name: 'Share', href: '#share' },
-]
-
-type FormInputs = {
-    step1: {
-        name: string
-        rules: string
-    },
-    step2: {
-        participants: string
-        nbWinners: number
-    },
-    step3: {
-
-    },
-    step4: {
-
-    },
-    step5: {
-
-    },
-}
 
 export default function Page() {
 
-    const { register, trigger, formState: { errors, isValid } } = useForm<FormInputs>();
+    const dt = new Date();
+    const safetyCushion = 30; // number of minutes to add as a safety net
+    dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset() + safetyCushion);
+    const scheduledAtMinValue = dt.toISOString().slice(0, 16);
+    const scheduledAtDefaultValue = scheduledAtMinValue;
+
+    const { register, trigger, getValues, formState: { errors, isValid } } = useForm<FormInputs>({
+        defaultValues: {
+            step1: {
+                name: '',
+                rules: ''
+            },
+            step2: {
+                participants: '',
+                nbWinners: undefined
+            },
+            step3: {
+                scheduledAt: scheduledAtDefaultValue
+            }
+        }
+    });
+
+    const showErrorsOnBlur = true
+    type StepNumber = 1 | 2 | 3 | 4 | 5
+    const startAtStep = 1
+    const paymentStep = 4
+    const shareStep = 5
+
     const [currentStep, setCurrentStep] = useState<StepNumber>(startAtStep)
     const [selectedStep, setSelectedStep] = useState<StepNumber>(currentStep)
-    const [clientSecret, setClientSecret] = useState('');
+    const [clientSecret, setClientSecret] = useState<string>('');
+    const [drawLink, setDrawLink] = useState<string>('');
+    const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | undefined>(undefined);
 
-    function createPaymentIntent() {
-        // Create PaymentIntent as soon as the page loads
+    useEffect(() => {
+        if (currentStep !== paymentStep) {
+            return;
+        }
+
+        let ignore = false;
+
         fetch("/api/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ items: [{ id: "1 draw" }] }),
+            body: JSON.stringify({}),
         })
             .then((res) => res.json())
-            .then((data) => setClientSecret(data.clientSecret));
-    }
+            .then((data) => {
+                if (!ignore) {
+                    setClientSecret(data.clientSecret)
+                }
+            });
+
+        return () => {
+            ignore = true;
+        };
+
+    }, [currentStep])
+
+    useEffect(() => {
+        if (currentStep !== shareStep || paymentIntent === undefined) {
+            return;
+        }
+
+        let ignore = false;
+
+        const [drawTitle, drawRules, drawParticipants, drawNbWinners] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners"]);
+        const drawScheduledAt = Math.ceil(getTimestampFromIso(getValues("step3.scheduledAt")) / 1000); // in seconds
+
+        fetch("/api/deploy-draw", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                paymentIntentId: paymentIntent.id,
+                drawTitle,
+                drawRules,
+                drawParticipants,
+                drawNbWinners,
+                drawScheduledAt
+            }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (!ignore) {
+                    setDrawLink(`https://${data.ipfsCidString}.ipfs.dweb.link/${data.drawFilename}`)
+                }
+
+            });
+
+        return () => {
+            ignore = true;
+        };
+    }, [currentStep, paymentIntent, getValues])
 
     function previousStep() {
-        setSelectedStep(selectedStep - 1 as any)
+        setSelectedStep(selectedStep - 1 as StepNumber)
     }
 
     async function nextStep(inputsToValidate: keyof FormInputs) {
-
 
         if (!isValid) {
             await trigger([inputsToValidate]);
@@ -256,28 +217,26 @@ export default function Page() {
         }
 
         if (selectedStep + 1 > currentStep) {
-            setCurrentStep(currentStep + 1 as any)
-
-            if (currentStep + 1 === paymentStep) {
-                createPaymentIntent();
-            }
+            setCurrentStep(currentStep + 1 as StepNumber)
         }
 
-        setSelectedStep(selectedStep + 1 as any)
+        setSelectedStep(selectedStep + 1 as StepNumber)
     }
 
-    function goToStep(stepNumber: number) {
+    function goToStep(stepNumber: StepNumber) {
         return () => {
-            if (stepNumber <= currentStep) {
-                setSelectedStep(stepNumber as any)
+            if (stepNumber > currentStep) {
+                setCurrentStep(stepNumber)
             }
+
+            setSelectedStep(stepNumber)
         }
     }
 
 
-    const options: stripeJs.StripeElementsOptions = {
+    const options: StripeElementsOptions = {
         clientSecret,
-        fonts: [{cssSrc: 'https://fonts.googleapis.com/css?family=Inter'}],
+        fonts: [{ cssSrc: 'https://fonts.googleapis.com/css?family=Inter' }],
         appearance: {
             theme: 'stripe',
             variables: {
@@ -285,16 +244,43 @@ export default function Page() {
                 colorPrimary: '#4f46e5', // = Tailwind indigo-600 color
             },
             disableAnimations: false,
-            // rules: {
-            //     '#submit': {
-            //         border: '10px solid #E0E6EB',
-            //         boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(18, 42, 66, 0.02)',
-            //       }
-            // },
             labels: 'above'
         },
         loader: 'always',
     };
+
+
+    async function onPaymentSuccess(paymentIntent: PaymentIntent) {
+
+        const [drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners", "step3.scheduledAt"]);
+
+        if (!drawTitle || !drawRules || !drawParticipants || !drawNbWinners || !drawScheduledAt) {
+            return;
+        }
+
+        setPaymentIntent(paymentIntent)
+        goToStep(5)();
+    }
+
+    function validateScheduledAtFn() {
+        return getTimestampFromIso(getValues("step3.scheduledAt")) >= getTimestampFromIso(scheduledAtMinValue)
+    }
+
+    // get timestamp in ms from partial iso string
+    function getTimestampFromIso(iso: string) {
+        const isoStr = `${iso}:00.000Z`;
+        const date = new Date(isoStr);
+        const timestampWithOffset = date.getTime();
+        const offset = date.getTimezoneOffset() * 60 * 1000;
+        const timestampWithoutOffset = timestampWithOffset + offset;
+        return timestampWithoutOffset
+    }
+
+    function copyDrawLinkToClipboard() {
+        navigator.clipboard.writeText(drawLink).then(() => { }, (err) => {
+            console.error('Async: Could not copy text: ', err);
+        });
+    }
 
     return (
         <div className="mx-auto max-w-7xl px-6 sm:pt-32 lg:px-8 min-h-full">
@@ -341,9 +327,9 @@ export default function Page() {
                                 // Completed step
                                 <a
                                     href={step.href}
-                                    onClick={goToStep(index + 1)}
+                                    onClick={goToStep(index + 1 as StepNumber)}
                                     className={`group flex flex-col border-l-4 border-indigo-600 py-2 pl-4 hover:border-indigo-800 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
-                                    ${isValid ? '' : ''}`}
+                                    ${isValid && selectedStep !== shareStep ? '' : 'pointer-events-none'}`}
                                 >
                                     <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-800">Step {index + 1}</span>
                                     <span className="text-sm font-medium">{step.name}</span>
@@ -352,7 +338,6 @@ export default function Page() {
                                 // Ongoing step
                                 <a
                                     href={step.href}
-                                    onClick={goToStep(index + 1)}
                                     className="pointer-events-none flex flex-col border-l-4 border-indigo-600 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                                     aria-current="step"
                                 >
@@ -363,7 +348,7 @@ export default function Page() {
                                 // Upcoming available step
                                 <a
                                     href={step.href}
-                                    onClick={goToStep(index + 1)}
+                                    onClick={goToStep(index + 1 as StepNumber)}
                                     className={`group flex flex-col border-l-4 border-indigo-300 py-2 pl-4 hover:border-indigo-600 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
                                     ${isValid ? '' : 'pointer-events-none'}`}
                                 >
@@ -374,7 +359,6 @@ export default function Page() {
                                 // Upcoming unavailable step
                                 <a
                                     href={step.href}
-                                    onClick={goToStep(index + 1)}
                                     className="pointer-events-none group flex flex-col border-l-4 border-gray-200 py-2 pl-4 hover:border-gray-300 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                                 >
                                     <span className="text-sm font-medium text-gray-500 group-hover:text-gray-700">Step {index + 1}</span>
@@ -387,7 +371,7 @@ export default function Page() {
             </nav>
 
             {/* Form */}
-            <div className="mt-12">
+            <form className="mt-12">
                 {
                     (selectedStep === 1) && (
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -396,16 +380,17 @@ export default function Page() {
                                     Name
                                 </label>
                                 <div className="mt-2">
-                                    <div className={`flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset sm:max-w-md
-                                        ${errors.step1?.name && showErrorsOnBlur ? 'ring-red-600' : 'focus-within:ring-indigo-600'}`}>
+                                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset sm:max-w-md">
                                         <input
                                             type="text"
                                             id="name"
                                             placeholder={drawNamePlaceholder}
                                             className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
                                             ${errors.step1?.name && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                            {...register("step1.name", { required: true })}
-                                            onBlur={() => trigger("step1.name")}
+                                            {...register("step1.name", {
+                                                required: 'Name is required',
+                                                onBlur: () => { trigger("step1.name"); },
+                                            })}
                                         />
                                     </div>
                                 </div>
@@ -419,13 +404,15 @@ export default function Page() {
                                 </label>
                                 <div className="mt-2">
                                     <textarea
-                                        rows={6}
+                                        rows={10}
                                         id="rules"
                                         placeholder={drawRulesPlaceholder}
                                         className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
                                         ${errors.step1?.rules && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                        {...register("step1.rules", { required: true })}
-                                        onBlur={() => trigger("step1.rules")}
+                                        {...register("step1.rules", {
+                                            required: 'Rules are required',
+                                            onBlur: () => { trigger("step1.rules"); },
+                                        })}
                                     />
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-600">Rules should be written in natural language</p>
@@ -451,8 +438,10 @@ export default function Page() {
                                         placeholder={drawParticipantsPlaceholder}
                                         className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
                                         ${errors.step2?.participants && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                        {...register("step2.participants", { required: true })}
-                                        onBlur={() => trigger("step2.participants")}
+                                        {...register("step2.participants", {
+                                            required: 'List of participants is required',
+                                            onBlur: () => { trigger("step2.participants"); },
+                                        })}
                                     />
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-600">Each line should contain only one participant</p>
@@ -470,8 +459,10 @@ export default function Page() {
                                         placeholder={drawNbWinnersPlaceholder}
                                         className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
                                         ${errors.step2?.nbWinners && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                        {...register("step2.nbWinners", { required: true })}
-                                        onBlur={() => trigger("step2.nbWinners")}
+                                        {...register("step2.nbWinners", {
+                                            required: 'Number of participants to draw is required',
+                                            onBlur: () => { trigger("step2.nbWinners"); },
+                                        })}
                                     />
                                 </div>
                             </div>
@@ -484,17 +475,37 @@ export default function Page() {
                         <div className="mt-10">
 
                             <div className="text-center">
-                                <label htmlFor="scheduledFor" className="block text-sm font-medium leading-6 text-gray-900">
-                                    When should the draw be triggered ?
+                                <label htmlFor="scheduledAt" className="block text-sm font-normal leading-6 text-gray-900">
+                                Choose the date and time at which the draw will be triggered.<br />
+                                ({(Intl.DateTimeFormat().resolvedOptions().timeZone)} time zone detected)
                                 </label>
                                 <div className="mt-2">
                                     <input
                                         type="datetime-local"
-                                        id="scheduledFor"
-                                        name="scheduledFor"
-                                        defaultValue="2018-06-12T19:30"
-                                        min="2018-06-07T00:00"
+                                        id="scheduledAt"
+                                        min={scheduledAtMinValue}
+                                        className={`block m-auto rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
+                                        ${errors.step3?.scheduledAt && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step3.scheduledAt", {
+                                            required: 'Scheduled date and time is required',
+                                            validate: validateScheduledAtFn,
+                                            onBlur: () => { trigger("step3.scheduledAt"); },
+                                        })}
                                     ></input>
+                                </div>
+                            </div>
+
+                            <div className="rounded-md bg-blue-50 p-4 mt-8">
+                                <div className="flex">
+                                    <div className="flex-shrink-0">
+                                        <InformationCircleIcon className="h-5 w-5 text-blue-400" aria-hidden="true" />
+                                    </div>
+                                    <div className="ml-3 flex-1 md:flex md:justify-between">
+                                        <p className="text-sm text-blue-700">
+                                            In order to be verifiable, the draw has to occur after the draw link is shared to the participants. Otherwise, nothing guarantees that you did not intentionally run several draws in parallel and only shared the one whose result you like best.
+                                            For this reason, <span className="font-semibold">we recommend you to choose a date and time which is at least 30 minutes in the future and to share the draw link immediately after it is generated</span>.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 
@@ -504,15 +515,107 @@ export default function Page() {
 
                 {/* Payment step, hidden by default but needs to always be in the DOM
                 to prevent re-rendering when the user switch between steps */}
-                <div className={`mt-10 m-auto w-1/2 ${selectedStep === paymentStep ? '' : 'hidden'}`}>
+                <div className={`flex items-center mt-10 w-full ${selectedStep === paymentStep ? '' : 'hidden'}`}>
 
-                    {clientSecret && (
-                        <Elements options={options} stripe={stripePromise}>
-                            <CheckoutForm />
-                        </Elements>
-                    )}
+                    <p className="flex-auto w-64 mt-0 px-24 py-16 border-r border-gray-200 text-md font-light tracking-wide text-gray-800 sm:text-md text-center">
+                        <span className="italic">Verifiable Draws</span> is the only draw platform in the world which prevents all kinds of fraud.
+                        <br /><br />
+                        Therefore, by choosing us, you are contributing to make the world a better place and inspiring others to do the same.
+                        <br /><br />
+                        This is the last step before deploying your draw.<br />
+                        The decentralized world awaits you. ✨
+                    </p>
+                    <div className="flex-auto px-24 w-32">
+                        <p className="mt-0 text-xl font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-xl text-center">
+                            Purchase a single draw
+                        </p>
+
+                        <p className="mt-0 text-base font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-base text-center">
+                            Total: 29,00€
+                        </p>
+
+                        {clientSecret && (
+                            <Elements options={options} stripe={stripePromise}>
+                                <CheckoutForm onPaymentSuccess={onPaymentSuccess} />
+                            </Elements>
+                        )}
+                    </div>
 
                 </div>
+
+                {
+                    (selectedStep === 5) && (
+                        <div className="mt-10">
+
+                            <div className="rounded-md bg-green-50 p-4">
+                                <div className="flex">
+                                    <div className="flex-shrink-0">
+                                        <CheckCircleIcon className="h-5 w-5 text-green-400" aria-hidden="true" />
+                                    </div>
+                                    <div className="ml-3">
+                                        <p className="text-sm font-medium text-green-800">Payment successful</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {
+                                (!drawLink) ? (
+                                    <div className="rounded-md bg-yellow-50 p-4 mt-4">
+                                        <div className="flex">
+                                            <div className="flex-shrink-0">
+                                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                    <path className="opacity-75" fill="orange" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                            </div>
+                                            <div className="ml-3">
+                                                <h3 className="text-sm font-medium text-yellow-800">
+                                                    Deploying the draw on IPFS and Ethereum.
+                                                </h3>
+                                                <div className="mt-2 text-sm text-yellow-700">
+                                                    <p>
+                                                        This action generally takes about a minute, please wait without closing the page.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="text-center">
+                                        <p className="mt-8 text-md">
+                                            The draw has successfully been deployed to IPFS and Ethereum. 🎉<br />
+                                            You can now share the following link to the participants so that they can access the draw details.
+                                        </p>
+
+                                        <div className="rounded-md bg-white/50 ring-2 ring-indigo-800 my-12 px-8 py-4 text-xl flex justify-center">
+                                            <div className="text-ellipsis overflow-hidden mx-2">
+                                                {drawLink}
+                                            </div>
+
+                                            <Link href={drawLink} rel="noopener" target="_blank" className="mx-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                                                </svg>
+                                            </Link>
+
+                                            <div onClick={copyDrawLinkToClipboard} className="cursor-pointer mx-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <p className="mt-8 text-md">
+                                            If you need further assistance please join our Discord server, we will be happy to help you.<br />
+                                            Thank you for using our service and making the world more decentralized.
+                                        </p>
+                                    </div>
+                                )
+                            }
+
+                        </div>
+                    )
+                }
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                     {
@@ -538,7 +641,7 @@ export default function Page() {
                         )
                     }
                     {
-                        (selectedStep === steps.length) && (
+                        (selectedStep === steps.length && drawLink) && (
                             <Link href="/">
                                 <button
                                     type="button"
@@ -551,119 +654,7 @@ export default function Page() {
                     }
                 </div>
 
-            </div>
-
-            {/* <q-stepper v-model="step" ref="stepper" color="primary" header-nav animated flat> */}
-
-
-            {/* <q-step :name="1" title="Nom du tirage et règles" icon="settings" :done="step > 1" :header-nav="step > 1 && step != 4 && !loading">
-                    <q-input outlined v-model="drawTitle" class="q-my-lg" :input-style="{ fontSize: '1.3em', lineHeight: '26px' }" label="Nom du tirage" :placeholder="titlePlaceholder"
-                            :rules="[val => !!val || 'Ce champ est requis']" />
-
-                        <q-input v-model="drawRules" outlined class="q-my-lg" :input-style="{ fontSize: '1.3em', lineHeight: '26px', height: '230px' }" type="textarea" label="Règles"
-                            :placeholder="rulesPlaceholder" :rules="[val => !!val || 'Ce champ est requis']" />
-
-                        <q-stepper-navigation>
-                            <div class="stepper-navigation-inner-content">
-                                <q-btn @click="() => { step = 2; }" color="primary" label="Continuer" />
-                            </div>
-                        </q-stepper-navigation>
-                </q-step> */}
-
-
-            {/* <q-step :name="2" title="Participants" icon="group" :done="step > 2" :header-nav="step > 2 && step != 4 && !loading">
-                    <div class="step-inner-content">
-                        <div class="step-inner-content__text">
-                            Comment voulez-vous récupérer la liste des participants ?
-                        
-                            <div class="q-gutter-sm q-my-lg">
-                                <q-option-group :options="options" type="radio" v-model="participantsRetrieval" />
-                            </div>
-                        </div>
-
-                        <q-input v-model="drawParticipants" outlined class="q-my-lg" :input-style="{ fontSize: '1.3em', lineHeight: '26px' }" type="textarea" label="Liste des participants"
-                            :placeholder="participantsPlaceholder" :rules="[val => !!val || 'Ce champ est requis']" />
-
-                        <q-input v-model="drawNbWinners" type="number" outlined class="q-my-lg" :input-style="{ fontSize: '1.3em', lineHeight: '26px' }" 
-                            label="Nombre de gagnants" :placeholder="nbWinnersPlaceholder" style="max-width: 300px" />
-
-                        <q-stepper-navigation>
-                            <div class="stepper-navigation-inner-content">
-                                <q-btn flat @click="step = 1" color="primary" label="Précédent" class="q-ml-sm" />
-                                <q-btn @click="() => { step = 3; }" color="primary" label="Continuer" />
-                            </div>
-                        </q-stepper-navigation>
-                    </div>
-                </q-step> */}
-
-
-            {/* <q-step :name="3" title="Date et heure de déclenchement" icon="event" :done="step > 3" :header-nav="step > 3 && step != 4 && !loading">
-                    <div class="step-inner-content">
-                        <div class="step-inner-content__text">
-                            <p class="text-center q-my-lg">
-                                Le tirage doit être programmé au moins 5 minutes dans le futur.
-                                Nous imposons cette contrainte afin de vous laisser le temps de partager le lien du tirage aux participants avant que le tirage ne se déclenche.
-                            </p>
-                        </div>
-
-                        <div class="row justify-evenly">
-                            <q-date v-model="drawScheduledAtDate" :options="dateOptionsFn" now-btn class="q-my-lg" :locale="myLocale" />
-                            <q-time v-model="drawScheduledAtTime" :options="timeOptionsFn" format24h class="q-my-lg" />
-                        </div>
-
-                        <q-stepper-navigation>
-                            <div class="stepper-navigation-inner-content">
-                                <q-btn flat @click="step = 2" color="primary" label="Précédent" class="q-ml-sm" :disable="loading" />
-                                <q-btn @click="deployDraw" color="primary" label="Publier" :loading="loading" :disable="loading" />
-                            </div>
-                        </q-stepper-navigation>
-                    </div>
-                </q-step> */}
-
-
-            {/* <q-step :name="4" title="Partager le tirage" icon="sms" :done="step > 4" :header-nav="false">
-                    <div class="step-inner-content">
-                        <div class="step-inner-content__text">
-                            <p class="text-center q-my-lg">
-                                Votre tirage a été déployé avec succès sur IPFS et Ethereum 🎉<br />
-                                Il ne vous reste plus qu'à partager le lien suivant aux participants :
-                            </p>
-                        
-                            <div class="ipfs-card row justify-center items-center">
-                                <p class="ipfs-card__cid q-mb-none q-mr-lg">https://{{ ipfsCid }}.ipfs.dweb.link/{{ drawFilename }}</p>
-                                <!-- <q-icon name="content_copy" /> -->
-                                <q-btn round unelevated icon="content_copy" @click="copyIPFSLinkToClipboard()" />
-                                <q-btn round unelevated icon="open_in_new" :href="'https://' + ipfsCid + '.ipfs.dweb.link/' + drawFilename" target="_blank" />
-                            </div>
-                            <p class="text-center q-my-lg">
-                                Pour que le tirage soit valide vous DEVEZ partager ce lien avant le <span class="text-underline">{{ drawScheduledAtDate }} à {{ drawScheduledAtTime }}</span>.
-                            </p>
-                            <p class="text-center q-my-lg">
-                                Autrement vous pouvez partager ce QR code qui est le strict équivalent du lien ci-dessus:
-                            </p>
-                            <div class="row justify-center items-center">
-                                <q-img
-                                    src="./../assets/qr-code.png"
-                                    style="width: 300px"
-                                    />
-                                <q-btn round unelevated icon="download" @click="downloadQrCode()" class="q-ml-lg" />
-                            </div>
-                        </div>
-                        
-                        <q-stepper-navigation>
-                            <div class="stepper-navigation-inner-content">
-                                <q-btn color="primary" @click="reset" label="Créer un nouveau tirage" />
-                            </div>
-                        </q-stepper-navigation>
-                    </div>
-                </q-step> */}
-
-
-            {/* </q-stepper> */}
-
-
-
-
+            </form>
 
         </div>
     )

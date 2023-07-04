@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -9,8 +10,8 @@ import {
 } from '@heroicons/react/24/solid'
 
 export const metadata = {
-  title: 'Verifiable Draws - Build a brand that everyone trust',
-  description: 'Organize random draws and contests which are impossible to rig thanks to decentralized technologies, allowing you to prove the whole world that your company is trustworthy.',
+  title: 'Verifiable Draws - Build a company that everyone trust',
+  description: 'Verifiable Draws enables you to organize random draws and contests which are completely transparent thanks to decentralized technologies, allowing you to prove the whole world that your company is trustworthy.',
 }
 
 const navigation: any[] = [
@@ -82,7 +83,7 @@ export default function RootLayout({
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <Link href="/" className="-m-1.5 p-1.5">
                         <div className="flex lg:flex-1 items-center">
-                            <img
+                            <Image
                                 className="h-8 w-auto"
                                 src="/vd-logo.svg"
                                 alt=""
@@ -121,7 +122,7 @@ export default function RootLayout({
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
-                <img
+                <Image
                   className="h-8 w-auto"
                   src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                   alt=""
