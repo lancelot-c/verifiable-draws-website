@@ -30,11 +30,16 @@
         
         const contractAddress = '{{ contractAddress }}';
         const contract = new ethers.Contract(contractAddress, [
-            'function getEntropy(string cid) external view returns (bytes memory)',
+            'function getRandomnessForDraw(string cid) external view returns (bytes memory)',
         ], provider);
 
         const url = window.location.href;
         console.log(`url = ${url}`);
+
+        const pageUrlElmts = document.getElementsByClassName('pageUrl');
+        for (let i = 0; i < pageUrlElmts.length; i++) {
+            pageUrlElmts[i].innerHTML = url;
+        }
 
         const stringCID = url.slice(8).split('.')[0]
         console.log(`stringCID = ${stringCID}`);
@@ -54,7 +59,7 @@
         const scheduledAt = new Date({{ drawScheduledAt }} * 1000);
         const scheduledAtString = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'medium', timeStyle: 'short' }).format(scheduledAt);
         const scheduledAtElmt = document.getElementsByClassName("draw-scheduled-at")[0];
-        scheduledAtElmt.innerHTML = `Tirage au sort réalisé le ${scheduledAtString}`;
+        scheduledAtElmt.innerHTML = `Draw scheduled for ${scheduledAtString}`;
         const loadingElmt = document.getElementsByClassName("draw-ongoing")[0];
         const isDrawOngoing = scheduledAt.getTime() <= Date.now();
 
@@ -117,7 +122,7 @@
 
         async function checkDrawResult() {
 
-            let entropy = await contract.getEntropy(stringCID);
+            let entropy = await contract.getRandomnessForDraw(stringCID);
             console.log(`entropy = ${entropy}`);
             return [entropy != '0x', entropy];
         }
@@ -299,6 +304,10 @@
             color: #0000EE;
         }
 
+        .verify-sentence {
+            font-size: 0.8em;
+        }
+
         code {
             padding: 0.2em 0.4em;
             margin: 0;
@@ -413,11 +422,11 @@
         </div>
         <div class="certified-section__txt">
             <p>
-                Le présent tirage au sort est réalisé par un algorithme dont le <a href="#" class="verifiable-code-modal-open" data-id="verifiable-code-modal">code</a> ainsi que le <a href="#" class="verifiable-outcome-modal-open" data-id="verifiable-outcome-modal">résultat</a> sont vérifiables par tous les participants, 
-                ce qui garantit que le tirage est équitable et aléatoire.
+                This draw is performed by a decentralized algorithm whose code and result are both verifiable 
+                by any participant at any time, which guarantees that the draw is completely fair and random.
             </p>
             <p class="powered-by">
-                Sécurisé par <a href="https://www.verifiabledraws.com/" target="_blank">Verifiable Draws</a>
+                Powered by <a href="https://www.verifiabledraws.com/" target="_blank">Verifiable Draws</a>
             </p>
         </div>
 
@@ -429,21 +438,27 @@
             <div class="draw-ongoing">
                 <div class="first-line">
                     <div class="lds-dual-ring"></div>
-                    <h3>Le tirage au sort est en cours, veuillez patienter...</h3>
+                    <h3>Draw in progress, please wait...</h3>
                 </div>
             </div>
         </div>
         <hr />
 
         <div class="draw-parameter winners">
-            <h2>Résultat du tirage:</h2>
+            <h2>Draw result:</h2>
             <ul class="draw-parameter__value winners__list">
             </ul>
+            <p class="draw-parameter__value verify-sentence">
+                You don't trust this result ?
+                <a href="#" class="verifiable-outcome-modal-open" data-id="verifiable-outcome-modal">
+                    Verify it yourself !
+                </a>
+            </p>
             <hr />
         </div>
 
         <div class="draw-parameter">
-            <h2>Règlement:</h2>
+            <h2>Rules:</h2>
             <p class="draw-parameter__value">
                 {{ drawRules }}
             </p>
@@ -464,7 +479,7 @@
 
 
     <!-- Verifiable code modal -->
-    <div id="verifiable-code-modal" class="modal" role="dialog" tabindex="-1">
+    <!-- <div id="verifiable-code-modal" class="modal" role="dialog" tabindex="-1">
         <div class="model-inner">
             <div class="modal-header">
                 <h2>Vérifier le code du tirage</h2>
@@ -516,19 +531,38 @@
                 Une explication détaillée du fonctionnement d'IPFS est disponible <a href="https://ipfs.tech/#how" target="_blank">sur leur site</a>.
             </p>
         </div>
-    </div>
+    </div> -->
 
 
     <!-- Verifiable outcome modal -->
     <div id="verifiable-outcome-modal" class="modal" role="dialog" tabindex="-1">
         <div class="model-inner">
             <div class="modal-header">
-                <h2>Vérifier le résultat du tirage</h2>
+                <h2>Verify the draw result</h2>
                 <span class="modal-close" data-id="verifiable-outcome-modal" aria-label="Close">
                     &times;
                 </span>
             </div>
             <p>
+                This draw is a <a href="https://www.verifiabledraws.com/" target="_blank">verifiable draw</a>, 
+                which means that any participant can verify the draw result and gain an absolute certainty that the draw was indeed performed in a fair and random way.<br />
+                The good news is that you don't need to be an IT expert to verify it.<br />
+                Here are the simple steps to follow :
+
+                <h2>Verify the draw parameters</h2>
+                <hr />
+                This web page contains all the draw parameters : the name of the draw, the rules of the draw, the date and time at which the draw should be triggered, the list of participants, the number of participants to draw, the address of the smart contract where the random number will be picked, and how this random number will be converted into a list of winners.
+                To prevent anyone from modifying these parameters, and thus from rigging the draw, a copy of this page is also stored on <a href="https://ipfs.tech/" target="_blank">IPFS</a>, also known as the "Decentralized Web" or web3. Everything which is stored on IPFS cannot be modified once it is published. It is indeed what we want for the draw parameters.
+                To verify that the IPFS page and this current page are two identical copies, first copy the unique ID of this draw which you can find in the URL (<span class="stringCID"></span> in this case), then download an IPFS-compatible browser like <a href="https://brave.com/" target="_blank">Brave</a> open the URL <code>ipfs://<span class="stringCID"></span></code> in Brave and compare its source code with the source code of this current page. If they are identical, it means the draw parameters were not rigged.
+                <br /><br />
+                You can access the source code of a page with <code>Right click > View page source</code>, and you can compare source codes with an online tool such as <a href="https://www.diffchecker.com/" target="_blank">this one</a>.
+
+
+                <h2>Verify the list of participants</h2>
+                <hr />
+                An additional verification needs to be performed on the list of participants
+
+
 
 
                 Cette page contient tous les paramètres nécessaires au bon déroulement du tirage :
