@@ -1,13 +1,20 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import goldMedalImg from '/public/medaille-or-lepine-500w.png'
+import graphiqueTechnique from '/public/graphique-technique-1500w.png'
+import fdjLogoImg from '/public/fdj-logo-300w.png'
+import presseCitronLogoImg from '/public/presse-citron-nav.svg'
+import ipfsLogoImg from '/public/ipfs-logo-without-text.svg'
+import tf1LogoImg from '/public/tf1-logo-300w.png'
+import ethereumLogoImg from '/public/ethereum-logo-100w.png'
+import chainlinkLogoImg from '/public/chainlink-logo-100w.png'
+import fidealisLogoImg from '/public/fidealis-logo-300w.png'
+import kastelCoLogoImg from '/public/kastel-co-logo-300w.png'
 
 import {
     ArrowTrendingUpIcon,
-    Bars3Icon,
     BuildingLibraryIcon,
     CheckIcon,
-    CurrencyDollarIcon,
-    GlobeEuropeAfricaIcon,
     RocketLaunchIcon,
     ShieldCheckIcon,
 } from '@heroicons/react/24/solid'
@@ -140,7 +147,8 @@ export default function Example() {
                 <div className="mx-auto max-w-2xl text-center">
                     <Image
                         className="gold-medal m-auto -z-10 lg:absolute"
-                        src="/medaille-or-lepine-small.png"
+                        sizes="210px"
+                        src={goldMedalImg}
                         alt="Médaille d'or du Concours Lépine 2023"
                     />
                     <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
@@ -166,25 +174,13 @@ export default function Example() {
               <div className="mt-16 flow-root sm:mt-24">
                 <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                   <Image
-                    src="/graphique-technique.png"
+                    sizes="94vw"
+                    src={graphiqueTechnique}
                     alt="App screenshot"
-                    width={2432}
-                    height={1442}
                     className="rounded-md shadow-2xl ring-1 ring-gray-900/10"
                   />
                 </div>
               </div>
-
-              {/* <div className="mt-16 flow-root sm:mt-24">
-                <div className="-m-2 p-2 lg:-m-4 lg:p-4">
-                  <Image
-                    src="/verify-win.png"
-                    alt="App screenshot"
-                    width={2432}
-                    height={1442}
-                  />
-                </div>
-              </div> */}
               
             </div>
           </div>
@@ -207,18 +203,9 @@ export default function Example() {
           <div className="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5  grayscale-[90%]">
             <Image
               className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-              src="/fdj-logo.png"
-              alt="Transistor"
-              width={158}
-              height={48}
+              src={fdjLogoImg}
+              alt="FDJ"
             />
-            {/* <Image
-              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-              src="/hdjp-logo.jpg"
-              alt="Reform"
-              width={158}
-              height={48}
-            /> */}
             
             {/* <svg viewBox="0 0 500 65">
             
@@ -252,30 +239,24 @@ export default function Example() {
             
             <Image
               className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-              src="/presse-citron-nav.svg"
+              src={presseCitronLogoImg}
               alt="Presse Citron"
             />
 
             <Image
               className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-              src="/fidealis-logo.png"
+              src={fidealisLogoImg}
               alt="Tuple"
-              width={158}
-              height={48}
             />
             <Image
               className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-              src="/tf1-logo.png"
+              src={tf1LogoImg}
               alt="SavvyCal"
-              width={158}
-              height={48}
             />
             <Image
               className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-              src="/kastel-co-logo.png"
-              alt="Statamic"
-              width={158}
-              height={48}
+              src={kastelCoLogoImg}
+              alt="Kastel Co"
             />
           </div>
           {/* <div className="mt-16 flex justify-center">
@@ -515,8 +496,8 @@ export default function Example() {
                                 <div data-icon="true" style={{boxSizing: 'border-box', height: '40px', display: 'flex', alignItems: 'center', marginBottom: 'auto', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
                                     <Image
                                         className="h-14 w-auto"
-                                        src="/ipfs-logo-without-text.svg"
-                                        alt=""
+                                        src={ipfsLogoImg}
+                                        alt="IPFS"
                                     />
                                 </div>
                                 <div data-version="v1" style={{display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', flex: '0 1 auto', gap: '4px', outlineColor: 'rgb(37, 99, 235)', boxSizing: 'border-box', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
@@ -536,7 +517,7 @@ export default function Example() {
                                 <div data-icon="true" style={{boxSizing: 'border-box', height: '40px', display: 'flex', alignItems: 'center', marginBottom: 'auto', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
                                 <Image
                                     className="h-14 w-auto"
-                                    src="/ethereum-logo.png"
+                                    src={ethereumLogoImg}
                                     alt=""
                                 />
                                 </div>
@@ -556,7 +537,7 @@ export default function Example() {
                                 <div data-icon="true" style={{boxSizing: 'border-box', height: '40px', display: 'flex', alignItems: 'center', marginBottom: 'auto', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
                                 <Image
                                     className="h-14 w-auto"
-                                    src="/chainlink-logo.png"
+                                    src={chainlinkLogoImg}
                                     alt=""
                                 />
                                 </div>
