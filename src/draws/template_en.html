@@ -22,25 +22,28 @@
     
     <script type="module">
 
-        // Equivalent to https://cdn.ethers.io/lib/ethers-5.7.esm.min.js
-        import { ethers } from "https://bafybeihbbwwchkazi6gb6weqqehhyj3h2kioohwxqfhkea2cb4z7vfx2p4.ipfs.dweb.link/ethers-5.7.esm.min.js";
+        const url = window.location.href;
+        const cid = url.slice(8).split('.')[0]
+        populateDom('cid', cid)
 
-        const providerURL = '{{ providerURL }}';
-        populateDom('providerURL', providerURL)
-        const provider = new ethers.providers.JsonRpcProvider(providerURL);
-        
+        const network = '{{ network }}';
+        populateDom('network', network)
+
         const contractAddress = '{{ contractAddress }}';
         populateDom('contractAddress', contractAddress)
 
-        const contract = new ethers.Contract(contractAddress, [
-            'function getRandomnessForDraw(string cid) external view returns (bytes memory)',
-        ], provider);
+        // Fetch randomness
+        fetch(`https://www.verifiabledraws.com/api/blockchain/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`)
+            .then((response) => {
+                console.log('api/blockchain/getRandomnessForDraw response', response);
+            })
 
-        const url = window.location.href;
-        populateDom('url', url)
 
-        const stringCID = url.slice(8).split('.')[0]
-        populateDom('stringCID', stringCID)
+        // Fetch storage proofs
+        fetch(`https://www.verifiabledraws.com/api/draw/status?rootCid=${cid}`)
+            .then((response) => {
+                console.log('api/draw/status response', response);
+            })
 
         const drawParticipants = [{{ drawParticipants }}];
         document.getElementsByClassName("var_drawParticipants")[0].innerHTML = drawParticipants.map(p => `<li>${p}</li>`).join('');
@@ -65,11 +68,6 @@
             loadingElmt.style.display = 'block';
             periodicallyCheckDrawResult();
         }
-
-        fetch(`https://www.verifiabledraws.com/api/draw/status?rootCid=${stringCID}`)
-            .then((response) => {
-                console.log(`response = ${response}`);
-            })
 
         // Modal
         let modal;
@@ -131,9 +129,9 @@
         }
 
         async function checkDrawResult() {
-
-            let entropy = await contract.getRandomnessForDraw(stringCID);
-            console.log(`entropy = ${entropy}`);
+            
+            let entropy = await fetch(`https://www.verifiabledraws.com/api/blockchain/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
+            console.log('entropy = ', entropy);
             return [entropy != '0x', entropy];
         }
 
@@ -506,7 +504,7 @@
                 This web page contains all the draw parameters : the name of the draw, the rules of the draw, the date and time at which the draw should be triggered, the list of participants, the number of participants to draw, the address of the smart contract where the random number will be picked, and how this random number will be converted into a list of winners.
                 To prevent anyone from modifying these parameters and thus from rigging the draw, this page is not stored on the regular centralized Web (also known as web2), it is instead stored on the decentralized Web (known as web3) thanks to a technology called <a href="https://ipfs.tech/" target="_blank">IPFS</a>. Everything which is stored using IPFS cannot be modified once it is published. It is indeed what we want for the draw parameters.
                 <br /><br />
-                If you want to check that this page is indeed stored on IPFS, first copy the unique ID of this draw that you can find in the URL (<span class="var_stringCID"></span> in this case), then download an IPFS-compatible browser like <a href="https://brave.com/" target="_blank">Brave</a> open the URL <code>ipfs://<span class="var_stringCID"></span></code> in Brave and compare its source code with the source code of this page. If they are identical, it means that this page is indeed stored on IPFS, so it unforgeable and you have the guarantee that the draw parameters cannot be rigged.
+                If you want to check that this page is indeed stored on IPFS, first copy the unique ID of this draw that you can find in the URL (<span class="var_cid"></span> in this case), then download an IPFS-compatible browser like <a href="https://brave.com/" target="_blank">Brave</a> open the URL <code>ipfs://<span class="var_cid"></span></code> in Brave and compare its source code with the source code of this page. If they are identical, it means that this page is indeed stored on IPFS, so it unforgeable and you have the guarantee that the draw parameters cannot be rigged.
                 <br /><br />
                 ℹ️ You can access the source code of a page with <code>Right click > View page source</code>, and you can compare the difference between source codes with an online tool such as <a href="https://www.diffchecker.com/" target="_blank">this one</a>.
                 <br /><br />
@@ -529,7 +527,7 @@
                 <br /><br />
                 Pour éviter que quiconque ne modifie ces données, nous utilisons la technologie <a href="https://ipfs.tech/" target="_blank">IPFS</a> qui fournit des URLs pointant vers des pages dont le code source ne peut pas être modifié.
                 <br /><br />
-                Dans le cadre de ce tirage, l'URL du tirage est <code>https://www.verify.win/ipfs/<span class="var_stringCID"></span></code> qui pointe en fait vers l'URL <code>ipfs://<span class="var_stringCID"></span></code> dont le contenu est infalsifiable.
+                Dans le cadre de ce tirage, l'URL du tirage est <code>https://www.verify.win/ipfs/<span class="var_cid"></span></code> qui pointe en fait vers l'URL <code>ipfs://<span class="var_cid"></span></code> dont le contenu est infalsifiable.
                 <br /><br />
                 Vous pouvez utiliser un navigateur compatible avec IPFS tel que <a href="https://brave.com/fr/" target="_blank">Brave</a> pour accéder à ces 2 adresses et vérifier que leur contenu est identique, ce qui prouve que les données du tirage n'ont pas été altérées depuis la création du tirage.
                 <br /><br />

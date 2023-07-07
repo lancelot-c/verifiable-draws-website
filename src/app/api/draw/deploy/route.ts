@@ -191,12 +191,13 @@ async function generateDrawFile(drawTitle: string, drawRules: string, drawPartic
 
     const content = await fsPromises.readFile(templateFilepath, 'utf8');
 
+    const network = providerBaseURL.slice(8).split('.')[0];
     const drawParticipantsArray = drawParticipants.split('\n');
     const drawParticipantsList = `'${drawParticipantsArray.join('\',\'')}'`;
 
     // Replace placeholders with draw parameters
     const newContent = content
-        .replaceAll('{{ providerURL }}', providerURL)
+        .replaceAll('{{ network }}', network)
         .replaceAll('{{ contractAddress }}', contractAddress)
         .replaceAll('{{ drawTitle }}', drawTitle)
         .replaceAll('{{ drawScheduledAt }}', unix_timestamp.toString())

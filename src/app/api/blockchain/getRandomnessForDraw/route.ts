@@ -1,0 +1,51 @@
+import { NextResponse } from 'next/server'
+import fsPromises from 'fs/promises';
+import path from 'path'
+import { ethers } from 'ethers';
+
+
+export async function GET(request: Request) {
+
+    const { searchParams } = new URL(request.url)
+    const network = searchParams.get('network')
+    const contractAddress = searchParams.get('contractAddress')
+    const cid = searchParams.get('cid')
+
+    console.log(`api/draw/status called with network = ${network}, contractAddress = ${contractAddress}, and cid = ${cid}`);
+
+    if (!network || !contractAddress || !cid) {
+        throw new Error("'network', 'contractAddress', and 'cid' parameters are required.")
+    }
+
+    if (!process.env.WALLET_PRIVATE_KEY) {
+        throw new Error("process.env.WALLET_PRIVATE_KEY is required.")
+    }
+
+    const providerBaseURL = (network === 'polygon-mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL;
+    const providerKey = (network === 'polygon-mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY;
+    const providerURL = `${providerBaseURL}${providerKey}`;
+
+    const jsonRpcProvider = new ethers.JsonRpcProvider(providerURL)
+    const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, jsonRpcProvider);
+
+    const contractArtifactFilePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
+    const contractArtifact = await fsPromises.readFile(contractArtifactFilePath);
+    const contractAbi = JSON.parse(contractArtifact.toString()).abi;
+
+
+    const contract = new ethers.Contract(
+        contractAddress,
+        contractAbi,
+        wallet
+    );
+
+    const randomness = await contract.getRandomnessForDraw(cid);
+    const response = { bytes: randomness }
+
+    return NextResponse.json(response, {
+        status: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*', // Allow all IPFS gateways to query this endpoint
+        },
+    });
+}
