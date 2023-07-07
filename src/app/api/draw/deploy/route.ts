@@ -9,10 +9,10 @@ import crypto from 'crypto'
 import { Web3Storage, getFilesFromPath } from 'web3.storage';
 const network = (process.env.NEXT_PUBLIC_ENV === 'dev') ? 'testnet' : 'mainnet';
 // const gasStationURL = (network == 'mainnet') ? process.env.MAINNET_GAS_STATION_URL : process.env.TESTNET_GAS_STATION_URL;
-const providerBaseURL = ((network == 'mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL) as string;
-const providerKey = ((network == 'mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY) as string;
+const providerBaseURL = ((network === 'mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL) as string;
+const providerKey = ((network === 'mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY) as string;
 const providerURL = `${providerBaseURL}${providerKey}`;
-const contractAddress = ((network == 'mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
+const contractAddress = ((network === 'mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
 const filePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
 
 

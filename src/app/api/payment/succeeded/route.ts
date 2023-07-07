@@ -13,7 +13,7 @@ const stripe = new Stripe(stripeSecretKey, {
 });
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
-const endpointSecret = "whsec_e58fae767ab64a44f8181158a4f12a6485bd09cc5c0954e5752e479c32bf8027";
+const endpointSecret = (process.env.NEXT_PUBLIC_ENV === 'dev') ? process.env.PAYMENT_SUCCEEDED_SIGNING_SECRET_TEST : process.env.PAYMENT_SUCCEEDED_SIGNING_SECRET_PROD;
 
 export async function POST(request: Request) {
 
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     try {
         const body = await request.text()
         
-        if (sig) {
+        if (sig && endpointSecret) {
             event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
         }
         
