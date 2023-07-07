@@ -151,7 +151,7 @@ export default function Page() {
 
         let ignore = false;
 
-        fetch("/api/create-payment-intent", {
+        fetch("/api/payment/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({}),
@@ -179,7 +179,7 @@ export default function Page() {
         const [drawTitle, drawRules, drawParticipants, drawNbWinners] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners"]);
         const drawScheduledAt = Math.ceil(getTimestampFromIso(getValues("step3.scheduledAt")) / 1000); // in seconds
 
-        fetch("/api/deploy-draw", {
+        fetch("/api/draw/deploy", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
