@@ -11,15 +11,24 @@ export async function GET(request: Request) {
     const contractAddress = searchParams.get('contractAddress')
     const cid = searchParams.get('cid')
 
-    console.log(`api/draw/status called with network = ${network}, contractAddress = ${contractAddress}, and cid = ${cid}`);
-
     if (!network || !contractAddress || !cid) {
         throw new Error("'network', 'contractAddress', and 'cid' parameters are required.")
     }
 
-    if (!process.env.WALLET_PRIVATE_KEY) {
-        throw new Error("process.env.WALLET_PRIVATE_KEY is required.")
+    if (network !== "polygon-mainnet" && network !== "polygon-mumbai") {
+        throw new Error("Network not supported.")
     }
+
+    const expectedContractAddress = ((network === 'polygon-mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
+    if (contractAddress !== expectedContractAddress) {
+        throw new Error("Wrong contract address.")
+    }
+
+    if (!process.env.WALLET_PRIVATE_KEY) {
+        throw new Error("process.env.WALLET_PRIVATE_KEY not found.")
+    }
+
+    console.log(`api/draw/status called with network = ${network}, contractAddress = ${contractAddress}, and cid = ${cid}`);
 
     const providerBaseURL = (network === 'polygon-mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL;
     const providerKey = (network === 'polygon-mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY;

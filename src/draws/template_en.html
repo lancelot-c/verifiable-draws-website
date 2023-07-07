@@ -32,17 +32,12 @@
         const contractAddress = '{{ contractAddress }}';
         populateDom('contractAddress', contractAddress)
 
-        // Fetch randomness
-        fetch(`https://www.verifiabledraws.com/api/blockchain/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`)
-            .then((response) => {
-                console.log('api/blockchain/getRandomnessForDraw response', response);
-            })
-
-
         // Fetch storage proofs
         fetch(`https://www.verifiabledraws.com/api/draw/status?rootCid=${cid}`)
             .then((response) => {
-                console.log('api/draw/status response', response);
+                console.log('api/draw/status response');
+                console.log(response);
+                console.log(response.deals);
             })
 
         const drawParticipants = [{{ drawParticipants }}];
@@ -131,8 +126,11 @@
         async function checkDrawResult() {
             
             let entropy = await fetch(`https://www.verifiabledraws.com/api/blockchain/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
-            console.log('entropy = ', entropy);
-            return [entropy != '0x', entropy];
+            console.log('entropy = ');
+            console.log(entropy);
+            console.log(entropy.bytes);
+
+            return [entropy.bytes != '0x', entropy.bytes];
         }
 
         async function pickWinners(entropy) {
