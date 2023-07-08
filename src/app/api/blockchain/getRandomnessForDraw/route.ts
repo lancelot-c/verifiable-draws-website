@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import fsPromises from 'fs/promises';
 import path from 'path'
 import { ethers } from 'ethers';
+import { kv } from "@vercel/kv";
 
 
 export async function GET(request: Request) {
@@ -30,31 +31,55 @@ export async function GET(request: Request) {
 
     console.log(`api/draw/status called with network = ${network}, contractAddress = ${contractAddress}, and cid = ${cid}`);
 
-    const providerBaseURL = (network === 'polygon-mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL;
-    const providerKey = (network === 'polygon-mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY;
-    const providerURL = `${providerBaseURL}${providerKey}`;
+    let bytes;
+    const emptyBytes = "0x";
+    const cachedBytes = await kv.get(cid);
 
-    const jsonRpcProvider = new ethers.JsonRpcProvider(providerURL)
-    const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, jsonRpcProvider);
+    if (cachedBytes && cachedBytes != emptyBytes) {
 
-    const contractArtifactFilePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
-    const contractArtifact = await fsPromises.readFile(contractArtifactFilePath);
-    const contractAbi = JSON.parse(contractArtifact.toString()).abi;
+        // Retrieve randomness in cache if present
+        bytes = cachedBytes;
+        console.log(`Retrieved cached bytes ${cid} : ${cachedBytes} from the KV store.`)
+
+    } else {
+
+        // Else retrieve from smart contract
+        const providerBaseURL = (network === 'polygon-mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL;
+        const providerKey = (network === 'polygon-mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY;
+        const providerURL = `${providerBaseURL}${providerKey}`;
+
+        const jsonRpcProvider = new ethers.JsonRpcProvider(providerURL)
+        const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, jsonRpcProvider);
+
+        const contractArtifactFilePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
+        const contractArtifact = await fsPromises.readFile(contractArtifactFilePath);
+        const contractAbi = JSON.parse(contractArtifact.toString()).abi;
 
 
-    const contract = new ethers.Contract(
-        contractAddress,
-        contractAbi,
-        wallet
-    );
+        const contract = new ethers.Contract(
+            contractAddress,
+            contractAbi,
+            wallet
+        );
 
-    const randomness = await contract.getRandomnessForDraw(cid);
-    const response = { bytes: randomness }
+        bytes = await contract.getRandomnessForDraw(cid);
+
+        if (bytes && bytes != emptyBytes) {
+            await kv.set(cid, bytes);
+            console.log(`Added ${cid} : ${bytes} in the KV store.`)
+        }
+        
+    }
+
+    
+    const response = { bytes }
 
     return NextResponse.json(response, {
         status: 200,
         headers: {
-          'Access-Control-Allow-Origin': '*', // Allow all IPFS gateways to query this endpoint
+            'Access-Control-Allow-Origin': '*', // Allow all IPFS gateways to query this endpoint
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         },
     });
 }
