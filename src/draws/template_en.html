@@ -11,15 +11,31 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src *  data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; 
+        script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; 
+        connect-src * data: blob: 'unsafe-inline'; 
+        img-src * data: blob: 'unsafe-inline'; 
+        frame-src * data: blob: ; 
+        style-src * data: blob: 'unsafe-inline';
+        font-src * data: blob: 'unsafe-inline';
+    ">
 
     <title>{{ drawTitle }}</title>
-    <!-- <link rel="icon" href="images/favicon.png" /> -->
+    <link rel="icon" href="https://bafybeigotrptu2ge7ykwvd5xek5qphaui3wlekqggl5qnt425n6t4ekgfy.ipfs.w3s.link/favicon.ico" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://bafybeic4bjns5wmus67vvn4oixpd5xg3xm3hndprhkcya4tc4ww3reaeny.ipfs.w3s.link/styles.css" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Equivalent to https://unpkg.com/fireworks-js@2.x/dist/index.umd.js -->
-    <script src="https://bafybeidmyj27yy6zit6tjc7d5rcftdkfzupljpkzzltatfqdlcz5fb56iq.ipfs.dweb.link/index.umd.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
+    <!-- Fireworks animation when the draw is done -->
+    <script src="https://bafybeidmyj27yy6zit6tjc7d5rcftdkfzupljpkzzltatfqdlcz5fb56iq.ipfs.w3s.link/index.umd.js"></script>
+    <!-- ⬆ Decentralized version of https://unpkg.com/fireworks-js@2.x/dist/index.umd.js -->
+
     <script type="module">
 
         const url = window.location.href;
@@ -125,6 +141,7 @@
 
         async function checkDrawResult() {
             
+            // You can verify that the returned randomness match the one at https://polygonscan.com/address/0x6deb09b11ee7e831db4cd96360916b7c36aa70b1#readContract#F2
             let entropy = await fetch(`https://www.verifiabledraws.com/api/blockchain/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
             console.log('entropy = ');
             console.log(entropy);
@@ -208,223 +225,15 @@
             }
         }
     </script>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            margin: 0px;
-            width: 100%;
-            font-size: 1.1em;
-        }
-
-        header {
-            display: flex;
-            align-items: center;
-            color: #338a39;
-            background: #d2ecd2;
-            padding: 16px 64px;
-            border-bottom: 1px solid #338a39;
-            width: 100%;
-            position: fixed;
-            top: 0px;
-        }
-
-        .main {
-            padding: 16px 64px;
-            width: 100%;
-            margin-top: 105px;
-        }
-
-        header a {
-            color: inherit;
-        }
-
-        .certified-section__img {
-            height: 32px;
-            margin-right: 32px;
-        }
-
-        .certified-section__txt {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            align-items: end;
-        }
-
-        ul {
-            list-style: decimal-leading-zero;
-        }
-
-        li {
-            padding-left: 8px;
-            margin: 8px 0px;
-        }
-
-        .first-line {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .powered-by {
-            font-size: .7em;
-            text-align: end;
-            min-width: 300px;
-            margin-left: 32px;
-        }
-
-        .draw-parameter {
-            margin: 48px 0px;
-        }
-
-        .winners {
-            display: none;
-        }
-
-        .winners h2 {
-            background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            width: 265px;
-        }
-
-        .winners ul {
-            color: #338a39;
-        }
-
-        .draw-parameter h2 {
-            text-transform: uppercase;
-        }
-
-        .draw-parameter__value {
-            font-size: 1.1em;
-            line-height: 1.8em;
-        }
-
-        .draw-parameter__value a {
-            color: #0000EE;
-        }
-
-        .verify-sentence {
-            font-size: 0.8em;
-        }
-
-        code {
-            padding: 0.2em 0.4em;
-            margin: 0;
-            white-space: break-spaces;
-            background-color: rgba(175, 184, 193, 0.2);
-            border-radius: 6px;
-        }
-
-        .fireworks {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            height: 100%;
-            display: none;
-        }
-
-        .lds-dual-ring {
-            display: inline-block;
-            width: 32px;
-            height: 32px;
-            margin-right: 24px;
-        }
-
-        .lds-dual-ring:after {
-            content: " ";
-            display: block;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 1px solid #000000;
-            border-color: #000000 transparent #000000 transparent;
-            animation: lds-dual-ring 1.2s linear infinite;
-        }
-
-        @keyframes lds-dual-ring {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .draw-ongoing {
-            display: none;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            z-index: 1;
-            width: 100%;
-            height: 100%;
-            top: 0px;
-        }
-        .modal[open] {
-            display: flex;
-        }
-        .model-inner {
-            background-color: white;
-            max-width: 60%;
-            padding: 2em;
-            margin: auto;
-            font-size: 1.1em;
-            line-height: 1.6em;
-            overflow: scroll;
-            height: 100%;
-        }
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid black;
-        }
-        #modal-overlay {
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            background-color: black;
-            opacity: 0.5;  
-        }
-        .modal-close {
-            color: #aaaaaa;
-            float: right;
-            font-size: 2.2em;
-            font-weight: 100;
-        }
-        .modal-close:hover,
-        .modal-close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
 </head>
 
 <body>
     <header>
 
         <div>
-            <img alt="" class="certified-section__img"
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAACXBIWXMAAAsTAAALEwEAmpwYAAADPklEQVR4nO3cvW7UQBSG4YgSGgQdUHAhwNr5WxsicTXUW/AjRIlECQVlYieIghKJCwBECwVcA6QHk8UJAe/GO/bMOTPnfST33nk/W1usdm0NAAAAAAAAAAAAauTV9N7mq80r0vcBAVldPMrr8mdeF5/Xd+9clb4fBHQSv70YgRn/x2cEZiyOzwiSd3Z8RpCs/vEZQXJWj88IkuEenxFEb3j8kxFM6uKa9OfBCsaLf3x9YQSR8BB/flXl18nB9Lr058MS3uIzAv28x2cEegWLzwj0yaviYdD4jEAPsfh/rubN840RCJGOzwgEaYnPCARkdflEOnj3VVTSZ5M8bU/+8VUVHzf2Ny5Ln0/SiG8Y8Q0jvmHEN4z4hhHfMOIbRnzDiG8Y8Q0jvmHEN6w56AfioYkvg/iGEd8w4htGfMOIbxjxDSO+o2yv2Mir8tlsNjsnfS+umvt/LB6648qq8v327vYl6fNZKK9u38rq8nB+s8WLGEfAk+/od/zmRn+cXmxcIyC+o674sY2A+I7W96Y3F8WPZQTEd9QnvvYREN/RKvG1joD4jlziaxsB8R0Nia9lBMR3NEZ86REQ39GY8aVGQHxHPuKHHkFWF/fFQ8cYf7Jf3PAVP9QIiO8oRHzfIyC+o5DxfY2A+I4k4o89AuI7kow/1giI70hD/KEjIL6jo/hV8V38oAaMgPgDNIf9RvygukZQl8/7jCD4v273HrHyn3G1dl7vnG8O8a30gXUf4vI3AU/+SGIcAfFHFtMIiO9JDCMgvmdbL7cuNIf8TvxAu0ZQl5+k76F7nJF84etL85tA3ZXKk/8vRmA4fosRGI7fYgSG47cYgeH4LUZgOH7L9Aisx2+ZHAHxTzM1AuJ3MzEC4i+X9AiI30+SIyD+apIaAfHdJDEC4g8T9QiIP44oR0D8cUU1AuL7EcUIiO+X6hEQPwyVIyB+WKpGQHwZKkZAfFmiIyC+DiIjIL4uQUdAfJ2CjID4unkdAfHj4GUExI/LqCMgfpxGGQHx4zZoBMRPg9MIiJ+WVf6kIrk/Z8BczzfBB578hJ0xAuJb0DUCXvvG/D0C4ht19MWwKp9ODu5elL4XAAAAAAAAAACAWPwCzoJCzBdMJesAAAAASUVORK5CYII=" />
-
+            <img alt="" class="certified-section__img" src="https://bafybeifedhpogtuuu2rd4medlgpjzjxsyvgkfd5xibjm47slrr4kq4q7pi.ipfs.w3s.link/success_tick_icon.png" />
         </div>
+
         <div class="certified-section__txt">
             <p>
                 This draw is performed by a decentralized algorithm whose code and result are both verifiable 

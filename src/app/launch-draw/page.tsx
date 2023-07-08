@@ -194,7 +194,7 @@ export default function Page() {
             .then(res => res.json())
             .then(data => {
                 if (!ignore) {
-                    setDrawLink(`https://${data.ipfsCidString}.ipfs.dweb.link/${data.drawFilename}`)
+                    setDrawLink(`https://w3s.link/ipfs/${data.ipfsCidString}/${data.drawFilename}`)
                 }
 
             });
