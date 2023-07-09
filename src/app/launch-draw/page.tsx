@@ -111,7 +111,7 @@ const drawNbWinnersPlaceholder = '48';
 export default function Page() {
 
     const dt = new Date();
-    const safetyCushion = 30; // number of minutes to add as a safety net
+    const safetyCushion = (process.env.NEXT_PUBLIC_ENV === 'dev') ? 0 : 30; // number of minutes to add as a safety net
     dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset() + safetyCushion);
     const scheduledAtMinValue = dt.toISOString().slice(0, 16);
     const scheduledAtDefaultValue = scheduledAtMinValue;
