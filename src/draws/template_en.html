@@ -23,7 +23,7 @@
 
     <title>{{ drawTitle }}</title>
     <link rel="icon" href="https://bafybeigotrptu2ge7ykwvd5xek5qphaui3wlekqggl5qnt425n6t4ekgfy.ipfs.w3s.link/favicon.ico" />
-    
+
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="https://bafybeic4bjns5wmus67vvn4oixpd5xg3xm3hndprhkcya4tc4ww3reaeny.ipfs.w3s.link/styles.css" />
 
@@ -31,10 +31,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Fireworks animation when the draw is done -->
+
+    <!-- Fireworks animation -->
     <script src="https://bafybeidmyj27yy6zit6tjc7d5rcftdkfzupljpkzzltatfqdlcz5fb56iq.ipfs.w3s.link/index.umd.js"></script>
-    <!-- ⬆ Decentralized version of https://unpkg.com/fireworks-js@2.x/dist/index.umd.js -->
 
     <script type="module">
 
@@ -49,12 +48,10 @@
         populateDom('contractAddress', contractAddress)
 
         // Fetch storage proofs
-        fetch(`https://www.verifiabledraws.com/api/draw/status?rootCid=${cid}`)
-            .then((response) => {
-                console.log('api/draw/status response');
-                console.log(response);
-                console.log(response.deals);
-            })
+        const statusResponse = await fetch(`https://www.verifiabledraws.com/api/draw/status?rootCid=${cid}`)
+        const drawStatus = await statusResponse.json();
+        console.log('drawStatus = ');
+        console.log(drawStatus);
 
         const drawParticipants = [{{ drawParticipants }}];
         document.getElementsByClassName("var_drawParticipants")[0].innerHTML = drawParticipants.map(p => `<li>${p}</li>`).join('');
@@ -93,27 +90,27 @@
             }
         });
 
-        const openModal = (modal) => {
+        function openModal(modal) {
             document.body.style.overflow = "hidden";
             modal.setAttribute("open", "true");
             document.addEventListener("keydown", escClose);
             let overlay = document.createElement("div");
             overlay.id = "modal-overlay";
             document.body.appendChild(overlay);
-        };
+        }
 
-        const closeModal = (modal) => {
+        function closeModal(modal) {
             document.body.style.overflow = "auto";
             modal.removeAttribute("open");
             document.removeEventListener("keydown", escClose);
             document.body.removeChild(document.getElementById("modal-overlay"));
-        };
+        }
 
-        const escClose = (e) => {
+        function escClose(e) {
             if (e.keyCode == 27) {
                 closeModal(modal);
             }
-        };
+        }
 
         // For a JS variable X, insert the value of X in all elements <span class="var_X">
         function populateDom(variableName, variableValue) {
@@ -140,12 +137,12 @@
         }
 
         async function checkDrawResult() {
-            
+
             // You can verify that the returned randomness match the one at https://polygonscan.com/address/0x6deb09b11ee7e831db4cd96360916b7c36aa70b1#readContract#F2
-            let randomness = await fetch(`https://www.verifiabledraws.com/api/blockchain/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
+            let randomnessResponse = await fetch(`https://www.verifiabledraws.com/api/blockchain/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
+            const randomness = await randomnessResponse.json();
             console.log('randomness = ');
             console.log(randomness);
-            console.log(randomness.bytes);
 
             return [randomness.bytes != '0x', randomness.bytes];
         }
@@ -217,7 +214,7 @@
                 }, delay);
 
             }
-            
+
             if (nb == 0) {
                 setTimeout(() => {
                     fireworksElmt.style.display = 'none';
@@ -236,7 +233,7 @@
 
         <div class="certified-section__txt">
             <p>
-                This draw is performed by a decentralized algorithm whose code and result are both verifiable 
+                This draw is performed by a decentralized algorithm whose code and result are both verifiable
                 by any participant at any time, which guarantees that the draw is completely fair and random.
             </p>
             <p class="powered-by">
@@ -301,44 +298,69 @@
                 </span>
             </div>
             <p>
-                This draw is a <a href="https://www.verifiabledraws.com/" target="_blank">verifiable draw</a>, 
+                This draw is a <a href="https://www.verifiabledraws.com/" target="_blank">verifiable draw</a>,
                 which means that any participant can verify that the draw was performed in a fair and random way.<br />
                 The good news is that you don't need to be an IT expert to verify it.<br />
                 Here are some simple steps to follow :
 
-                <h3>Verify the draw parameters</h3>
-                <hr />
-                This web page contains all the draw parameters : the name of the draw, the rules of the draw, the date and time at which the draw should be triggered, the list of participants, the number of participants to draw, the address of the smart contract where the random number will be picked, and how this random number will be converted into a list of winners.
-                To prevent anyone from modifying these parameters and thus from rigging the draw, this page is not stored on the regular centralized Web (also known as web2), it is instead stored on the decentralized Web (known as web3) thanks to a technology called <a href="https://ipfs.tech/" target="_blank">IPFS</a>. Everything which is stored using IPFS cannot be modified once it is published. It is indeed what we want for the draw parameters.
-                <br /><br />
-                If you want to check that this page is indeed stored on IPFS, first copy the unique ID of this draw that you can find in the URL (<span class="var_cid"></span> in this case), then download an IPFS-compatible browser like <a href="https://brave.com/" target="_blank">Brave</a> open the URL <code>ipfs://<span class="var_cid"></span></code> in Brave and compare its source code with the source code of this page. If they are identical, it means that this page is indeed stored on IPFS, so it unforgeable and you have the guarantee that the draw parameters cannot be rigged.
-                <br /><br />
-                ℹ️ You can access the source code of a page with <code>Right click > View page source</code>, and you can compare the difference between source codes with an online tool such as <a href="https://www.diffchecker.com/" target="_blank">this one</a>.
-                <br /><br />
-                You can also perform an additional verification on the list of participants to verify that it is the correct list. In order to do that, you can check for each participant of the list if it has respected the rules of the draw and has deserved its place in the list.
+            <h3>Verify the draw parameters</h3>
+            <hr />
+            This web page contains all the draw parameters : the name of the draw, the rules of the draw, the date and
+            time at which the draw should be triggered, the list of participants, the number of participants to draw,
+            the address of the smart contract where the random number will be picked, and how this random number will be
+            converted into a list of winners.
+            To prevent anyone from modifying these parameters and thus from rigging the draw, this page is not stored on
+            the regular centralized Web (also known as web2), it is instead stored on the decentralized Web (known as
+            web3) thanks to a technology called <a href="https://ipfs.tech/" target="_blank">IPFS</a>. Everything which
+            is stored using IPFS cannot be modified once it is published. It is indeed what we want for the draw
+            parameters.
+            <br /><br />
+            If you want to check that this page is indeed stored on IPFS, first copy the unique ID of this draw that you
+            can find in the URL (<span class="var_cid"></span> in this case), then download an IPFS-compatible browser
+            like <a href="https://brave.com/" target="_blank">Brave</a> open the URL
+            <code>ipfs://<span class="var_cid"></span></code> in Brave and compare its source code with the source code
+            of this page. If they are identical, it means that this page is indeed stored on IPFS, so it unforgeable and
+            you have the guarantee that the draw parameters cannot be rigged.
+            <br /><br />
+            ℹ️ You can access the source code of a page with <code>Right click > View page source</code>, and you can
+            compare the difference between source codes with an online tool such as <a href="https://www.diffchecker.com/" target="_blank">this one</a>.
+            <br /><br />
+            You can also perform an additional verification on the list of participants to verify that it is the correct
+            list. In order to do that, you can check for each participant of the list if it has respected the rules of
+            the draw and has deserved its place in the list.
 
 
-                <h3>Verify the smart contract</h3>
-                <hr />
-                We have published a smart contract on the Polygon blockchain which aims to transparently associate a random number to each draw. Once the association is done, it communicates the generated randomness to this current page in order to be convertes. The code is available 
-                <a href="https://polygonscan.com/address/{{ contractAddress }}#code" target="_blank">here</a> and is guaranteed to be correct because of the mention <code>Contract Source Code Verified (Exact Match)</code>.
-                <br /><br />
-                The main and most important file is VerifiableDraws.sol. All the other files are Chainlink dependencies which enable some <a href="https://chain.link/automation" target="_blank">automation tasks</a> and <a href="https://chain.link/vrf" target="_blank">randomness generation</a>.
+            <h3>Verify the smart contract</h3>
+            <hr />
+            We have published a smart contract on the Polygon blockchain which aims to transparently associate a random
+            number to each draw. Once the association is done, it communicates the generated randomness to this current
+            page in order to be convertes. The code is available
+            <a href="https://polygonscan.com/address/{{ contractAddress }}#code" target="_blank">here</a> and is
+            guaranteed to be correct because of the mention <code>Contract Source Code Verified (Exact Match)</code>.
+            <br /><br />
+            The main and most important file is VerifiableDraws.sol. All the other files are Chainlink dependencies
+            which enable some <a href="https://chain.link/automation" target="_blank">automation tasks</a> and <a href="https://chain.link/vrf" target="_blank">randomness generation</a>.
 
-                <h3>Verify the randomness</h3>
-                <hr />
-                Finally, you
+            <h3>Verify the randomness</h3>
+            <hr />
+            Finally, you
 
-                Cette page contient tous les paramètres nécessaires au bon déroulement du tirage :
-                le nom du tirage, le règlement, la date et l'heure de déclenchement, la liste des participants, le nombre de participants à tirer au sort, ainsi que la manière dont les nombres aléatoires sont utilisés pour déterminer les participants à sélectionner.
-                <br /><br />
-                Pour éviter que quiconque ne modifie ces données, nous utilisons la technologie <a href="https://ipfs.tech/" target="_blank">IPFS</a> qui fournit des URLs pointant vers des pages dont le code source ne peut pas être modifié.
-                <br /><br />
-                Dans le cadre de ce tirage, l'URL du tirage est <code>https://www.verify.win/ipfs/<span class="var_cid"></span></code> qui pointe en fait vers l'URL <code>ipfs://<span class="var_cid"></span></code> dont le contenu est infalsifiable.
-                <br /><br />
-                Vous pouvez utiliser un navigateur compatible avec IPFS tel que <a href="https://brave.com/fr/" target="_blank">Brave</a> pour accéder à ces 2 adresses et vérifier que leur contenu est identique, ce qui prouve que les données du tirage n'ont pas été altérées depuis la création du tirage.
-                <br /><br />
-                Une explication détaillée du fonctionnement d'IPFS est disponible <a href="https://ipfs.tech/#how" target="_blank">sur leur site</a>.
+            Cette page contient tous les paramètres nécessaires au bon déroulement du tirage :
+            le nom du tirage, le règlement, la date et l'heure de déclenchement, la liste des participants, le nombre de
+            participants à tirer au sort, ainsi que la manière dont les nombres aléatoires sont utilisés pour déterminer
+            les participants à sélectionner.
+            <br /><br />
+            Pour éviter que quiconque ne modifie ces données, nous utilisons la technologie <a href="https://ipfs.tech/" target="_blank">IPFS</a> qui fournit des URLs pointant vers des pages dont le code source ne peut pas
+            être modifié.
+            <br /><br />
+            Dans le cadre de ce tirage, l'URL du tirage est
+            <code>https://www.verify.win/ipfs/<span class="var_cid"></span></code> qui pointe en fait vers l'URL
+            <code>ipfs://<span class="var_cid"></span></code> dont le contenu est infalsifiable.
+            <br /><br />
+            Vous pouvez utiliser un navigateur compatible avec IPFS tel que <a href="https://brave.com/fr/" target="_blank">Brave</a> pour accéder à ces 2 adresses et vérifier que leur contenu est identique, ce
+            qui prouve que les données du tirage n'ont pas été altérées depuis la création du tirage.
+            <br /><br />
+            Une explication détaillée du fonctionnement d'IPFS est disponible <a href="https://ipfs.tech/#how" target="_blank">sur leur site</a>.
             </p>
         </div>
     </div>

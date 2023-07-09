@@ -17,12 +17,12 @@ export async function GET(request: Request) {
     }
 
     if (network !== "polygon-mainnet" && network !== "polygon-mumbai") {
-        throw new Error("Network not supported.")
+        throw new Error(`Network ${network} is not supported.`)
     }
 
     const expectedContractAddress = ((network === 'polygon-mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
     if (contractAddress !== expectedContractAddress) {
-        throw new Error("Wrong contract address.")
+        throw new Error(`Wrong contract address. Expected ${expectedContractAddress}, got ${contractAddress}.`)
     }
 
     if (!process.env.WALLET_PRIVATE_KEY) {
@@ -64,6 +64,7 @@ export async function GET(request: Request) {
 
         bytes = await contract.getRandomnessForDraw(cid);
 
+        // If randomness have been generated, cache it
         if (bytes && bytes != emptyBytes) {
             await kv.set(cid, bytes);
             console.log(`Added ${cid} : ${bytes} in the KV store.`)
