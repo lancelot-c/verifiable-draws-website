@@ -126,11 +126,11 @@
 
         // Check now & every minute
         async function periodicallyCheckDrawResult() {
-            const [done, entropy] = await checkDrawResult();
+            const [done, randomness] = await checkDrawResult();
 
             if (done) {
 
-                pickWinners(entropy);
+                pickWinners(randomness);
 
             } else {
                 setTimeout(() => {
@@ -142,15 +142,15 @@
         async function checkDrawResult() {
             
             // You can verify that the returned randomness match the one at https://polygonscan.com/address/0x6deb09b11ee7e831db4cd96360916b7c36aa70b1#readContract#F2
-            let entropy = await fetch(`https://www.verifiabledraws.com/api/blockchain/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
-            console.log('entropy = ');
-            console.log(entropy);
-            console.log(entropy.bytes);
+            let randomness = await fetch(`https://www.verifiabledraws.com/api/blockchain/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
+            console.log('randomness = ');
+            console.log(randomness);
+            console.log(randomness.bytes);
 
-            return [entropy.bytes != '0x', entropy.bytes];
+            return [randomness.bytes != '0x', randomness.bytes];
         }
 
-        async function pickWinners(entropy) {
+        async function pickWinners(randomness) {
             console.log(`We have some winners !`);
             loadingElmt.style.display = 'none';
             scheduledAtElmt.style.display = 'block';
@@ -163,11 +163,11 @@
 
             winnersElement.style.display = 'block';
 
-            const decimalEntropy = BigInt(entropy); // parseInt(entropy.slice(2), 16);
-            console.log(`decimalEntropy = ${decimalEntropy}`);
+            const decimalRandomness = BigInt(randomness); // parseInt(randomness.slice(2), 16);
+            console.log(`decimalRandomness = ${decimalRandomness}`);
             const nbDigitsPerWinner = getNbDigits(drawNbParticipants);
             console.log(`nbDigitsPerWinner = ${nbDigitsPerWinner}`);
-            const winnerIndexes = splitIn(decimalEntropy, nbDigitsPerWinner);
+            const winnerIndexes = splitIn(decimalRandomness, nbDigitsPerWinner);
             console.log(`winnerIndexes = ${winnerIndexes}`);
             const winnersNeeded = {{ drawNbWinners }};
             const pickedIndexes = [];
