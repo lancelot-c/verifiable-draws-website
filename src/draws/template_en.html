@@ -11,15 +11,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src *  data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; 
-        script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; 
-        connect-src * data: blob: 'unsafe-inline'; 
-        img-src * data: blob: 'unsafe-inline'; 
-        frame-src * data: blob: ; 
-        style-src * data: blob: 'unsafe-inline';
-        font-src * data: blob: 'unsafe-inline';
-    ">
 
     <title>{{ drawTitle }}</title>
     <link rel="icon" href="https://bafybeigotrptu2ge7ykwvd5xek5qphaui3wlekqggl5qnt425n6t4ekgfy.ipfs.w3s.link/favicon.ico" />
@@ -37,8 +28,7 @@
 
     <script type="module">
 
-        const url = window.location.href;
-        const cid = url.slice(8).split('.')[0]
+        const cid = window.location.pathname.slice(1, -5)
         populateDom('cid', cid)
 
         const network = '{{ network }}';
@@ -48,7 +38,7 @@
         populateDom('contractAddress', contractAddress)
 
         // Fetch storage proofs
-        const statusResponse = await fetch(`https://www.verifiabledraws.com/api/draw/status?rootCid=${cid}`)
+        const statusResponse = await fetch(`https://www.verifiabledraws.com/api/draw/status?cid=${cid}`)
         const drawStatus = await statusResponse.json();
         console.log('drawStatus = ');
         console.log(drawStatus);

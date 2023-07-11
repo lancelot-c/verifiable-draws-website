@@ -7,6 +7,7 @@ import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe
 import { Elements } from "@stripe/react-stripe-js";
 import { CheckCircleIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
 import CheckoutForm from "./CheckoutForm";
+const websiteBasePath = (process.env.NEXT_PUBLIC_ENV === 'dev') ? 'http://localhost:3000' : 'https://www.verifiabledraws.com'
 const stripePublicKey = (process.env.NEXT_PUBLIC_ENV === 'dev') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
 
 if (!stripePublicKey) {
@@ -194,7 +195,7 @@ export default function Page() {
             .then(res => res.json())
             .then(data => {
                 if (!ignore) {
-                    setDrawLink(`https://w3s.link/ipfs/${data.ipfsCidString}/${data.drawFilename}`)
+                    setDrawLink(`${websiteBasePath}/${data.cid}.html`)
                 }
 
             });

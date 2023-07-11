@@ -55,14 +55,9 @@ export async function POST(request: Request) {
     const drawNbWinners: number = body.drawNbWinners;
     const drawScheduledAt: number = body.drawScheduledAt;
 
-    const response = await createDraw(drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
-    
-    const data: {
-        ipfsCidString?: string,
-        drawFilename?: string
-    } = {}
+    const cid = await createDraw(drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
 
-    if (response) {
+    if (cid) {
         // Set order as delivered
         try {
             await kv.set(paymentIntentId, 1);
@@ -70,10 +65,12 @@ export async function POST(request: Request) {
         } catch (error) {
             throw new Error(`Can't set ${paymentIntentId} value in the KV store`)
         }
+    } else {
+        throw new Error(`Could not deploy draw`)
+    }
 
-        const [ipfsCidString, drawFilename] = response;
-        data.ipfsCidString = ipfsCidString
-        data.drawFilename = drawFilename
+    const data = {
+        cid
     }
  
     return NextResponse.json(data)
@@ -130,7 +127,7 @@ async function createDraw(
     drawParticipants: string,
     drawNbWinners: number,
     drawScheduledAt: number
-): Promise<string[] | undefined> {
+): Promise<string | undefined> {
     try {
 
         console.log(`drawTitle = \n"${drawTitle}"\n\n`);
@@ -148,26 +145,27 @@ async function createDraw(
         const entropyNeeded = await computeEntropyNeeded(drawNbParticipants, drawNbWinners);
 
         // Generate draw file
-        const [drawFilepath, folderName] = await generateDrawFile(drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
+        const drawFilepath = await generateDrawFile(drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
 
         // Pin draw file on IPFS
-        const rootCid = await pinOnIPFS(drawFilepath, drawTitle);
+        const cid = await pinOnIPFS(drawFilepath, drawTitle);
 
         // Rename draw file to match IPFS CID
-        // renameFolderToIPFS_CID(folderName, rootCid);
-
-        // Delete draw from filesystem
-        deleteDraw(folderName);
+        await renameFileToCid(drawFilepath, cid);
 
         // Publish draw on smart contract
-        await publishOnSmartContract(rootCid, drawScheduledAt, entropyNeeded);
+        await publishOnSmartContract(cid, drawScheduledAt, entropyNeeded);
 
-        const drawFilename = path.basename(drawFilepath)
-        return [rootCid, drawFilename]
+        return cid
         
     } catch (err) {
         console.error(err);
     }
+}
+
+async function renameFileToCid(oldPath: string, cid: string) {
+    const newPath = path.join(process.cwd(), `public/${cid}.html`);
+    return fsPromises.rename(oldPath, newPath);
 }
 
 async function computeEntropyNeeded(nbParticipants: number, nbWinners: number): Promise<number> {
@@ -207,11 +205,10 @@ async function generateDrawFile(drawTitle: string, drawRules: string, drawPartic
         .replaceAll('{{ drawNbWinners }}', drawNbWinners.toString());
 
     const fileHash = sha256(newContent);
-    const drawTempFilepath = path.join(process.cwd(), `src/draws/${fileHash}/draw.html`);
+    const drawTempFilepath = path.join(process.cwd(), `public/${fileHash}.html`);
 
-    await fs.promises.mkdir(path.join(process.cwd(), `src/draws/${fileHash}`)).catch(console.error);
     await fsPromises.writeFile(drawTempFilepath, newContent, 'utf8');
-    return [drawTempFilepath, fileHash];
+    return drawTempFilepath;
 
 }
 
@@ -240,12 +237,12 @@ async function pinOnIPFS(filepath: string, drawTitle: string): Promise<string> {
         resolve(rootCid);
     };
 
-    storage.put(files, { name: drawTitle, wrapWithDirectory: true, onRootCidReady })
+    storage.put(files, {
+        name: drawTitle,
+        wrapWithDirectory: false,
+        onRootCidReady
+    });
     return cidPromise;
-}
-
-function deleteDraw(folderName: string) {
-    fs.rmSync(path.join(process.cwd(), `src/draws/${folderName}`), { recursive: true, force: true });
 }
 
 async function publishOnSmartContract(v1CidString: string, scheduledAt: number, entropyNeeded: number) {

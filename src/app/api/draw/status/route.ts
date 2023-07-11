@@ -5,9 +5,9 @@ import { Web3Storage } from 'web3.storage';
 export async function GET(request: Request) {
 
     const { searchParams } = new URL(request.url)
-    const rootCid = searchParams.get('rootCid')
-    if (!rootCid) {
-        throw new Error("A rootCid parameter is needed.")
+    const cid = searchParams.get('cid')
+    if (!cid) {
+        throw new Error("A cid parameter is needed.")
     }
 
     const token = process.env.WEB3_STORAGE_API_TOKEN
@@ -15,10 +15,10 @@ export async function GET(request: Request) {
         throw new Error("A token is needed. You can create one on https://web3.storage")
     }
 
-    console.log(`api/draw/status called with rootCid = ${rootCid}`);
+    console.log(`api/draw/status called with cid = ${cid}`);
   
     const client = new Web3Storage({ token })
-    const info = await client.status(rootCid);
+    const info = await client.status(cid);
 
     return NextResponse.json(info, {
         status: 200,
