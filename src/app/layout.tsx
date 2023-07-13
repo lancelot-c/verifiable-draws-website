@@ -106,9 +106,9 @@ export default function RootLayout({
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+              <Link key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -182,7 +182,7 @@ export default function RootLayout({
                     <div className="border-t border-white/10 pt-8 md:flex md:items-center md:justify-between">
                         <div className="flex space-x-6 md:order-2">
                             {footerNavigation.social.map((item) => (
-                                <a
+                                <Link
                                     key={item.name}
                                     href={item.href}
                                     rel="noopener"
@@ -191,7 +191,7 @@ export default function RootLayout({
                                 >
                                     <span className="sr-only">{item.name}</span>
                                     <item.icon className="h-6 w-6" aria-hidden="true" />
-                                </a>
+                                </Link>
                             ))}
                         </div>
                         <p className="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">

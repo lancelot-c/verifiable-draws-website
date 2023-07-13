@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { kv } from "@vercel/kv";
-const stripeSecretKey = (process.env.NEXT_PUBLIC_ENV === 'dev') ? process.env.STRIPE_SECRET_KEY_TEST : process.env.STRIPE_SECRET_KEY_PROD;
+const stripeSecretKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.STRIPE_SECRET_KEY_TEST : process.env.STRIPE_SECRET_KEY_PROD;
+const endpointSecret = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.PAYMENT_SUCCEEDED_SIGNING_SECRET_TEST : process.env.PAYMENT_SUCCEEDED_SIGNING_SECRET_PROD;
 
 if (!stripeSecretKey) {
     throw new Error("stripeSecretKey is undefined")
@@ -11,9 +12,6 @@ const stripe = new Stripe(stripeSecretKey, {
     apiVersion: "2022-11-15",
     typescript: true,
 });
-
-// This is your Stripe CLI webhook secret for testing your endpoint locally.
-const endpointSecret = (process.env.NEXT_PUBLIC_ENV === 'dev') ? process.env.PAYMENT_SUCCEEDED_SIGNING_SECRET_TEST : process.env.PAYMENT_SUCCEEDED_SIGNING_SECRET_PROD;
 
 export async function POST(request: Request) {
 

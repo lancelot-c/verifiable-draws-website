@@ -29,6 +29,39 @@
 				"type": "string"
 			}
 		],
+		"name": "DrawAlreadyCompleted",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "cid",
+				"type": "string"
+			}
+		],
+		"name": "DrawAlreadyExists",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "cid",
+				"type": "string"
+			}
+		],
+		"name": "DrawAlreadyTriggered",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "cid",
+				"type": "string"
+			}
+		],
 		"name": "DrawDoesNotExist",
 		"type": "error"
 	},
@@ -46,6 +79,17 @@
 	{
 		"inputs": [
 			{
+				"internalType": "string[]",
+				"name": "cids",
+				"type": "string[]"
+			}
+		],
+		"name": "NoRandomWordNeeded",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "have",
 				"type": "address"
@@ -57,6 +101,39 @@
 			}
 		],
 		"name": "OnlyCoordinatorCanFulfill",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "RequestAlreadyFulfilled",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "RequestDoesNotExist",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "RequestFulfilledButEmpty",
 		"type": "error"
 	},
 	{
@@ -327,6 +404,88 @@
 				"internalType": "bytes",
 				"name": "performData",
 				"type": "bytes"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getDrawCount",
+		"outputs": [
+			{
+				"internalType": "uint32",
+				"name": "",
+				"type": "uint32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "cid",
+				"type": "string"
+			}
+		],
+		"name": "getDrawDetails",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint64",
+						"name": "publishedAt",
+						"type": "uint64"
+					},
+					{
+						"internalType": "uint64",
+						"name": "scheduledAt",
+						"type": "uint64"
+					},
+					{
+						"internalType": "uint256",
+						"name": "occuredAt",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "entropy",
+						"type": "bytes"
+					},
+					{
+						"internalType": "uint32",
+						"name": "entropyNeeded",
+						"type": "uint32"
+					},
+					{
+						"internalType": "bool",
+						"name": "entropyPending",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "completed",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct VerifiableDraws.Draw",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getPendingDraws",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
 			}
 		],
 		"stateMutability": "view",

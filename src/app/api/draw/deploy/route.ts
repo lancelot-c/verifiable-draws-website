@@ -4,38 +4,38 @@ import { kv } from "@vercel/kv";
 import fs from 'fs';
 const fsPromises = fs.promises;
 import path from 'path'
+import axios from 'axios'
 import { ethers } from 'ethers';
 import crypto from 'crypto'
 import { Web3Storage, getFilesFromPath } from 'web3.storage';
-const network = (process.env.NEXT_PUBLIC_ENV === 'dev') ? 'testnet' : 'mainnet';
-// const gasStationURL = (network == 'mainnet') ? process.env.MAINNET_GAS_STATION_URL : process.env.TESTNET_GAS_STATION_URL;
+const network = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 'testnet' : 'mainnet';
+const gasStationURL = (network === 'mainnet') ? process.env.MAINNET_GAS_STATION_URL : process.env.TESTNET_GAS_STATION_URL;
 const providerBaseURL = ((network === 'mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL) as string;
 const providerKey = ((network === 'mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY) as string;
 const providerURL = `${providerBaseURL}${providerKey}`;
 const contractAddress = ((network === 'mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
 const filePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
 
-
-
-let provider: ethers.Wallet | undefined;
-if (process.env.WALLET_PRIVATE_KEY) {
-    const p = new ethers.JsonRpcProvider(providerURL)
-    provider = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, p);
+if (!process.env.WALLET_PRIVATE_KEY) {
+    throw new Error("process.env.WALLET_PRIVATE_KEY is not defined")
 }
 
-let contract: any | undefined;
+const provider = new ethers.JsonRpcProvider(providerURL)
+const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, provider);
+
+let maxFeePerGas = BigInt("40000000000") // fallback to 40 gwei
+let maxPriorityFeePerGas = BigInt("40000000000") // fallback to 40 gwei
 
 
-
-const stripeSecretKey = (process.env.NEXT_PUBLIC_ENV === 'dev') ? process.env.STRIPE_SECRET_KEY_TEST : process.env.STRIPE_SECRET_KEY_PROD;
+const stripeSecretKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.STRIPE_SECRET_KEY_TEST : process.env.STRIPE_SECRET_KEY_PROD;
 
 if (!stripeSecretKey) {
     throw new Error("stripeSecretKey is undefined")
 }
 
 const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: "2022-11-15",
-  typescript: true,
+    apiVersion: "2022-11-15",
+    typescript: true,
 });
 
 
@@ -72,7 +72,7 @@ export async function POST(request: Request) {
     const data = {
         cid
     }
- 
+
     return NextResponse.json(data)
 }
 
@@ -106,7 +106,7 @@ async function kvRetryGet(paymentIntentId: string, delay = 3000, retries = 3): P
                 if (--retries > 0) {
                     await kvRetryGet(paymentIntentId, delay * 2, retries);
                 } else {
-                    throw new Error(`No value in KV store for ${paymentIntentId} after ${retries+1} get() attempts`)
+                    throw new Error(`No value in KV store for ${paymentIntentId} after ${retries + 1} get() attempts`)
                 }
             } else if (orderStatus === 1) {
                 throw new Error(`Order ${paymentIntentId} was already delivered`)
@@ -157,7 +157,7 @@ async function createDraw(
         await publishOnSmartContract(cid, drawScheduledAt, entropyNeeded);
 
         return cid
-        
+
     } catch (err) {
         console.error(err);
     }
@@ -216,14 +216,14 @@ async function pinOnIPFS(filepath: string, drawTitle: string): Promise<string> {
     console.log(`Uploading ${filepath} to IPFS...\n`);
 
     const token = process.env.WEB3_STORAGE_API_TOKEN
-  
+
     if (!token) {
         throw new Error("A token is needed. You can create one on https://web3.storage")
     }
-  
+
     const storage = new Web3Storage({ token })
     const files = []
-  
+
     const pathFiles = await getFilesFromPath(filepath)
     files.push(...pathFiles)
 
@@ -251,18 +251,39 @@ async function publishOnSmartContract(v1CidString: string, scheduledAt: number, 
     const jsonData = await fsPromises.readFile(filePath);
     const abi = JSON.parse(jsonData.toString()).abi;
 
-    if (contractAddress && provider) {
-        contract = new ethers.Contract(
-            contractAddress,
-            abi,
-            provider
-        );
-    }
+    const contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        wallet
+    );
 
-    const launchDraw = await contract.launchDraw(v1CidString, scheduledAt, entropyNeeded);
-    await launchDraw.wait();
+    await setOptimalGas();
+    await contract.launchDraw(v1CidString, scheduledAt, entropyNeeded, {
+        maxFeePerGas,
+        maxPriorityFeePerGas,
+    });
 }
 
 function sha256(message: string) {
     return Buffer.from(crypto.createHash('sha256').update(message).digest('hex')).toString('base64');
+}
+
+// Call this function every time before a contract call
+async function setOptimalGas() {
+    try {
+        const { data } = await axios({
+            method: 'get',
+            url: gasStationURL
+        })
+        maxFeePerGas = ethers.parseUnits(
+            Math.ceil(data.fast.maxFee) + '',
+            'gwei'
+        )
+        maxPriorityFeePerGas = ethers.parseUnits(
+            Math.ceil(data.fast.maxPriorityFee) + '',
+            'gwei'
+        )
+    } catch {
+        // ignore
+    }
 }

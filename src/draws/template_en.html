@@ -40,8 +40,9 @@
         // Fetch storage proofs
         const statusResponse = await fetch(`https://www.verifiabledraws.com/api/draw/status?cid=${cid}`)
         const drawStatus = await statusResponse.json();
-        console.log('drawStatus = ');
-        console.log(drawStatus);
+        const drawDeals = drawStatus.deals;
+        console.log('drawDeals = ');
+        console.log(drawDeals);
 
         const drawParticipants = [{{ drawParticipants }}];
         document.getElementsByClassName("var_drawParticipants")[0].innerHTML = drawParticipants.map(p => `<li>${p}</li>`).join('');

@@ -7,8 +7,8 @@ import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe
 import { Elements } from "@stripe/react-stripe-js";
 import { CheckCircleIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
 import CheckoutForm from "./CheckoutForm";
-const websiteBasePath = (process.env.NEXT_PUBLIC_ENV === 'dev') ? 'http://localhost:3000' : 'https://www.verifiabledraws.com'
-const stripePublicKey = (process.env.NEXT_PUBLIC_ENV === 'dev') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
+const websiteBasePath = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 'http://localhost:3000' : 'https://www.verifiabledraws.com'
+const stripePublicKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
 
 if (!stripePublicKey) {
     throw new Error("stripePublicKey is undefined")
@@ -112,7 +112,7 @@ const drawNbWinnersPlaceholder = '48';
 export default function Page() {
 
     const dt = new Date();
-    const safetyCushion = (process.env.NEXT_PUBLIC_ENV === 'dev') ? 0 : 30; // number of minutes to add as a safety net
+    const safetyCushion = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : 30; // number of minutes to add as a safety net
     dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset() + safetyCushion);
     const scheduledAtMinValue = dt.toISOString().slice(0, 16);
     const scheduledAtDefaultValue = scheduledAtMinValue;
@@ -326,7 +326,7 @@ export default function Page() {
                         <li key={step.name} className="md:flex-1">
                             {selectedStep > index + 1 ? (
                                 // Completed step
-                                <a
+                                <Link
                                     href={step.href}
                                     onClick={goToStep(index + 1 as StepNumber)}
                                     className={`group flex flex-col border-l-4 border-indigo-600 py-2 pl-4 hover:border-indigo-800 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
@@ -334,20 +334,20 @@ export default function Page() {
                                 >
                                     <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-800">Step {index + 1}</span>
                                     <span className="text-sm font-medium">{step.name}</span>
-                                </a>
+                                </Link>
                             ) : selectedStep === index + 1 ? (
                                 // Ongoing step
-                                <a
+                                <Link
                                     href={step.href}
                                     className="pointer-events-none flex flex-col border-l-4 border-indigo-600 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                                     aria-current="step"
                                 >
                                     <span className="text-sm font-medium text-indigo-600">Step {index + 1}</span>
                                     <span className="text-sm font-medium">{step.name}</span>
-                                </a>
+                                </Link>
                             ) : currentStep >= index + 1 ? (
                                 // Upcoming available step
-                                <a
+                                <Link
                                     href={step.href}
                                     onClick={goToStep(index + 1 as StepNumber)}
                                     className={`group flex flex-col border-l-4 border-indigo-300 py-2 pl-4 hover:border-indigo-600 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
@@ -355,16 +355,16 @@ export default function Page() {
                                 >
                                     <span className="text-sm font-medium text-indigo-300 group-hover:text-indigo-600">Step {index + 1}</span>
                                     <span className="text-sm font-medium">{step.name}</span>
-                                </a>
+                                </Link>
                             ) : (
                                 // Upcoming unavailable step
-                                <a
+                                <Link
                                     href={step.href}
                                     className="pointer-events-none group flex flex-col border-l-4 border-gray-200 py-2 pl-4 hover:border-gray-300 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                                 >
                                     <span className="text-sm font-medium text-gray-500 group-hover:text-gray-700">Step {index + 1}</span>
                                     <span className="text-sm font-medium">{step.name}</span>
-                                </a>
+                                </Link>
                             )}
                         </li>
                     ))}
@@ -607,7 +607,7 @@ export default function Page() {
                                         </div>
 
                                         <p className="mt-8 text-md">
-                                            If you need further assistance please join our Discord server, we will be happy to help you.<br />
+                                            If you need further assistance please <Link href="https://discord.gg/3YjqW9MP7H" rel="noopener" target="_blank" className="underline">join our Discord server</Link>, we will be happy to help you.<br />
                                             Thank you for using our service and making the world more decentralized.
                                         </p>
                                     </div>
