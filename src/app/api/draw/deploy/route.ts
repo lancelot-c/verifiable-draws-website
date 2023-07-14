@@ -14,7 +14,7 @@ const providerBaseURL = ((network === 'mainnet') ? process.env.MAINNET_API_URL :
 const providerKey = ((network === 'mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY) as string;
 const providerURL = `${providerBaseURL}${providerKey}`;
 const contractAddress = ((network === 'mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
-const polygonscanAddress = (network === 'mainnet') ? "https://polygonscan.com" : "https://mumbai.polygonscan.com";
+const polygonscanAddress = (network === 'mainnet') ? "https://polygonscan.com" : "https://mumbai.polygonscan.com"; 
 const filePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
 
 if (!process.env.WALLET_PRIVATE_KEY) {
