@@ -16,20 +16,253 @@
     <link rel="icon" href="https://bafybeigotrptu2ge7ykwvd5xek5qphaui3wlekqggl5qnt425n6t4ekgfy.ipfs.w3s.link/favicon.ico" />
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="https://bafybeic4bjns5wmus67vvn4oixpd5xg3xm3hndprhkcya4tc4ww3reaeny.ipfs.w3s.link/styles.css" />
+    <link rel="stylesheet" type="text/css" href="https://bafybeig72t45uiohr53ctwhw2nl4ec5sm5atc6atskhywbn6hmaroh6fly.ipfs.w3s.link/styles.css" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Fireworks animation -->
     <script src="https://bafybeidmyj27yy6zit6tjc7d5rcftdkfzupljpkzzltatfqdlcz5fb56iq.ipfs.w3s.link/index.umd.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0px;
+            width: 100%;
+            font-size: 1.1em;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            color: #338a39;
+            background: #d2ecd2;
+            padding: 16px 64px;
+            border-bottom: 1px solid #338a39;
+            width: 100%;
+            position: fixed;
+            top: 0px;
+        }
+
+        .main {
+            padding: 16px 64px;
+            width: 100%;
+            margin-top: 105px;
+        }
+
+        header a {
+            color: inherit;
+        }
+
+        .certified-section__img {
+            height: 32px;
+            margin-right: 32px;
+        }
+
+        .certified-section__txt {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: end;
+        }
+
+        ul {
+            list-style: decimal-leading-zero;
+        }
+
+        li {
+            padding-left: 8px;
+            margin: 8px 0px;
+        }
+
+        .first-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .powered-by {
+            font-size: .7em;
+            text-align: end;
+            min-width: 300px;
+            margin-left: 32px;
+        }
+
+        .draw-parameter {
+            margin: 48px 0px;
+        }
+
+        .winners h2 {
+            background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            width: 265px;
+        }
+
+        .winners ul {
+            color: #338a39;
+        }
+
+        .draw-parameter h2 {
+            text-transform: uppercase;
+        }
+
+        .draw-parameter__value {
+            font-size: 1.1em;
+            line-height: 1.8em;
+        }
+
+        .draw-parameter__value a {
+            color: #0000EE;
+        }
+
+        .verify-sentence {
+            font-size: 0.8em;
+        }
+
+        code {
+            padding: 0.2em 0.4em;
+            margin: 0;
+            white-space: break-spaces;
+            background-color: rgba(175, 184, 193, 0.2);
+            border-radius: 6px;
+        }
+
+        .fireworks {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .drawTitle {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            padding-right: 64px;
+        }
+
+        .lds-dual-ring {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            margin-right: 24px;
+        }
+
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid #000000;
+            border-color: #000000 transparent #000000 transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .scheduledAt, .drawOngoing, .occuredAt, .winners {
+            display: none;
+        }
+
+        .no-shrink {
+            flex-shrink: 0;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+        }
+
+        .modal[open] {
+            display: flex;
+        }
+
+        .model-inner {
+            background-color: white;
+            max-width: 60%;
+            padding: 2em;
+            margin: auto;
+            font-size: 1.1em;
+            line-height: 1.6em;
+            overflow: scroll;
+            height: 100%;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid black;
+        }
+
+        li.verification-step:not(:last-child) { 
+            margin-bottom: 30px;  
+        }
+
+        li.verification-step strong {
+            text-decoration: underline;
+        }
+
+        #modal-overlay {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background-color: black;
+            opacity: 0.5;
+        }
+
+        .modal-close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 2.2em;
+            font-weight: 100;
+        }
+
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
 
     <script type="module">
 
         const cid = window.location.pathname.slice(1, -5)
         populateDom('cid', cid)
+        const cidLinks = document.getElementsByClassName("cidLink");
+        for (let i = 0; i < cidLinks.length; i++) {
+            cidLinks[i].href = cidLinks[i].href.replace("cid", cid);
+        }
 
         const network = '{{ network }}';
         populateDom('network', network)
@@ -59,13 +292,18 @@
         const scheduledAtString = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'medium', timeStyle: 'short' }).format(scheduledAt);
         populateDom('scheduledAtString', scheduledAtString)
         const scheduledAtElmt = document.getElementsByClassName("scheduledAt")[0];
-        const loadingElmt = document.getElementsByClassName("draw-ongoing")[0];
+        const loadingElmt = document.getElementsByClassName("drawOngoing")[0];
+        const occuredAtElmt = document.getElementsByClassName("occuredAt")[0];
         const isDrawOngoing = scheduledAt.getTime() <= Date.now();
 
         if (isDrawOngoing) {
             scheduledAtElmt.style.display = 'none';
             loadingElmt.style.display = 'block';
+            occuredAtElmt.style.display = 'none';
             periodicallyCheckDrawResult();
+        } else {
+            scheduledAtElmt.style.display = 'block';
+            loadingElmt.style.display = 'none';
         }
 
         // Modal
@@ -129,19 +367,20 @@
 
         async function checkDrawResult() {
 
-            // You can verify that the returned randomness match the one at https://polygonscan.com/address/0x6deb09b11ee7e831db4cd96360916b7c36aa70b1#readContract#F2
+            // You can verify that the returned randomness match the one at {{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F5
             let randomnessResponse = await fetch(`https://www.verifiabledraws.com/api/blockchain/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
             const randomness = await randomnessResponse.json();
-            console.log('randomness = ');
-            console.log(randomness);
+            console.log('randomness.bytes = ');
+            console.log(randomness.bytes);
 
             return [randomness.bytes != '0x', randomness.bytes];
         }
 
         async function pickWinners(randomness) {
-            console.log(`We have some winners !`);
+            console.log(`We have some winners 🎉`);
             loadingElmt.style.display = 'none';
-            scheduledAtElmt.style.display = 'block';
+            scheduledAtElmt.style.display = 'none';
+            occuredAtElmt.style.display = 'block';
 
             // Launch fireworks animation
             launchFireworks(10, 100);
@@ -219,13 +458,12 @@
     <header>
 
         <div>
-            <img alt="" class="certified-section__img" src="https://bafybeifedhpogtuuu2rd4medlgpjzjxsyvgkfd5xibjm47slrr4kq4q7pi.ipfs.w3s.link/success_tick_icon.png" />
+            <img alt="" class="certified-section__img" src="https://bafybeieeagq6tv4gsqep64zvg3m3hlpm2nxijvomepi34evvq745cenikq.ipfs.w3s.link/green-lock.png" />
         </div>
 
         <div class="certified-section__txt">
             <p>
-                This draw is performed by a decentralized algorithm whose code and result are both verifiable
-                by any participant at any time, which guarantees that the draw is completely fair and random.
+                This random draw is secured by a decentralized algorithm leveraging the <a href="https://ipfs.tech/" target="_blank">IPFS protocol</a> and the <a href="https://ethereum.org/en/" target="_blank">Ethereum blockchain</a> in order to guarantee that the draw is <a href="#" class="verifiable-outcome-modal-open" data-id="verifiable-outcome-modal">provably fair and random</a>.
             </p>
             <p class="powered-by">
                 Powered by <a href="https://www.verifiabledraws.com/" target="_blank">Verifiable Draws</a>
@@ -235,13 +473,16 @@
     </header>
     <div class="main">
         <div class="first-line">
-            <h1>{{ drawTitle }}</h1>
-            <h3 class="scheduledAt">Draw scheduled for <span class="var_scheduledAtString"></span></h3>
-            <div class="draw-ongoing">
-                <div class="first-line">
-                    <div class="lds-dual-ring"></div>
-                    <h3>Draw in progress, please wait...</h3>
+            <h1 class="drawTitle">{{ drawTitle }}</h1>
+            <div class="no-shrink">
+                <h3 class="scheduledAt">Draw scheduled for <span class="var_scheduledAtString"></span></h3>
+                <div class="drawOngoing">
+                    <div class="first-line">
+                        <div class="lds-dual-ring"></div>
+                        <h3>Draw in progress, please wait...</h3>
+                    </div>
                 </div>
+                <h3 class="occuredAt">Draw occured on <span class="var_scheduledAtString"></span></h3>
             </div>
         </div>
         <hr />
@@ -283,76 +524,46 @@
     <div id="verifiable-outcome-modal" class="modal" role="dialog" tabindex="-1">
         <div class="model-inner">
             <div class="modal-header">
-                <h3>Verify the draw winners</h3>
+                <h2>How to verify this draw ?</h2>
                 <span class="modal-close" data-id="verifiable-outcome-modal" aria-label="Close">
                     &times;
                 </span>
             </div>
             <p>
-                This draw is a <a href="https://www.verifiabledraws.com/" target="_blank">verifiable draw</a>,
-                which means that any participant can verify that the draw was performed in a fair and random way.<br />
-                The good news is that you don't need to be an IT expert to verify it.<br />
-                Here are some simple steps to follow :
-
-            <h3>Verify the draw parameters</h3>
-            <hr />
-            This web page contains all the draw parameters : the name of the draw, the rules of the draw, the date and
-            time at which the draw should be triggered, the list of participants, the number of participants to draw,
-            the address of the smart contract where the random number will be picked, and how this random number will be
-            converted into a list of winners.
-            To prevent anyone from modifying these parameters and thus from rigging the draw, this page is not stored on
-            the regular centralized Web (also known as web2), it is instead stored on the decentralized Web (known as
-            web3) thanks to a technology called <a href="https://ipfs.tech/" target="_blank">IPFS</a>. Everything which
-            is stored using IPFS cannot be modified once it is published. It is indeed what we want for the draw
-            parameters.
-            <br /><br />
-            If you want to check that this page is indeed stored on IPFS, first copy the unique ID of this draw that you
-            can find in the URL (<span class="var_cid"></span> in this case), then download an IPFS-compatible browser
-            like <a href="https://brave.com/" target="_blank">Brave</a> open the URL
-            <code>ipfs://<span class="var_cid"></span></code> in Brave and compare its source code with the source code
-            of this page. If they are identical, it means that this page is indeed stored on IPFS, so it unforgeable and
-            you have the guarantee that the draw parameters cannot be rigged.
-            <br /><br />
-            ℹ️ You can access the source code of a page with <code>Right click > View page source</code>, and you can
-            compare the difference between source codes with an online tool such as <a href="https://www.diffchecker.com/" target="_blank">this one</a>.
-            <br /><br />
-            You can also perform an additional verification on the list of participants to verify that it is the correct
-            list. In order to do that, you can check for each participant of the list if it has respected the rules of
-            the draw and has deserved its place in the list.
-
-
-            <h3>Verify the smart contract</h3>
-            <hr />
-            We have published a smart contract on the Polygon blockchain which aims to transparently associate a random
-            number to each draw. Once the association is done, it communicates the generated randomness to this current
-            page in order to be convertes. The code is available
-            <a href="https://polygonscan.com/address/{{ contractAddress }}#code" target="_blank">here</a> and is
-            guaranteed to be correct because of the mention <code>Contract Source Code Verified (Exact Match)</code>.
-            <br /><br />
-            The main and most important file is VerifiableDraws.sol. All the other files are Chainlink dependencies
-            which enable some <a href="https://chain.link/automation" target="_blank">automation tasks</a> and <a href="https://chain.link/vrf" target="_blank">randomness generation</a>.
-
-            <h3>Verify the randomness</h3>
-            <hr />
-            Finally, you
-
-            Cette page contient tous les paramètres nécessaires au bon déroulement du tirage :
-            le nom du tirage, le règlement, la date et l'heure de déclenchement, la liste des participants, le nombre de
-            participants à tirer au sort, ainsi que la manière dont les nombres aléatoires sont utilisés pour déterminer
-            les participants à sélectionner.
-            <br /><br />
-            Pour éviter que quiconque ne modifie ces données, nous utilisons la technologie <a href="https://ipfs.tech/" target="_blank">IPFS</a> qui fournit des URLs pointant vers des pages dont le code source ne peut pas
-            être modifié.
-            <br /><br />
-            Dans le cadre de ce tirage, l'URL du tirage est
-            <code>https://www.verify.win/ipfs/<span class="var_cid"></span></code> qui pointe en fait vers l'URL
-            <code>ipfs://<span class="var_cid"></span></code> dont le contenu est infalsifiable.
-            <br /><br />
-            Vous pouvez utiliser un navigateur compatible avec IPFS tel que <a href="https://brave.com/fr/" target="_blank">Brave</a> pour accéder à ces 2 adresses et vérifier que leur contenu est identique, ce
-            qui prouve que les données du tirage n'ont pas été altérées depuis la création du tirage.
-            <br /><br />
-            Une explication détaillée du fonctionnement d'IPFS est disponible <a href="https://ipfs.tech/#how" target="_blank">sur leur site</a>.
+                This draw is a verifiable draw,
+                which means that all participants can verify that it is performed in a fair and random way.<br /><br />
+                Here are the simple steps to follow :
             </p>
+
+            <ul>
+                <li class="verification-step">
+                    <strong>Verify the draw parameters</strong><br />
+                    IPFS is a protocol to store tamper-proof files on the web, meaning that once a file is published on IPFS, its content cannot change.<br />
+                    This page, which contains all the draw parameters, is stored on IPFS.<br />
+                    To verify it, simply go to any IPFS gateway, like <a href="https://w3s.link/ipfs/cid" class="cidLink" target="_blank">w3s.link</a> or <a href="https://ipfs.io/ipfs/cid" class="cidLink" target="_blank">ipfs.io</a> and check that the source code you see match the one on this page (Right click anywhere > View page source).<br />
+                    The draw parameters include: the rules, the list of participants, the number of participants to draw, the date and time of the draw, the way the random number is converted in a list of winners. All of these are set in stone thanks to the IPFS network.
+                </li>
+                <li class="verification-step">
+                    <strong>Verify the random number</strong><br />
+                    Then we need a random number, which we generate in our smart contract deployed on the blockchain.<br />
+                    We rely on blockchain technology for that because it is the only way to get verifiable randomness as of today. Randomness generated outside of the blockchain cannot be verifiable because you cannot know which algorithm was used to generated the so-called randomness, it is something that only blockchain-based randomness generators allow.
+                    <br /><br />
+                    Go to <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F5" target="_blank">our smart contract</a> and call the function <code>getRandomnessForDraw</code> with the parameter <code>cid = <span class="var_cid"></span></code> which is the ID of your draw that you can also find in this page's URL.
+                    Check that its output is the same as the <code>randomness.bytes</code> value printed in the console of this page (Right click anywhere > Inspect > Console).
+                </li>
+                <li class="verification-step">
+                    <strong>[Optional] Read our smart contract</strong><br />
+                    You can also read <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#code#F9#L1" target="_blank">our smart contract</a> to inspect how we generate the random numbers for each draw.<br />
+                    If you do so, you will notice that we leverage <a href="https://chain.link/vrf" target="_blank">Chainlink VRF</a> which is the world leading randomness provider on the blockchain.<br />
+                    Therefore, you benefit from the most secure randomness while everything is 100% verifiable because Chainlink rely solely on public smart contracts as well.
+                </li>
+            </ul>
+
+            <p>
+                That's it, you now know that this draw is not rigged. 🙌<br />
+                If you have further questions you can reach out to the <i>Verifiable Draws</i> team on <a href="https://discord.gg/3YjqW9MP7H" target="_blank">our Discord server</a>, we will be happy to help you.
+            </p>
+
         </div>
     </div>
 
