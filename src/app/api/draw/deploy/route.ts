@@ -166,6 +166,7 @@ async function createDraw(
 
 async function renameFileToCid(oldPath: string, cid: string) {
     const newPath = path.join(process.cwd(), `public/${cid}.html`);
+    console.log(`Rename ${oldPath} to ${newPath}`);
     return fsPromises.rename(oldPath, newPath);
 }
 
@@ -187,6 +188,7 @@ async function computeEntropyNeeded(nbParticipants: number, nbWinners: number): 
 
 async function generateDrawFile(drawTitle: string, drawRules: string, drawParticipants: string, drawNbWinners: number, unix_timestamp: number) {
     const templateFilepath = path.join(process.cwd(), '/src/draws/template_en.html');
+    console.log(`templateFilepath = ${templateFilepath}`);
 
     const content = await fsPromises.readFile(templateFilepath, 'utf8');
 
@@ -208,6 +210,7 @@ async function generateDrawFile(drawTitle: string, drawRules: string, drawPartic
 
     const fileHash = sha256(newContent);
     const drawTempFilepath = path.join(process.cwd(), `public/${fileHash}.html`);
+    console.log(`templateFilepath = ${drawTempFilepath}`);
 
     await fsPromises.writeFile(drawTempFilepath, newContent, 'utf8');
     return drawTempFilepath;
