@@ -7,7 +7,7 @@ import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe
 import { Elements } from "@stripe/react-stripe-js";
 import { CheckCircleIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
 import CheckoutForm from "./CheckoutForm";
-const websiteBasePath = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 'http://localhost:3000' : 'https://www.verifiabledraws.com'
+const websiteBasePaths = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? ['http://localhost:3000/ipfs'] : ['http://verify.win', 'http://verifiable.page', 'https://www.verifiabledraws.com/ipfs']
 const stripePublicKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
 
 if (!stripePublicKey) {
@@ -142,7 +142,8 @@ export default function Page() {
     const [currentStep, setCurrentStep] = useState<StepNumber>(startAtStep)
     const [selectedStep, setSelectedStep] = useState<StepNumber>(currentStep)
     const [clientSecret, setClientSecret] = useState<string>('');
-    const [drawLink, setDrawLink] = useState<string>('');
+    const [cid, setCid] = useState<string>('');
+    const [drawLinks, setDrawLinks] = useState<string[]>([]);
     const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | undefined>(undefined);
 
     useEffect(() => {
@@ -195,7 +196,8 @@ export default function Page() {
             .then(res => res.json())
             .then(data => {
                 if (!ignore) {
-                    setDrawLink(`${websiteBasePath}/${data.cid}.html`)
+                    setCid(data.cid);
+                    setDrawLinks(websiteBasePaths.map(basePath => `${basePath}/${data.cid}`))
                 }
 
             });
@@ -277,10 +279,14 @@ export default function Page() {
         return timestampWithoutOffset
     }
 
-    function copyDrawLinkToClipboard() {
-        navigator.clipboard.writeText(drawLink).then(() => { }, (err) => {
+    function copyDrawLinkToClipboard(link: string) {
+        navigator.clipboard.writeText(link).then(() => { }, (err) => {
             console.error('Async: Could not copy text: ', err);
         });
+    }
+
+    function shortenUrl(url: string) {
+        return url.replace('http://', '').replace('https://', '').replace('www.', '');
     }
 
     return (
@@ -560,7 +566,7 @@ export default function Page() {
                             </div>
 
                             {
-                                (!drawLink) ? (
+                                (drawLinks.length === 0) ? (
                                     <div className="rounded-md bg-yellow-50 p-4 mt-4">
                                         <div className="flex">
                                             <div className="flex-shrink-0">
@@ -585,30 +591,34 @@ export default function Page() {
                                     <div className="text-center">
                                         <p className="mt-8 text-md">
                                             The draw has successfully been deployed to IPFS and Ethereum. 🎉<br />
-                                            You can now share the following link to the participants so that they can access the draw details.
+                                            You can now share one of the following links to the participants so that they can access the draw details and see the winners when they are announced.
                                         </p>
 
-                                        <div className="rounded-md bg-white/50 ring-2 ring-indigo-800 my-12 px-8 py-4 text-xl flex justify-center">
-                                            <div className="text-ellipsis overflow-hidden mx-2">
-                                                {drawLink}
-                                            </div>
 
-                                            <Link href={drawLink} rel="noopener" target="_blank" className="mx-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                                                </svg>
-                                            </Link>
+                                        {drawLinks.map((drawLink) => (
+                                            <div className="rounded-md bg-white/50 ring-2 ring-indigo-800 my-12 px-8 py-4 text-xl flex justify-center">
+                                                <div className="text-ellipsis overflow-hidden mx-2">
+                                                    { shortenUrl(drawLink) }
+                                                </div>
 
-                                            <div onClick={copyDrawLinkToClipboard} className="cursor-pointer mx-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
-                                                </svg>
+                                                <Link href={drawLink} rel="noopener" target="_blank" className="mx-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                                                    </svg>
+                                                </Link>
+
+                                                <div onClick={() => { copyDrawLinkToClipboard(drawLink) }} className="cursor-pointer mx-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+                                                    </svg>
+                                                </div>
                                             </div>
-                                        </div>
+                                        ))}
 
                                         <p className="mt-8 text-md">
+                                            These 3 links are equivalent as both verify.win and verifiable.page redirect to verifiabledraws.com<br /><br /> 
                                             If you need further assistance please <Link href="https://discord.gg/3YjqW9MP7H" rel="noopener" target="_blank" className="underline">join our Discord server</Link>, we will be happy to help you.<br />
-                                            Thank you for using our service and making the world more decentralized.
+                                            Thank you for using our service and helping to make the world more decentralized.
                                         </p>
                                     </div>
                                 )
@@ -642,7 +652,7 @@ export default function Page() {
                         )
                     }
                     {
-                        (selectedStep === steps.length && drawLink) && (
+                        (selectedStep === steps.length && drawLinks.length > 0) && (
                             <Link href="/">
                                 <button
                                     type="button"

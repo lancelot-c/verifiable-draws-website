@@ -308,6 +308,6 @@ async function setOptimalGas() {
             'gwei'
         )
     } catch {
-        // ignore
+        console.error(`Failed to call the gas station at ${gasStationURL}`);
     }
 }
