@@ -596,7 +596,7 @@ export default function Page() {
 
 
                                         {drawLinks.map((drawLink) => (
-                                            <div className="rounded-md bg-white/50 ring-2 ring-indigo-800 my-12 px-8 py-4 text-xl flex justify-center">
+                                            <div key={drawLink} className="rounded-md bg-white/50 ring-2 ring-indigo-800 my-12 px-8 py-4 text-xl flex justify-center">
                                                 <div className="text-ellipsis overflow-hidden mx-2">
                                                     { shortenUrl(drawLink) }
                                                 </div>
