@@ -298,7 +298,7 @@ async function setOptimalGas() {
         const { data } = await axios({
             method: 'get',
             url: gasStationURL
-        })
+        });
         maxFeePerGas = ethers.parseUnits(
             Math.ceil(data.fast.maxFee) + '',
             'gwei'
