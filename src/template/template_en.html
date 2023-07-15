@@ -257,7 +257,8 @@
 
     <script type="module">
 
-        const cid = window.location.href.split("=")[1];
+        const pageSegments = window.location.href.split("/");
+        let cid = pageSegments[pageSegments.length - 1];
         populateDom('cid', cid)
         const cidLinks = document.getElementsByClassName("cidLink");
         for (let i = 0; i < cidLinks.length; i++) {

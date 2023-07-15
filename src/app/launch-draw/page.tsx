@@ -616,7 +616,7 @@ export default function Page() {
                                         ))}
 
                                         <p className="mt-8 text-md">
-                                            These 3 links are equivalent as both verify.win and verifiable.page redirect to verifiabledraws.com<br /><br /> 
+                                            These 3 links are equivalent as both verify.win and verifiable.page redirect to verifiabledraws.com.<br /><br /> 
                                             If you need further assistance please <Link href="https://discord.gg/3YjqW9MP7H" rel="noopener" target="_blank" className="underline">join our Discord server</Link>, we will be happy to help you.<br />
                                             Thank you for using our service and helping to make the world more decentralized.
                                         </p>
