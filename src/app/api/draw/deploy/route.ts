@@ -146,13 +146,17 @@ async function createDraw(
         const entropyNeeded = await computeEntropyNeeded(drawNbParticipants, drawNbWinners);
 
         // Generate draw file
-        const drawFilepath = await generateDrawFile(drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
+        const [drawFilepath, content] = await generateDrawFile(drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
 
         // Pin draw file on IPFS
-        const cid = await pinOnIPFS(drawFilepath, drawTitle);
+        const cid = await pinInWeb3Storage(drawFilepath, drawTitle);
+        await pinInKV(cid, content);
 
         // Rename draw file to match IPFS CID
-        await renameFileToCid(drawFilepath, cid);
+        // await renameFileToCid(drawFilepath, cid);
+
+        // Delete temp file
+        deleteTmpDrawFile(drawFilepath);
 
         // Publish draw on smart contract
         await publishOnSmartContract(cid, drawScheduledAt, entropyNeeded);
@@ -164,10 +168,20 @@ async function createDraw(
     }
 }
 
-async function renameFileToCid(oldPath: string, cid: string) {
-    const newPath = path.join(process.cwd(), `/src/app/ipfs/${cid}.html`);
-    console.log(`Rename ${oldPath} to ${newPath}`);
-    return fsPromises.rename(oldPath, newPath);
+// async function renameFileToCid(oldPath: string, cid: string) {
+//     const newPath = path.join(process.cwd(), `/src/app/ipfs/${cid}.html`);
+//     console.log(`Rename ${oldPath} to ${newPath}`);
+//     return fsPromises.rename(oldPath, newPath);
+// }
+
+function deleteTmpDrawFile(drawFilepath: string) {
+    fs.unlink(drawFilepath, (err) => {
+        if (err) {
+            throw err;
+        }
+    
+        console.log(`Deleted ${drawFilepath} successfully.`);
+    });
 }
 
 async function computeEntropyNeeded(nbParticipants: number, nbWinners: number): Promise<number> {
@@ -209,15 +223,16 @@ async function generateDrawFile(drawTitle: string, drawRules: string, drawPartic
         .replaceAll('{{ drawNbWinners }}', drawNbWinners.toString());
 
     const fileHash = sha256(newContent);
-    const drawTempFilepath = path.join(process.cwd(), `/src/app/ipfs/${fileHash}.html`);
+    const drawTempFilepath = `/tmp/${fileHash}.html`;
     console.log(`drawTempFilepath = ${drawTempFilepath}`);
 
     await fsPromises.writeFile(drawTempFilepath, newContent, 'utf8');
-    return drawTempFilepath;
+
+    return [drawTempFilepath, newContent];
 
 }
 
-async function pinOnIPFS(filepath: string, drawTitle: string): Promise<string> {
+async function pinInWeb3Storage(filepath: string, drawTitle: string): Promise<string> {
     console.log(`Uploading ${filepath} to IPFS...\n`);
 
     const token = process.env.WEB3_STORAGE_API_TOKEN
@@ -248,6 +263,10 @@ async function pinOnIPFS(filepath: string, drawTitle: string): Promise<string> {
         onRootCidReady
     });
     return cidPromise;
+}
+
+async function pinInKV(cid: string, content: string) {
+    await kv.set(`content_${cid}`, content);
 }
 
 async function publishOnSmartContract(v1CidString: string, scheduledAt: number, entropyNeeded: number) {

@@ -257,7 +257,7 @@
 
     <script type="module">
 
-        const cid = window.location.pathname.slice(1, -5)
+        const cid = window.location.href.split("=")[1];
         populateDom('cid', cid)
         const cidLinks = document.getElementsByClassName("cidLink");
         for (let i = 0; i < cidLinks.length; i++) {
@@ -368,7 +368,7 @@
         async function checkDrawResult() {
 
             // You can verify that the returned randomness match the one at {{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F5
-            let randomnessResponse = await fetch(`https://www.verifiabledraws.com/api/blockchain/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
+            let randomnessResponse = await fetch(`https://www.verifiabledraws.com/api/smart-contract/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
             const randomness = await randomnessResponse.json();
             console.log('randomness.bytes = ');
             console.log(randomness.bytes);

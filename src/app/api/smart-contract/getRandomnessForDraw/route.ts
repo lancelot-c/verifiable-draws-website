@@ -33,7 +33,7 @@ export async function GET(request: Request) {
 
     let bytes;
     const emptyBytes = "0x";
-    const cachedBytes = await kv.get(cid);
+    const cachedBytes = await kv.get(`randomness_${cid}`);
 
     if (cachedBytes && cachedBytes != emptyBytes) {
 
@@ -66,7 +66,7 @@ export async function GET(request: Request) {
 
         // If randomness have been generated, cache it
         if (bytes && bytes != emptyBytes) {
-            await kv.set(cid, bytes);
+            await kv.set(`randomness_${cid}`, bytes);
             console.log(`Added ${cid} : ${bytes} in the KV store.`)
         }
         
