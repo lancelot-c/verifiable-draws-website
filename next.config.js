@@ -10,23 +10,18 @@ module.exports = {
         }
         return config;
     },
+    // ⬇ Only works in production, not in dev, that's a known Next.JS bug : https://github.com/vercel/next.js/issues/40549 
     rewrites: async () => {
         return {
+            // These rewrites are checked after headers/redirects
+            // and before all files including _next/public files which
+            // allows overriding page files
             beforeFiles: [
-                // These rewrites are checked after headers/redirects
-                // and before all files including _next/public files which
-                // allows overriding page files
                 {
                     source: '/ipfs/:cid',
                     destination: '/ipfs?cid=:cid',
                 },
             ],
         };
-        // return [
-        //     {
-        //         source: '/ipfs/:cid/',
-        //         destination: '/ipfs?cid=:cid',
-        //     },
-        // ]
     }
 }

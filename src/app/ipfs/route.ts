@@ -16,9 +16,6 @@ export async function GET(request: Request) {
         status: (fileData) ? 200 : 404,
         headers: {
             "Content-Type": "text/html; charset=utf-8",
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         }
     };
 
