@@ -545,23 +545,20 @@
                     <a href="https://ipfs.tech/" target="_blank">IPFS</a> is a peer-to-peer network for storing tamper-proof files on the internet. It's a bit like Google Drive but decentralized and tamper-proof, which means that once a file is published on IPFS, its content cannot change.<br />
                     <br />
                     Every draw URL on verifiabledraws.com contains an identifier which is the same identifier used by IPFS to access a file (it is called a Content Identifier, or CID).
-                    Therefore, it makes the verification process extremely easy for participants.
-                    You can just copy the identifier from the draw URL (<code><span class="var_cid"></span></code>) and paste it on any website which allow access to IPFS content, like <a href="https://web3.storage/products/w3link/" class="cidLink" target="_blank">w3s.link</a>, to check that the source code you get from IPFS is the same as this page source code (<code>Right click > View page source</code>).<br />
-                    <br />
-                    It guarantees you that nobody can rig the draw, neither the organizer nor Verifiable Draws, even if they want to, because all the parameters are public, tamper-proof, and verifiable.
+                    Copy the identifier from the draw URL (<code><span class="var_cid"></span></code>), paste it on any website which allow access to IPFS content, like <a href="https://web3.storage/products/w3link/" class="cidLink" target="_blank">w3s.link</a> for example, and notice that the source code you get from IPFS is the same as this page source code (<code>Right click > View page source</code>). It means that this page is indeed stored on IPFS and is therefore tamper-proof.<br />
                 </li>
                 <li class="verification-step">
                     <strong>Verify the random number</strong><br />
                     The last thing we need is a random number to select winners randomly.<br />
-                    We rely on blockchain technology for that because it is the only way to get verifiable randomness as of today. Randomness generated outside of the blockchain cannot be verifiable because you have no proof that the algorithm used to generate the randomness is actually the one that the organiser claim to be, whereas <a href="https://www.ibm.com/topics/smart-contracts" target="_blank">smart contracts on a blockchain</a> are verifiable.
+                    We rely on blockchain technology for that because it is the only way to get verifiable randomness as of today. Randomness generated outside of the blockchain cannot be verifiable because you have no proof that the algorithm used to generate the randomness is actually the one that the organiser claim to be, which is not the case for <a href="https://www.ibm.com/topics/smart-contracts" target="_blank">smart contracts</a> on a blockchain.
                     <br /><br />
-                    When this draw reach his due date, our smart contract on the blockchain will automatically generate a random number. Then this page will call our smart contract to retrieve the generated number and use it to select winners.<br />
+                    When this draw reachs his due date, our smart contract will automatically generate a random number for it. Then this page will call the smart contract to retrieve the generated number and use it to select winners.<br />
                     <br />
-                    To verify that, <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F5" target="_blank">go to our smart contract</a> and call the function <code>getRandomnessForDraw</code> with parameter <code>cid = <span class="var_cid"></span></code> which is the IPFS CID for this draw. You will get a random number starting with <code>0x</code>.<br />
+                    To verify the random number, <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F5" target="_blank">go to our smart contract</a> and call the function <code>getRandomnessForDraw</code> with parameter <code>cid = <span class="var_cid"></span></code> which is the IPFS CID for this draw. You will get a sequence starting with <code>0x</code>.<br />
                     <br />
-                    Then go back to this page, <code>Right click > Inspect > Network tab > Refresh the page > Select the request named "getRandomnessForDraw" > Response tab</code>. You will see a second number which is the one actually used by the page to perform the draw.<br />
+                    Then go back to this page, <code>Right click > Inspect > Network tab > Refresh the page > Select the request named "getRandomnessForDraw" > Response tab</code>. You will see another sequence starting with <code>0x</code>.<br />
                     <br />
-                    If the two numbers match, everything is correct.
+                    If the two sequences are the same the random number used is correct.
                 </li>
                 <li class="verification-step">
                     <strong>[Optional] Read the code</strong><br />

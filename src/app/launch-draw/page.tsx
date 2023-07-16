@@ -111,11 +111,14 @@ const drawNbWinnersPlaceholder = '48';
 
 export default function Page() {
 
-    const dt = new Date();
-    const safetyCushion = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : 30; // number of minutes to add as a safety net
-    dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset() + safetyCushion);
-    const scheduledAtMinValue = dt.toISOString().slice(0, 16);
-    const scheduledAtDefaultValue = scheduledAtMinValue;
+    const dt_min = new Date();
+    const dt_default = new Date();
+    const safetyCushionMin = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : 30;
+    const safetyCushionDefault = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : (60 * 6);
+    dt_min.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionMin);
+    dt_default.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionDefault);
+    const scheduledAtMinValue = dt_min.toISOString().slice(0, 16);
+    const scheduledAtDefaultValue = dt_default.toISOString().slice(0, 16);
 
     const { register, trigger, getValues, formState: { errors, isValid } } = useForm<FormInputs>({
         defaultValues: {
@@ -422,7 +425,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">Rules should be written in natural language</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">Explain how the participants were selected. It can be as simple as "Everyone who liked my last Instagram post was counted as a participant."</p>
                             </div>
 
                         </div>
@@ -509,8 +512,9 @@ export default function Page() {
                                     </div>
                                     <div className="ml-3 flex-1 md:flex md:justify-between">
                                         <p className="text-sm text-blue-700">
-                                            In order to be verifiable, the draw has to occur after the draw link is shared to the participants. Otherwise, nothing guarantees that you did not intentionally run several draws in parallel and only shared the one whose result you like best.
-                                            For this reason, <span className="font-semibold">we recommend you to choose a date and time which is at least 30 minutes in the future and to share the draw link immediately after it is generated</span>.
+                                            At the end of this form we will give you a link to your draw.
+                                            Please note that you have to share this link to the participants <span className="underline">before the draw happens</span>.
+                                            That's why as a good practice we recommend you to schedule your draw at least 6 hours in the future from now.
                                         </p>
                                     </div>
                                 </div>
