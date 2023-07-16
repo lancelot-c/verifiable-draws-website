@@ -425,7 +425,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">Explain how the participants were selected. It can be as simple as "Everyone who liked my last Instagram post was counted as a participant."</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">Explain how the participants were selected. It can be as simple as &quot;Everyone who liked my last Instagram post was counted as a participant.&quot;</p>
                             </div>
 
                         </div>
@@ -514,7 +514,7 @@ export default function Page() {
                                         <p className="text-sm text-blue-700">
                                             At the end of this form we will give you a link to your draw.
                                             Please note that you have to share this link to the participants <span className="underline">before the draw happens</span>.
-                                            That's why as a good practice we recommend you to schedule your draw at least 6 hours in the future from now.
+                                            That&apos;s why as a good practice we recommend you to schedule your draw at least 6 hours in the future from now.
                                         </p>
                                     </div>
                                 </div>
