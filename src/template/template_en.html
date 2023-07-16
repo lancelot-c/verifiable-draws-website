@@ -220,8 +220,8 @@
             border-bottom: 2px solid black;
         }
 
-        li.verification-step:not(:last-child) { 
-            margin-bottom: 30px;  
+        li.verification-step {
+            margin-bottom: 60px;
         }
 
         li.verification-step strong {
@@ -463,7 +463,8 @@
 
         <div class="certified-section__txt">
             <p>
-                This random draw is secured by a decentralized algorithm leveraging the <a href="https://ipfs.tech/" target="_blank">IPFS protocol</a> and the <a href="https://ethereum.org/en/" target="_blank">Ethereum blockchain</a> in order to guarantee that the draw is <a href="#" class="verifiable-outcome-modal-open" data-id="verifiable-outcome-modal">provably fair and random</a>.
+                This random draw is secured by a decentralized algorithm leveraging the IPFS protocol and the Ethereum blockchain in order to guarantee that the draw is provably fair and random.<br />
+                <a href="#" class="verifiable-outcome-modal-open" data-id="verifiable-outcome-modal">Learn more</a>
             </p>
             <p class="powered-by">
                 Powered by <a href="https://www.verifiabledraws.com/" target="_blank">Verifiable Draws</a>
@@ -538,8 +539,7 @@
             <ul>
                 <li class="verification-step">
                     <strong>Verify the draw parameters</strong><br />
-                    This web page contains all the parameters needed for the draw: the name of the draw, the rules, the list of participants, the number of participants to draw, and the date and time at which the draw will happen.<br />
-                    You can manually verify that all of these parameters are correct.<br />
+                    This web page contains all the parameters needed for the draw: the name of the draw, the rules, the list of participants, the number of participants to draw, and the date and time at which the draw will happen. You can manually verify that all of these parameters are correct.<br />
                     <br />
                     On top of that, in order to prevent anyone from modifying these parameters we haven't stored this page on the regular web, instead it is stored on the decentralized web, also known as IPFS.<br />
                     <a href="https://ipfs.tech/" target="_blank">IPFS</a> is a peer-to-peer network for storing tamper-proof files on the internet. It's a bit like Google Drive but decentralized and tamper-proof, which means that once a file is published on IPFS, its content cannot change.<br />
@@ -547,22 +547,28 @@
                     Every draw URL on verifiabledraws.com contains an identifier which is the same identifier used by IPFS to access a file (it is called a Content Identifier, or CID).
                     Therefore, it makes the verification process extremely easy for participants.
                     You can just copy the identifier from the draw URL (<code><span class="var_cid"></span></code>) and paste it on any website which allow access to IPFS content, like <a href="https://web3.storage/products/w3link/" class="cidLink" target="_blank">w3s.link</a>, to check that the source code you get from IPFS is the same as this page source code (Right click anywhere on the page > View page source).<br />
+                    <br />
                     It guarantees you that nobody can rig the draw, neither the organizer nor Verifiable Draws, even if they want to, because all the parameters are public, tamper-proof, and verifiable.
                 </li>
                 <li class="verification-step">
                     <strong>Verify the random number</strong><br />
                     The last thing we need is a random number to select winners randomly.<br />
-                    We rely on blockchain technology for that because it is the only way to get verifiable randomness as of today. Randomness generated outside of the blockchain cannot be verifiable because you have no proof that the algorithm used to generate the randomness is actually the one that the organiser claim to be, whereas <a href="https://www.ibm.com/topics/smart-contracts target="_blank">smart contracts on a blockchain</a> are verifiable.
+                    We rely on blockchain technology for that because it is the only way to get verifiable randomness as of today. Randomness generated outside of the blockchain cannot be verifiable because you have no proof that the algorithm used to generate the randomness is actually the one that the organiser claim to be, whereas <a href="https://www.ibm.com/topics/smart-contracts" target="_blank">smart contracts on a blockchain</a> are verifiable.
                     <br /><br />
-                    When this draw reach his due date, our smart contract on the blockchain will automatically generate a random number. Then this page will call our smart contract to retrieve the generated number and use it to select winners.
-                    To verify that, <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F5" target="_blank">go to our smart contract</a> and call the function <code>getRandomnessForDraw</code> with parameter <code>cid = <span class="var_cid"></span></code> which is the IPFS CID for this draw. You will get a random number starting with <code>0x</code>.
-                    Then go back to this page, <code>Right click > Inspect > Network tab > Refresh the page > Select the request named "getRandomnessForDraw" > Response tab</code>. You will see a second number which is the one actually used by the page to perform the draw.
+                    When this draw reach his due date, our smart contract on the blockchain will automatically generate a random number. Then this page will call our smart contract to retrieve the generated number and use it to select winners.<br />
+                    <br />
+                    To verify that, <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F5" target="_blank">go to our smart contract</a> and call the function <code>getRandomnessForDraw</code> with parameter <code>cid = <span class="var_cid"></span></code> which is the IPFS CID for this draw. You will get a random number starting with <code>0x</code>.<br />
+                    <br />
+                    Then go back to this page, <code>Right click > Inspect > Network tab > Refresh the page > Select the request named "getRandomnessForDraw" > Response tab</code>. You will see a second number which is the one actually used by the page to perform the draw.<br />
+                    <br />
                     If the two numbers match, everything is correct.
                 </li>
                 <li class="verification-step">
                     <strong>[Optional] Read the code</strong><br />
                     The whole process of the draw is determined by this page and our smart contract which both are open-source, tamper-proof, and verifiable, so anyone can inspect the code.<br />
+                    <br />
                     If you do so, you will notice that we generate our random numbers with <a href="https://chain.link/vrf" target="_blank">Chainlink VRF</a> which is the world leading randomness provider on the blockchain.<br />
+                    <br />
                     We also use <a href="https://chain.link/automation" target="_blank">Chainlink Automation</a> to add censorship resistance to our draws so that nobody can prevent a draw from happening.
                 </li>
             </ul>
