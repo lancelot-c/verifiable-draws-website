@@ -257,7 +257,11 @@
 
     <script type="module">
 
-        const pageSegments = window.location.href.split("/");
+        const url = window.location.href;
+
+        // In test mode the url is http://localhost:3000/ipfs?cid=XXX whereas in production the url is https://www.verifiabledraws.com/ipfs/XXX
+        const isTestMode = url.includes("=");
+        const pageSegments = isTestMode ? url.split("=") : url.split("/");
         let cid = pageSegments[pageSegments.length - 1];
         populateDom('cid', cid)
         const cidLinks = document.getElementsByClassName("cidLink");
@@ -539,7 +543,7 @@
             <ul>
                 <li class="verification-step">
                     <strong>Verify the draw parameters</strong><br />
-                    This web page contains all the parameters needed for the draw: the name of the draw, the rules, the list of participants, the number of participants to draw, and the date and time at which the draw will happen. You can manually verify that all of these parameters are correct.<br />
+                    This web page contains all the parameters needed for the draw: the name of the draw, the rules, the list of participants, the number of winners to pick, and the date and time at which the draw will happen. You can manually verify that all of these parameters are correct.<br />
                     <br />
                     On top of that, in order to prevent anyone from modifying these parameters we haven't stored this page on the regular web, instead it is stored on the decentralized web, also known as IPFS.<br />
                     <a href="https://ipfs.tech/" target="_blank">IPFS</a> is a peer-to-peer network for storing tamper-proof files on the internet. It's a bit like Google Drive but decentralized and tamper-proof, which means that once a file is published on IPFS, its content cannot change.<br />

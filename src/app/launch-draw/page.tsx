@@ -7,7 +7,7 @@ import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe
 import { Elements } from "@stripe/react-stripe-js";
 import { CheckCircleIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
 import CheckoutForm from "./CheckoutForm";
-const websiteBasePaths = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? ['http://localhost:3000/ipfs'] : ['http://verify.win', 'http://verifiable.page', 'https://www.verifiabledraws.com/ipfs']
+const websiteBasePaths = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? ['http://localhost:3000/ipfs?cid='] : ['http://verify.win/']
 const stripePublicKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
 
 if (!stripePublicKey) {
@@ -200,7 +200,7 @@ export default function Page() {
             .then(data => {
                 if (!ignore) {
                     setCid(data.cid);
-                    setDrawLinks(websiteBasePaths.map(basePath => `${basePath}/${data.cid}`))
+                    setDrawLinks(websiteBasePaths.map(basePath => `${basePath}${data.cid}`))
                 }
 
             });
@@ -595,7 +595,7 @@ export default function Page() {
                                     <div className="text-center">
                                         <p className="mt-8 text-md">
                                             The draw has successfully been deployed to IPFS and Ethereum. 🎉<br />
-                                            You can now share one of the following links to the participants so that they can access the draw details and see the winners when they are announced.
+                                            You can now share the following link to the participants so that they can access the draw details and see the winners when they are announced.
                                         </p>
 
 
@@ -620,7 +620,6 @@ export default function Page() {
                                         ))}
 
                                         <p className="mt-8 text-md">
-                                            These 3 links are equivalent because both verify.win and verifiable.page redirect to verifiabledraws.com/ipfs<br /><br /> 
                                             If you need further assistance please <Link href="https://discord.gg/3YjqW9MP7H" rel="noopener" target="_blank" className="underline">join our Discord server</Link>, we will be happy to help you.<br />
                                             Thank you for using our service and helping to make the world more decentralized.
                                         </p>
