@@ -425,7 +425,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">Explain how the list of participants was made, how many winners will be picked and what are the prizes to win.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">Explain how the list of participants was made, how many winners will be picked, and what are the prizes to win.</p>
                             </div>
 
                         </div>
@@ -454,12 +454,12 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">Each line should contain only one participant</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">Type one participant per line. Each participant can be identified with any type of ID (Instagram username, Telegram username, email address, phone number, ...) as long as the ID is unique. Choose the type of ID which fits best for your use case.</p>
                             </div>
 
                             <div className="sm:col-span-2">
                                 <label htmlFor="nbWinners" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Number of participants to draw
+                                    Number of winners
                                 </label>
                                 <div className="mt-2">
                                     <input
@@ -475,6 +475,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">Make sure this number is the same as the one you mentioned in your rules at the previous step.</p>
                             </div>
                         </div>
                     )
