@@ -454,7 +454,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">Type one participant per line. Each participant can be identified with any type of ID (Instagram username, Telegram username, email address, phone number, ...) as long as the ID is unique. Choose the type of ID which fits best for your use case.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">Type one participant per line. Participants can be identified with any type of ID (Instagram username, Telegram username, first name + last name, ...) as long as the ID is unique in your list. Choose the type of ID which fits best for your use case.</p>
                             </div>
 
                             <div className="sm:col-span-2">
@@ -475,7 +475,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">Make sure this number is the same as the one you mentioned in your rules at the previous step.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">This is the number of participants that our algorithm will select randomly. Make sure it is the same as the one you mentioned in your rules at the previous step.</p>
                             </div>
                         </div>
                     )
