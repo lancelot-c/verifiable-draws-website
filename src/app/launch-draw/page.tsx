@@ -425,7 +425,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">Explain how the participants were selected. It can be as simple as &quot;Everyone who liked my last Instagram post was counted as a participant.&quot;</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">Explain how the list of participants was made, how many winners will be picked and what are the prizes to win.</p>
                             </div>
 
                         </div>
@@ -512,8 +512,9 @@ export default function Page() {
                                     </div>
                                     <div className="ml-3 flex-1 md:flex md:justify-between">
                                         <p className="text-sm text-blue-700">
-                                            At the end of this form we will give you a link to your draw.
-                                            Please note that you have to share this link to the participants <span className="underline">before the draw happens</span>.
+                                            At the end of this form we will create a web page for your draw and give you the link to access it.
+                                            Please note that you will have to <span className="font-semibold">share this link to the participants before the draw happens</span>.
+                                            By doing so, the participants will have the guarantee that you did not know the result of the draw in advance, which means that you will be <Link href="https://messari.io/report/credible-neutrality-as-a-guiding-principle" rel="noopener" target="_blank" className="underline">credibly neutral</Link>.
                                             That&apos;s why as a good practice we recommend you to schedule your draw at least 6 hours in the future from now.
                                         </p>
                                     </div>
@@ -529,7 +530,7 @@ export default function Page() {
                 <div className={`flex items-center mt-10 w-full ${selectedStep === paymentStep ? '' : 'hidden'}`}>
 
                     <p className="flex-auto w-64 mt-0 px-24 py-16 border-r border-gray-200 text-md font-light tracking-wide text-gray-800 sm:text-md text-center">
-                        <span className="italic">Verifiable Draws</span> is the only draw platform in the world which prevents all kinds of fraud.
+                        <span className="italic">Verifiable Draws</span> is the only draw platform which prevents all kinds of fraud.
                         <br /><br />
                         Therefore, by choosing us, you are contributing to make the world a better place and inspiring others to do the same.
                         <br /><br />
@@ -620,8 +621,8 @@ export default function Page() {
                                         ))}
 
                                         <p className="mt-8 text-md">
-                                            If you need further assistance please <Link href="https://discord.gg/3YjqW9MP7H" rel="noopener" target="_blank" className="underline">join our Discord server</Link>, we will be happy to help you.<br />
-                                            Thank you for using our service and helping to make the world more decentralized.
+                                            If you need further assistance please ask on <Link href="https://discord.gg/3YjqW9MP7H" rel="noopener" target="_blank" className="underline">our Discord server</Link>, we will be happy to help you.<br />
+                                            Thank you for using our service and helping to make the world more decentralized and transparent.
                                         </p>
                                     </div>
                                 )
