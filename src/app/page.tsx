@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import goldMedalImg from '/public/img/medaille-or-lepine-500w.png'
-import graphiqueTechnique from '/public/img/graphique-technique-1500w.png'
-import mainBanner from '/public/img/tmp2-main-banner-2316w.png'
+import mainBanner from '/public/img/main-banner-2316w.png'
 import fdjLogoImg from '/public/img/fdj-logo-300w.png'
 import presseCitronLogoImg from '/public/img/presse-citron-nav.svg'
 import ipfsLogoImg from '/public/img/ipfs-logo-without-text.svg'
@@ -63,53 +62,50 @@ const features = [
 
 const tiers = [
     {
-        name: 'Single draw',
+        name: 'Hobby',
         id: 'tier-freelancer',
         href: '/launch-draw',
         packagePrice: '29',
         description: 'For individuals looking only for a single draw.',
         features: [
-            'Instant deploy only',
-            'Immediate or scheduled draw',
-            'Up to 10,000 participants',
-            'Up to 3 winners',
+            'Schedule draw at custom date and time',
+            'Up to 1 000 participants',
+            'Up to 10 winners',
             '48-hour support response time'
         ],
-        mostPopular: true,
+        mostPopular: false,
     },
     {
-      name: '10 draws',
+      name: 'Influencer',
       id: 'tier-startup',
-      href: '#join-community',
-      packagePrice: '17',
-      savePercentage: '40',
+      href: '/launch-draw',
+      packagePrice: '79',
+    //   savePercentage: '40',
       description: 'For people who organise draws on a regular basis, like social media influencers.',
       features: [
-        'Deploy now or later',
-        'Immediate or scheduled draw',
-        'Up to 1,000,000 participants',
+        'Schedule draw at custom date and time',
+        'Up to 100 000 participants',
         'Up to 100 winners',
         '24-hour support response time',
       ],
-      mostPopular: false,
-      availableSoon: true
+      mostPopular: true,
+      availableSoon: false
     },
     {
-      name: '100 draws',
+      name: 'Enterprise',
       id: 'tier-enterprise',
-      href: '#join-community',
-      packagePrice: '12',
-      savePercentage: '60',
+      href: '/launch-draw',
+      packagePrice: '249',
+    //   savePercentage: '60',
       description: 'For teams & businesses who are organizing draws at scale.',
       features: [
-        'Deploy now or later',
-        'Immediate or scheduled draw',
-        'Up to 10,000,000 participants',
-        'Up to 1000 winners',
-        '1-hour, dedicated support response time',
+        'Schedule draw at custom date and time',
+        'Up to 10 000 000 participants',
+        'Up to 1 000 winners',
+        '2-hour, dedicated support response time',
       ],
       bestValue: false,
-      availableSoon: true
+      availableSoon: false
     },
   ]
   
@@ -316,7 +312,7 @@ export default function Example() {
                 <section className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                     <div style={{boxSizing: 'border-box', margin: '0px auto', maxWidth: '1200px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
                         <h2 data-main-heading="true" className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl text-center">
-                            Built on a foundation of decentralized,
+                            Built on a foundation of transparent,
                             <br />
                             battle-tested technologies
                         </h2>
@@ -509,8 +505,7 @@ export default function Example() {
                                         </svg>
                                     </span>
                                     <span data-subtitle="true" style={{boxSizing: 'border-box', fontSize: '14px', lineHeight: '21px', letterSpacing: '-0.14px', color: 'rgb(102, 102, 102)', margin: '0px', maxWidth: '440.918px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                                        The webpage of the draw is stored on IPFS which guarantees that the draw parameters cannot be modified once the draw is published.
-                                        {/* A distributed file storage protocol that allows computers all over the globe to store and serve files as part of a giant peer-to-peer network. */}
+                                        The InterPlanetary File System (IPFS) is a distributed file storage protocol that allows computers all over the globe to store and serve files as part of a giant peer-to-peer network.
                                     </span>
                                 </div>
                             </Link>
@@ -530,11 +525,11 @@ export default function Example() {
                                         </svg>
                                     </span>
                                     <span data-subtitle="true" style={{boxSizing: 'border-box', fontSize: '14px', lineHeight: '21px', letterSpacing: '-0.14px', color: 'rgb(102, 102, 102)', margin: '0px', maxWidth: '440.918px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                                        A random number is associated to the draw in our smart contract, which is a verifiable software running on the Ethereum blockchain.
+                                    Ethereum is a decentralized blockchain platform that establishes a peer-to-peer network that securely executes and verifies application code, called smart contracts.
                                     </span>
                                 </div>
                             </Link>
-                            <Link data-version="v1" className="foundation_card" style={{WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)', color: 'rgb(0, 116, 222)', textDecoration: 'none solid rgb(0, 116, 222)', transition: 'background 0.15s ease 0s', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', flex: '0 1 auto', gap: '0px', width: '100%', minHeight: '240px', borderRadius: '12px', padding: '24px', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 0px 1px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgb(250, 250, 250) 0px 0px 0px 6px inset', background: '#fff', position: 'relative', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)', touchAction: 'pan-y'}} data-variant="swc" href="https://chain.link/vrf" rel="noopener" target="_blank">
+                            <Link href="https://chain.link/" rel="noopener" target="_blank" data-version="v1" className="foundation_card" style={{WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)', color: 'rgb(0, 116, 222)', textDecoration: 'none solid rgb(0, 116, 222)', transition: 'background 0.15s ease 0s', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', flex: '0 1 auto', gap: '0px', width: '100%', minHeight: '240px', borderRadius: '12px', padding: '24px', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 0px 1px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgb(250, 250, 250) 0px 0px 0px 6px inset', background: '#fff', position: 'relative', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)', touchAction: 'pan-y'}} data-variant="swc">
                                 <div data-icon="true" style={{boxSizing: 'border-box', height: '40px', display: 'flex', alignItems: 'center', marginBottom: 'auto', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
                                 <Image
                                     className="h-14 w-auto"
@@ -544,14 +539,13 @@ export default function Example() {
                                 </div>
                                 <div data-version="v1" style={{display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', flex: '0 1 auto', gap: '4px', outlineColor: 'rgb(37, 99, 235)', boxSizing: 'border-box', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
                                     <span data-version="v1" style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', flex: '0 1 auto', gap: '4px', fontSize: '20px', lineHeight: '30px', letterSpacing: '-0.8px', color: 'rgb(0, 0, 0)', margin: '0px', fontWeight: 600, outlineColor: 'rgb(37, 99, 235)', boxSizing: 'border-box', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}} data-title="true">
-                                        <span style={{boxSizing: 'border-box', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>Chainlink VRF</span>
+                                        <span style={{boxSizing: 'border-box', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>Chainlink</span>
                                         <svg viewBox="0 0 20 20" fill="rgb(150, 150, 150)" className="w-5 h-5">
                                             <path fillRule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clipRule="evenodd" />
                                         </svg>
                                     </span>
                                     <span data-subtitle="true" style={{boxSizing: 'border-box', fontSize: '14px', lineHeight: '21px', letterSpacing: '-0.14px', color: 'rgb(102, 102, 102)', margin: '0px', maxWidth: '440.918px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                                        The random numbers are provided by Chainlink VRF which is currently the most secure random number generator on Ethereum.
-                                        {/* A provably fair and verifiable random number generator that enables smart contracts to access random values without compromising security. */}
+                                    Chainlink enhances smart contract capabilities by allowing access to data outside the blockchain and off-chain computing while keeping blockchain technology's security and reliability assurances.
                                     </span>
                                 </div>
                             </Link>
@@ -565,9 +559,9 @@ export default function Example() {
 <div className="py-24 sm:pt-48">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-4xl text-center">
-              <h2 className="text-base font-semibold leading-7 text-indigo-600">Simple pricing</h2>
+              <h2 className="text-base font-semibold leading-7 text-indigo-600">Pricing</h2>
               <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                The more you buy, the cheaper it gets
+                Pricing plans for draws of all sizes
               </p>
             </div>
             {/* <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
@@ -579,7 +573,7 @@ export default function Example() {
                   key={tier.id}
                   className={classNames(
                     tier.mostPopular ? 'lg:z-10 lg:rounded-b-none' : 'lg:mt-8',
-                    tierIdx === 1 ? 'lg:rounded-none' : '',
+                    tierIdx === 0 ? 'lg:rounded-r-none' : '',
                     tierIdx === tiers.length - 1 ? 'lg:rounded-l-none' : '',
                     'flex flex-col justify-between rounded-3xl bg-white p-8 ring-1 ring-gray-200 xl:p-10'
                   )}
@@ -613,15 +607,15 @@ export default function Example() {
                       <span>
                         <span className="text-4xl font-bold tracking-tight text-gray-900">{tier.packagePrice}€</span>
                         <span className="text-sm font-semibold leading-6 text-gray-600">
-                            {tierIdx > 0 ? '/draw' : null}
+                            {/* {tierIdx > 0 ? '/draw' : null} */}
                         </span>
                       </span>
 
-                      {tier.savePercentage ? (
+                      {/* {tier.savePercentage ? (
                         <span className="rounded-full bg-orange-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-orange-600">
                           Save {tier.savePercentage}%
                         </span>
-                      ) : null}
+                      ) : null} */}
                     </p>
                     <ul role="list" className="mt-8 space-y-3 text-sm leading-6 text-gray-600">
                       {tier.features.map((feature) => (
