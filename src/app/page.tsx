@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import goldMedalImg from '/public/img/medaille-or-lepine-500w.png'
 import graphiqueTechnique from '/public/img/graphique-technique-1500w.png'
+import mainBanner from '/public/img/tmp2-main-banner-2316w.png'
 import fdjLogoImg from '/public/img/fdj-logo-300w.png'
 import presseCitronLogoImg from '/public/img/presse-citron-nav.svg'
 import ipfsLogoImg from '/public/img/ipfs-logo-without-text.svg'
@@ -175,7 +176,7 @@ export default function Example() {
                 <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                   <Image
                     sizes="94vw"
-                    src={graphiqueTechnique}
+                    src={mainBanner}
                     alt="App screenshot"
                     className="rounded-md shadow-2xl ring-1 ring-gray-900/10"
                   />

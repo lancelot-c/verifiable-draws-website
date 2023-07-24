@@ -475,7 +475,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">This is the number of participants that our algorithm will select randomly. Make sure it is the same as the one you mentioned in your rules at the previous step.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">This is the number of participants that our algorithm will select randomly. Make sure it matches with what you have written in your rules at the previous step.</p>
                             </div>
                         </div>
                     )
