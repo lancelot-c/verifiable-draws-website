@@ -545,7 +545,7 @@ export default function Example() {
                                         </svg>
                                     </span>
                                     <span data-subtitle="true" style={{boxSizing: 'border-box', fontSize: '14px', lineHeight: '21px', letterSpacing: '-0.14px', color: 'rgb(102, 102, 102)', margin: '0px', maxWidth: '440.918px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
-                                    Chainlink enhances smart contract capabilities by allowing access to data outside the blockchain and off-chain computing while keeping blockchain technology's security and reliability assurances.
+                                    Chainlink enhances smart contract capabilities by allowing access to data outside the blockchain and off-chain computing while keeping blockchain technology&apos;s security and reliability assurances.
                                     </span>
                                 </div>
                             </Link>
