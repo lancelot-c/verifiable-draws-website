@@ -110,7 +110,7 @@ export default function RootLayout({
                             </div>
                         </div>
                     </Link>
-          <div className="flex lg:hidden">
+          <div className="flex hidden">
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"

@@ -123,7 +123,7 @@ export default function Example() {
     // const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
-      <div>
+      <div className="relative -z-10">
 
                 {/* Hero section */}
         <div className="relative pt-14">
@@ -139,11 +139,11 @@ export default function Example() {
               }}
             />
           </div>
-          <div className="py-0 lg:py-32">
+          <div className="py-0 pt-24 lg:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl text-center">
                     <Image
-                        className="gold-medal m-auto -z-10 lg:absolute"
+                        className="gold-medal m-auto -z-10 absolute hidden lg:block"
                         sizes="210px"
                         src={goldMedalImg}
                         alt="Médaille d'or du Concours Lépine 2023"
