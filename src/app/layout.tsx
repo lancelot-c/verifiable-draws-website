@@ -2,6 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Analytics } from '@vercel/analytics/react'
 import vdLogo from '/public/img/vd-logo.svg'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -183,7 +184,9 @@ export default function RootLayout({
 
       <main className="isolate">
 
-      {children}
+        {children}
+        <Analytics />
+
       </main>
         
         
