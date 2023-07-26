@@ -43,26 +43,21 @@
             align-items: center;
             color: #338a39;
             background: #d2ecd2;
-            padding: 16px 64px;
             border-bottom: 1px solid #338a39;
             width: 100%;
             position: fixed;
             top: 0px;
+            padding: 0px;
         }
 
         .main {
-            padding: 16px 64px;
             width: 100%;
-            margin-top: 125px;
+            margin-top: 70px;
+            overflow-wrap: break-word;
         }
 
         header a {
             color: inherit;
-        }
-
-        .certified-section__img {
-            height: 32px;
-            margin-right: 32px;
         }
 
         .certified-section__txt {
@@ -70,6 +65,16 @@
             justify-content: space-between;
             width: 100%;
             align-items: end;
+        }
+
+        .certified-section__txt p {
+            text-align: center;
+            width: 100%;
+            font-family: monospace;
+        }
+
+        .certified-section__txt .lock-icon {
+            margin-right: 16px;
         }
 
         ul {
@@ -85,13 +90,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-        }
-
-        .powered-by {
-            font-size: .7em;
-            text-align: end;
-            min-width: 300px;
-            margin-left: 32px;
         }
 
         .draw-parameter {
@@ -143,13 +141,6 @@
             display: none;
         }
 
-        .drawTitle {
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            padding-right: 64px;
-        }
-
         .lds-dual-ring {
             display: inline-block;
             width: 32px;
@@ -182,8 +173,9 @@
             display: none;
         }
 
-        .no-shrink {
-            flex-shrink: 0;
+        .drawOngoing {
+            z-index: -10;
+            position: relative;
         }
 
         /* Modal */
@@ -202,14 +194,13 @@
             display: flex;
         }
 
-        .model-inner {
+        .modal-inner {
             background-color: white;
-            max-width: 60%;
-            padding: 2em;
             margin: auto;
             font-size: 1.1em;
             line-height: 1.6em;
             overflow: scroll;
+            overflow-wrap: break-word;
             height: 100%;
         }
 
@@ -251,6 +242,48 @@
             color: #000;
             text-decoration: none;
             cursor: pointer;
+        }
+
+        @media (max-width: 399px) {
+            .main {
+                padding: 0px 16px;
+            }
+
+            .modal-inner {
+                padding: 0.5em;
+            }
+        }
+
+        @media (min-width: 400px) and (max-width: 699px) {
+            .main {
+                padding: 0px 32px;
+            }
+
+            .modal-inner {
+                padding: 1em;
+            }
+        }
+
+        @media (min-width: 700px) {
+            .main {
+                padding: 0px 64px;
+            }
+
+            .modal-inner {
+                padding: 2em;
+            }
+        }
+
+        @media (max-width: 1249px) {
+            .modal-inner {
+                max-width: 100%;
+            }
+        }
+
+        @media (min-width: 1250px) {
+            .modal-inner {
+                max-width: 60%;
+            }
         }
     </style>
 
@@ -303,7 +336,7 @@
 
         if (isDrawOngoing) {
             scheduledAtElmt.style.display = 'none';
-            loadingElmt.style.display = 'block';
+            loadingElmt.style.display = 'inline-block';
             occuredAtElmt.style.display = 'none';
             periodicallyCheckDrawResult();
         } else {
@@ -461,33 +494,30 @@
 <body>
     <header>
 
-        <div>
-            <img alt="" class="certified-section__img" src="https://bafybeieeagq6tv4gsqep64zvg3m3hlpm2nxijvomepi34evvq745cenikq.ipfs.w3s.link/green-lock.png" />
-        </div>
-
         <div class="certified-section__txt">
             <p>
-                This random draw is secured by a decentralized algorithm leveraging the IPFS protocol and the Ethereum blockchain in order to guarantee that the draw is provably fair and random.<br />
-                <a href="#" class="verifiable-outcome-modal-open" data-id="verifiable-outcome-modal">Learn more</a>
-            </p>
-            <p class="powered-by">
-                Powered by <a href="https://www.verifiabledraws.com/" target="_blank">Verifiable Draws</a>
+                <span class="lock-icon">🔒</span>Secured by <a href="https://www.verifiabledraws.com/" target="_blank">Verifiable Draws</a>
             </p>
         </div>
 
     </header>
     <div class="main">
-        <div class="first-line">
-            <h1 class="drawTitle">{{ drawTitle }}</h1>
-            <div class="no-shrink">
-                <h3 class="scheduledAt">Draw scheduled for <span class="var_scheduledAtString"></span></h3>
+        <div>
+            <h1>{{ drawTitle }}</h1>
+
+            <div>
+                <p class="scheduledAt">
+                    This draw is scheduled for <span class="var_scheduledAtString"></span>. Come back to this page after this date to see the winners.
+                </p>
                 <div class="drawOngoing">
                     <div class="first-line">
                         <div class="lds-dual-ring"></div>
-                        <h3>Draw in progress, please wait...</h3>
+                        <p>Draw in progress, please wait...</p>
                     </div>
                 </div>
-                <h3 class="occuredAt">Draw occured on <span class="var_scheduledAtString"></span></h3>
+                <p class="occuredAt">
+                    This draw occured on <span class="var_scheduledAtString"></span>
+                </p>
             </div>
         </div>
         <hr />
@@ -527,7 +557,7 @@
 
     <!-- Verifiable outcome modal -->
     <div id="verifiable-outcome-modal" class="modal" role="dialog" tabindex="-1">
-        <div class="model-inner">
+        <div class="modal-inner">
             <div class="modal-header">
                 <h2>How to verify this draw ?</h2>
                 <span class="modal-close" data-id="verifiable-outcome-modal" aria-label="Close">

@@ -324,7 +324,7 @@ export default function Page() {
     }
 
     return (
-        <div className="mx-auto max-w-7xl px-6 sm:pt-32 lg:px-8 min-h-full">
+        <div className="mx-auto max-w-7xl px-6 pt-24 sm:pt-32 lg:px-8 min-h-full">
 
             {/* Background gradients */}
             <div
@@ -356,7 +356,7 @@ export default function Page() {
 
 
 
-            <p className="mt-0 text-4xl font-bold tracking-tight sm:mb-16 text-gray-900 sm:text-5xl text-center">
+            <p className="mt-0 text-4xl font-bold tracking-tight mb-16 text-gray-900 sm:text-5xl text-center">
                 Launch a verifiable draw
             </p>
 
