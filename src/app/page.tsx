@@ -312,7 +312,7 @@ export default function Example() {
                 <section className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                     <div style={{boxSizing: 'border-box', margin: '0px auto', maxWidth: '1200px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)'}}>
                         <h2 data-main-heading="true" className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl text-center">
-                            Built on a foundation of transparent,
+                            Built on a foundation of decentralized,
                             <br />
                             battle-tested technologies
                         </h2>

@@ -47,65 +47,96 @@ type FormInputs = {
     },
 }
 
-const drawNamePlaceholder = '2026 FIFA World Cup Draw';
+const drawNamePlaceholder = '4 tickets to win for a VR attraction';
 
 const drawRulesPlaceholder =
-    `48 countries have been selected during the 2026 FIFA World Cup qualification phase.
-Competing countries will now be divided into twelve groups of four teams (groups A to K).
+`Insight Media is giving away 4 tickets for Hurricane 360, an innovative VR attraction in Geneva.
+The contest was originally launched on our Instagram post here: https://www.instagram.com/p/CtWEirCoglU
+As a reminder, the rules to participate in this contest were:
 
-This draw will output the list of countries randomly shuffled.
-The first 4 countries of the list will form the group A, the next 4 will form group B, and so on, until group K.`;
+✅ Follow our Instagram account @insight_media_ch & like the Instagram post for this contest
+✅ Mention in the comments between 1 and 4 friends with whom you would like to share this experience with
 
-const drawParticipantsPlaceholder = `Argentina
-Brazil
-England
-France
-Spain
-Belgium
-Portugal
-Germany
-Netherlands
-Uruguay
-Croatia
-Denmark
-Mexico
-United States
-Senegal
-Wales
-Poland
-Australia
-Japan
-Morocco
-Switzerland
-Ghana
-South Korea
-Cameroon
-Serbia
-Canada
-Costa Rica
-Tunisia
-Saudi Arabia
-Iran
-Ecuador
-China
-India
-Indonesia
-Pakistan
-Nigeria
-Bangladesh
-Russia
-Ethiopia
-Philippines
-Egypt
-Vietnam
-Democratic Republic of the Congo
-Turkey
-Thailand
-Tanzania
-South Africa
-Italy`;
+The contest is now closed.
+We have collected 69 valid participations and will now proceed to a provably fair and random draw thanks to Verifiable Draws.
+Good luck 💙🤞
 
-const drawNbWinnersPlaceholder = '48';
+Disclaimer:
+• Only people older than 16 years old can participate in this contest
+• This promotion is done in collaboration with the entertainment center @airloopswiss
+⚠️ Beware of scammers, we will never ask you to click on a link to claim your prize. Only respond to DMs from our official account @insight_media_ch ⚠️`;
+
+const drawParticipantsPlaceholder = `@jeys23
+@happy_lance
+@mappingfestival
+@sarah.bounab
+@fit_fondation_
+@cassandra_11.80
+@elnaz_elie
+@flyingjuliette
+@27.horses
+@_h_lo_
+@julianinha_10
+@myflixbox
+@basile_schl
+@walidpanerai
+@fiorellacaye
+@marieguillou_
+@aline.hnh
+@kwn_yayou
+@dianafpc6155
+@jaey.music
+@mitch_schnitzbauer
+@m.l.k._av
+@carolineruchat
+@gesinemar
+@cyril_ratl
+@marta82_pa
+@lara.koch
+@tsuki_lyn
+@droux_ch
+@piccasso_ink
+@shay.gnv
+@el.aldair
+@sak0ch_
+@s.e.b.a.7.7
+@stasia.ds
+@merylsup
+@natalia_olszewskaa
+@lucielogean
+@henriboulet
+@nico_zimmv
+@poses_attitude
+@ceciletyty
+@itscamq
+@nanahy
+@low.maf
+@itwasntk
+@katia.cmrng
+@el_dominicano.gnv
+@nourskd
+@chill_mlk
+@benj.online
+@meylinn.pr
+@ajlaave_you
+@aude456331
+@sara_kkar
+@crochetonique
+@emman_wild
+@cokoch
+@vitg1234
+@ceciilia_0949
+@alexia_ratl
+@melodymcv
+@marieclaudebruchez
+@monicafornes
+@marion_florquin
+@mister.idris
+@estellebubu3005
+@giusepperealennelcuore
+@aloisius_gonzaga_agung`;
+
+const drawNbWinnersPlaceholder = '4';
 
 
 
@@ -381,7 +412,7 @@ export default function Page() {
             </nav>
 
             {/* Form */}
-            <form className="mt-12">
+            <div className="mt-12">
                 {
                     (selectedStep === 1) && (
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -670,7 +701,7 @@ export default function Page() {
                     }
                 </div>
 
-            </form>
+            </div>
 
         </div>
     )
