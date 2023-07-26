@@ -559,17 +559,18 @@ export default function Page() {
 
                 {/* Payment step, hidden by default but needs to always be in the DOM
                 to prevent re-rendering when the user switch between steps */}
-                <div className={`flex items-center mt-10 w-full ${selectedStep === paymentStep ? '' : 'hidden'}`}>
+                <div className={`flex flex-wrap justify-center justify-items-center items-center mt-10 w-full ${selectedStep === paymentStep ? '' : 'hidden'}`}>
 
-                    <p className="flex-auto w-64 mt-0 px-24 py-16 border-r border-gray-200 text-md font-light tracking-wide text-gray-800 sm:text-md text-center">
-                        <span className="italic">Verifiable Draws</span> is the only draw platform which prevents all kinds of fraud.
+                    <p className="max-w-[600px] mt-0 px-8 sm:px-24 py-16 border-b lg:border-b-0 lg:border-r border-gray-200 text-md font-light tracking-wide text-gray-800 sm:text-md text-center">
+                        Because it is end-to-end decentralized, <span className="italic">Verifiable Draws</span> is the only draw platform which prevents all kinds of fraud.
                         <br /><br />
                         Therefore, by choosing us, you are contributing to make the world a better place and inspiring others to do the same.
                         <br /><br />
                         This is the last step before deploying your draw.<br />
                         The decentralized world awaits you. ✨
                     </p>
-                    <div className="flex-auto px-24 w-32">
+
+                    <div className="min-w-[300px] max-w-[800px] flex-auto px-8 sm:px-24 py-16">
                         <p className="mt-0 text-xl font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-xl text-center">
                             Purchase a single draw
                         </p>
