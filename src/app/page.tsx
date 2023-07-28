@@ -171,7 +171,7 @@ export default function Example() {
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
                                 <span className="italic">Verifiable Draws</span> enables you to organize random draws, contests, and lotteries which are completely transparent thanks to decentralized technologies,
-                                allowing you to boost your brand image and earn the public's trust.
+                                allowing you to boost your brand image and earn the public&apos;s trust.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link
