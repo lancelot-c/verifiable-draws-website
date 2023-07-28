@@ -15,7 +15,6 @@ import {
     ArrowTrendingUpIcon,
     BuildingLibraryIcon,
     CheckIcon,
-    XMarkIcon,
     RocketLaunchIcon,
     ShieldCheckIcon,
 } from '@heroicons/react/24/solid'
