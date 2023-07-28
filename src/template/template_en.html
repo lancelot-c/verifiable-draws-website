@@ -60,20 +60,20 @@
             color: inherit;
         }
 
-        .certified-section__txt {
+        .certified {
             display: flex;
             justify-content: space-between;
             width: 100%;
             align-items: end;
         }
 
-        .certified-section__txt p {
+        .certified .txt {
             text-align: center;
             width: 100%;
-            font-family: monospace;
+            font-size: .8em;
         }
 
-        .certified-section__txt .header-icon {
+        .certified .icon {
             margin-right: 16px;
         }
 
@@ -494,9 +494,9 @@
 <body>
     <header>
 
-        <div class="certified-section__txt">
-            <p>
-                <span class="header-icon">⚖️</span>Provably-fair and verifiable randomness<br />
+        <div class="certified">
+            <p class="txt">
+                <span class="icon">⚖️</span>Provably-fair and verifiable randomness<br />
                 Powered by <a href="https://www.verifiabledraws.com/" target="_blank">Verifiable Draws</a>
             </p>
         </div>

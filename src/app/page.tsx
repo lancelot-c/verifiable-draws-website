@@ -81,7 +81,7 @@ const tiers = [
         id: 'tier-basic',
         href: '/launch-draw',
         price: '29€',
-        description: 'Get the security and transparency benefits of the blockchain at an affordable price',
+        description: 'Get the security and transparency benefits of the blockchain at an affordable price.',
         features: [
             { included: true, text: 'Provably-fair and verifiable randomness' },
             // { included: true, text: 'Is secure enough to protect a billion dollar lottery against any kind of attack' },
@@ -98,7 +98,7 @@ const tiers = [
         id: 'tier-pro',
         href: '/launch-draw',
         price: '79€',
-        description: 'Same as Basic but with 100x more participants to reach a larger audience',
+        description: 'Same as Basic but with 100x more participants to reach a larger audience.',
         features: [
             { included: true, text: 'Provably-fair and verifiable randomness' },
             // { included: true, text: 'Is secure enough to protect a billion dollar lottery against any kind of attack' },
@@ -115,7 +115,7 @@ const tiers = [
         id: 'tier-enterprise',
         href: 'mailto:lancelot@borr.tech',
         price: 'Custom',
-        description: 'We provide custom plans for entreprises with specific needs.',
+        description: 'We provide custom plans for companies with specific needs.',
         features: [
             { included: true, text: 'White-labelling, bring your own template' },
             { included: true, text: 'API access' },
@@ -171,7 +171,7 @@ export default function Example() {
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
                                 <span className="italic">Verifiable Draws</span> enables you to organize random draws, contests, and lotteries which are completely transparent thanks to decentralized technologies,
-                                allowing you to prove the whole world that your company is trustworthy.
+                                allowing you to boost your brand image and earn the public's trust.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link
