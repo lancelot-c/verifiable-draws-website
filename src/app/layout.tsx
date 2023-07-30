@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Analytics } from '@vercel/analytics/react'
 import vdLogo from '/public/img/vd-logo.svg'
+import dynamic from 'next/dynamic'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -97,15 +98,19 @@ const navigation: any[] = [
 }
 
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+
+    const CrispWithNoSSR = dynamic(
+        () => import('../components/crisp')
+    );
+
+
   return (
     <html lang="en">
-      <body className={inter.className}>
+        
+        <CrispWithNoSSR />
 
+      <body className={inter.className}>
 
       <div className="bg-white">
 
@@ -233,6 +238,7 @@ export default function RootLayout({
                     </div>
                 </div>
             </footer>
+
         </div>
         
         
