@@ -112,7 +112,7 @@ const tiers = [
     {
         name: 'Enterprise',
         id: 'tier-enterprise',
-        href: 'mailto:lancelot@borr.tech',
+        href: '/contact',
         price: 'Custom',
         description: 'We provide custom plans for companies with specific needs.',
         features: [

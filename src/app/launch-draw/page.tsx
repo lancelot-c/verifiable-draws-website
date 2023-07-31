@@ -356,9 +356,9 @@ export default function Page() {
 
 
 
-            <p className="mt-0 text-4xl font-bold tracking-tight mb-16 text-gray-900 sm:text-5xl text-center">
+            <h2 className="mt-0 text-4xl font-bold tracking-tight mb-16 text-gray-900 sm:text-5xl text-center">
                 Launch a verifiable draw
-            </p>
+            </h2>
 
             <nav aria-label="Progress">
                 <ol role="list" className="space-y-4 md:flex md:space-x-8 md:space-y-0">
