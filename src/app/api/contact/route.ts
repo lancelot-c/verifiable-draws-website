@@ -25,22 +25,25 @@ export async function POST(request: Request) {
 
     } else {
 
-        const from = 'Contact form';
         const to = process.env.COMPANY_EMAIL;
+        const fromEmail = process.env.COMPANY_EMAIL;
         const subject: string = `${firstName} ${lastName} contacted you`
 
-        const content = `First name: ${firstName}
-Last name: ${lastName}
-Company: ${company}
-Email: ${email}
-Phone: ${phone}
+        const content = `<b>First name:</b> ${firstName}<br />
+        <b>Last name:</b> ${lastName}<br />
+        <b>Company:</b> ${company}<br />
+        <b>Email:</b> ${email}<br />
+        <b>Phone:</b> ${phone}<br /><br />
 
-Message:
-${message}`
+        <b>Message:</b><br />
+        ${message}`
 
         const msg = {
             to,
-            from,
+            from: {
+                name: 'Contact Form',
+                email: fromEmail
+            },
             subject,
             text: content,
             html: content,
@@ -49,9 +52,9 @@ ${message}`
         try {
             await sgMail.send(msg);
             console.log('Email sent successfully');
-        } catch (error) {
-            errorMessage = 'Unexpected error occured while sending email.';
-            console.error('Error sending email', error);
+        } catch (error: any) {
+            errorMessage = error.response.body.errors[0].message;
+            console.error('Error sending email', error.response.body.errors);
         }
 
     }

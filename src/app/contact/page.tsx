@@ -27,7 +27,7 @@ const messagePlaceholder = ''
 export default function Example() {
     const [agreed, setAgreed] = useState(false)
     const [submitted, setSubmitted] = useState<boolean>(false)
-    const [error, setError] = useState<boolean>(false)
+    const [errorMessage, setErrorMessage] = useState<string>('')
     const [sent, setSent] = useState<boolean>(false)
 
     const { register, trigger, getValues, formState: { errors, isValid } } = useForm<FormInputs>({
@@ -69,21 +69,20 @@ export default function Example() {
                 .then(res => res.json())
                 .then(data => {
                     if (!ignore) {
-                        const success = !data.errorMessage;
 
-                        if (success) {
-                            setSent(true)
+                        if (data.errorMessage) {
+                            setErrorMessage(data.errorMessage);
                         } else {
-                            setError(true);
+                            setSent(true)
                         }
                         
                     }
 
                 });
 
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            setError(true);
+            setErrorMessage('An error occured while sending your message. Please try again later.');
         }
 
         return () => {
@@ -295,7 +294,7 @@ export default function Example() {
 
 
                 {
-                    (error) && (
+                    (errorMessage) && (
                         
                         <div className="rounded-md bg-red-50 p-4 mt-4">
                             <div className="flex">
@@ -303,7 +302,7 @@ export default function Example() {
                                     <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
                                 </div>
                                 <div className="ml-3">
-                                    <p className="text-sm font-medium text-red-800">An error occured while sending your message. Please try again later.</p>
+                                    <p className="text-sm font-medium text-red-800">{ errorMessage }</p>
                                 </div>
                             </div>
                         </div>
