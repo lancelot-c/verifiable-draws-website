@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server'
-import { sendMailToMe } from "../../../services/mailService";
+import sgMail from '@sendgrid/mail';
+
+if (process.env.SENDGRID_API_KEY) {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+}
 
 export async function POST(request: Request) {
 
@@ -10,10 +14,22 @@ export async function POST(request: Request) {
     const email: string = body.email
     const phone: string = body.phone
     const message: string = body.message
+    let errorMessage = '';
 
-    const subject: string = `${firstName} ${lastName} contacted you`
+    if (!process.env.COMPANY_EMAIL) {
+        errorMessage = 'COMPANY_EMAIL is undefined'
 
-    const content = `First name: ${firstName}
+    } else if (!firstName || !lastName || !email || !message) {
+
+        errorMessage = 'First name, last name, email, & message are required.';
+
+    } else {
+
+        const from = 'Contact form';
+        const to = process.env.COMPANY_EMAIL;
+        const subject: string = `${firstName} ${lastName} contacted you`
+
+        const content = `First name: ${firstName}
 Last name: ${lastName}
 Company: ${company}
 Email: ${email}
@@ -22,30 +38,29 @@ Phone: ${phone}
 Message:
 ${message}`
 
-    let error = false;
+        const msg = {
+            to,
+            from,
+            subject,
+            text: content,
+            html: content,
+        };
 
-    try {
-
-        if (firstName && lastName && email && message) {
-
-            await sendMailToMe(
-                subject,
-                content
-            );
-
-        } else {
-            error = true
+        try {
+            await sgMail.send(msg);
+            console.log('Email sent successfully');
+        } catch (error) {
+            errorMessage = 'Unexpected error occured while sending email.';
+            console.error('Error sending email', error);
         }
 
-    } catch (err) {
-        error = true;
-        console.error(err);
     }
-    
     
     const data = {
-        error
+        errorMessage
     }
 
-    return NextResponse.json(data)
+    return NextResponse.json(data, {
+        status: errorMessage ? 500 : 200
+    });
 }

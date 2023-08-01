@@ -69,7 +69,7 @@ export default function Example() {
                 .then(res => res.json())
                 .then(data => {
                     if (!ignore) {
-                        const success = !data.error;
+                        const success = !data.errorMessage;
 
                         if (success) {
                             setSent(true)
