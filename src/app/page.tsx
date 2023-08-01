@@ -119,8 +119,8 @@ const tiers = [
             { included: true, text: 'White-labelling, bring your own template' },
             { included: true, text: 'API access' },
             { included: true, text: 'Private draws' },
-            { included: true, text: 'Unlimited number of participants' },
-            { included: true, text: 'Unlimited number of winners' },
+            { included: true, text: 'Unlimited participants' },
+            { included: true, text: 'Unlimited winners' },
             { included: true, text: 'Priority support' },
         ],
         featured: true,
@@ -166,10 +166,10 @@ export default function Example() {
                                 alt="Médaille d'or du Concours Lépine 2023"
                             />
                             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                Build a company that everyone trust
+                                Build a company that everyone trusts
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> enables you to organize random draws, contests, and lotteries which are completely transparent thanks to decentralized technologies,
+                                <span className="italic">Verifiable Draws</span> enables you to organize any kind of random draw (giveaway, lottery, contest, election, ...) in a completely transparent way thanks to the blockchain,
                                 allowing you to earn the public&apos;s trust and boost your brand image.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
