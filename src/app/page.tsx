@@ -6,7 +6,7 @@ import lepineStandImg from '/public/img/lepine-stand.jpeg'
 import lepineRemisePrixImg from '/public/img/lepine-photo-officielle-cropped.jpeg'
 import insightMediaImg from '/public/img/insight-media.png'
 import fdjLogoImg from '/public/img/fdj-logo-300w.png'
-import presseCitronLogoImg from '/public/img/presse-citron-nav.svg'
+import insightMediaLogoImg from '/public/img/insight-media-logo.png'
 import ipfsLogoImg from '/public/img/ipfs-logo-without-text.svg'
 import tf1LogoImg from '/public/img/tf1-logo-300w.png'
 import ethereumLogoImg from '/public/img/ethereum-logo-100w.png'
@@ -267,7 +267,7 @@ export default function Example() {
 
                     <Image
                         className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src={presseCitronLogoImg}
+                        src={insightMediaLogoImg}
                         alt="Presse Citron"
                     />
 
