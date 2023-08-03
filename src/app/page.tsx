@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import goldMedalImg from '/public/img/medaille-or-lepine-500w.png'
-import mainBanner from '/public/img/main-banner-2316w.png'
+import mainExplanationImg from '/public/img/main-banner-2316w.png'
+import lepineStandImg from '/public/img/lepine-stand.jpeg'
+import lepineRemisePrixImg from '/public/img/lepine-photo-officielle-cropped.jpeg'
+import insightMediaImg from '/public/img/insight-media.png'
 import fdjLogoImg from '/public/img/fdj-logo-300w.png'
 import presseCitronLogoImg from '/public/img/presse-citron-nav.svg'
 import ipfsLogoImg from '/public/img/ipfs-logo-without-text.svg'
@@ -59,6 +62,23 @@ const features = [
     // },
 ]
 
+const videos = [
+    {
+        description: 'Watch our founder Lancelot Chardonnet pitching the project at Concours Lépine [in French]',
+        imageUrl: lepineStandImg,
+        videoUrl: 'https://www.youtube.com/watch?v=Oa3L8Kbyqx0',
+      },
+      {
+        description: 'Watch the ending ceremony of Concours Lépine [in French]',
+        imageUrl: lepineRemisePrixImg,
+        videoUrl: 'https://www.youtube.com/watch?v=4oVa9vfy-cE',
+      },
+      {
+        description: 'Watch Insight Media\'s video about Verifiable Draws [in French]',
+        imageUrl: insightMediaImg,
+        videoUrl: 'https://www.linkedin.com/posts/insightch_algorithme-blockchain-activity-7092194795837603841-J68n',
+      }
+]
 
 const tiers = [
     // {
@@ -159,12 +179,6 @@ export default function Example() {
                 <div className="py-0 pt-16 sm:pt-24 lg:py-32">
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="mx-auto max-w-2xl text-center">
-                            <Image
-                                className="gold-medal m-auto -z-10 absolute hidden lg:block"
-                                sizes="210px"
-                                src={goldMedalImg}
-                                alt="Médaille d'or du Concours Lépine 2023"
-                            />
                             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
                                 Build a company that everyone trusts
                             </h1>
@@ -189,7 +203,7 @@ export default function Example() {
                             <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                                 <Image
                                     sizes="94vw"
-                                    src={mainBanner}
+                                    src={mainExplanationImg}
                                     alt="App screenshot"
                                     className="rounded-md shadow-2xl ring-1 ring-gray-900/10"
                                 />
@@ -323,6 +337,80 @@ export default function Example() {
                 </div>
             </div>
 
+
+            {/* Concours Lépine */}
+                <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+                    <div className="relative mx-auto max-w-2xl text-center">
+                        <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                            An award-winning product 🏆
+                        </p>
+                        <p className="mt-6 text-lg leading-8 text-gray-600">
+                            <span className="italic">Verifiable Draws</span> won a gold medal at Concours Lépine in 2023 which is the most famous innovation competition in France.
+                        </p>
+
+                        <Image
+                            className="gold-medal m-auto -z-10 absolute hidden lg:block"
+                            sizes="210px"
+                            src={goldMedalImg}
+                            alt="Médaille d'or du Concours Lépine 2023"
+                        />
+                    </div>
+                    <ul
+                    role="list"
+                    className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+                    >
+                    {videos.map((video) => (
+                        <li key={video.description}>
+                            <Link href={video.videoUrl} target="_blank" className="">
+                                <Image
+                                    className="aspect-[3/2] w-full rounded-2xl object-cover"
+                                    src={video.imageUrl}
+                                    alt=""
+                                    width="300"
+                                    height="300"
+                                />
+                                {/* <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">{video.description}</h3> */}
+                                <p className="text-base mt-6 leading-7 text-gray-600 underline">{video.description}</p>
+                                <ul role="list" className="mt-6 flex gap-x-6">
+                                        {
+                                            (video.videoUrl.includes("youtube")) && (
+                                                <li className="text-gray-400">
+                                                    {/* <Link href={video.videoUrl} target="_blank"> */}
+                                                        <span className="sr-only">Youtube</span>
+                                                        <svg className="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                                                            <path
+                                                                fillRule="evenodd"
+                                                                d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+                                                                clipRule="evenodd"
+                                                            />
+                                                        </svg>
+                                                    {/* </Link> */}
+                                                </li>
+                                            )
+                                        }
+                                    
+                                        {
+                                            (video.videoUrl.includes("linkedin")) && (
+                                                <li className="text-gray-400">
+                                                    {/* <Link href={video.videoUrl} target="_blank" className="text-gray-400 hover:text-gray-500"> */}
+                                                        <span className="sr-only">LinkedIn</span>
+                                                        <svg className="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"
+                                                            clipRule="evenodd"
+                                                        />
+                                                        </svg>
+                                                    {/* </Link> */}
+                                                </li>
+                                            )
+                                        }
+                                </ul>
+                            </Link>
+                        </li>
+                    ))}
+                    </ul>
+                </div>
 
 
             {/* Powered By  */}
@@ -546,7 +634,7 @@ export default function Example() {
                                 </span>
                             </div>
                         </Link>
-                        <Link href="https://chain.link/" rel="noopener" target="_blank" data-version="v1" className="foundation_card" style={{ WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)', color: 'rgb(0, 116, 222)', textDecoration: 'none solid rgb(0, 116, 222)', transition: 'background 0.15s ease 0s', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', flex: '0 1 auto', gap: '0px', width: '100%', minHeight: '240px', borderRadius: '12px', padding: '24px', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 0px 1px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgb(250, 250, 250) 0px 0px 0px 6px inset', background: '#fff', position: 'relative', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)', touchAction: 'pan-y' }} data-variant="swc">
+                        <Link href="https://chain.link/vrf" rel="noopener" target="_blank" data-version="v1" className="foundation_card" style={{ WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)', color: 'rgb(0, 116, 222)', textDecoration: 'none solid rgb(0, 116, 222)', transition: 'background 0.15s ease 0s', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', flex: '0 1 auto', gap: '0px', width: '100%', minHeight: '240px', borderRadius: '12px', padding: '24px', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 0px 1px, rgba(0, 0, 0, 0.02) 0px 4px 6px 0px, rgb(250, 250, 250) 0px 0px 0px 6px inset', background: '#fff', position: 'relative', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)', touchAction: 'pan-y' }} data-variant="swc">
                             <div data-icon="true" style={{ boxSizing: 'border-box', height: '40px', display: 'flex', alignItems: 'center', marginBottom: 'auto', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)' }}>
                                 <Image
                                     className="h-14 w-auto"
@@ -556,13 +644,14 @@ export default function Example() {
                             </div>
                             <div data-version="v1" style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', flex: '0 1 auto', gap: '4px', outlineColor: 'rgb(37, 99, 235)', boxSizing: 'border-box', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)' }}>
                                 <span data-version="v1" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', flex: '0 1 auto', gap: '4px', fontSize: '20px', lineHeight: '30px', letterSpacing: '-0.8px', color: 'rgb(0, 0, 0)', margin: '0px', fontWeight: 600, outlineColor: 'rgb(37, 99, 235)', boxSizing: 'border-box', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)' }} data-title="true">
-                                    <span style={{ boxSizing: 'border-box', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)' }}>Chainlink</span>
+                                    <span style={{ boxSizing: 'border-box', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)' }}>Chainlink VRF</span>
                                     <svg viewBox="0 0 20 20" fill="rgb(150, 150, 150)" className="w-5 h-5">
                                         <path fillRule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clipRule="evenodd" />
                                     </svg>
                                 </span>
                                 <span data-subtitle="true" style={{ boxSizing: 'border-box', fontSize: '14px', lineHeight: '21px', letterSpacing: '-0.14px', color: 'rgb(102, 102, 102)', margin: '0px', maxWidth: '440.918px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)' }}>
-                                    Chainlink enhances smart contract capabilities by allowing access to data outside the blockchain and off-chain computing while keeping blockchain technology&apos;s security and reliability assurances.
+                                    {/* Chainlink enhances smart contract capabilities by allowing access to data outside the blockchain and off-chain computing while keeping blockchain technology&apos;s security and reliability assurances. */}
+                                    Chainlink VRF provides cryptographically secure randomness that cannot be manipulated by any user, node operator, or malicious actor. It is an industry standard trusted by top projects.
                                 </span>
                             </div>
                         </Link>
@@ -627,7 +716,7 @@ export default function Example() {
                                         </span>
                                     ) : null}
                                 </p>
-                                <a
+                                <Link
                                     href={tier.href}
                                     aria-describedby={tier.id}
                                     className={classNames(
@@ -638,7 +727,7 @@ export default function Example() {
                                     )}
                                 >
                                     {tier.cta}
-                                </a>
+                                </Link>
                                 <ul
                                     role="list"
                                     className={classNames(
@@ -691,7 +780,7 @@ export default function Example() {
                         Join our community.
                     </h2>
                     <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-                        We invite you to join our Discord server where you will be able to ask questions to our team, follow the project latest news, and even talk to other users of Verifiable Draws. 
+                        We invite you to join our Discord community where you will be able to talk to our team, follow the project latest news, and see what other people are using <span className="italic">Verifiable Draws</span> for. 
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
                         <Link
