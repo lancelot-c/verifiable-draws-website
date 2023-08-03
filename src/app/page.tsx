@@ -64,7 +64,7 @@ const features = [
 
 const videos = [
     {
-        description: 'Watch our founder Lancelot Chardonnet pitching the project at Concours Lépine [in French]',
+        description: 'Watch our founder Lancelot Chardonnet pitch the project at Concours Lépine [in French]',
         imageUrl: lepineStandImg,
         videoUrl: 'https://www.youtube.com/watch?v=Oa3L8Kbyqx0',
       },
