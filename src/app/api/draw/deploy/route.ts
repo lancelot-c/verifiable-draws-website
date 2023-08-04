@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { kv } from "@vercel/kv";
 import fs from 'fs';
@@ -8,13 +7,14 @@ import axios from 'axios'
 import { ethers } from 'ethers';
 import crypto from 'crypto'
 import { Web3Storage, getFilesFromPath } from 'web3.storage';
+import { buildNextResponseJson } from './../../../../utils/errorHandling';
 const network = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 'testnet' : 'mainnet';
 const gasStationURL = (network === 'mainnet') ? process.env.MAINNET_GAS_STATION_URL : process.env.TESTNET_GAS_STATION_URL;
 const providerBaseURL = ((network === 'mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL) as string;
 const providerKey = ((network === 'mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY) as string;
 const providerURL = `${providerBaseURL}${providerKey}`;
 const contractAddress = ((network === 'mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
-const polygonscanAddress = (network === 'mainnet') ? "https://polygonscan.com" : "https://mumbai.polygonscan.com"; 
+const polygonscanAddress = (network === 'mainnet') ? "https://polygonscan.com" : "https://mumbai.polygonscan.com";
 const filePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
 
 if (!process.env.WALLET_PRIVATE_KEY) {
@@ -42,23 +42,24 @@ const stripe = new Stripe(stripeSecretKey, {
 
 export async function POST(request: Request) {
 
-    const body = await request.json()
-    const paymentIntentId: string = body.paymentIntentId
+    return await buildNextResponseJson(async (response: any) => {
 
-    // Cancel the request if something is wrong with the payment
-    await verifyPayment(paymentIntentId);
-    console.log(`Payment ${paymentIntentId} is valid. Draw deployment in progress...`);
+        const body = await request.json()
+        const paymentIntentId: string = body.paymentIntentId
 
-    // Deploy draw
-    const drawTitle: string = body.drawTitle;
-    const drawRules: string = body.drawRules;
-    const drawParticipants: string = body.drawParticipants;
-    const drawNbWinners: number = body.drawNbWinners;
-    const drawScheduledAt: number = body.drawScheduledAt;
+        // Cancel the request if something is wrong with the payment
+        await verifyPayment(paymentIntentId);
+        console.log(`Payment ${paymentIntentId} is valid. Draw deployment in progress...`);
 
-    const cid = await createDraw(drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
+        // Deploy draw
+        const drawTitle: string = body.drawTitle;
+        const drawRules: string = body.drawRules;
+        const drawParticipants: string = body.drawParticipants;
+        const drawNbWinners: number = body.drawNbWinners;
+        const drawScheduledAt: number = body.drawScheduledAt;
 
-    if (cid) {
+        await createDraw(response, drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
+
         // Set order as delivered
         try {
             await kv.set(paymentIntentId, 1);
@@ -66,15 +67,8 @@ export async function POST(request: Request) {
         } catch (error) {
             throw new Error(`Can't set ${paymentIntentId} value in the KV store`)
         }
-    } else {
-        throw new Error(`Could not deploy draw`)
-    }
 
-    const data = {
-        cid
-    }
-
-    return NextResponse.json(data)
+    })
 }
 
 async function verifyPayment(paymentIntentId: string): Promise<0> {
@@ -123,49 +117,40 @@ async function kvRetryGet(paymentIntentId: string, delay = 3000, retries = 3): P
 }
 
 async function createDraw(
+    response: any,
     drawTitle: string,
     drawRules: string,
     drawParticipants: string,
     drawNbWinners: number,
     drawScheduledAt: number
 ): Promise<string | undefined> {
-    try {
 
-        console.log(`drawTitle = \n"${drawTitle}"\n\n`);
-        console.log(`drawRules = \n"${drawRules}"\n\n`);
-        console.log(`drawParticipants = \n"${drawParticipants}"\n\n`);
-        console.log(`drawNbWinners = \n"${drawNbWinners}"\n\n`);
-        console.log(`drawScheduledAt = \n"${drawScheduledAt}"\n\n`);
-
-        if (!drawTitle || !drawRules || !drawParticipants || !drawNbWinners || !drawScheduledAt) {
-            throw Error('You need to specify all draw parameters.');
-        }
-
-        // Compute entropy needed
-        const drawNbParticipants = drawParticipants.length;
-        const entropyNeeded = await computeEntropyNeeded(drawNbParticipants, drawNbWinners);
-
-        // Generate draw file
-        const [drawFilepath, content] = await generateDrawFile(drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
-
-        // Pin draw file on IPFS
-        const cid = await pinInWeb3Storage(drawFilepath, drawTitle);
-        await pinInKV(cid, content);
-
-        // Rename draw file to match IPFS CID
-        // await renameFileToCid(drawFilepath, cid);
-
-        // Delete temp file
-        deleteTmpDrawFile(drawFilepath);
-
-        // Publish draw on smart contract
-        await publishOnSmartContract(cid, drawScheduledAt, entropyNeeded);
-
-        return cid
-
-    } catch (err) {
-        console.error(err);
+    if (!drawTitle || !drawRules || !drawParticipants || !drawNbWinners || !drawScheduledAt) {
+        throw new Error('You need to specify all draw parameters.');
     }
+
+    // Compute entropy needed
+    const drawNbParticipants = drawParticipants.length;
+    const entropyNeeded = await computeEntropyNeeded(drawNbParticipants, drawNbWinners);
+
+    // Generate draw file
+    const [drawFilepath, content] = await generateDrawFile(drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
+
+    // Pin draw file on IPFS
+    const cid = await pinInWeb3Storage(response, drawFilepath, drawTitle);
+    await pinInKV(cid, content);
+
+    // Rename draw file to match IPFS CID
+    // await renameFileToCid(drawFilepath, cid);
+
+    // Delete temp file
+    deleteTmpDrawFile(drawFilepath);
+
+    // Publish draw on smart contract
+    await publishOnSmartContract(cid, drawScheduledAt, entropyNeeded);
+
+    return cid
+
 }
 
 // async function renameFileToCid(oldPath: string, cid: string) {
@@ -179,7 +164,7 @@ function deleteTmpDrawFile(drawFilepath: string) {
         if (err) {
             throw err;
         }
-    
+
         console.log(`Deleted ${drawFilepath} successfully.`);
     });
 }
@@ -232,7 +217,7 @@ async function generateDrawFile(drawTitle: string, drawRules: string, drawPartic
 
 }
 
-async function pinInWeb3Storage(filepath: string, drawTitle: string): Promise<string> {
+async function pinInWeb3Storage(response: any, filepath: string, drawTitle: string): Promise<string> {
     console.log(`Uploading ${filepath} to IPFS...\n`);
 
     const token = process.env.WEB3_STORAGE_API_TOKEN
@@ -254,6 +239,7 @@ async function pinInWeb3Storage(filepath: string, drawTitle: string): Promise<st
 
     const onRootCidReady = (rootCid: string) => {
         console.log(`Root CID is ${rootCid}\n`)
+        response.cid = rootCid
         resolve(rootCid);
     };
 
@@ -262,6 +248,7 @@ async function pinInWeb3Storage(filepath: string, drawTitle: string): Promise<st
         wrapWithDirectory: false,
         onRootCidReady
     });
+
     return cidPromise;
 }
 
@@ -270,7 +257,7 @@ async function pinInKV(cid: string, content: string) {
 }
 
 async function publishOnSmartContract(v1CidString: string, scheduledAt: number, entropyNeeded: number) {
-    console.log(`Publish draw ${v1CidString} on smart contract ${contractAddress}\n`);
+    console.log(`Publish draw ${v1CidString} on smart contract ${contractAddress}, scheduled at ${scheduledAt}, needing ${entropyNeeded} entropy\n`);
 
     const jsonData = await fsPromises.readFile(filePath);
     const abi = JSON.parse(jsonData.toString()).abi;
@@ -282,10 +269,17 @@ async function publishOnSmartContract(v1CidString: string, scheduledAt: number, 
     );
 
     await setOptimalGas();
-    await contract.launchDraw(v1CidString, scheduledAt, entropyNeeded, {
-        maxFeePerGas,
-        maxPriorityFeePerGas,
-    });
+
+    try {
+        await contract.launchDraw(v1CidString, scheduledAt, entropyNeeded, {
+            maxFeePerGas,
+            maxPriorityFeePerGas,
+        });
+    } catch (err: any) {
+        console.error(err);
+        throw new Error(`Failed to deploy the draw on the smart contract.`);
+    }
+
 }
 
 function sha256(message: string) {

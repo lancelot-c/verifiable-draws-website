@@ -5,7 +5,7 @@ import Link from 'next/link'
 import React from "react";
 import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { CheckCircleIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
+import { CheckCircleIcon, InformationCircleIcon, XCircleIcon } from '@heroicons/react/20/solid'
 import CheckoutForm from "./CheckoutForm";
 const websiteBasePaths = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? ['http://localhost:3000/ipfs?cid='] : ['http://verify.win/']
 const stripePublicKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
@@ -177,6 +177,8 @@ export default function Page() {
     const [selectedStep, setSelectedStep] = useState<StepNumber>(currentStep)
     const [clientSecret, setClientSecret] = useState<string>('');
     const [cid, setCid] = useState<string>('');
+    const [deployError, setDeployError] = useState<string>('');
+    const [deployInProgress, setDeployInProgress] = useState<boolean>(false);
     const [drawLinks, setDrawLinks] = useState<string[]>([]);
     const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | undefined>(undefined);
 
@@ -214,6 +216,7 @@ export default function Page() {
 
         const [drawTitle, drawRules, drawParticipants, drawNbWinners] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners"]);
         const drawScheduledAt = Math.ceil(getTimestampFromIso(getValues("step3.scheduledAt")) / 1000); // in seconds
+        setDeployInProgress(true);
 
         fetch("/api/draw/deploy", {
             method: "POST",
@@ -230,8 +233,18 @@ export default function Page() {
             .then(res => res.json())
             .then(data => {
                 if (!ignore) {
-                    setCid(data.cid);
-                    setDrawLinks(websiteBasePaths.map(basePath => `${basePath}${data.cid}`))
+
+                    setDeployInProgress(false)
+
+                    if (data.response.cid) {
+                        setCid(data.response.cid);
+                        setDrawLinks(websiteBasePaths.map(basePath => `${basePath}${data.response.cid}`))
+                    }
+
+                    if (data.error) {
+                        setDeployError(data.error.message);
+                    }
+
                 }
 
             });
@@ -603,8 +616,11 @@ export default function Page() {
                                 </div>
                             </div>
 
+                            
+                            
                             {
-                                (drawLinks.length === 0) ? (
+                                (deployInProgress) && (
+
                                     <div className="rounded-md bg-yellow-50 p-4 mt-4">
                                         <div className="flex">
                                             <div className="flex-shrink-0">
@@ -625,10 +641,55 @@ export default function Page() {
                                             </div>
                                         </div>
                                     </div>
-                                ) : (
+
+                                )
+                            }
+
+
+                            {
+                                (cid && deployError) && (
+
+                                    <div className="rounded-md bg-green-50 p-4 mt-4">
+                                        <div className="flex">
+                                            <div className="flex-shrink-0">
+                                                <CheckCircleIcon className="h-5 w-5 text-green-400" aria-hidden="true" />
+                                            </div>
+                                            <div className="ml-3">
+                                                <p className="text-sm font-medium text-green-800">Draw successfully uploaded to ipfs://{ cid }</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                )
+                            }
+
+
+                            {
+                                (deployError) && (
+                                    
+                                    <div className="rounded-md bg-red-50 p-4 mt-4">
+                                        <div className="flex">
+                                            <div className="flex-shrink-0">
+                                                <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
+                                            </div>
+                                            <div className="ml-3">
+                                                <p className="text-sm font-medium text-red-800">
+                                                    { deployError }<br />
+                                                    { (cid) ? 'Please send us the above IPFS link' : 'Please contact us' } using the chat at the bottom-right of this page so that we can investigate what went wrong.<br />
+                                                    We apologize for the inconvenience.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                )
+                            }
+
+                                {
+                                    (drawLinks.length > 0 && !deployError) && (
                                     <div className="text-center">
                                         <p className="mt-8 text-md">
-                                            The draw has successfully been deployed to IPFS and Ethereum. 🎉<br />
+                                            Your draw has successfully been deployed to the blockchain. 🎉<br />
                                             You can now share the following link to the participants so that they can access the draw details and see the winners when they are announced.
                                         </p>
 
