@@ -4,7 +4,7 @@ export async function GET(request: Request) {
 
     const { searchParams } = new URL(request.url)
     const cid = searchParams.get('cid')
-    console.log(`cid = ${cid}`);
+    console.log(`Access draw ${cid}`);
 
     const fileData: string | null = await kv.get(`content_${cid}`);
 
