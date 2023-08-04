@@ -180,11 +180,10 @@ export default function Example() {
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="mx-auto max-w-2xl text-center">
                             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                Build a company that everyone trusts
+                                This page should not be visible
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> enables you to organize any kind of random draw (giveaway, lottery, contest, election, ...) in a completely transparent way thanks to the blockchain,
-                                allowing you to earn the public&apos;s trust and boost your brand image.
+                                This page should not be visible, an error occured.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link

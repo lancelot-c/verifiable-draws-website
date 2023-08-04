@@ -10,6 +10,15 @@ module.exports = {
         }
         return config;
     },
+    redirects: async () => {
+        return [
+            {
+                source: '/',
+                destination: 'https://www.verifiabledraws.com/',
+                permanent: true,
+            },
+        ]
+    },
     // ⬇ Only works in production, not in dev, that's a known Next.JS bug : https://github.com/vercel/next.js/issues/40549 
     rewrites: async () => {
         return {
