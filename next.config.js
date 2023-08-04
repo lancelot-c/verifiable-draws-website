@@ -18,7 +18,7 @@ module.exports = {
             // allows overriding page files
             beforeFiles: [
                 {
-                    source: '/ipfs/:cid',
+                    source: '/:cid',
                     destination: '/ipfs?cid=:cid',
                 },
             ],
