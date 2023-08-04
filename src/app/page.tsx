@@ -193,7 +193,7 @@ export default function Example() {
                                 >
                                     Launch Draw
                                 </Link>
-                                <Link href="http://verify.win/bafkreidmrqgxcqcpd6dp7zrsrvojuop7zatweuhmhgcqrtnwcbkpcwgbz4" className="text-sm font-semibold leading-6 text-gray-900">
+                                <Link href="http://verify.win/bafkreiahvifgrjixy5w6y4zwhjd4t3hrzycmpbthkreayyygowmfdaqvqm" className="text-sm font-semibold leading-6 text-gray-900">
                                     Live Demo <span aria-hidden="true">→</span>
                                 </Link>
                             </div>
