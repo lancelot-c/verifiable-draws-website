@@ -178,13 +178,12 @@ export default function Example() {
                 </div>
                 <div className="py-0 pt-16 sm:pt-24 lg:py-32">
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                        <div className="mx-auto max-w-2xl text-center">
+                        <div className="mx-auto max-w-3xl text-center">
                             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                Build a company that everyone trusts
+                                Verifiable randomness<br />for everyone
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> enables you to organize any kind of random draw (giveaway, lottery, contest, election, ...) in a completely transparent way thanks to the blockchain,
-                                allowing you to earn the public&apos;s trust and boost your brand image.
+                                <span className="italic">Verifiable Draws</span> enables you to organize random draws with a verifiable source of randomness, allowing you to earn the public's trust and boost your brand image.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link
