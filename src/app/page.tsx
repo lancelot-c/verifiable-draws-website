@@ -5,6 +5,11 @@ import mainExplanationImg from '/public/img/main-banner-2316w.png'
 import lepineStandImg from '/public/img/lepine-stand.jpeg'
 import lepineRemisePrixImg from '/public/img/lepine-photo-officielle-cropped.jpeg'
 import insightMediaImg from '/public/img/insight-media.png'
+import giveawayImg from '/public/img/giveaway.webp'
+import lotteryImg from '/public/img/lottery-ticket.jpeg'
+import olympicGamesImg from '/public/img/fifa-draw.jpeg'
+import publidGoodsImg from '/public/img/public-entities.jpg'
+import casinoMachineImg from '/public/img/text-to-win.webp'
 import fdjLogoImg from '/public/img/fdj-logo-300w.png'
 import insightMediaLogoImg from '/public/img/insight-media-logo.png'
 import ipfsLogoImg from '/public/img/ipfs-logo-without-text.svg'
@@ -62,6 +67,59 @@ const features = [
     // },
 ]
 
+
+const posts = [
+    {
+        id: 1,
+        title: 'Social media giveaways',
+        href: '#',
+        description:
+          'Increase the engagement on your giveaways by displaying a full transparency of the winner selection process.',
+        imageUrl: giveawayImg
+      },
+      {
+        id: 2,
+        title: 'TV contests',
+        href: '#',
+        description:
+          'Earn the public trust on your TV channel by using verifiable randomness for your contests.',
+        imageUrl: casinoMachineImg
+      },
+      {
+        id: 3,
+        title: 'Lotteries',
+        href: '#',
+        description:
+          'Bring transparency to your lottery by letting your clients know that your lottery cannot be rigged.',
+        imageUrl: lotteryImg
+      },
+      {
+        id: 4,
+        title: 'Championships',
+        href: '#',
+        description:
+          'Major championships like the Olympic games and the FIFA World Cup are using random draws to determine competition brackets. Make this process verifiable.',
+        imageUrl: olympicGamesImg
+      },
+    //   {
+    //     id: 5,
+    //     title: 'Public entities',
+    //     href: '#',
+    //     description:
+    //       'Increase the trust in your public institutions by proving to your citizens that you are not corrupted.',
+    //     imageUrl: publidGoodsImg
+    //   },
+    //   {
+    //     id: 6,
+    //     title: 'Custom',
+    //     href: '#',
+    //     description:
+    //       'Random draw is one of the oldest algorithm on Earth',
+    //     imageUrl: publidGoodsImg
+    //   }
+  ]
+
+  
 const videos = [
     {
         description: 'Watch our founder Lancelot Chardonnet pitch the project at Concours Lépine [in French]',
@@ -335,6 +393,49 @@ export default function Example() {
                     </dl>
                 </div>
             </div>
+
+
+
+            <div className="bg-white mt-32 sm:mt-56">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            {/* Use cases */}
+            Embrace verifiable randomness across multiple use cases
+            </p>
+          {/* <p className="mt-6 text-lg leading-8 text-gray-600">
+          Build provably secure applications with <span className="italic">Verifiable Draws</span> across multiple use cases.
+          </p> */}
+        </div>
+        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-10 gap-y-20 lg:max-w-full lg:grid-cols-4">
+          {posts.map((post) => (
+            <article key={post.id} className="flex flex-col items-start">
+              <div className="relative w-full">
+                <Image
+                  src={post.imageUrl}
+                  alt=""
+                  className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+                />
+                <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+              </div>
+              <div className="max-w-xl">
+                <div className="group relative">
+                  <h3 className="mt-6 text-lg font-semibold leading-6 text-gray-900"> {/* group-hover:text-gray-600 */}
+                    {/* <Link href={post.href}> */}
+                      <span className="absolute inset-0" />
+                      {post.title}
+                    {/* </Link> */}
+                  </h3>
+                  <p className="mt-6 text-sm leading-6 text-gray-600">{post.description}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+
+
 
 
             {/* Concours Lépine */}
