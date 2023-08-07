@@ -183,7 +183,7 @@ export default function Example() {
                                 Verifiable randomness<br />for everyone
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> enables you to organize random draws with a verifiable source of randomness, allowing you to earn the public's trust and boost your brand image.
+                                <span className="italic">Verifiable Draws</span> enables you to organize random draws with a verifiable source of randomness, allowing you to earn the public&apos;s trust and boost your brand image.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link
