@@ -448,6 +448,7 @@ export default function Page() {
                                         />
                                     </div>
                                 </div>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">This will be the title of the page we will create for your draw.</p>
                             </div>
 
 
@@ -469,7 +470,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">Explain how the list of participants was made, how many winners will be picked, and what are the prizes to win.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">Explain what are the prizes to win, how many winners will be picked, and remind everyone what they needed to do in order to be included in the list of participants for this draw.</p>
                             </div>
 
                         </div>
@@ -498,7 +499,10 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">Type one participant per line. Participants can be identified with any type of ID (Instagram username, Telegram username, first name + last name, ...) as long as the ID is unique in your list. Choose the type of ID which fits best for your use case.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">
+                                    Type one participant per line using anything that can uniquely identify the participant: Instagram username, Telegram username, first name + last name, phone number, email address, ...
+                                    Choose what fits best for your use case.
+                                </p>
                             </div>
 
                             <div className="sm:col-span-2">
@@ -519,7 +523,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">This is the number of participants that our algorithm will select randomly. Make sure it matches with what you have written in your rules at the previous step.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">This is the number of participants that the algorithm will randomly select. Make sure it matches with what you have written in your rules at the previous step.</p>
                             </div>
                         </div>
                     )
@@ -531,7 +535,7 @@ export default function Page() {
 
                             <div className="text-center">
                                 <label htmlFor="scheduledAt" className="block text-sm font-normal leading-6 text-gray-900">
-                                Choose the date and time at which the draw will be triggered.<br />
+                                Choose the date and time at which the draw will happen.<br />
                                 ({(Intl.DateTimeFormat().resolvedOptions().timeZone)} time zone detected)
                                 </label>
                                 <div className="mt-2">
@@ -557,10 +561,9 @@ export default function Page() {
                                     </div>
                                     <div className="ml-3 flex-1 md:flex md:justify-between">
                                         <p className="text-sm text-blue-700">
-                                            At the end of this form we will create a web page for your draw and give you the link to access it.
-                                            Please note that you will have to <span className="font-semibold">share this link to the participants before the draw happens</span>.
-                                            By doing so, the participants will have the guarantee that you did not know the result of the draw in advance, which means that you will be <Link href="https://messari.io/report/credible-neutrality-as-a-guiding-principle" rel="noopener" target="_blank" className="underline">credibly neutral</Link>.
-                                            That&apos;s why as a good practice we recommend you to schedule your draw at least 6 hours in the future from now.
+                                            At the end of this form we will create a web page for your draw and give you the link to access it. Please note that you will have to share this link to the participants before the draw happens.
+                                            By doing so, the participants will have the guarantee that you did not know the result of the draw in advance. {/* which means that you will be <Link href="https://messari.io/report/credible-neutrality-as-a-guiding-principle" rel="noopener" target="_blank" className="underline">credibly neutral</Link>. */}
+                                            That&apos;s why as a good practice we recommend you to choose a date and time at least 6 hours in the future from now.
                                         </p>
                                     </div>
                                 </div>
@@ -584,13 +587,13 @@ export default function Page() {
                     </p>
 
                     <div className="min-w-[300px] max-w-[800px] flex-auto px-8 sm:px-24 py-16">
-                        <p className="mt-0 text-xl font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-xl text-center">
+                        {/* <p className="mt-0 text-xl font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-xl text-center">
                             Purchase a single draw
                         </p>
 
                         <p className="mt-0 text-base font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-base text-center">
                             Total: 29,00€
-                        </p>
+                        </p> */}
 
                         {clientSecret && (
                             <Elements options={options} stripe={stripePromise}>

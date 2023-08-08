@@ -117,7 +117,7 @@ export default function CheckoutForm(
                     </svg>
                 )}
 
-                {isLoading ? "Processing..." : "Pay 29,00€ and deploy draw"}
+                {isLoading ? "Processing..." : "Pay 29,00€ and deploy the draw"}
             </button>
 
             {/* Show any error or success messages */}
