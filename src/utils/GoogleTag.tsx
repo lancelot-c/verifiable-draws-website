@@ -3,7 +3,7 @@
 
 // import { GTM_ID, pageview } from "./lib/gtm"
 import { usePathname, useSearchParams } from "next/navigation"
-// import Script from "next/script"
+import Script from "next/script"
 import { useEffect } from "react"
 
 // lib/gtm.ts
@@ -45,16 +45,18 @@ export default function GoogleTag() {
     }
 
     return (
-        <>
+        <div>
             {/* <!-- Google tag (gtag.js) --> */}
-            <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11291367227"></script>
-            <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag() { window.dataLayer.push(arguments) }
-                gtag('js', new Date());
+            <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-11291367227"></Script>
+            <Script id="google-analytics">
+                {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag() { window.dataLayer.push(arguments) }
+                    gtag('js', new Date());
 
-                gtag('config', 'AW-11291367227');
-            </script>
-        </>
+                    gtag('config', 'AW-11291367227');
+                `}
+            </Script>
+        </div>
     )
 }
