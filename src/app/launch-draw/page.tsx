@@ -563,7 +563,7 @@ export default function Page() {
                                         <p className="text-sm text-blue-700">
                                             At the end of this form we will create a web page for your draw and give you the link to access it. Please note that you will have to share this link to the participants before the draw happens.
                                             By doing so, the participants will have the guarantee that you did not know the result of the draw in advance. {/* which means that you will be <Link href="https://messari.io/report/credible-neutrality-as-a-guiding-principle" rel="noopener" target="_blank" className="underline">credibly neutral</Link>. */}
-                                            That&apos;s why as a good practice we recommend you to choose a date and time at least 6 hours in the future from now.
+                                            That&apos;s why as a good practice we recommend you to choose a date and time which is at least 6 hours in the future from now.
                                         </p>
                                     </div>
                                 </div>

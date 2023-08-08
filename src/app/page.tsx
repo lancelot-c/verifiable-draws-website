@@ -68,7 +68,7 @@ const features = [
 ]
 
 
-const posts = [
+const useCases = [
     {
         id: 1,
         title: 'Social media giveaways',
@@ -82,7 +82,7 @@ const posts = [
         title: 'TV contests',
         href: '#',
         description:
-          'Earn the public trust on your TV channel by using verifiable randomness for your contests.',
+          'Stand out from your competitors and regain the public interest in your TV Shows by letting your viewers know that your contests are transparent and secure thanks to blockchain technology.',
         imageUrl: casinoMachineImg
       },
       {
@@ -90,7 +90,7 @@ const posts = [
         title: 'Lotteries',
         href: '#',
         description:
-          'Bring transparency to your lottery by letting your clients know that your lottery cannot be rigged.',
+          'Add transparency and best in class security to your lottery by selecting the winning numbers with a verifiable draw that anyone can audit.',
         imageUrl: lotteryImg
       },
       {
@@ -98,7 +98,7 @@ const posts = [
         title: 'Championships',
         href: '#',
         description:
-          'Major championships like the Olympic games and the FIFA World Cup are using random draws to determine competition brackets. Make this process verifiable.',
+          'Most championships, like the Olympic games and the FIFA World Cup, are using random draws to decide competition brackets. Make this process verifiable to prevent corruption.',
         imageUrl: olympicGamesImg
       },
     //   {
@@ -408,11 +408,11 @@ export default function Example() {
           </p> */}
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-10 gap-y-20 lg:max-w-full lg:grid-cols-4">
-          {posts.map((post) => (
-            <article key={post.id} className="flex flex-col items-start">
+          {useCases.map((useCase) => (
+            <article key={useCase.id} className="flex flex-col items-start">
               <div className="relative w-full">
                 <Image
-                  src={post.imageUrl}
+                  src={useCase.imageUrl}
                   alt=""
                   className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
                 />
@@ -422,11 +422,11 @@ export default function Example() {
                 <div className="group relative">
                   <h3 className="mt-6 text-lg font-semibold leading-6 text-gray-900"> {/* group-hover:text-gray-600 */}
                     {/* <Link href={post.href}> */}
-                      <span className="absolute inset-0" />
-                      {post.title}
+                      {/* <span className="absolute inset-0" /> */}
+                      {useCase.title}
                     {/* </Link> */}
                   </h3>
-                  <p className="mt-6 text-sm leading-6 text-gray-600">{post.description}</p>
+                  <p className="mt-6 text-sm leading-6 text-gray-600">{useCase.description}</p>
                 </div>
               </div>
             </article>
