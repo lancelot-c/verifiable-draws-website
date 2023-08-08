@@ -238,10 +238,10 @@ export default function Example() {
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="mx-auto max-w-3xl text-center">
                             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                Verifiable randomness<br />for everyone
+                                The best way to organize random draws
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> enables you to organize random draws with a verifiable source of randomness, allowing you to earn the public&apos;s trust and boost your brand image.
+                                <span className="italic">Verifiable Draws</span> is the first fully decentralized draw platform in the world, running on the Ethereum blockchain with a verifiable source of randomness, unlocking a level of transparency and security that no existing alternative can provide.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link
@@ -401,7 +401,7 @@ export default function Example() {
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             {/* Use cases */}
-            Embrace verifiable randomness across multiple use cases
+            Embrace verifiable draws across multiple use cases
             </p>
           {/* <p className="mt-6 text-lg leading-8 text-gray-600">
           Build provably secure applications with <span className="italic">Verifiable Draws</span> across multiple use cases.
