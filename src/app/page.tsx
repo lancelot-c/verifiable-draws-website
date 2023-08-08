@@ -241,7 +241,7 @@ export default function Example() {
                                 The best way to organize random draws
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> is the first fully decentralized draw platform in the world, running on the Ethereum blockchain with a verifiable source of randomness, unlocking a level of transparency and security that no existing alternative can provide.
+                                <span className="italic">Verifiable Draws</span> is the first fully decentralized draw platform in the world, running on the Ethereum blockchain with a verifiable source of randomness, unlocking a level of transparency and security that no existing solution can provide.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link
