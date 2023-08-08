@@ -2,7 +2,9 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/react'
+import GoogleTag from './../utils/GoogleTag'
 import vdLogo from '/public/img/vd-logo.svg'
 import dynamic from 'next/dynamic'
 
@@ -203,7 +205,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <main className="isolate">
 
         {children}
-        <Analytics />
+
+        <Suspense>
+            <Analytics />
+        </Suspense>
+        
+
+        <Suspense>
+            <GoogleTag />
+        </Suspense>
 
       </main>
         

@@ -462,13 +462,18 @@ export default function Example() {
                     {videos.map((video) => (
                         <li key={video.description}>
                             <Link href={video.videoUrl} target="_blank" className="">
-                                <Image
-                                    className="aspect-[3/2] w-full rounded-2xl object-cover"
-                                    src={video.imageUrl}
-                                    alt=""
-                                    width="300"
-                                    height="300"
-                                />
+                                <div className="relative w-full">
+                                    <Image
+                                        className="aspect-[3/2] w-full rounded-2xl object-cover"
+                                        src={video.imageUrl}
+                                        alt=""
+                                        width="300"
+                                        height="300"
+                                    />
+
+                                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                                </div>
+        
                                 {/* <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">{video.description}</h3> */}
                                 <p className="text-base mt-6 leading-7 text-gray-600 underline">{video.description}</p>
                                 <ul role="list" className="mt-6 flex gap-x-6">
@@ -751,7 +756,7 @@ export default function Example() {
                                 </span>
                                 <span data-subtitle="true" style={{ boxSizing: 'border-box', fontSize: '14px', lineHeight: '21px', letterSpacing: '-0.14px', color: 'rgb(102, 102, 102)', margin: '0px', maxWidth: '440.918px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)' }}>
                                     {/* Chainlink enhances smart contract capabilities by allowing access to data outside the blockchain and off-chain computing while keeping blockchain technology&apos;s security and reliability assurances. */}
-                                    Chainlink VRF provides cryptographically secure randomness that cannot be manipulated by any user, node operator, or malicious actor. It is an industry standard trusted by top projects.
+                                    Chainlink VRF provides cryptographically secure randomness that cannot be manipulated by any user, node operator, or malicious actor. It is the industry standard used by top projects.
                                 </span>
                             </div>
                         </Link>
