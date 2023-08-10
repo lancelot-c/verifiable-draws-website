@@ -157,7 +157,7 @@ const tiers = [
         name: 'Basic',
         id: 'tier-basic',
         href: '/launch-draw',
-        price: '29€',
+        price: '4€',
         description: 'Get the security and transparency benefits of the blockchain at an affordable price.',
         features: [
             { included: true, text: 'Provably-fair and verifiable randomness' },
@@ -174,7 +174,7 @@ const tiers = [
         name: 'Pro',
         id: 'tier-pro',
         href: '/launch-draw',
-        price: '79€',
+        price: '9€',
         description: 'Same as Basic but with 100x more participants to reach a larger audience.',
         features: [
             { included: true, text: 'Provably-fair and verifiable randomness' },
@@ -241,7 +241,7 @@ export default function Example() {
                                 The best way to organize random draws
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> is the first fully decentralized draw platform in the world, running on the Ethereum blockchain with a verifiable source of randomness, unlocking a level of transparency and security that no existing solution can provide.
+                                <span className="italic">Verifiable Draws</span> is the first fully decentralized random draw platform in the world, running on the Ethereum blockchain with a verifiable source of randomness, unlocking a level of transparency and security that no existing solution can provide.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link

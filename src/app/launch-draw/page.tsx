@@ -592,7 +592,7 @@ export default function Page() {
                         </p>
 
                         <p className="mt-0 text-base font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-base text-center">
-                            Total: 29,00€
+                            Total: 4,00€
                         </p> */}
 
                         {clientSecret && (
