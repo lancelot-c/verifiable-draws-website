@@ -8,7 +8,8 @@ import insightMediaImg from '/public/img/insight-media.png'
 import giveawayImg from '/public/img/giveaway.webp'
 import lotteryImg from '/public/img/lottery-ticket.jpeg'
 import olympicGamesImg from '/public/img/fifa-draw.jpeg'
-import publidGoodsImg from '/public/img/public-entities.jpg'
+import featuresBadImg from '/public/img/features-bad.png'
+import featuresCoolImg from '/public/img/features-cool.png'
 import casinoMachineImg from '/public/img/text-to-win.webp'
 import fdjLogoImg from '/public/img/fdj-logo-300w.png'
 import insightMediaLogoImg from '/public/img/insight-media-logo.png'
@@ -20,51 +21,96 @@ import fidealisLogoImg from '/public/img/fidealis-logo-300w.png'
 import kastelCoLogoImg from '/public/img/kastel-co-logo-300w.png'
 
 import {
-    ArrowTrendingUpIcon,
-    BuildingLibraryIcon,
+    ScaleIcon,
     CheckIcon,
     RocketLaunchIcon,
     ShieldCheckIcon,
+    ShieldExclamationIcon,
+    SparklesIcon,
+    CursorArrowRaysIcon,
+    UserGroupIcon,
 } from '@heroicons/react/24/solid'
 
 
 const features = [
     {
-        name: 'Reliable by design',
+        name: 'Provably fair and random',
         description:
-            'It is impossible for anyone, even us, to rig our draws because our algorithm is end-to-end decentralized.',
+            'Provide your participants with random draws that they can finally trust. Each draw deployed on our platform has an associated blockchain proof.',
         icon: ShieldCheckIcon,
     },
     {
         name: 'Top notch brand image',
         description:
-            'Using transparent algorithms when interacting with your customers is one of the best way to boost your brand image.',
-        icon: RocketLaunchIcon,
+            'Boost your brand image and stand out from your competitors by using transparent algorithms when interacting with your customers.',
+        icon: SparklesIcon,
     },
     {
         name: 'Say goodbye to disputes',
         description:
-            'Contestations of the results are hopeless because there is an undeniable scientific proof certifying that the draw is fair and random.',
-        icon: BuildingLibraryIcon,
+            'Prevent anyone from challenging the draw result by having a cryptographic proof certifying that the draw was performed in a fair and random way.',
+        icon: ScaleIcon,
     },
     {
-        name: 'Increase participation rate',
+        name: 'Better user experience',
         description:
-            'Because it is transparent, the draw easily earn the public trust, turning suspicious onlookers into potential participants.',
-        icon: ArrowTrendingUpIcon,
+            'Involve your users by letting them access the draw details on a customized web page. They can even check the proof for their draw which is super easy to verify.',
+        icon: CursorArrowRaysIcon,
     },
-    // {
-    //   name: 'Much cheaper than a court bailiff',
-    //   description:
-    //     'Relying on a court bailiff to certify a draw cost 500€ on average in France. One draw with us costs 29€ and even less if you buy in bulk.',
-    //   icon: CurrencyDollarIcon,
-    // },
-    // {
-    //   name: 'Works online & offline',
-    //   description:
-    //     'Your real world draws can also be verifiable because we provide you with QR codes that you can share with real world participants.',
-    //   icon: GlobeEuropeAfricaIcon,
-    // },
+    {
+        name: 'Increased engagement',
+        description:
+            'Grow your user base by ensuring trustworthy and fair outcomes that are verifiable using cryptographic proofs.',
+        icon: UserGroupIcon,
+    },
+    {
+        name: 'Cutting-edge technologies',
+        description:
+            'Stay at the forefront of innovation by using the most advanced random draw algorithm currently on the market.',
+        icon: RocketLaunchIcon,
+    },
+]
+
+const featuresBad = [
+    {
+        name: '',
+        description:
+            'The participants don\'t have a proof certifying that the draw was performed in a fair and random way, they have to take the organizer\'s word for it.',
+        icon: ShieldExclamationIcon,
+    },
+    {
+        name: '',
+        description:
+            'Even if you use an open-source website, it does not guarantee that the open-sourced code is the actual code that is running on the website. Therefore the website is unverifiable and can\'t be trusted.',
+        icon: ShieldExclamationIcon,
+    },
+    {
+        name: '',
+        description:
+            'Most solutions don\'t tell how they generate randomness or they rely on centralized services like random.org. It is extremely easy for these services to send you a malicious random number and you won\'t be able to detect it.',
+        icon: ShieldExclamationIcon,
+    },
+]
+
+const featuresCool = [
+    {
+        name: '',
+        description:
+            'The participants have an actual proof which certifies that the draw was performed in a fair and random way because the algorithm is end-to-end decentralized and verifiable.',
+        icon: ShieldCheckIcon,
+    },
+    {
+        name: '',
+        description:
+            'Our website verify.win is stored on IPFS, the leading decentralized storage solution, which prevents anyone, even us, from interfering with the code.',
+        icon: ShieldCheckIcon,
+    },
+    {
+        name: '',
+        description:
+            'The randomness is generated in our smart contract using Chainlink VRF which provides cryptographically secure randomness for your draw.',
+        icon: ShieldCheckIcon,
+    },
 ]
 
 
@@ -74,33 +120,33 @@ const useCases = [
         title: 'Social media giveaways',
         href: '#',
         description:
-          'Increase the engagement on your giveaways by displaying a full transparency of the winner selection process.',
+            'Increase the engagement on your giveaways by displaying a full transparency of the winner selection process.',
         imageUrl: giveawayImg
-      },
-      {
+    },
+    {
         id: 2,
         title: 'TV contests',
         href: '#',
         description:
-          'Stand out from your competitors and regain the public interest in your TV Shows by letting your viewers know that your contests are transparent and secure thanks to blockchain technology.',
+            'Stand out from your competitors and regain the public interest in your TV Shows by letting your viewers know that your contests are transparent and secure thanks to blockchain technology.',
         imageUrl: casinoMachineImg
-      },
-      {
+    },
+    {
         id: 3,
         title: 'Lotteries',
         href: '#',
         description:
-          'Add transparency and best in class security to your lottery by selecting the winning numbers with a verifiable draw that anyone can audit.',
+            'Add transparency and best in class security to your lottery by selecting the winning numbers with a verifiable draw that anyone can audit.',
         imageUrl: lotteryImg
-      },
-      {
+    },
+    {
         id: 4,
         title: 'Championships',
         href: '#',
         description:
-          'Most championships, like the Olympic games and the FIFA World Cup, are using random draws to decide competition brackets. Make this process verifiable to prevent corruption.',
+            'Most championships, like the Olympic games and the FIFA World Cup, are using random draws to decide competition brackets. Make this process verifiable to prevent corruption.',
         imageUrl: olympicGamesImg
-      },
+    },
     //   {
     //     id: 5,
     //     title: 'Public entities',
@@ -117,25 +163,25 @@ const useCases = [
     //       'Random draw is one of the oldest algorithm on Earth',
     //     imageUrl: publidGoodsImg
     //   }
-  ]
+]
 
-  
+
 const videos = [
     {
         description: 'Watch our founder Lancelot Chardonnet pitch the project at Concours Lépine [in French]',
         imageUrl: lepineStandImg,
         videoUrl: 'https://www.youtube.com/watch?v=Oa3L8Kbyqx0',
-      },
-      {
+    },
+    {
         description: 'Watch the ending ceremony of Concours Lépine [in French]',
         imageUrl: lepineRemisePrixImg,
         videoUrl: 'https://www.youtube.com/watch?v=4oVa9vfy-cE',
-      },
-      {
+    },
+    {
         description: 'Watch Insight Media\'s video about Verifiable Draws [in French]',
         imageUrl: insightMediaImg,
         videoUrl: 'https://www.linkedin.com/posts/insightch_algorithme-blockchain-activity-7092194795837603841-J68n',
-      }
+    }
 ]
 
 const tiers = [
@@ -241,7 +287,7 @@ export default function Example() {
                                 The best way to organize random draws
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> is the first fully decentralized random draw platform in the world, running on the Ethereum blockchain with a verifiable source of randomness, unlocking a level of transparency and security that no existing solution can provide.
+                                <span className="italic">Verifiable Draws</span> is a decentralized random draw platform enabling you to organize random draws backed by proofs instead of promises, unlocking a level of transparency and security that no other solution can provide.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link
@@ -362,20 +408,16 @@ export default function Example() {
 
 
 
-
-
-
-
-            {/* Feature section */}
-            <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
-                <div className="mx-auto max-w-2xl text-center">
-                    <h2 className="text-base font-semibold leading-7 text-indigo-600">Stop using black box algorithms</h2>
+{/* Feature section */}
+<div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+                <div className="mx-auto max-w-xl text-center">
+                    <h2 className="text-base font-semibold leading-7 text-indigo-600">Stop using shady websites</h2>
                     <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                        Unlock a new level of customer experience
+                        Meet the Holy Grail of random draws
                     </p>
-                    <p className="mt-6 text-lg leading-8 text-gray-600">
-                        A verifiable draw is like a regular random draw, except that it is 100% decentralized, transparent, and verifiable by the participants.
-                    </p>
+                    {/* <p className="mt-6 text-lg leading-8 text-gray-600">
+                        Verifiable draws are random draws on steroids.
+                    </p> */}
                 </div>
                 <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
                     <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
@@ -394,71 +436,165 @@ export default function Example() {
                 </div>
             </div>
 
+            
 
 
             <div className="bg-white mt-32 sm:mt-56">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            {/* Use cases */}
-            Embrace verifiable draws across multiple use cases
-            </p>
-          {/* <p className="mt-6 text-lg leading-8 text-gray-600">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="mx-auto max-w-4xl lg:text-center">
+                        {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2> */}
+                        <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                            Current random draw solutions leave participants vulnerable to malicious attacks
+                        </p>
+                        {/* <p className="mt-6 text-lg leading-8 text-gray-600">
+                            Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum
+                            pulvinar et feugiat blandit at. In mi viverra elit nunc.
+                        </p> */}
+                    </div>
+
+                    <div className="relative overflow-hidden pt-16">
+                        <div className="mx-auto max-w-7xl px-0 lg:px-8">
+                            <Image
+                                        src={featuresBadImg}
+                                        alt=""
+                                        className="w-full rounded-2xl bg-gray-100 object-cover"
+                                    />
+                        </div>
+                    </div>
+
+                    
+                    <div className="mx-auto mt-8 max-w-2xl sm:mt-16 sm:max-w-none">
+                        <dl className="grid max-w-xl grid-cols-1 gap-x-16 gap-y-2 sm:max-w-none sm:grid-cols-3">
+                            {featuresBad.map((feature) => (
+                                <div key={feature.description} className="relative pl-9">
+                                    <dt className="inline text-base font-semibold leading-7 text-gray-900">
+                                        <feature.icon className="absolute left-1 top-1 h-5 w-5 text-[#ea6a5d]" aria-hidden="true" />
+                                        {/* {feature.name} */}
+                                    </dt>{' '}
+                                    <dd className="inline text-base leading-7 text-gray-600">
+                                        {feature.description}
+                                    </dd>
+                                </div>
+                            ))}
+                        </dl>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+            <div className="bg-white mt-32 sm:mt-56">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="mx-auto max-w-4xl lg:text-center">
+                        {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2> */}
+                        <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                            Verifiable Draws eliminates the risks of traditional random draw solutions
+                        </p>
+                        {/* <p className="mt-6 text-lg leading-8 text-gray-600">
+                            Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum
+                            pulvinar et feugiat blandit at. In mi viverra elit nunc.
+                        </p> */}
+                    </div>
+
+                    <div className="relative overflow-hidden pt-8 lg:pt-16">
+                        <div className="mx-auto max-w-7xl px-0 lg:px-8">
+                            <Image
+                                        src={featuresCoolImg}
+                                        alt=""
+                                        className="w-full rounded-2xl bg-gray-100 object-cover"
+                                    />
+                        </div>
+                    </div>
+
+                    
+                    <div className="mx-auto mt-8 max-w-2xl sm:mt-16 sm:max-w-none">
+                        <dl className="grid max-w-xl grid-cols-1 gap-x-16 gap-y-8 sm:max-w-none sm:grid-cols-3">
+                            {featuresCool.map((feature) => (
+                                <div key={feature.description} className="relative pl-9">
+                                    <dt className="inline text-base font-semibold leading-7 text-gray-900">
+                                        <feature.icon className="absolute left-1 top-1 h-5 w-5 text-[#007436]" aria-hidden="true" />
+                                        {/* {feature.name} */}
+                                    </dt>{' '}
+                                    <dd className="inline text-base leading-7 text-gray-600">
+                                        {feature.description}
+                                    </dd>
+                                </div>
+                            ))}
+                        </dl>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div className="bg-white mt-32 sm:mt-56">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="mx-auto max-w-3xl text-center">
+                        <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                            {/* Use cases */}
+                            Embrace verifiable draws across multiple use cases
+                        </p>
+                        {/* <p className="mt-6 text-lg leading-8 text-gray-600">
           Build provably secure applications with <span className="italic">Verifiable Draws</span> across multiple use cases.
           </p> */}
-        </div>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-10 gap-y-20 lg:max-w-full lg:grid-cols-4">
-          {useCases.map((useCase) => (
-            <article key={useCase.id} className="flex flex-col items-start">
-              <div className="relative w-full">
-                <Image
-                  src={useCase.imageUrl}
-                  alt=""
-                  className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                />
-                <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-              </div>
-              <div className="max-w-xl">
-                <div className="group relative">
-                  <h3 className="mt-6 text-lg font-semibold leading-6 text-gray-900"> {/* group-hover:text-gray-600 */}
-                    {/* <Link href={post.href}> */}
-                      {/* <span className="absolute inset-0" /> */}
-                      {useCase.title}
-                    {/* </Link> */}
-                  </h3>
-                  <p className="mt-6 text-sm leading-6 text-gray-600">{useCase.description}</p>
+                    </div>
+                    <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-10 gap-y-20 lg:max-w-full lg:grid-cols-4">
+                        {useCases.map((useCase) => (
+                            <article key={useCase.id} className="flex flex-col items-start">
+                                <div className="relative w-full">
+                                    <Image
+                                        src={useCase.imageUrl}
+                                        alt=""
+                                        className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+                                    />
+                                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                                </div>
+                                <div className="max-w-xl">
+                                    <div className="group relative">
+                                        <h3 className="mt-6 text-lg font-semibold leading-6 text-gray-900"> {/* group-hover:text-gray-600 */}
+                                            {/* <Link href={post.href}> */}
+                                            {/* <span className="absolute inset-0" /> */}
+                                            {useCase.title}
+                                            {/* </Link> */}
+                                        </h3>
+                                        <p className="mt-6 text-sm leading-6 text-gray-600">{useCase.description}</p>
+                                    </div>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
                 </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </div>
+            </div>
 
 
 
 
             {/* Concours Lépine */}
-                <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
-                    <div className="relative mx-auto max-w-2xl text-center">
-                        <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                            An award-winning product 🏆
-                        </p>
-                        <p className="mt-6 text-lg leading-8 text-gray-600">
-                            <span className="italic">Verifiable Draws</span> won a gold medal at Concours Lépine in 2023 which is the most famous innovation competition in France.
-                        </p>
+            <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+                <div className="relative mx-auto max-w-2xl text-center">
+                    <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                        An award-winning product 🏆
+                    </p>
+                    <p className="mt-6 text-lg leading-8 text-gray-600">
+                        <span className="italic">Verifiable Draws</span> won a gold medal at Concours Lépine in 2023 which is the most famous innovation competition in France.
+                    </p>
 
-                        <Image
-                            className="gold-medal m-auto -z-10 absolute hidden lg:block"
-                            sizes="210px"
-                            src={goldMedalImg}
-                            alt="Médaille d'or du Concours Lépine 2023"
-                        />
-                    </div>
-                    <ul
+                    <Image
+                        className="gold-medal m-auto -z-10 absolute hidden lg:block"
+                        sizes="210px"
+                        src={goldMedalImg}
+                        alt="Médaille d'or du Concours Lépine 2023"
+                    />
+                </div>
+                <ul
                     role="list"
                     className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
-                    >
+                >
                     {videos.map((video) => (
                         <li key={video.description}>
                             <Link href={video.videoUrl} target="_blank" className="">
@@ -473,49 +609,49 @@ export default function Example() {
 
                                     <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                                 </div>
-        
+
                                 {/* <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">{video.description}</h3> */}
                                 <p className="text-base mt-6 leading-7 text-gray-600 underline">{video.description}</p>
                                 <ul role="list" className="mt-6 flex gap-x-6">
-                                        {
-                                            (video.videoUrl.includes("youtube")) && (
-                                                <li className="text-gray-400">
-                                                    {/* <Link href={video.videoUrl} target="_blank"> */}
-                                                        <span className="sr-only">Youtube</span>
-                                                        <svg className="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
-                                                            <path
-                                                                fillRule="evenodd"
-                                                                d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
-                                                                clipRule="evenodd"
-                                                            />
-                                                        </svg>
-                                                    {/* </Link> */}
-                                                </li>
-                                            )
-                                        }
-                                    
-                                        {
-                                            (video.videoUrl.includes("linkedin")) && (
-                                                <li className="text-gray-400">
-                                                    {/* <Link href={video.videoUrl} target="_blank" className="text-gray-400 hover:text-gray-500"> */}
-                                                        <span className="sr-only">LinkedIn</span>
-                                                        <svg className="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path
-                                                            fillRule="evenodd"
-                                                            d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"
-                                                            clipRule="evenodd"
-                                                        />
-                                                        </svg>
-                                                    {/* </Link> */}
-                                                </li>
-                                            )
-                                        }
+                                    {
+                                        (video.videoUrl.includes("youtube")) && (
+                                            <li className="text-gray-400">
+                                                {/* <Link href={video.videoUrl} target="_blank"> */}
+                                                <span className="sr-only">Youtube</span>
+                                                <svg className="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+                                                        clipRule="evenodd"
+                                                    />
+                                                </svg>
+                                                {/* </Link> */}
+                                            </li>
+                                        )
+                                    }
+
+                                    {
+                                        (video.videoUrl.includes("linkedin")) && (
+                                            <li className="text-gray-400">
+                                                {/* <Link href={video.videoUrl} target="_blank" className="text-gray-400 hover:text-gray-500"> */}
+                                                <span className="sr-only">LinkedIn</span>
+                                                <svg className="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"
+                                                        clipRule="evenodd"
+                                                    />
+                                                </svg>
+                                                {/* </Link> */}
+                                            </li>
+                                        )
+                                    }
                                 </ul>
                             </Link>
                         </li>
                     ))}
-                    </ul>
-                </div>
+                </ul>
+            </div>
 
 
             {/* Powered By  */}
@@ -756,7 +892,7 @@ export default function Example() {
                                 </span>
                                 <span data-subtitle="true" style={{ boxSizing: 'border-box', fontSize: '14px', lineHeight: '21px', letterSpacing: '-0.14px', color: 'rgb(102, 102, 102)', margin: '0px', maxWidth: '440.918px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)' }}>
                                     {/* Chainlink enhances smart contract capabilities by allowing access to data outside the blockchain and off-chain computing while keeping blockchain technology&apos;s security and reliability assurances. */}
-                                    Chainlink VRF provides cryptographically secure randomness that cannot be manipulated by any user, node operator, or malicious actor. It is the industry standard used by top projects.
+                                    Chainlink VRF provides cryptographically secure randomness that cannot be manipulated by any user, node operator, or malicious actor. It is an industry standard trusted by top projects.
                                 </span>
                             </div>
                         </Link>
@@ -817,7 +953,7 @@ export default function Example() {
                                                 'text-sm font-semibold leading-6'
                                             )}
                                         >
-                                             /draw
+                                            /draw
                                         </span>
                                     ) : null}
                                 </p>
@@ -885,7 +1021,7 @@ export default function Example() {
                         Join our community.
                     </h2>
                     <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-                        We invite you to join our Discord community where you will be able to talk to our team, follow the project latest news, and see what other people are using <span className="italic">Verifiable Draws</span> for. 
+                        We invite you to join our Discord community where you will be able to talk to our team, follow the project latest news, and see what other people are using <span className="italic">Verifiable Draws</span> for.
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
                         <Link
