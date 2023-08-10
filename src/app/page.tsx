@@ -28,7 +28,7 @@ import {
     ShieldExclamationIcon,
     SparklesIcon,
     CursorArrowRaysIcon,
-    UserGroupIcon,
+    UserGroupIcon
 } from '@heroicons/react/24/solid'
 
 
