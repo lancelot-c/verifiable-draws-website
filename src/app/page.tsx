@@ -413,7 +413,7 @@ export default function Example() {
                 <div className="mx-auto max-w-xl text-center">
                     <h2 className="text-base font-semibold leading-7 text-indigo-600">Stop using shady websites</h2>
                     <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                        Meet the Holy Grail of random draws
+                        Meet the Holy Grail of random draw algorithms
                     </p>
                     {/* <p className="mt-6 text-lg leading-8 text-gray-600">
                         Verifiable draws are random draws on steroids.
@@ -906,7 +906,7 @@ export default function Example() {
             <div className="py-24 sm:pt-48">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto max-w-4xl text-center">
-                        <h2 className="text-base font-semibold leading-7 text-indigo-600">Pricing</h2>
+                        {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Pricing</h2> */}
                         <p className="mt-2 mb-16 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                             Pricing plans for draws of all sizes
                         </p>
