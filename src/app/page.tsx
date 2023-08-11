@@ -36,31 +36,31 @@ const features = [
     {
         name: 'Provably fair and random',
         description:
-            'Provide your participants with random draws that they can finally trust. Each draw deployed on our platform has an associated blockchain proof.',
+            'Provide your participants with draw results backed by cryptographic proofs that they can finally trust.',
         icon: ShieldCheckIcon,
     },
     {
         name: 'Top notch brand image',
         description:
-            'Boost your brand image and stand out from your competitors by using transparent algorithms when interacting with your customers.',
+            'Boost your brand image by using transparent algorithms when interacting with your users.',
         icon: SparklesIcon,
     },
     {
         name: 'Say goodbye to disputes',
         description:
-            'Prevent anyone from challenging the draw result by having a cryptographic proof certifying that the draw was performed in a fair and random way.',
+            'Prevent anyone from challenging your draw results by displaying easy-to-verify proofs certifying that your draws are performed in a fair and random way.',
         icon: ScaleIcon,
     },
     {
         name: 'Better user experience',
         description:
-            'Involve your users by letting them access the draw details on a customized web page. They can even check the proof for their draw which is super easy to verify.',
+            'Empower your participants by letting them follow the draw in real time through a customized web page.',
         icon: CursorArrowRaysIcon,
     },
     {
         name: 'Increased engagement',
         description:
-            'Grow your user base by ensuring trustworthy and fair outcomes that are verifiable using cryptographic proofs.',
+            'Grow your user base by ensuring trustworthy and fair outcomes that are verifiable.',
         icon: UserGroupIcon,
     },
     {
@@ -73,19 +73,19 @@ const features = [
 
 const featuresBad = [
     {
-        name: '',
+        name: 'No proof.',
         description:
             'The participants don\'t have a proof certifying that the draw was performed in a fair and random way, they have to take the organizer\'s word for it.',
         icon: ShieldExclamationIcon,
     },
     {
-        name: '',
+        name: 'Fake security.',
         description:
-            'Even if you use an open-source website, it does not guarantee that the open-sourced code is the actual code that is running on the website. Therefore the website is unverifiable and can\'t be trusted.',
+            'Most random draw tools are not open-source, and even when they are, it does not guarantee that the open-sourced code is the actual code that is running on the website. Therefore these websites are unverifiable and can\'t be trusted.',
         icon: ShieldExclamationIcon,
     },
     {
-        name: '',
+        name: 'Easy to manipulate.',
         description:
             'Most solutions don\'t tell how they generate randomness or they rely on centralized services like random.org. It is extremely easy for these services to send you a malicious random number and you won\'t be able to detect it.',
         icon: ShieldExclamationIcon,
@@ -94,19 +94,19 @@ const featuresBad = [
 
 const featuresCool = [
     {
-        name: '',
+        name: 'Provably fair results.',
         description:
-            'The participants have an actual proof which certifies that the draw was performed in a fair and random way because the algorithm is end-to-end decentralized and verifiable.',
+            'The participants have an actual proof which certifies that the draw was performed in a fair and random way.',
         icon: ShieldCheckIcon,
     },
     {
-        name: '',
+        name: 'Tamper-proof website.',
         description:
-            'Our website verify.win is stored on IPFS, the leading decentralized storage solution, which prevents anyone, even us, from interfering with the code.',
+            'All draws are stored on our website verify.win using IPFS, the leading decentralized storage solution, which means that not only the code is open-source, but it\'s also verifiable and impossible for anyone to change it, even for us.',
         icon: ShieldCheckIcon,
     },
     {
-        name: '',
+        name: 'On-chain verifiable randomness.',
         description:
             'The randomness is generated in our smart contract using Chainlink VRF which provides cryptographically secure randomness for your draw.',
         icon: ShieldCheckIcon,
@@ -287,7 +287,7 @@ export default function Example() {
                                 The best way to organize random draws
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> is a decentralized random draw platform enabling you to organize random draws backed by proofs instead of promises, unlocking a level of transparency and security that no other solution can provide.
+                                <span className="italic">Verifiable Draws</span> enables you to organize random draws with the maximum level of security and transparency, ensuring results that you and your participants can 100% trust.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link
@@ -441,10 +441,10 @@ export default function Example() {
 
             <div className="bg-white mt-32 sm:mt-56">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto max-w-4xl lg:text-center">
+                    <div className="mx-auto max-w-4xl text-center">
                         {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2> */}
                         <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                            Current random draw solutions leave participants vulnerable to malicious attacks
+                            Current random draw solutions are vulnerable to malicious attacks
                         </p>
                         {/* <p className="mt-6 text-lg leading-8 text-gray-600">
                             Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum
@@ -464,12 +464,12 @@ export default function Example() {
 
                     
                     <div className="mx-auto mt-8 max-w-2xl sm:mt-16 sm:max-w-none">
-                        <dl className="grid max-w-xl grid-cols-1 gap-x-16 gap-y-2 sm:max-w-none sm:grid-cols-3">
+                        <dl className="grid max-w-xl grid-cols-1 gap-x-16 gap-y-8 sm:max-w-none sm:grid-cols-3">
                             {featuresBad.map((feature) => (
                                 <div key={feature.description} className="relative pl-9">
                                     <dt className="inline text-base font-semibold leading-7 text-gray-900">
                                         <feature.icon className="absolute left-1 top-1 h-5 w-5 text-[#ea6a5d]" aria-hidden="true" />
-                                        {/* {feature.name} */}
+                                        {feature.name}
                                     </dt>{' '}
                                     <dd className="inline text-base leading-7 text-gray-600">
                                         {feature.description}
@@ -488,7 +488,7 @@ export default function Example() {
 
             <div className="bg-white mt-32 sm:mt-56">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto max-w-4xl lg:text-center">
+                    <div className="mx-auto max-w-4xl text-center">
                         {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2> */}
                         <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                             Verifiable Draws eliminates the risks of traditional random draw solutions
@@ -516,7 +516,7 @@ export default function Example() {
                                 <div key={feature.description} className="relative pl-9">
                                     <dt className="inline text-base font-semibold leading-7 text-gray-900">
                                         <feature.icon className="absolute left-1 top-1 h-5 w-5 text-[#007436]" aria-hidden="true" />
-                                        {/* {feature.name} */}
+                                        {feature.name}
                                     </dt>{' '}
                                     <dd className="inline text-base leading-7 text-gray-600">
                                         {feature.description}
