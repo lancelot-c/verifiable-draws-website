@@ -36,19 +36,19 @@ const features = [
     {
         name: 'Provably fair and random',
         description:
-            'Provide your participants with draw results backed by cryptographic proofs that they can finally trust.',
+            'Provide your participants with draw results that they can finally trust.',
         icon: ShieldCheckIcon,
     },
     {
         name: 'Top notch brand image',
         description:
-            'Boost your brand image by using transparent algorithms when interacting with your users.',
+            'Boost your brand image by showing your users that transparency matters to you.',
         icon: SparklesIcon,
     },
     {
         name: 'Say goodbye to disputes',
         description:
-            'Prevent anyone from challenging your draw results by displaying easy-to-verify proofs certifying that your draws are performed in a fair and random way.',
+            'Prevent anyone from challenging your draw results by displaying easy-to-verify proofs which certify that your draws are performed in a fair and random way.',
         icon: ScaleIcon,
     },
     {
