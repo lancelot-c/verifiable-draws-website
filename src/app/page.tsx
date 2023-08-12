@@ -235,7 +235,7 @@ const tiers = [
         name: 'Personal',
         id: 'tier-basic',
         href: '/launch-draw',
-        price: '4€',
+        price: '29€',
         description: 'Try the most advanced random draw algorithm currently on the market for a ridiculously low price.',
         features: [
             // { included: true, text: 'Provably-fair and verifiable randomness' },

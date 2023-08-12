@@ -11,7 +11,7 @@ const stripe = new Stripe(stripeSecretKey, {
   typescript: true,
 });
  
-const drawPrice = 4.00; // in euros
+const drawPrice = 29.00; // in euros
 
 const calculateOrderAmount = (nbDraws: number) => {
     // Calculate the order total on the server to prevent
