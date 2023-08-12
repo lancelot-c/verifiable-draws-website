@@ -15,8 +15,8 @@ import {
 } from '@heroicons/react/24/solid'
 
 export const metadata = {
-  title: 'Verifiable Draws - The best way to organize random draws',
-  description: 'We enable you to organize random draws with the maximum level of security and transparency, ensuring results that you and your participants can 100% trust.',
+  title: 'The best way to organize random draws',
+  description: 'Verifiable Draws enables you to organize random draws with the maximum level of security and transparency, ensuring results that you and your participants can 100% trust.',
 }
 
 const navigation: any[] = [

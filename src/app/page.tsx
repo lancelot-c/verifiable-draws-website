@@ -19,6 +19,10 @@ import ethereumLogoImg from '/public/img/ethereum-logo-100w.png'
 import chainlinkLogoImg from '/public/img/chainlink-logo-100w.png'
 import fidealisLogoImg from '/public/img/fidealis-logo-300w.png'
 import kastelCoLogoImg from '/public/img/kastel-co-logo-300w.png'
+import kimLogoImg from '/public/img/kim-kardashian.jpg'
+import fifaLogoImg from '/public/img/fifa-logo.png'
+import mcdonaldsLogoImg from '/public/img/McDonalds-logo.png'
+import bbcLogoImg from '/public/img/bbc-logo.webp'
 
 import {
     ScaleIcon,
@@ -28,7 +32,8 @@ import {
     ShieldExclamationIcon,
     SparklesIcon,
     CursorArrowRaysIcon,
-    UserGroupIcon
+    UserGroupIcon,
+    ArrowTopRightOnSquareIcon
 } from '@heroicons/react/24/solid'
 
 
@@ -90,6 +95,33 @@ const featuresBad = [
             'Most solutions don\'t tell how they generate randomness or they rely on centralized services like random.org. It is extremely easy for these services to send you a malicious random number and you won\'t be able to detect it.',
         icon: ShieldExclamationIcon,
     },
+]
+
+const hallOfShame = [
+    {
+        name: 'Kim Kardashian sued for fake lottery scam on Instagram',
+        image: kimLogoImg,
+        website: 'TMZ',
+        url: 'https://www.tmz.com/2022/09/15/kim-kardashian-scott-disick-sued-scam-lottery-lawsuit/'
+    },
+    {
+        name: 'Michel Platini admits the World Cup 98 draw was rigged',
+        image: fifaLogoImg,
+        website: 'The Washington Post',
+        url: 'https://www.washingtonpost.com/news/early-lead/wp/2018/05/18/former-uefa-boss-michel-platini-says-1998-world-cup-draw-was-fixed/'
+    },
+    {
+        name: 'McDonald\'s fooled on it\'s own lucky draw game for more than 10 years',
+        image: mcdonaldsLogoImg,
+        website: 'Daily Beast',
+        url: 'https://www.thedailybeast.com/how-an-ex-cop-rigged-mcdonalds-monopoly-game-and-stole-millions'
+    },
+    {
+        name: 'BBC fined by regulators for fake quizzes and contests',
+        image: bbcLogoImg,
+        website: 'Reuters',
+        url: 'https://www.reuters.com/article/us-britain-bbc-idUSL065561320080730'
+    }
 ]
 
 const featuresCool = [
@@ -200,13 +232,13 @@ const tiers = [
     //     ],
     // },
     {
-        name: 'Basic',
+        name: 'Personal',
         id: 'tier-basic',
         href: '/launch-draw',
         price: '4€',
-        description: 'Get the security and transparency benefits of the blockchain at an affordable price.',
+        description: 'Try the most advanced random draw algorithm currently on the market for a ridiculously low price.',
         features: [
-            { included: true, text: 'Provably-fair and verifiable randomness' },
+            // { included: true, text: 'Provably-fair and verifiable randomness' },
             // { included: true, text: 'Is secure enough to protect a billion dollar lottery against any kind of attack' },
             { included: true, text: 'Up to 1 000 participants' },
             { included: true, text: 'Up to 10 winners' },
@@ -216,29 +248,29 @@ const tiers = [
         featured: false,
         cta: 'Launch draw',
     },
-    {
-        name: 'Pro',
-        id: 'tier-pro',
-        href: '/launch-draw',
-        price: '9€',
-        description: 'Same as Basic but with 100x more participants to reach a larger audience.',
-        features: [
-            { included: true, text: 'Provably-fair and verifiable randomness' },
-            // { included: true, text: 'Is secure enough to protect a billion dollar lottery against any kind of attack' },
-            { included: true, text: 'Up to 100 000 participants' },
-            { included: true, text: 'Up to 100 winners' },
-            { included: true, text: 'Schedule draw at custom date and time' },
-            { included: true, text: '24-hour support response time' },
-        ],
-        featured: false,
-        cta: 'Launch draw',
-    },
+    // {
+    //     name: 'Pro',
+    //     id: 'tier-pro',
+    //     href: '/launch-draw',
+    //     price: '9€',
+    //     description: 'Same as Basic but with 100x more participants to reach a larger audience.',
+    //     features: [
+    //         { included: true, text: 'Provably-fair and verifiable randomness' },
+    //         // { included: true, text: 'Is secure enough to protect a billion dollar lottery against any kind of attack' },
+    //         { included: true, text: 'Up to 100 000 participants' },
+    //         { included: true, text: 'Up to 100 winners' },
+    //         { included: true, text: 'Schedule draw at custom date and time' },
+    //         { included: true, text: '24-hour support response time' },
+    //     ],
+    //     featured: false,
+    //     cta: 'Launch draw',
+    // },
     {
         name: 'Enterprise',
         id: 'tier-enterprise',
         href: '/contact',
         price: 'Custom',
-        description: 'We provide custom plans for companies with specific needs.',
+        description: 'We provide custom plans for companies engaged in large-scale operations.',
         features: [
             { included: true, text: 'White-labelling, bring your own template' },
             { included: true, text: 'API access' },
@@ -408,8 +440,8 @@ export default function Example() {
 
 
 
-{/* Feature section */}
-<div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+            {/* Feature section */}
+            <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                 <div className="mx-auto max-w-xl text-center">
                     <h2 className="text-base font-semibold leading-7 text-indigo-600">Stop using shady websites</h2>
                     <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
@@ -436,7 +468,7 @@ export default function Example() {
                 </div>
             </div>
 
-            
+
 
 
             <div className="bg-white mt-32 sm:mt-56">
@@ -455,14 +487,14 @@ export default function Example() {
                     <div className="relative overflow-hidden pt-16">
                         <div className="mx-auto max-w-7xl px-0 lg:px-8">
                             <Image
-                                        src={featuresBadImg}
-                                        alt=""
-                                        className="w-full rounded-2xl bg-gray-100 object-cover"
-                                    />
+                                src={featuresBadImg}
+                                alt=""
+                                className="w-full rounded-2xl bg-gray-100 object-cover"
+                            />
                         </div>
                     </div>
 
-                    
+
                     <div className="mx-auto mt-8 max-w-2xl sm:mt-16 sm:max-w-none">
                         <dl className="grid max-w-xl grid-cols-1 gap-x-16 gap-y-8 sm:max-w-none sm:grid-cols-3">
                             {featuresBad.map((feature) => (
@@ -485,6 +517,52 @@ export default function Example() {
 
 
 
+            <div className="bg-white py-24 sm:py-32 mt-32 sm:mt-46">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="mx-auto max-w-2xl lg:max-w-none">
+                        <div className="text-center">
+                            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                                Scams and attacks happen all the time
+                            </h1>
+                            <p className="mt-4 text-lg leading-8 text-gray-600">
+                                Here are just a few cases where people didn&apos;t use Verifiable Draws and got in trouble.
+                            </p>
+                        </div>
+                        <dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
+                            {hallOfShame.map((company, index) => (
+                                <div key={company.name} className="flex flex-col items-center bg-[#ea6a5d] p-8">
+                                    <div>
+                                        <Image
+                                            src={company.image}
+                                            alt=""
+                                            className={`object-scale-down h-24 ${ index === 0 ? 'rounded-full w-24' : 'w-36'}`}
+                                        />
+                                    </div>
+
+                                    <div className="text-xl font-semibold tracking-tight text-white mt-4">{company.name}</div>
+                                    
+                                    <Link href={company.url} target="_blank" className="flex items-center justify-center hover:underline text-xs font-semibold leading-6 text-white mt-2">
+                                        {company.website}
+                                        <ArrowTopRightOnSquareIcon className="h-4 w-4 inline ml-1" aria-hidden="true" />
+                                        {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                                        </svg> */}
+                                    </Link>
+                                </div>
+                            ))}
+                        </dl>
+                        <div className="text-center">
+                            <p className="mt-16 text-lg leading-8 text-gray-600">
+                                Stay safe, protect your draws with Verifiable Draws.
+                            </p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+
 
             <div className="bg-white mt-32 sm:mt-56">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -502,14 +580,14 @@ export default function Example() {
                     <div className="relative overflow-hidden pt-8 lg:pt-16">
                         <div className="mx-auto max-w-7xl px-0 lg:px-8">
                             <Image
-                                        src={featuresCoolImg}
-                                        alt=""
-                                        className="w-full rounded-2xl bg-gray-100 object-cover"
-                                    />
+                                src={featuresCoolImg}
+                                alt=""
+                                className="w-full rounded-2xl bg-gray-100 object-cover"
+                            />
                         </div>
                     </div>
 
-                    
+
                     <div className="mx-auto mt-8 max-w-2xl sm:mt-16 sm:max-w-none">
                         <dl className="grid max-w-xl grid-cols-1 gap-x-16 gap-y-8 sm:max-w-none sm:grid-cols-3">
                             {featuresCool.map((feature) => (
@@ -908,7 +986,7 @@ export default function Example() {
                     <div className="mx-auto max-w-4xl text-center">
                         {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Pricing</h2> */}
                         <p className="mt-2 mb-16 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                            Pricing plans for draws of all sizes
+                            Simple pricing, no commitment
                         </p>
                     </div>
                     {/* <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
@@ -916,7 +994,7 @@ export default function Example() {
             </p> */}
 
 
-                    <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                    {/* <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                         {tiers.map((tier) => (
                             <div
                                 key={tier.id}
@@ -988,9 +1066,91 @@ export default function Example() {
                                 </ul>
                             </div>
                         ))}
-                    </div>
+                    </div> */}
 
 
+<div className="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
+        {tiers.map((tier, tierIdx) => (
+          <div
+            key={tier.id}
+            className={classNames(
+              tier.featured ? 'relative bg-gray-900 shadow-2xl' : 'bg-white/60 sm:mx-8 lg:mx-0',
+              tier.featured
+                ? ''
+                : tierIdx === 0
+                ? 'rounded-t-3xl sm:rounded-b-none lg:rounded-tr-none lg:rounded-bl-3xl'
+                : 'sm:rounded-t-none lg:rounded-tr-3xl lg:rounded-bl-none',
+              'rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10'
+            )}
+          >
+            <h3
+              id={tier.id}
+              className={classNames(
+                tier.featured ? 'text-indigo-400' : 'text-indigo-600',
+                'text-base font-semibold leading-7'
+              )}
+            >
+              {tier.name}
+            </h3>
+            <p className="mt-4 flex items-baseline gap-x-2">
+              <span
+                className={classNames(
+                  tier.featured ? 'text-white' : 'text-gray-900',
+                  'text-5xl font-bold tracking-tight'
+                )}
+              >
+                {tier.price}
+              </span>
+
+
+                {tier.id !== 'tier-enterprise' ? (
+                                        <span
+                                            className={classNames(
+                                                tier.featured ? 'text-gray-300' : 'text-gray-600',
+                                                'text-sm font-semibold leading-6'
+                                            )}
+                                        >
+                                            /draw
+                                        </span>
+                                    ) : null}
+
+
+            </p>
+            <p className={classNames(tier.featured ? 'text-gray-300' : 'text-gray-600', 'mt-6 text-base leading-7')}>
+              {tier.description}
+            </p>
+            <ul
+              role="list"
+              className={classNames(
+                tier.featured ? 'text-gray-300' : 'text-gray-600',
+                'mt-8 space-y-3 text-sm leading-6 sm:mt-10'
+              )}
+            >
+              {tier.features.map((feature) => (
+                <li key={feature.text} className="flex gap-x-3">
+                  <CheckIcon
+                    className={classNames(tier.featured ? 'text-indigo-400' : 'text-indigo-600', 'h-6 w-5 flex-none')}
+                    aria-hidden="true"
+                  />
+                  {feature.text}
+                </li>
+              ))}
+            </ul>
+            <a
+              href={tier.href}
+              aria-describedby={tier.id}
+              className={classNames(
+                tier.featured
+                  ? 'bg-indigo-500 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline-indigo-500'
+                  : 'text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300 focus-visible:outline-indigo-600',
+                'mt-8 block rounded-md py-2.5 px-3.5 text-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10'
+              )}
+            >
+              {tier.cta}
+            </a>
+          </div>
+        ))}
+      </div>
 
 
                 </div>
