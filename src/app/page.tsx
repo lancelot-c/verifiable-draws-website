@@ -111,7 +111,7 @@ const hallOfShame = [
         url: 'https://www.washingtonpost.com/news/early-lead/wp/2018/05/18/former-uefa-boss-michel-platini-says-1998-world-cup-draw-was-fixed/'
     },
     {
-        name: 'McDonald\'s fooled on it\'s own lucky draw game for more than 10 years',
+        name: 'McDonald\'s fooled on its own lucky draw game for more than 10 years',
         image: mcdonaldsLogoImg,
         website: 'Daily Beast',
         url: 'https://www.thedailybeast.com/how-an-ex-cop-rigged-mcdonalds-monopoly-game-and-stole-millions'
