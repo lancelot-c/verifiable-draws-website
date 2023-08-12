@@ -128,7 +128,7 @@ const featuresCool = [
     {
         name: 'Provably fair results.',
         description:
-            'The participants have an actual proof which certifies that the draw was performed in a fair and random way.',
+            'The participants have an actual proof which certifies that the draw was performed in a fair and random way. They can check the results themselves using our provided link without communicating with the draw organizer.',
         icon: ShieldCheckIcon,
     },
     {
@@ -280,7 +280,7 @@ const tiers = [
             { included: true, text: 'Priority support' },
         ],
         featured: true,
-        cta: 'Contact sales',
+        cta: 'Get started today',
     }
 ]
 
