@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import goldMedalImg from '/public/img/medaille-or-lepine-500w.png'
-import mainExplanationImg from '/public/img/main-banner-2316w.png'
+import mainHeroImg from '/public/img/world-hero.webp'
 import lepineStandImg from '/public/img/lepine-stand.jpeg'
 import lepineRemisePrixImg from '/public/img/lepine-photo-officielle-cropped.jpeg'
 import insightMediaImg from '/public/img/insight-media.png'
@@ -329,7 +329,7 @@ export default function Example() {
                                     Launch Draw
                                 </Link>
                                 <Link href="http://verify.win/bafkreiahvifgrjixy5w6y4zwhjd4t3hrzycmpbthkreayyygowmfdaqvqm" className="text-sm font-semibold leading-6 text-gray-900">
-                                    Live Demo <span aria-hidden="true">→</span>
+                                    View an example <span aria-hidden="true">→</span>
                                 </Link>
                             </div>
                         </div>
@@ -338,7 +338,7 @@ export default function Example() {
                             <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                                 <Image
                                     sizes="94vw"
-                                    src={mainExplanationImg}
+                                    src={mainHeroImg}
                                     alt="App screenshot"
                                     className="rounded-md shadow-2xl ring-1 ring-gray-900/10"
                                 />
