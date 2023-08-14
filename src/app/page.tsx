@@ -41,13 +41,13 @@ const features = [
     {
         name: 'Provably fair and random',
         description:
-            'Provide your participants with draw results that they can finally trust.',
+            'Rely on an algorithm secured by cryptographic proofs which cannot be manipulated by anyone, not even by us.',
         icon: ShieldCheckIcon,
     },
     {
         name: 'Top notch brand image',
         description:
-            'Boost your brand image by showing your users that transparency matters to you.',
+            'Boost your brand image by using a transparent algorithm and showing your users that transparency matters to you.',
         icon: SparklesIcon,
     },
     {
@@ -86,7 +86,7 @@ const featuresBad = [
     {
         name: 'Fake security.',
         description:
-            'Most random draw tools are not open-source, and even when they are, it does not guarantee that the open-sourced code is the actual code that is running on the website. Therefore these websites are unverifiable and can\'t be trusted.',
+            'Most random draw websites are not open-source, and even when they are, it does not guarantee that the open-sourced code is the actual code that is running on the website. Therefore these websites are unverifiable and can\'t be trusted.',
         icon: ShieldExclamationIcon,
     },
     {
@@ -316,10 +316,10 @@ export default function Example() {
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="mx-auto max-w-3xl text-center">
                             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                The best way to organize random draws
+                                The ultimate random draw platform
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> enables you to organize random draws with the maximum level of security and transparency, ensuring results that you and your participants can 100% trust.
+                                <span className="italic">Verifiable Draws</span> is the first decentralized random draw platform in the world, running on the Ethereum blockchain with a verifiable source of randomness, unlocking a level of security and transparency that no existing solution can provide.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link
@@ -334,7 +334,7 @@ export default function Example() {
                             </div>
                         </div>
 
-                        <div className="mt-16 flow-root sm:mt-24">
+                        {/* <div className="mt-16 flow-root sm:mt-24">
                             <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                                 <Image
                                     sizes="94vw"
@@ -343,7 +343,7 @@ export default function Example() {
                                     className="rounded-md shadow-2xl ring-1 ring-gray-900/10"
                                 />
                             </div>
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>
@@ -443,13 +443,13 @@ export default function Example() {
             {/* Feature section */}
             <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                 <div className="mx-auto max-w-xl text-center">
-                    <h2 className="text-base font-semibold leading-7 text-indigo-600">Stop using shady websites</h2>
-                    <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                    {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Stop using shady software</h2> */}
+                    <h2 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                         Meet the Holy Grail of random draw algorithms
+                    </h2>
+                    <p className="mt-6 text-lg leading-8 text-gray-600">
+                        The only proven way to get random draws that are 100% reliable.
                     </p>
-                    {/* <p className="mt-6 text-lg leading-8 text-gray-600">
-                        Verifiable draws are random draws on steroids.
-                    </p> */}
                 </div>
                 <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
                     <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
@@ -475,9 +475,9 @@ export default function Example() {
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto max-w-4xl text-center">
                         {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2> */}
-                        <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                        <h2 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                             Current random draw solutions are vulnerable to malicious attacks
-                        </p>
+                        </h2>
                         {/* <p className="mt-6 text-lg leading-8 text-gray-600">
                             Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum
                             pulvinar et feugiat blandit at. In mi viverra elit nunc.
@@ -568,9 +568,9 @@ export default function Example() {
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto max-w-4xl text-center">
                         {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2> */}
-                        <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                        <h2 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                             Verifiable Draws eliminates the risks of traditional random draw solutions
-                        </p>
+                        </h2>
                         {/* <p className="mt-6 text-lg leading-8 text-gray-600">
                             Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum
                             pulvinar et feugiat blandit at. In mi viverra elit nunc.
