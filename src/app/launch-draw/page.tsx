@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import React from "react";
 import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe-js";
@@ -142,6 +143,7 @@ const drawNbWinnersPlaceholder = '4';
 
 export default function Page() {
 
+    const searchParams = useSearchParams()
     const dt_min = new Date();
     const dt_default = new Date();
     const safetyCushionMin = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? -1000000 : 30;
@@ -187,6 +189,11 @@ export default function Page() {
             return;
         }
 
+        if (searchParams.has('code')) {
+            nextStep(`step5`);
+            return;
+        }
+
         let ignore = false;
 
         fetch("/api/payment/create", {
@@ -208,7 +215,7 @@ export default function Page() {
     }, [currentStep])
 
     useEffect(() => {
-        if (currentStep !== shareStep || paymentIntent === undefined) {
+        if (currentStep !== shareStep || (paymentIntent === undefined && !searchParams.has('code'))) {
             return;
         }
 
@@ -218,17 +225,32 @@ export default function Page() {
         const drawScheduledAt = Math.ceil(getTimestampFromIso(getValues("step3.scheduledAt")) / 1000); // in seconds
         setDeployInProgress(true);
 
-        fetch("/api/draw/deploy", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
+        let jsonBody = {};
+
+        if (searchParams.has('code')) {
+            jsonBody = {
+                code: searchParams.get('code'),
+                drawTitle,
+                drawRules,
+                drawParticipants,
+                drawNbWinners,
+                drawScheduledAt
+            }
+        } else if (paymentIntent) {
+            jsonBody = {
                 paymentIntentId: paymentIntent.id,
                 drawTitle,
                 drawRules,
                 drawParticipants,
                 drawNbWinners,
                 drawScheduledAt
-            }),
+            }
+        }
+
+        fetch("/api/draw/deploy", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(jsonBody),
         })
             .then(res => res.json())
             .then(data => {

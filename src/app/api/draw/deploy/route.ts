@@ -46,10 +46,22 @@ export async function POST(request: Request) {
 
         const body = await request.json()
         const paymentIntentId: string = body.paymentIntentId
+        const code: string = body.code
+        const validCodes = ['zatzikhoven'] // These codes get free draws
+        let codeUsed = false;
 
-        // Cancel the request if something is wrong with the payment
-        await verifyPayment(paymentIntentId);
-        console.log(`Payment ${paymentIntentId} is valid. Draw deployment in progress...`);
+        if (code && validCodes.includes(code)) {
+
+            codeUsed = true;
+            console.log(`code ${code} used`);
+
+        } else {
+
+            // Cancel the request if something is wrong with the payment
+            await verifyPayment(paymentIntentId);
+            console.log(`Payment ${paymentIntentId} is valid. Draw deployment in progress...`);
+        }
+        
 
         // Deploy draw
         const drawTitle: string = body.drawTitle;
@@ -60,12 +72,24 @@ export async function POST(request: Request) {
 
         await createDraw(response, drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
 
-        // Set order as delivered
-        try {
-            await kv.set(paymentIntentId, 1);
-            console.log(`Set ${paymentIntentId} : 1 in the KV store.`)
-        } catch (error) {
-            throw new Error(`Can't set ${paymentIntentId} value in the KV store`)
+        if (codeUsed) {
+
+            const codeValue = await kv.get(`code_${code}`);
+            let count: number = 0;
+            
+            if (Number.isInteger(codeValue)) {
+                count = codeValue as number
+            }
+            await kv.set(`code_${code}`, count+1);
+
+        } else {
+            // Set order as delivered
+            try {
+                await kv.set(paymentIntentId, 1);
+                console.log(`Set ${paymentIntentId} : 1 in the KV store.`)
+            } catch (error) {
+                throw new Error(`Can't set ${paymentIntentId} value in the KV store`)
+            }
         }
 
     })
