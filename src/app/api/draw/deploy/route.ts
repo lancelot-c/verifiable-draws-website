@@ -50,10 +50,15 @@ export async function POST(request: Request) {
         const validCodes = ['zatzikhoven'] // These codes get free draws
         let codeUsed = false;
 
-        if (code && validCodes.includes(code)) {
+        if (code) {
 
-            codeUsed = true;
-            console.log(`code ${code} used`);
+            if (validCodes.includes(code)) {
+                codeUsed = true;
+                console.log(`code ${code} used`);
+            } else {
+                throw new Error(`Invalid code ${code} used`)
+            }
+            
 
         } else {
 
@@ -76,11 +81,14 @@ export async function POST(request: Request) {
 
             const codeValue = await kv.get(`code_${code}`);
             let count: number = 0;
-            
+
             if (Number.isInteger(codeValue)) {
                 count = codeValue as number
             }
-            await kv.set(`code_${code}`, count+1);
+            count++;
+
+            await kv.set(`code_${code}`, count);
+            console.log(`Code ${code} has been used ${count} times.`)
 
         } else {
             // Set order as delivered
