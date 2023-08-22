@@ -51,25 +51,21 @@ export async function GET(request: Request) {
 
         const jsonRpcProvider = new ethers.JsonRpcProvider(providerURL)
         const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, jsonRpcProvider);
-        console.log('#0');
+
         const contractArtifactFilePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
         const contractArtifact = await fsPromises.readFile(contractArtifactFilePath);
         const contractAbi = JSON.parse(contractArtifact.toString()).abi;
-        console.log('#1');
 
         const contract = new ethers.Contract(
             contractAddress,
             contractAbi,
             wallet
         );
-        console.log('#2');
-        let scResponse = await contract.getWinners(cid);
-        console.log(`scResponse = ${scResponse}`);
-        const sss = (new String(scResponse)).toString();
-        console.log(`sss = ${sss}`);
-        winners = sss.split(',').map(winner => Number(winner));
-        console.log(`winners = ${winners}`);
-        console.log('#3');
+
+        let scResponse = await contract.getWinners(cid); // unknown type
+        const winnersString = (new String(scResponse)).toString();
+        winners = winnersString.split(',').map(winner => Number(winner));
+
         // If winners have been generated, cache it
         if (winners && Array.isArray(winners) && winners != emptyWinners) {
             await kv.set(`winners_${cid}`, winners);
@@ -77,10 +73,9 @@ export async function GET(request: Request) {
         }
         
     }
-    console.log(`winners = ${winners}`);
-    console.log('#4');
+
     const response = { winners }
-    console.log('#5');
+
     return NextResponse.json(response, {
         status: 200,
         headers: {
