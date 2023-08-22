@@ -63,10 +63,12 @@ export async function GET(request: Request) {
             wallet
         );
         console.log('#2');
-        const scResponse: string = await contract.getWinners(cid);
-        console.log(`winners from SC = ${scResponse}`);
-        winners = scResponse.split(',').map(winner => Number(winner));
-        console.log(`winners after fromatting = ${winners}`);
+        let scResponse = await contract.getWinners(cid);
+        console.log(`scResponse = ${scResponse}`);
+        const sss = (new String(scResponse)).toString();
+        console.log(`sss = ${sss}`);
+        winners = sss.split(',').map(winner => Number(winner));
+        console.log(`winners = ${winners}`);
         console.log('#3');
         // If winners have been generated, cache it
         if (winners && Array.isArray(winners) && winners != emptyWinners) {
