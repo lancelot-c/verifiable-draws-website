@@ -51,20 +51,20 @@ export async function GET(request: Request) {
 
         const jsonRpcProvider = new ethers.JsonRpcProvider(providerURL)
         const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, jsonRpcProvider);
-
+        console.log('#0');
         const contractArtifactFilePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
         const contractArtifact = await fsPromises.readFile(contractArtifactFilePath);
         const contractAbi = JSON.parse(contractArtifact.toString()).abi;
-
+        console.log('#1');
 
         const contract = new ethers.Contract(
             contractAddress,
             contractAbi,
             wallet
         );
-
+        console.log('#2');
         winners = await contract.getWinners(cid);
-
+        console.log('#3');
         // If winners have been generated, cache it
         if (winners && Array.isArray(winners) && winners != emptyWinners) {
             await kv.set(`winners_${cid}`, winners);
