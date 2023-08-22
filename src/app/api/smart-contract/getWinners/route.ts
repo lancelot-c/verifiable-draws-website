@@ -64,6 +64,7 @@ export async function GET(request: Request) {
         );
         console.log('#2');
         winners = await contract.getWinners(cid);
+        console.log(`winners from SC = ${winners}`);
         console.log('#3');
         // If winners have been generated, cache it
         if (winners && Array.isArray(winners) && winners != emptyWinners) {
