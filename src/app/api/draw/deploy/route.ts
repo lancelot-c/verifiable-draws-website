@@ -162,11 +162,11 @@ async function createDraw(
     }
 
     // Compute entropy needed
-    const drawNbParticipants = drawParticipants.length;
+    const drawNbParticipants = drawParticipants.split('\n').length;
     const entropyNeeded = await computeEntropyNeeded(drawNbParticipants, drawNbWinners);
 
     // Generate draw file
-    const [drawFilepath, content] = await generateDrawFile(drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
+    const [drawFilepath, content] = await generateDrawFile(drawTitle, drawRules, drawParticipants, drawNbParticipants, drawNbWinners, drawScheduledAt);
 
     // Pin draw file on IPFS
     const cid = await pinInWeb3Storage(response, drawFilepath, drawTitle);
@@ -217,7 +217,7 @@ async function computeEntropyNeeded(nbParticipants: number, nbWinners: number): 
     return entropyNeeded;
 }
 
-async function generateDrawFile(drawTitle: string, drawRules: string, drawParticipants: string, drawNbWinners: number, unix_timestamp: number) {
+async function generateDrawFile(drawTitle: string, drawRules: string, drawParticipants: string, drawNbParticipants: number, drawNbWinners: number, unix_timestamp: number) {
     const templateFilepath = path.join(process.cwd(), '/src/template/template_en.html');
     console.log(`templateFilepath = ${templateFilepath}`);
 
@@ -235,7 +235,7 @@ async function generateDrawFile(drawTitle: string, drawRules: string, drawPartic
         .replaceAll('{{ drawTitle }}', drawTitle)
         .replaceAll('{{ drawScheduledAt }}', unix_timestamp.toString())
         .replaceAll('{{ drawRules }}', drawRules.replaceAll('\n', '<br />'))
-        .replaceAll('{{ drawNbParticipants }}', drawParticipantsArray.length.toString())
+        .replaceAll('{{ drawNbParticipants }}', drawNbParticipants.toString())
         .replaceAll('{{ drawParticipants }}', drawParticipantsList)
         .replaceAll('{{ drawNbWinners }}', drawNbWinners.toString());
 

@@ -390,11 +390,11 @@
 
         // Check now & every minute
         async function periodicallyCheckDrawResult() {
-            const [done, randomness] = await checkDrawResult();
+            const [done, winners] = await checkDrawResult();
 
             if (done) {
 
-                pickWinners(randomness);
+                displayWinners(winners);
 
             } else {
                 setTimeout(() => {
@@ -406,14 +406,15 @@
         async function checkDrawResult() {
 
             // You can verify that the returned randomness match the one at {{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F5
-            let randomnessResponse = await fetch(`https://www.verifiabledraws.com/api/smart-contract/getRandomnessForDraw?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
-            const randomness = await randomnessResponse.json();
-            console.log(`randomness.bytes = ${randomness.bytes}`);
+            let smartContractCall = await fetch(`https://www.verifiabledraws.com/api/smart-contract/getWinners?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
+            const jsonResponse = await smartContractCall.json();
+            console.log(`winners = ${jsonResponse.winners}`);
+            const hasWinners = jsonResponse.winners && Array.isArray(jsonResponse.winners)
 
-            return [randomness.bytes != '0x', randomness.bytes];
+            return [hasWinners, jsonResponse.winners];
         }
 
-        async function pickWinners(randomness) {
+        async function displayWinners(winners) {
             console.log(`We have some winners 🎉`);
             loadingElmt.style.display = 'none';
             scheduledAtElmt.style.display = 'none';
@@ -427,42 +428,9 @@
 
             winnersElement.style.display = 'block';
 
-            const decimalRandomness = BigInt(randomness); // parseInt(randomness.slice(2), 16);
-            console.log(`decimalRandomness = ${decimalRandomness}`);
-            const nbDigitsPerWinner = getNbDigits(drawNbParticipants);
-            console.log(`nbDigitsPerWinner = ${nbDigitsPerWinner}`);
-            const winnerIndexes = splitIn(decimalRandomness, nbDigitsPerWinner);
-            console.log(`winnerIndexes = ${winnerIndexes}`);
-            const winnersNeeded = {{ drawNbWinners }};
-            const pickedIndexes = [];
-
-
-            for (let i = 0; i < winnerIndexes.length; i++) {
-                if (i === winnersNeeded) {
-                    break;
-                }
-
-                const winnerIndex = winnerIndexes[i] % drawParticipants.length;
-                const winner = drawParticipants.splice(winnerIndex, 1)[0];
-                winnersListElement.innerHTML += `<li>${winner}</li>`;
-            }
-        }
-
-        function getNbDigits(number) {
-            return number.toString().length;
-        }
-
-        // Split {number} in an array of {nbDigits} digit numbers
-        function splitIn(number, nbDigits) {
-
-            let output = [],
-            sNumber = number.toString();
-
-            for (let i = 0, len = sNumber.length; i < len; i += nbDigits) {
-                output.push(+sNumber.substring(i, i + nbDigits));
-            }
-
-            return output;
+            winners.forEach(winner => {
+                winnersListElement.innerHTML += `<li>${drawParticipants[winner-1]}</li>`;
+            });
         }
 
         function launchFireworks(nb, delay, first = true) {

@@ -29,17 +29,17 @@ export async function GET(request: Request) {
         throw new Error("process.env.WALLET_PRIVATE_KEY not found.")
     }
 
-    console.log(`api/smart-contract/getRandomnessForDraw called with network = ${network}, contractAddress = ${contractAddress}, and cid = ${cid}`);
+    console.log(`api/smart-contract/getWinners called with network = ${network}, contractAddress = ${contractAddress}, and cid = ${cid}`);
 
-    let bytes;
-    const emptyBytes = "0x";
-    const cachedBytes = await kv.get(`randomness_${cid}`);
+    let winners: number[];
+    const emptyWinners: number[] = [];
+    const cachedWinners: number[] | null = await kv.get(`winners_${cid}`);
 
-    if (cachedBytes && cachedBytes != emptyBytes) {
+    if (cachedWinners && cachedWinners != emptyWinners) {
 
         // Retrieve randomness in cache if present
-        bytes = cachedBytes;
-        console.log(`Retrieved cached bytes ${cid} : ${cachedBytes} from the KV store.`)
+        winners = cachedWinners;
+        console.log(`Retrieved cached winners ${cid} : ${cachedWinners} from the KV store.`)
 
     } else {
 
@@ -62,18 +62,18 @@ export async function GET(request: Request) {
             wallet
         );
 
-        bytes = await contract.getRandomnessForDraw(cid);
+        winners = await contract.getWinners(cid);
 
-        // If randomness have been generated, cache it
-        if (bytes && bytes != emptyBytes) {
-            await kv.set(`randomness_${cid}`, bytes);
-            console.log(`Added ${cid} : ${bytes} in the KV store.`)
+        // If winners have been generated, cache it
+        if (winners && winners != emptyWinners) {
+            await kv.set(`winners_${cid}`, winners);
+            console.log(`Added ${cid} : ${winners} in the KV store.`)
         }
         
     }
 
     
-    const response = { bytes }
+    const response = { winners }
 
     return NextResponse.json(response, {
         status: 200,
