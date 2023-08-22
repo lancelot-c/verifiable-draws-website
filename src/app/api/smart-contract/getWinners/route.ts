@@ -72,10 +72,10 @@ export async function GET(request: Request) {
         }
         
     }
-
-    
+    console.log(`winners = ${winners}`);
+    console.log('#4');
     const response = { winners }
-
+    console.log('#5');
     return NextResponse.json(response, {
         status: 200,
         headers: {
