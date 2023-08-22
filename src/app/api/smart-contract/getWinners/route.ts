@@ -35,7 +35,7 @@ export async function GET(request: Request) {
     const emptyWinners: number[] = [];
     const cachedWinners: number[] | null = await kv.get(`winners_${cid}`);
 
-    if (cachedWinners && cachedWinners != emptyWinners) {
+    if (cachedWinners && Array.isArray(cachedWinners) && cachedWinners != emptyWinners) {
 
         // Retrieve randomness in cache if present
         winners = cachedWinners;
@@ -44,6 +44,7 @@ export async function GET(request: Request) {
     } else {
 
         // Else retrieve from smart contract
+        console.log(`No cache in KV store. Retrieving winners from the smart contract.`)
         const providerBaseURL = (network === 'polygon-mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL;
         const providerKey = (network === 'polygon-mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY;
         const providerURL = `${providerBaseURL}${providerKey}`;
@@ -65,7 +66,7 @@ export async function GET(request: Request) {
         winners = await contract.getWinners(cid);
 
         // If winners have been generated, cache it
-        if (winners && winners != emptyWinners) {
+        if (winners && Array.isArray(winners) && winners != emptyWinners) {
             await kv.set(`winners_${cid}`, winners);
             console.log(`Added ${cid} : ${winners} in the KV store.`)
         }
