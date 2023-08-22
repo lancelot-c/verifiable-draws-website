@@ -213,6 +213,16 @@
 			},
 			{
 				"internalType": "uint32",
+				"name": "nbParticipants",
+				"type": "uint32"
+			},
+			{
+				"internalType": "uint32",
+				"name": "nbWinners",
+				"type": "uint32"
+			},
+			{
+				"internalType": "uint32",
 				"name": "entropyNeeded",
 				"type": "uint32"
 			}
@@ -450,14 +460,24 @@
 						"type": "uint256"
 					},
 					{
-						"internalType": "bytes",
-						"name": "entropy",
-						"type": "bytes"
+						"internalType": "uint32",
+						"name": "nbParticipants",
+						"type": "uint32"
+					},
+					{
+						"internalType": "uint32",
+						"name": "nbWinners",
+						"type": "uint32"
 					},
 					{
 						"internalType": "uint32",
 						"name": "entropyNeeded",
 						"type": "uint32"
+					},
+					{
+						"internalType": "bytes",
+						"name": "entropy",
+						"type": "bytes"
 					},
 					{
 						"internalType": "bool",
@@ -529,6 +549,25 @@
 				"internalType": "uint256[]",
 				"name": "randomWords",
 				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "cid",
+				"type": "string"
+			}
+		],
+		"name": "getWinners",
+		"outputs": [
+			{
+				"internalType": "uint32[]",
+				"name": "",
+				"type": "uint32[]"
 			}
 		],
 		"stateMutability": "view",

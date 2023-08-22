@@ -179,7 +179,7 @@ async function createDraw(
     deleteTmpDrawFile(drawFilepath);
 
     // Publish draw on smart contract
-    await publishOnSmartContract(cid, drawScheduledAt, entropyNeeded);
+    await publishOnSmartContract(cid, drawScheduledAt, drawNbParticipants, drawNbWinners, entropyNeeded);
 
     return cid
 
@@ -288,7 +288,7 @@ async function pinInKV(cid: string, content: string) {
     await kv.set(`content_${cid}`, content);
 }
 
-async function publishOnSmartContract(v1CidString: string, scheduledAt: number, entropyNeeded: number) {
+async function publishOnSmartContract(v1CidString: string, scheduledAt: number, nbParticipants: number, nbWinners: number, entropyNeeded: number) {
     console.log(`Publish draw ${v1CidString} on smart contract ${contractAddress}, scheduled at ${scheduledAt}, needing ${entropyNeeded} entropy\n`);
 
     const jsonData = await fsPromises.readFile(filePath);
@@ -303,7 +303,7 @@ async function publishOnSmartContract(v1CidString: string, scheduledAt: number, 
     await setOptimalGas();
 
     try {
-        await contract.launchDraw(v1CidString, scheduledAt, entropyNeeded, {
+        await contract.launchDraw(v1CidString, scheduledAt, nbParticipants, nbWinners, entropyNeeded, {
             maxFeePerGas,
             maxPriorityFeePerGas,
         });
