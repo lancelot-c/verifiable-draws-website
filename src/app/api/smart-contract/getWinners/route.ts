@@ -22,7 +22,7 @@ export async function GET(request: Request) {
 
     const expectedContractAddress = ((network === 'polygon-mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
     if (contractAddress !== expectedContractAddress) {
-        throw new Error(`Wrong contract address. Expected ${expectedContractAddress}, got ${contractAddress}.`)
+        console.log(`Wrong contract address. Expected ${expectedContractAddress}, got ${contractAddress}.`)
     }
 
     if (!process.env.WALLET_PRIVATE_KEY) {
