@@ -146,7 +146,7 @@ export default function Page() {
     const searchParams = useSearchParams()
     const dt_min = new Date();
     const dt_default = new Date();
-    const safetyCushionMin = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? -1000000 : 30;
+    const safetyCushionMin = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? -1000000 : 0;
     const safetyCushionDefault = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : (60 * 6);
     dt_min.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionMin);
     dt_default.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionDefault);
