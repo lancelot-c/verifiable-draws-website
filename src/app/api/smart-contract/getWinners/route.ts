@@ -31,11 +31,10 @@ export async function GET(request: Request) {
 
     console.log(`api/smart-contract/getWinners called with network = ${network}, contractAddress = ${contractAddress}, and cid = ${cid}`);
 
-    let winners: number[];
-    const emptyWinners: number[] = [];
+    let winners: number[] = [];
     const cachedWinners: number[] | null = await kv.get(`winners_${cid}`);
 
-    if (cachedWinners && Array.isArray(cachedWinners) && cachedWinners != emptyWinners) {
+    if (Array.isArray(cachedWinners) && cachedWinners.length > 0) {
 
         // Retrieve randomness in cache if present
         winners = cachedWinners;
@@ -62,12 +61,17 @@ export async function GET(request: Request) {
             wallet
         );
 
-        let scResponse = await contract.getWinners(cid); // unknown type
-        const winnersString = (new String(scResponse)).toString();
-        winners = winnersString.split(',').map(winner => Number(winner));
+        try {
+            let scResponse = await contract.getWinners(cid);
+            const winnersString = (new String(scResponse)).toString(); // Force cast to String
+            winners = winnersString.split(',').map(winner => Number(winner));
+        } catch (err: any) {
+            console.error(err);
+        }
+        
 
         // If winners have been generated, cache it
-        if (winners && Array.isArray(winners) && winners != emptyWinners) {
+        if (Array.isArray(winners) && winners.length > 0) {
             await kv.set(`winners_${cid}`, winners);
             console.log(`Added ${cid} : ${winners} in the KV store.`)
         }
