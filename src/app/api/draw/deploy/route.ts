@@ -162,11 +162,12 @@ async function createDraw(
     }
 
     // Compute entropy needed
-    const drawNbParticipants = drawParticipants.split('\n').length;
+    const drawParticipantsArray = drawParticipants.split('\n').filter(n => n);
+    const drawNbParticipants = drawParticipantsArray.length;
     const entropyNeeded = await computeEntropyNeeded(drawNbParticipants, drawNbWinners);
 
     // Generate draw file
-    const [drawFilepath, content] = await generateDrawFile(drawTitle, drawRules, drawParticipants, drawNbParticipants, drawNbWinners, drawScheduledAt);
+    const [drawFilepath, content] = await generateDrawFile(drawTitle, drawRules, drawParticipantsArray, drawNbParticipants, drawNbWinners, drawScheduledAt);
 
     // Pin draw file on IPFS
     const cid = await pinInWeb3Storage(response, drawFilepath, drawTitle);
@@ -205,26 +206,22 @@ async function computeEntropyNeeded(nbParticipants: number, nbWinners: number): 
 
     let entropyNeeded = 0;
 
-    // Simple method
-    entropyNeeded = nbWinners * Math.ceil(Math.log2(nbParticipants) / 8); // in bytes
-
     // Optimised using Information Theory
-    // for (let i = 0; i < nbWinners; i++) {
-    //     entropyNeeded += Math.ceil(Math.log2(nbParticipants - i) / 8); // in bytes
-    // }
+    for (let i = 0; i < nbWinners; i++) {
+        entropyNeeded += Math.ceil(Math.log2(nbParticipants - i) / 8); // in bytes
+    }
 
     console.log(`${entropyNeeded} bytes of entropy needed\n`);
     return entropyNeeded;
 }
 
-async function generateDrawFile(drawTitle: string, drawRules: string, drawParticipants: string, drawNbParticipants: number, drawNbWinners: number, unix_timestamp: number) {
+async function generateDrawFile(drawTitle: string, drawRules: string, drawParticipantsArray: string[], drawNbParticipants: number, drawNbWinners: number, unix_timestamp: number) {
     const templateFilepath = path.join(process.cwd(), '/src/template/template_en.html');
     console.log(`templateFilepath = ${templateFilepath}`);
 
     const content = await fsPromises.readFile(templateFilepath, 'utf8');
 
     const network = providerBaseURL.slice(8).split('.')[0];
-    const drawParticipantsArray = drawParticipants.split('\n');
     const drawParticipantsList = `'${drawParticipantsArray.join('\',\'')}'`;
 
     // Replace placeholders with draw parameters
