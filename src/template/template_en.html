@@ -219,6 +219,10 @@
             text-decoration: underline;
         }
 
+        .verification-gif {
+            width: 100%;
+        }
+
         #modal-overlay {
             width: 100%;
             height: 100%;
@@ -556,19 +560,21 @@
                 </span>
             </div>
             <p>
-                This random draw was performed on the blockchain which enables the participants to check for themselves who the winners really are without needing to trust the draw organizer. This is extremely powerful because the decentralization of the blockchain guarantees you that this draw is 100% fair and random, and that no one was able to cheat, neither the draw organiser, nor the developers behind the blockchain algorithm.
+                This random draw was performed on the blockchain which enables the participants to check for themselves who the winners really are without needing to trust the draw organizer.
+            </p>
+            <p>
+                This is extremely powerful because the decentralization of the blockchain guarantees you that this draw is 100% fair and random, and that no one was able to cheat, neither the draw organiser, nor the developers behind the blockchain algorithm.
             </p>
             <p>
                 Simply go to <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F7" target="_blank">the Verifiable Draws smart contract</a> 
-                and call the function <code>getWinners</code> with parameter <code>cid = <span class="var_cid"></span></code> which is the identifier for this draw that you can also find in this page URL.
+                and call the function <code>getWinners</code> with parameter <code><span class="var_cid"></span></code> which is the identifier for this draw that you can also find in this page URL.
             </p>
             <p>
-                <img src="https://bafybeih6zvvipcmpsmre6g2erh7og6nay4mkzkub7cuwkn2jrnptgkidhu.ipfs.w3s.link/draw-verification.gif" />
+                The list of numbers you get from the function corresponds to the positions of the winners in the initial list of participants.
             </p>
             <p>
-                The list of numbers you get from the function correspond to the position of the winners in the initial list of participants.
+                <img src="https://bafybeih6zvvipcmpsmre6g2erh7og6nay4mkzkub7cuwkn2jrnptgkidhu.ipfs.w3s.link/draw-verification.gif" class="verification-gif" />
             </p>
-
         </div>
     </div>
 
