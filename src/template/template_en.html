@@ -299,7 +299,7 @@
         // In test mode the url is http://localhost:3000/ipfs?cid=XXX whereas in production the url is https://www.verify.win/XXX
         const isTestMode = url.includes("=");
         const pageSegments = isTestMode ? url.split("=") : url.split("/");
-        let cid = pageSegments[pageSegments.length - 1];
+        let cid = pageSegments[pageSegments.length - 1].replace('#', '');
         const network = '{{ network }}';
         const contractAddress = '{{ contractAddress }}';
         let fireworksElmt;
