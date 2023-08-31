@@ -290,9 +290,34 @@
 
     <script type="module">
 
+        // Handling time
+        const timestamp = {{ drawScheduledAt }}; // in sec
+        const scheduledAt = new Date(timestamp * 1000);
+        const scheduledAtString = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(scheduledAt);
+        populateDom('scheduledAtString', scheduledAtString)
+        const scheduledAtElmt = document.getElementsByClassName("scheduledAt")[0];
+        const loadingElmt = document.getElementsByClassName("drawOngoing")[0];
+        const occuredAtElmt = document.getElementsByClassName("occuredAt")[0];
+        const countdown = Math.max(scheduledAt.getTime() - Date.now(), 0);
+        const isDrawOngoing = countdown == 0;
+
+        if (isDrawOngoing) {
+            
+            triggerDraw();
+
+        } else {
+            scheduledAtElmt.style.display = 'block';
+            loadingElmt.style.display = 'none';
+
+            setTimeout(() => {
+                triggerDraw();
+            }, countdown);
+        }
+
+
         const url = window.location.href;
 
-        // In test mode the url is http://localhost:3000/ipfs?cid=XXX whereas in production the url is https://www.verifiabledraws.com/ipfs/XXX
+        // In test mode the url is http://localhost:3000/ipfs?cid=XXX whereas in production the url is https://www.verify.win/XXX
         const isTestMode = url.includes("=");
         const pageSegments = isTestMode ? url.split("=") : url.split("/");
         let cid = pageSegments[pageSegments.length - 1];
@@ -324,25 +349,7 @@
         const fireworksElmt = document.querySelector('.fireworks');
         const fireworks = new Fireworks.default(fireworksElmt);
 
-        // Handling time
-        const timestamp = {{ drawScheduledAt }}; // in sec
-        const scheduledAt = new Date(timestamp * 1000);
-        const scheduledAtString = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(scheduledAt);
-        populateDom('scheduledAtString', scheduledAtString)
-        const scheduledAtElmt = document.getElementsByClassName("scheduledAt")[0];
-        const loadingElmt = document.getElementsByClassName("drawOngoing")[0];
-        const occuredAtElmt = document.getElementsByClassName("occuredAt")[0];
-        const isDrawOngoing = scheduledAt.getTime() <= Date.now();
 
-        if (isDrawOngoing) {
-            scheduledAtElmt.style.display = 'none';
-            loadingElmt.style.display = 'inline-block';
-            occuredAtElmt.style.display = 'none';
-            periodicallyCheckDrawResult();
-        } else {
-            scheduledAtElmt.style.display = 'block';
-            loadingElmt.style.display = 'none';
-        }
 
         // Modal
         let modal;
@@ -388,6 +395,13 @@
             }
         }
 
+        function triggerDraw() {
+            scheduledAtElmt.style.display = 'none';
+            loadingElmt.style.display = 'inline-block';
+            occuredAtElmt.style.display = 'none';
+            periodicallyCheckDrawResult();
+        }
+
         // Check now & every minute
         async function periodicallyCheckDrawResult() {
             const winners = await checkDrawResult();
@@ -400,7 +414,7 @@
             } else {
                 setTimeout(() => {
                     periodicallyCheckDrawResult();
-                }, 1000 * 60);
+                }, 30000);
             }
         }
 
@@ -534,53 +548,23 @@
     <div id="verifiable-outcome-modal" class="modal" role="dialog" tabindex="-1">
         <div class="modal-inner">
             <div class="modal-header">
-                <h2>How to verify this draw ?</h2>
+                <h2>Winner verification</h2>
                 <span class="modal-close" data-id="verifiable-outcome-modal" aria-label="Close">
                     &times;
                 </span>
             </div>
             <p>
-                This draw is a verifiable draw,
-                which means that all participants can verify that it is performed in a fair and random way.<br /><br />
-                Here are the simple steps to follow :
+                This random draw was performed on the blockchain which enables the participants to check for themselves who the winners really are without needing to trust the draw organizer. This is extremely powerful because the decentralization of the blockchain guarantees you that this draw is 100% fair and random, and that no one was able to cheat, neither the draw organiser, nor the developers behind the blockchain algorithm.
             </p>
-
-            <ul>
-                <li class="verification-step">
-                    <strong>Verify the draw parameters</strong><br />
-                    This page contains all the parameters needed for the draw: the rules, the list of participants, and the date and time at which the draw will happen. You can manually verify that all of these parameters are legit.<br />
-                    <br />
-                    To make these parameters tamper-proof, we rely on a technology called IPFS (InterPlanetary File System).<br />
-                    <a href="https://www.youtube.com/watch?v=5Uj6uR3fp-U" target="_blank">IPFS</a> allows us to store tamper-proof files on the Internet. Once a file is published on IPFS you are guaranteed that its content cannot change, and you have a proof for it.<br />
-                    <br />
-                    The proof is actually the identifier which is located in this page URL: <code><span class="var_cid"></span></code>. It is called a Content Identifier, or CID, and it allows anyone to verify that the source code of this page wasn't changed since it was published.<br />
-                    In order to verify it, go to a website which allow you to read files from the IPFS network (we call these websites "IPFS gateways"). The most famous is <a href="https://web3.storage/products/w3link/" class="cidLink" target="_blank">w3s.link</a> but you can actually <a href="https://ipfs.github.io/public-gateway-checker/" target="_blank">choose any other IPFS gateway</a>.<br /><br />
-                    Paste the identifier <code><span class="var_cid"></span></code> and notice that the source code you get is the same as this page source code: <code>Right click > View page source</code>.
-                </li>
-                <li class="verification-step">
-                    <strong>Verify the winners</strong><br />
-                    Then we need to generate some randomness in order to randomly select the winners.<br /><br />
-                    We rely on blockchain technology for randomness generation because it is, as of today, the only way to get randomness that is 100% trustworthy. Randomness generated outside of the blockchain cannot be trusted because you have no proof that the algorithm used to generate the randomness is not rigged, whereas <a href="https://www.youtube.com/watch?v=ZE2HxTmxfrI" target="_blank">algorithms on a blockchain</a> have verifiable source code which means that there is an actual proof of how the randomness was generated.
-                    <br /><br />
-                    When this draw reachs its due date, a random number is automatically generated by our smart contract and used to select the winners.<br />
-                    <br />
-                    To directly read the winners from the blockchain, go to <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F7" target="_blank">our smart contract page</a> and call the function <code>getWinners</code> with parameter <code>cid = <span class="var_cid"></span></code> which is the identifier for this draw. You will get a list of numbers which correspond to the positions of the winners in the list of participants.<br />
-                    <br />
-                    Verify that they match with the winners you see on this page.
-                </li>
-                <li class="verification-step">
-                    <strong>[Optional] Read the code</strong><br />
-                    To have a deeper understanding of how everything work together, feel free to read the source code of this page and <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#code" target="_blank">our smart contract code</a>. They are both open-source, tamper-proof, and verifiable, so anyone can audit them at anytime.<br />
-                    <!-- <br />
-                    If you do so, you will notice that we rely on <a href="https://chain.link/vrf" target="_blank">Chainlink VRF</a> which provides us with a verifiable source of randomness.<br />
-                    <br />
-                    We also use <a href="https://chain.link/automation" target="_blank">Chainlink Automation</a> to add censorship resistance to our draws, so that no government or <a href="https://en.wikipedia.org/wiki/Denial-of-service_attack" target="_blank">DoS attack</a> can prevent a draw from happening. Once it is deployed on the blockchain, a draw is unstoppable. -->
-                </li>
-            </ul>
-
             <p>
-                That's it, you have successfully verified the proof that this draw is not rigged. 🙌<br />
-                If you have any question you can reach out to the <i>Verifiable Draws</i> team on <a href="https://discord.gg/3YjqW9MP7H" target="_blank">our Discord community</a>, we will be happy to help you.
+                Simply go to <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F7" target="_blank">the Verifiable Draws smart contract</a> 
+                and call the function <code>getWinners</code> with parameter <code>cid = <span class="var_cid"></span></code> which is the identifier for this draw that you can also find in this page URL.
+            </p>
+            <p>
+                <img src="https://bafybeih6zvvipcmpsmre6g2erh7og6nay4mkzkub7cuwkn2jrnptgkidhu.ipfs.w3s.link/draw-verification.gif" />
+            </p>
+            <p>
+                The list of numbers you get from the function correspond to the position of the winners in the initial list of participants.
             </p>
 
         </div>
