@@ -290,6 +290,16 @@
 
     <script type="module">
 
+        const url = window.location.href;
+
+        // In test mode the url is http://localhost:3000/ipfs?cid=XXX whereas in production the url is https://www.verify.win/XXX
+        const isTestMode = url.includes("=");
+        const pageSegments = isTestMode ? url.split("=") : url.split("/");
+        let cid = pageSegments[pageSegments.length - 1];
+        const network = '{{ network }}';
+        const contractAddress = '{{ contractAddress }}';
+
+
         // Handling time
         const timestamp = {{ drawScheduledAt }}; // in sec
         const scheduledAt = new Date(timestamp * 1000);
@@ -314,24 +324,15 @@
             }, countdown);
         }
 
-
-        const url = window.location.href;
-
-        // In test mode the url is http://localhost:3000/ipfs?cid=XXX whereas in production the url is https://www.verify.win/XXX
-        const isTestMode = url.includes("=");
-        const pageSegments = isTestMode ? url.split("=") : url.split("/");
-        let cid = pageSegments[pageSegments.length - 1];
         populateDom('cid', cid)
         const cidLinks = document.getElementsByClassName("cidLink");
         for (let i = 0; i < cidLinks.length; i++) {
             cidLinks[i].href = cidLinks[i].href.replace("cid", cid);
         }
 
-        const network = '{{ network }}';
         populateDom('network', network)
-
-        const contractAddress = '{{ contractAddress }}';
         populateDom('contractAddress', contractAddress)
+
 
         // Fetch storage proofs
         const statusResponse = await fetch(`https://www.verifiabledraws.com/api/draw/status?cid=${cid}`)
