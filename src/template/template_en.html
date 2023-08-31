@@ -302,6 +302,7 @@
         let cid = pageSegments[pageSegments.length - 1].replace('#', '');
         const network = '{{ network }}';
         const contractAddress = '{{ contractAddress }}';
+        const drawParticipants = [{{ drawParticipants }}];
         let fireworksElmt;
         let fireworks;
 
@@ -347,7 +348,6 @@
         console.log('Filecoin deals (proofs of storage) = ');
         console.log(drawDeals);
 
-        const drawParticipants = [{{ drawParticipants }}];
         document.getElementsByClassName("var_drawParticipants")[0].innerHTML = drawParticipants.map(p => `<li>${p}</li>`).join('');
 
         const drawNbParticipants = {{ drawNbParticipants }};
