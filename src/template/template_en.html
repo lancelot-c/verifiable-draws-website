@@ -298,6 +298,8 @@
         let cid = pageSegments[pageSegments.length - 1];
         const network = '{{ network }}';
         const contractAddress = '{{ contractAddress }}';
+        const fireworksElmt;
+        const fireworks;
 
 
         // Handling time
@@ -346,10 +348,6 @@
 
         const drawNbParticipants = {{ drawNbParticipants }};
         populateDom('drawNbParticipants', drawNbParticipants)
-
-        const fireworksElmt = document.querySelector('.fireworks');
-        const fireworks = new Fireworks.default(fireworksElmt);
-
 
 
         // Modal
@@ -436,6 +434,8 @@
             occuredAtElmt.style.display = 'block';
 
             // Launch fireworks animation
+            fireworksElmt = document.querySelector('.fireworks');
+            fireworks = new Fireworks.default(fireworksElmt);
             launchFireworks(10, 100);
 
             const winnersElement = document.getElementsByClassName("winners")[0];
@@ -455,6 +455,7 @@
         }
 
         function launchFireworks(nb, delay, first = true) {
+
             if (first && nb > 0) {
                 fireworksElmt.style.display = 'block';
                 fireworks.launch(1);
