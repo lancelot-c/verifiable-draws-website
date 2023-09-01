@@ -316,10 +316,10 @@ export default function Example() {
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="mx-auto max-w-3xl text-center">
                             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                Verifiable Randomness<br />for everyone
+                                Real world lotteries<br />secured by blockchain
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> is the first decentralized random draw platform in the world, providing a cryptographically secure and verifiable source of randomness for your random-based applications.
+                                <span className="italic">Verifiable Draws</span> is a decentralized random draw platform, enabling you to organize random draws on the blockchain, providing your lottery with winning numbers that are verifiable and backed by cryptographic proofs.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link
