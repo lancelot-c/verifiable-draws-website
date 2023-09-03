@@ -315,11 +315,11 @@ export default function Example() {
                 <div className="py-0 pt-16 sm:pt-24 lg:py-32">
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="mx-auto max-w-3xl text-center">
-                            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                Real world lotteries<br />secured by blockchain
+                            <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                                The ultimate<br />randomness provider
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> is a decentralized random draw platform, enabling you to organize random draws on the blockchain, providing your lottery with winning numbers that are verifiable and backed by cryptographic proofs.
+                                <span className="italic">Verifiable Draws</span> is a random draw platform running on the Ethereum blockchain, providing your applications with cryptographically secure and verifiable randomness, which enables a level of security and transparency that no other solution can provide.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link

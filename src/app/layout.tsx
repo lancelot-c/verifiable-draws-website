@@ -15,8 +15,8 @@ import {
 } from '@heroicons/react/24/solid'
 
 export const metadata = {
-    title: 'Verifiable Randomness for everyone',
-    description: 'Verifiable Draws is the first decentralized random draw platform in the world, providing a cryptographically secure and verifiable source of randomness for your random-based applications.',
+    title: 'The ultimate randomness provider',
+    description: 'Verifiable Draws is a random draw platform running on the Ethereum blockchain, providing your applications with cryptographically secure and verifiable randomness, which enables a level of security and transparency that no other solution can provide.',
 }
 
 const navigation: any[] = [
