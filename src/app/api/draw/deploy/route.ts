@@ -47,7 +47,9 @@ export async function POST(request: Request) {
         const body = await request.json()
         const paymentIntentId: string = body.paymentIntentId
         const code: string = body.code
-        const validCodes = ['siegfried', 'zatzikhoven'] // These codes get free draws
+        
+        // Me, Insight Media, Morning
+        const validCodes = ['siegfried', 'zatzikhoven', 'goodmorning'] // These codes get free draws
         let codeUsed = false;
 
         if (code) {
