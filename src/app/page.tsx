@@ -13,6 +13,7 @@ import featuresCoolImg from '/public/img/features-cool.png'
 import casinoMachineImg from '/public/img/text-to-win.webp'
 import fdjLogoImg from '/public/img/fdj-logo-300w.png'
 import insightMediaLogoImg from '/public/img/insight-media-logo.png'
+import morningLogoImg from '/public/img/morning-logo.png'
 import ipfsLogoImg from '/public/img/ipfs-logo-without-text.svg'
 import tf1LogoImg from '/public/img/tf1-logo-300w.png'
 import ethereumLogoImg from '/public/img/ethereum-logo-100w.png'
@@ -400,26 +401,32 @@ export default function Example() {
                 </g>
             </svg> */}
 
+
                     <Image
-                        className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src={insightMediaLogoImg}
-                        alt="Presse Citron"
+                        className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+                        src={morningLogoImg}
+                        alt="Morning"
                     />
 
                     <Image
                         className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src={fidealisLogoImg}
-                        alt="Tuple"
+                        src={insightMediaLogoImg}
+                        alt="Insight Media"
                     />
+
+                    
+                    
+
                     <Image
                         className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
                         src={tf1LogoImg}
-                        alt="SavvyCal"
+                        alt="TF1"
                     />
+                    
                     <Image
-                        className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                        src={kastelCoLogoImg}
-                        alt="Kastel Co"
+                        className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                        src={fidealisLogoImg}
+                        alt="Fidealis"
                     />
                 </div>
                 {/* <div className="mt-16 flex justify-center">
