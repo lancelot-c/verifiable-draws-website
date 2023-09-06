@@ -440,9 +440,9 @@ export default function Example() {
               </Link>
             </p>
           </div> */}
-                <h2 className="mt-16 text-center text-lg font-semibold leading-8 text-gray-900">
+                {/* <h2 className="mt-16 text-center text-lg font-semibold leading-8 text-gray-900">
                     These companies have expressed their interest in our product
-                </h2>
+                </h2> */}
             </div>
 
 
