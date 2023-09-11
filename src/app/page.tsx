@@ -320,7 +320,7 @@ export default function Example() {
                                 The ultimate<br />randomness provider
                             </h1>
                             <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> provides your applications with randomness that is backed by a public proof of randomness, thus maximizing both security and transparency.
+                                <span className="italic">Verifiable Draws</span> is the first fully transparent random number generator, providing your applications with a verifiable source of randomness, enabling a level of security and transparency that no existing solution can provide.
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <Link
