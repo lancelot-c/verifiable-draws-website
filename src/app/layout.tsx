@@ -16,7 +16,7 @@ import {
 
 export const metadata = {
     title: 'The ultimate randomness provider',
-    description: 'Verifiable Draws is a random draw platform running on the Ethereum blockchain, providing your applications with cryptographically secure and verifiable randomness, which enables a level of security and transparency that no other solution can provide.',
+    description: 'Verifiable Draws provides your applications with a verifiable source of randomness on the blockchain, unlocking the maximum level of security and transparency for you and your end users.',
 }
 
 const navigation: any[] = [
