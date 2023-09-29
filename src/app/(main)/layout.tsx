@@ -1,10 +1,10 @@
-import './globals.css'
+import './../globals.css'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/react'
-import GoogleTag from './../utils/GoogleTag'
+import GoogleTag from './../../utils/GoogleTag'
 import vdLogo from '/public/img/vd-logo.svg'
 import dynamic from 'next/dynamic'
 
@@ -103,7 +103,7 @@ const navigation: any[] = [
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
     const CrispWithNoSSR = dynamic(
-        () => import('../components/crisp')
+        () => import('../../components/crisp')
     );
 
 

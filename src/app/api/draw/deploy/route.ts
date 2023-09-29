@@ -4,25 +4,36 @@ import fs from 'fs';
 const fsPromises = fs.promises;
 import path from 'path'
 import axios from 'axios'
-import { ethers } from 'ethers';
+import { Wallet, ethers } from 'ethers';
 import crypto from 'crypto'
 import { Web3Storage, getFilesFromPath } from 'web3.storage';
 import { buildNextResponseJson } from './../../../../utils/errorHandling';
-const network = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 'testnet' : 'mainnet';
-const gasStationURL = (network === 'mainnet') ? process.env.MAINNET_GAS_STATION_URL : process.env.TESTNET_GAS_STATION_URL;
-const providerBaseURL = ((network === 'mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL) as string;
-const providerKey = ((network === 'mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY) as string;
-const providerURL = `${providerBaseURL}${providerKey}`;
-const contractAddress = ((network === 'mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
-const polygonscanAddress = (network === 'mainnet') ? "https://polygonscan.com" : "https://mumbai.polygonscan.com";
 const filePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
+const network = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 'testnet' : 'mainnet';
+let gasStationURL: string;
+let providerBaseURL: string;
+let providerKey: string;
+let providerURL: string;
+let contractAddress: string;
+let polygonscanAddress: string;
+let provider: ethers.JsonRpcProvider;
+let wallet: Wallet;
+setEthersParams(network)
 
-if (!process.env.WALLET_PRIVATE_KEY) {
-    throw new Error("process.env.WALLET_PRIVATE_KEY is not defined")
+function setEthersParams(network: string) {
+    gasStationURL = ((network === 'mainnet') ? process.env.MAINNET_GAS_STATION_URL : process.env.TESTNET_GAS_STATION_URL) as string;
+    providerBaseURL = ((network === 'mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL) as string;
+    providerKey = ((network === 'mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY) as string;
+    providerURL = `${providerBaseURL}${providerKey}`;
+    contractAddress = ((network === 'mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
+    polygonscanAddress = (network === 'mainnet') ? "https://polygonscan.com" : "https://mumbai.polygonscan.com";
+    provider = new ethers.JsonRpcProvider(providerURL)
+
+    if (!process.env.WALLET_PRIVATE_KEY) {
+        throw new Error("process.env.WALLET_PRIVATE_KEY is not defined")
+    }
+    wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, provider);
 }
-
-const provider = new ethers.JsonRpcProvider(providerURL)
-const wallet = new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, provider);
 
 let maxFeePerGas = BigInt("40000000000") // fallback to 40 gwei
 let maxPriorityFeePerGas = BigInt("40000000000") // fallback to 40 gwei
@@ -48,15 +59,23 @@ export async function POST(request: Request) {
         const paymentIntentId: string = body.paymentIntentId
         const code: string = body.code
         
-        // Me, Insight Media, Morning
-        const validCodes = ['siegfried', 'zatzikhoven', 'goodmorning'] // These codes get free draws
+        // Me, Insight Media, Morning, Smartplay
+        const validCodes = ['siegfried', 'zatzikhoven', 'goodmorning', 'demo-smartplay'] // These codes get free draws
+        const testCodes = ['demo-smartplay'];
         let codeUsed = false;
+        let testMode = false;
 
         if (code) {
 
             if (validCodes.includes(code)) {
                 codeUsed = true;
                 console.log(`code ${code} used`);
+
+                if (testCodes.includes(code)) {
+                    testMode = true;
+                    console.log(`test mode activated`);
+                }
+
             } else {
                 throw new Error(`Invalid code ${code} used`)
             }
@@ -77,7 +96,7 @@ export async function POST(request: Request) {
         const drawNbWinners: number = body.drawNbWinners;
         const drawScheduledAt: number = body.drawScheduledAt;
 
-        await createDraw(response, drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt);
+        await createDraw(response, drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt, testMode);
 
         if (codeUsed) {
 
@@ -156,11 +175,16 @@ async function createDraw(
     drawRules: string,
     drawParticipants: string,
     drawNbWinners: number,
-    drawScheduledAt: number
+    drawScheduledAt: number,
+    testMode: boolean
 ): Promise<string | undefined> {
 
     if (!drawTitle || !drawRules || !drawParticipants || !drawNbWinners || !drawScheduledAt) {
         throw new Error('You need to specify all draw parameters.');
+    }
+
+    if (testMode) {
+        setEthersParams('testnet')
     }
 
     // Compute entropy needed
