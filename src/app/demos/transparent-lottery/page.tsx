@@ -8,6 +8,8 @@ import { CheckIcon } from '@heroicons/react/24/outline'
 import lotteryBallsImg from '/public/img/lottery-balls.png'
 import { Fireworks } from '@fireworks-js/react'
 import type { FireworksHandlers } from '@fireworks-js/react'
+const network = 'polygon-mainnet';
+const contractAddress = '0x53aFbA99a9850Db9A203c4Af4A593e9021d18389';
 
 
 export default function Page() {
@@ -17,6 +19,7 @@ export default function Page() {
     const [drawInProgress, setDrawInProgress] = useState<boolean>(false);
     const [displayFireworks, setDisplayFireworks] = useState<boolean>(false);
     const [cid, setCid] = useState<string>('');
+    const [nbResultChecks, setNbResultChecks] = useState<number>(0);
     const [deployError, setDeployError] = useState<string>('');
     const [open, setOpen] = useState(false)
     const [winners, setWinners] = useState<string[] | undefined>(undefined);
@@ -31,6 +34,7 @@ export default function Page() {
             return;
         }
 
+        setDrawInProgress(true)
         setDeployInProgress(true);
         let ignore = false;
 
@@ -63,7 +67,6 @@ export default function Page() {
                 if (!ignore) {
 
                     setDeployInProgress(false)
-                    setDrawInProgress(true)
 
                     if (data.response.cid) {
                         setCid(data.response.cid);
@@ -81,6 +84,49 @@ export default function Page() {
             ignore = true;
         };
     }, [newDrawClicked])
+                            
+
+    useEffect(() => {
+        if (!cid || winners) {
+            return;
+        }
+
+        let ignore = false;
+
+        setTimeout(() => {
+
+            fetch(`https://www.verifiabledraws.com/api/smart-contract/getWinners?network=${network}&contractAddress=${contractAddress}&cid=${cid}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (!ignore) {
+
+                        const winners = data.winners;
+                        const hasWinners = Array.isArray(winners) && winners.length > 0;
+
+                        if (hasWinners) {
+
+                            console.log(`winners = ${winners}`);
+                            setDrawInProgress(false)
+                            setWinners(winners);
+
+                            setDisplayFireworks(true)
+                            setTimeout(() => {
+                                setDisplayFireworks(false)
+                            }, 6000);
+                        }
+                        
+                        setNbResultChecks(nbResultChecks+1);
+                    }
+                });
+
+        }, 10000);
+
+        
+
+        return () => {
+            ignore = true;
+        };
+    }, [cid, nbResultChecks, winners])
 
 
     function newDraw() {
@@ -91,40 +137,39 @@ export default function Page() {
         setOpen(true)
     }
 
-    async function periodicallyCheckDrawResult() {
-        const winners = await checkDrawResult();
-        const hasWinners = Array.isArray(winners) && winners.length > 0;
-
-        if (hasWinners) {
-
-            setDrawInProgress(false)
-            setWinners(winners);
-
-            setDisplayFireworks(true)
-            setTimeout(() => {
-                setDisplayFireworks(false)
-            }, 3000);
-
-
-
-        } else {
-            setTimeout(() => {
-                periodicallyCheckDrawResult();
-            }, 10000);
-        }
+    function classNames(...classes: string[]) {
+        return classes.filter(Boolean).join(' ')
     }
 
-    async function checkDrawResult() {
+    // async function periodicallyCheckDrawResult() {
+    //     const winners = await checkDrawResult();
+    //     const hasWinners = Array.isArray(winners) && winners.length > 0;
 
-        // You can verify that the returned randomness match the one at {{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F5
-        const network = 'polygon-mainnet';
-        const contractAddress = process.env.MAINNET_CONTRACT_ADDRESS as string;
-        let smartContractCall = await fetch(`https://www.verifiabledraws.com/api/smart-contract/getWinners?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
-        const jsonResponse = await smartContractCall.json();
-        const winners = jsonResponse.winners;
-        console.log(`winners = ${winners}`);
-        return winners;
-    }
+    //     if (hasWinners) {
+
+    //         setDrawInProgress(false)
+    //         setWinners(winners);
+
+    //         setDisplayFireworks(true)
+    //         setTimeout(() => {
+    //             setDisplayFireworks(false)
+    //         }, 3000);
+
+
+
+    //     } else {
+    //         setTimeout(() => {
+    //             periodicallyCheckDrawResult();
+    //         }, 10000);
+    //     }
+    // }
+
+    // const checkDrawResult = async () => {
+
+    //     // You can verify that the returned randomness match the one at {{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F5
+        
+        
+    // }
 
 
     // async function displayWinners(winners: string[]) {
@@ -179,14 +224,14 @@ export default function Page() {
     //     }
     // }
 
-    function toggleFireworks() {
-        if (!ref.current) return
-        if (ref.current.isRunning) {
-          ref.current.stop()
-        } else {
-          ref.current.start()
-        }
-    }
+    // function toggleFireworks() {
+    //     if (!ref.current) return
+    //     if (ref.current.isRunning) {
+    //       ref.current.stop()
+    //     } else {
+    //       ref.current.start()
+    //     }
+    // }
 
 
     return (
@@ -200,8 +245,11 @@ export default function Page() {
             
                     
             <div
-                        
-                        className="relative block m-auto w-1/2 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        className={classNames(
+                            newDrawClicked ? '' : 'hover:border-gray-400',
+                            winners ? 'border-gray-700' : 'border-dashed border-gray-300',
+                            'relative block m-auto w-1/2 rounded-lg border-2 p-12 text-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                        )}
                     >
             {
                 (!newDrawClicked) && (
@@ -221,7 +269,7 @@ export default function Page() {
 
 <div className="p-2 max-w-sm w-full mx-auto">
                         {
-                (newDrawClicked) && (
+                (drawInProgress) && (
 
                     
                         <div className="flex justify-center items-center space-x-2">
@@ -255,15 +303,22 @@ export default function Page() {
                         {
                             (winners) && (
                                 <div>
-                                    { winners }
+                                    <div className="mb-4">The winning numbers for this draw are</div>
+                                    <div className="flex justify-evenly mb-4">
+                                        {winners.map((winner) => (
+                                            <div key={winner} className="rounded-full bg-slate-700 text-white h-10 w-10 pt-2">
+                                                {winner}
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             )
                         }
 
 {
                             (cid) && (
-                                <button type="button" onClick={() => { openModal() }} className="mt-8 text-xs text-center w-full leading-5 text-gray-400 md:order-1 md:mt-0 underline hover:text-gray-500">
-                                    Check the draw on the blockchain
+                                <button type="button" onClick={() => { openModal() }} className="mt-8 text-xs text-center w-full leading-5 text-gray-500 md:order-1 md:mt-0 underline hover:text-gray-600">
+                                    Check this draw on the blockchain
                                 </button>
                             )
                         }
@@ -309,11 +364,11 @@ export default function Page() {
                   </div>
                   <div className="mt-3 text-center sm:mt-5">
                     <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                      Check the draw on the blockchain
+                      Check this draw on the blockchain
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Regular lotteries claim they are random but you cannot be sure about it because they perform their draws in a non verifiable way.<br /><br />
+                        Regular lotteries claim that they are random but you cannot be sure about it because they perform their draws in a non verifiable way.<br /><br />
                         We perform all of our draws on the blockchain to make sure they are provably random and verifiable by anyone.<br /><br />To verify the winning numbers for this draw, simply <Link href="https://polygonscan.com/address/0x53aFbA99a9850Db9A203c4Af4A593e9021d18389#readContract#F7" target="_blank" className="underline hover:text-gray-500">go to the Verifiable Draws smart contract</Link> and call the function <code className="bg-[#eff1f2] m-0 py-1 px-2 rounded-md whitespace-break-spaces break-words">getWinners</code> with <code className="bg-[#eff1f2] m-0 py-1 px-2 rounded-md whitespace-break-spaces break-words">{ cid }</code> which is the identifier for this draw.
                         {/* padding: 0.2em 0.4em;
                         margin: 0;
