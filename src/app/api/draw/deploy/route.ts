@@ -61,7 +61,7 @@ export async function POST(request: Request) {
         
         // Me, Insight Media, Morning, Smartplay
         const validCodes = ['siegfried', 'zatzikhoven', 'goodmorning', 'demo-smartplay'] // These codes get free draws
-        const testCodes = ['demo-smartplay'];
+        const testCodes: string[] = [];
         let codeUsed = false;
         let testMode = false;
 

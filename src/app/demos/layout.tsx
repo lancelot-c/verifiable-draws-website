@@ -184,9 +184,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                 </Link>
                             ))}
                         </div> */}
-                        {/* <p className="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">
-                            Verifiable Draws is a product of <Link href="https://www.borr.tech/" target="_blank" className="underline hover:text-gray-500">Borr Technologies</Link>, a registered French company.<br />
-                            &copy; 2023 Borr Technologies. All rights reserved.
+                        {/* <p className="mt-8 text-xs text-center w-full leading-5 text-gray-400 md:order-1 md:mt-0">
+                            Transparent Lottery is a demo brought to you by <Link href="https://www.verifiabledraws.com/" className="underline hover:text-gray-500">Verifiable Draws</Link>.
                         </p> */}
                     </div>
                 </div>
