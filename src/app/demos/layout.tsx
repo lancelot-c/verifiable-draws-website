@@ -12,8 +12,8 @@ import {
 } from '@heroicons/react/24/solid'
 
 export const metadata = {
-    title: 'The Lottery Corporation',
-    description: 'Demo to present Verifiable Draws for lottery companies',
+    title: 'Transparent Lottery',
+    description: 'The first online lottery which is 100% transparent ✨',
 }
 
 const navigation: any[] = [
