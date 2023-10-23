@@ -60,7 +60,7 @@ export async function POST(request: Request) {
         const code: string = body.code
         
         // Me, Insight Media, Morning, Smartplay
-        const validCodes = ['siegfried', 'zatzikhoven', 'goodmorning', 'demo-smartplay'] // These codes get free draws
+        const validCodes = ['siegfried', 'zatzikhoven', 'goodmorning', 'arandomlotterycompany'] // These codes get free draws
         const testCodes: string[] = [];
         let codeUsed = false;
         let testMode = false;

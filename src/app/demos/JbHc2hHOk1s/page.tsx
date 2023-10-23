@@ -49,7 +49,7 @@ export default function Page() {
         const drawScheduledAt = Math.floor(Date.now() / 1000); // in seconds
 
         let jsonBody = {
-            code: 'demo-smartplay',
+            code: 'arandomlotterycompany',
             drawTitle,
             drawRules,
             drawParticipants,
