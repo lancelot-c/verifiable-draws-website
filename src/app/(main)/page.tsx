@@ -203,7 +203,7 @@ const videos = [
     {
         description: 'Watch our founder Lancelot Chardonnet pitch the project at Concours Lépine [in French]',
         imageUrl: lepineStandImg,
-        videoUrl: 'https://www.youtube.com/watch?v=Oa3L8Kbyqx0',
+        videoUrl: 'https://www.youtube.com/watch?v=JbHc2hHOk1s',
     },
     {
         description: 'Watch the ending ceremony of Concours Lépine [in French]',
