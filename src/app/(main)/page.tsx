@@ -25,6 +25,7 @@ import fifaLogoImg from '/public/img/fifa-logo.png'
 import mcdonaldsLogoImg from '/public/img/McDonalds-logo.png'
 import bbcLogoImg from '/public/img/bbc-logo.webp'
 import randomWinLogoImg from '/public/img/random-win-logo.png'
+import heroDemoJpegImg from '/public/img/demo.jpeg'
 
 import {
     ScaleIcon,
@@ -343,7 +344,7 @@ export default function Example() {
               }}
             />
           </div>
-          <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-40 lg:flex lg:px-8 lg:pt-40">
+          <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-40 lg:flex lg:px-8 lg:pt-8">
             <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
               <Image
                 className="random-win--white h-11 w-11"
@@ -366,7 +367,7 @@ export default function Example() {
                 Become an influencer that everyone trusts
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Random.win enables influencers to organise their social media contests in the most transparent way.
+                Random.win enables influencers to organise their social media contests in the most transparent way by running them on the Ethereum blockchain.
               </p> 
               <div className="mt-10 flex items-center gap-x-6">
                 <a
@@ -413,7 +414,7 @@ export default function Example() {
                   transform="translate(24 24)"
                   clipPath="url(#2ade4387-9c63-4fc4-b754-10e687a0d332)"
                 >
-                  <img src="https://tailwindui.com/img/component-images/mobile-app-screenshot.png" alt="" />
+                  <Image src={heroDemoJpegImg} alt="Demo" />
                 </foreignObject>
               </svg>
             </div>
