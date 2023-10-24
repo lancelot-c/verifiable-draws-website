@@ -367,7 +367,7 @@ export default function Example() {
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
                 Random.win enables influencers to organise their social media contests in the most transparent way.
-              </p>
+              </p> 
               <div className="mt-10 flex items-center gap-x-6">
                 <a
                   href="#"
