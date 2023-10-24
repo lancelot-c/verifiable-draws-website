@@ -5,18 +5,13 @@ import Image from 'next/image'
 import { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import GoogleTag from './../../utils/GoogleTag'
-import vdLogo from '/public/img/vd-logo.svg'
 import dynamic from 'next/dynamic'
 
 const inter = Inter({ subsets: ['latin'] })
 
-import {
-    Bars3Icon,
-} from '@heroicons/react/24/solid'
-
 export const metadata = {
-    title: 'The ultimate randomness provider',
-    description: 'Verifiable Draws provides your applications with a verifiable source of randomness on the blockchain, unlocking the maximum level of security and transparency for you and your end users.',
+    title: 'The best way to organize contests',
+    description: 'Random.win enables you to organize social media contests in the most transparent way by randomly drawing the winners on the Ethereum blockchain.',
 }
 
 const navigation: any[] = [
