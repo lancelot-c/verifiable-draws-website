@@ -24,6 +24,7 @@ import kimLogoImg from '/public/img/kim-kardashian.jpg'
 import fifaLogoImg from '/public/img/fifa-logo.png'
 import mcdonaldsLogoImg from '/public/img/McDonalds-logo.png'
 import bbcLogoImg from '/public/img/bbc-logo.webp'
+import randomWinLogoImg from '/public/img/random-win-logo.png'
 
 import {
     ScaleIcon,
@@ -36,6 +37,10 @@ import {
     UserGroupIcon,
     ArrowTopRightOnSquareIcon
 } from '@heroicons/react/24/solid'
+
+import {
+    ChevronRightIcon,
+  } from '@heroicons/react/20/solid'
 
 
 const features = [
@@ -297,71 +302,123 @@ export default function Example() {
     // const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
-        <div className="relative -z-10">
+        <div>
+     
 
             {/* Hero section */}
-            <div className="relative pt-14">
-                <div
-                    className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-                    aria-hidden="true"
+        <div className="relative isolate overflow-hidden">
+          <svg
+            className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+            aria-hidden="true"
+          >
+            <defs>
+              <pattern
+                id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc"
+                width={200}
+                height={200}
+                x="50%"
+                y={-1}
+                patternUnits="userSpaceOnUse"
+              >
+                <path d="M.5 200V.5H200" fill="none" />
+              </pattern>
+            </defs>
+            <svg x="50%" y={-1} className="overflow-visible fill-gray-800/20">
+              <path
+                d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
+                strokeWidth={0}
+              />
+            </svg>
+            <rect width="100%" height="100%" strokeWidth={0} fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)" />
+          </svg>
+          <div
+            className="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
+            aria-hidden="true"
+          >
+            <div
+              className="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+              style={{
+                clipPath:
+                  'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)',
+              }}
+            />
+          </div>
+          <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-40 lg:flex lg:px-8 lg:pt-40">
+            <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
+              <Image
+                className="random-win--white h-11 w-11"
+                src={randomWinLogoImg}
+                alt="Random.win"
+              />
+              
+              <div className="mt-24 sm:mt-32 lg:mt-16">
+                <a href="#" className="inline-flex space-x-6">
+                  <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-semibold leading-6 text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
+                    Latest updates
+                  </span>
+                  <span className="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-gray-300">
+                    <span>Just shipped v1.0</span>
+                    <ChevronRightIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
+                  </span>
+                </a>
+              </div>
+              <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl">
+                Become an influencer that everyone trusts
+              </h1>
+              <p className="mt-6 text-lg leading-8 text-gray-300">
+                Random.win enables influencers to organise their social media contests in the most transparent way.
+              </p>
+              <div className="mt-10 flex items-center gap-x-6">
+                <a
+                  href="#"
+                  className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
                 >
-                    <div
-                        className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                        style={{
-                            clipPath:
-                                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                        }}
-                    />
-                </div>
-                <div className="py-0 pt-16 sm:pt-24 lg:py-32">
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                        <div className="mx-auto max-w-3xl text-center">
-                            <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                The ultimate<br />randomness provider
-                            </h1>
-                            <p className="mt-6 text-lg leading-8 text-gray-600">
-                                <span className="italic">Verifiable Draws</span> provides your applications with a verifiable source of randomness on the blockchain, unlocking the maximum level of security and transparency for you and your end users.
-                            </p>
-                            <div className="mt-10 flex items-center justify-center gap-x-6">
-                                <Link
-                                    href="/launch-draw"
-                                    className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                >
-                                    Launch Draw
-                                </Link>
-
-                                <Link href="https://www.verify.win/bafkreiamidpvgvp35l67uuioe6e2qwbfq4u2e5qbu5mrz64osy46wuthdm" className="text-sm font-semibold leading-6 text-gray-900">
-                                    View an example <span aria-hidden="true">→</span>
-                                </Link>
-                            </div>
-                        </div>
-
-                        {/* <div className="mt-16 flow-root sm:mt-24">
-                            <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-                                <Image
-                                    sizes="94vw"
-                                    src={mainHeroImg}
-                                    alt="App screenshot"
-                                    className="rounded-md shadow-2xl ring-1 ring-gray-900/10"
-                                />
-                            </div>
-                        </div> */}
-
-                    </div>
-                </div>
-                <div
-                    className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-                    aria-hidden="true"
-                >
-                    <div
-                        className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-                        style={{
-                            clipPath:
-                                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                        }}
-                    />
-                </div>
+                  Get started
+                </a>
+                <a href="#" className="text-sm font-semibold leading-6 text-white">
+                  Live demo <span aria-hidden="true">→</span>
+                </a>
+              </div>
             </div>
+            {/* <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
+              <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
+                <img
+                  src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
+                  alt="App screenshot"
+                  width={2432}
+                  height={1442}
+                  className="w-[76rem] rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
+                />
+              </div>
+            </div> */}
+            <div className="mt-16 sm:mt-24 lg:mt-0 lg:flex-shrink-0 lg:flex-grow">
+              <svg viewBox="0 0 366 729" role="img" className="mx-auto w-[22.875rem] max-w-full drop-shadow-xl">
+                <title>App screenshot</title>
+                <defs>
+                  <clipPath id="2ade4387-9c63-4fc4-b754-10e687a0d332">
+                    <rect width={316} height={684} rx={36} />
+                  </clipPath>
+                </defs>
+                <path
+                  fill="#4B5563"
+                  d="M363.315 64.213C363.315 22.99 341.312 1 300.092 1H66.751C25.53 1 3.528 22.99 3.528 64.213v44.68l-.857.143A2 2 0 0 0 1 111.009v24.611a2 2 0 0 0 1.671 1.973l.95.158a2.26 2.26 0 0 1-.093.236v26.173c.212.1.398.296.541.643l-1.398.233A2 2 0 0 0 1 167.009v47.611a2 2 0 0 0 1.671 1.973l1.368.228c-.139.319-.314.533-.511.653v16.637c.221.104.414.313.56.689l-1.417.236A2 2 0 0 0 1 237.009v47.611a2 2 0 0 0 1.671 1.973l1.347.225c-.135.294-.302.493-.49.607v377.681c0 41.213 22 63.208 63.223 63.208h95.074c.947-.504 2.717-.843 4.745-.843l.141.001h.194l.086-.001 33.704.005c1.849.043 3.442.37 4.323.838h95.074c41.222 0 63.223-21.999 63.223-63.212v-394.63c-.259-.275-.48-.796-.63-1.47l-.011-.133 1.655-.276A2 2 0 0 0 366 266.62v-77.611a2 2 0 0 0-1.671-1.973l-1.712-.285c.148-.839.396-1.491.698-1.811V64.213Z"
+                />
+                <path
+                  fill="#343E4E"
+                  d="M16 59c0-23.748 19.252-43 43-43h246c23.748 0 43 19.252 43 43v615c0 23.196-18.804 42-42 42H58c-23.196 0-42-18.804-42-42V59Z"
+                />
+                <foreignObject
+                  width={316}
+                  height={684}
+                  transform="translate(24 24)"
+                  clipPath="url(#2ade4387-9c63-4fc4-b754-10e687a0d332)"
+                >
+                  <img src="https://tailwindui.com/img/component-images/mobile-app-screenshot.png" alt="" />
+                </foreignObject>
+              </svg>
+            </div>
+          </div>
+        </div>
 
             {/* Logo cloud */}
             <div className="mx-auto max-w-7xl pt-32 px-6 lg:px-8 lg:pt-0">
@@ -1181,8 +1238,9 @@ export default function Example() {
                 </div>
             </div>
 
-
+        
         </div>
+        
 
 
     )

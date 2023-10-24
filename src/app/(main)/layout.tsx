@@ -114,10 +114,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       <body className={inter.className}>
 
-      <div className="bg-white">
+      <div className="bg-gray-900">
 
         {/* Header */}
-<header className="absolute inset-x-0 top-0 z-50">
+{/* <header className="absolute inset-x-0 top-0 z-50">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <Link href="/" className="-m-1.5 p-1.5">
                         <div className="flex lg:flex-1 items-center">
@@ -135,7 +135,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            //   onClick={() => setMobileMenuOpen(true)}
+              onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -149,12 +149,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                        {/* <a href="#join-community" className="text-sm font-semibold leading-6 text-gray-900">
+                        <a href="#join-community" className="text-sm font-semibold leading-6 text-gray-900">
                             Log in <span aria-hidden="true">&rarr;</span>
-                        </a> */}
+                        </a>
                     </div>
         </nav>
-        {/* <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+        <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
           <div className="fixed inset-0 z-50" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
@@ -199,10 +199,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </div>
           </Dialog.Panel>
-        </Dialog> */}
-      </header>
+        </Dialog>
+      </header> */}
 
-      <main className="isolate">
+      <main>
 
         {children}
 
