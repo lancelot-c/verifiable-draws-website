@@ -346,13 +346,20 @@ export default function Example() {
           </div>
           <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-40 lg:flex lg:px-8 lg:pt-8">
             <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
+
+            <div className="flex lg:flex-1 items-center">
               <Image
-                className="random-win--white h-11 w-11"
+                className="h-8 w-auto"
                 src={randomWinLogoImg}
                 alt="Random.win"
               />
+              <div className="text-lg ml-3 font-semibold leading-6 text-white">
+              Random.win
+                </div>
+                </div>
               
-              <div className="mt-24 sm:mt-32 lg:mt-16">
+              
+              {/* <div className="mt-24 sm:mt-32 lg:mt-16">
                 <a href="#" className="inline-flex space-x-6">
                   <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-semibold leading-6 text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
                     Latest updates
@@ -362,23 +369,23 @@ export default function Example() {
                     <ChevronRightIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
                   </span>
                 </a>
-              </div>
-              <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl">
-                Become an influencer that everyone trusts
+              </div> */}
+              <h1 className="mt-32 text-4xl font-bold tracking-tight text-white sm:text-6xl">
+                The best way to organize contests
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Random.win enables influencers to organise their social media contests in the most transparent way by running them on the Ethereum blockchain.
+                Random.win enables you to organize social media contests in the most transparent way by randomly drawing the winners on the Ethereum blockchain.
               </p> 
               <div className="mt-10 flex items-center gap-x-6">
-                <a
-                  href="#"
+                <Link
+                  href="/launch-draw"
                   className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
                 >
-                  Get started
-                </a>
-                <a href="#" className="text-sm font-semibold leading-6 text-white">
-                  Live demo <span aria-hidden="true">→</span>
-                </a>
+                  Launch contest
+                </Link>
+                <Link href="https://www.verify.win/bafkreiamidpvgvp35l67uuioe6e2qwbfq4u2e5qbu5mrz64osy46wuthdm" className="text-sm font-semibold leading-6 text-white">
+                  View an example <span aria-hidden="true">→</span>
+                </Link>
               </div>
             </div>
             {/* <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
