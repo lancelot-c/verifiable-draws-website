@@ -26,32 +26,19 @@ import mcdonaldsLogoImg from '/public/img/McDonalds-logo.png'
 import bbcLogoImg from '/public/img/bbc-logo.webp'
 import randomWinLogoImg from '/public/img/random-win-logo.png'
 import heroDemoJpegImg from '/public/img/demo.jpeg'
+import demoOrientExpressGifImg from '/public/img/demo-orient-express.gif'
 
 import {
     ScaleIcon,
-    CheckIcon,
     RocketLaunchIcon,
     ShieldCheckIcon,
     ShieldExclamationIcon,
     SparklesIcon,
     UserGroupIcon,
-    ArrowTopRightOnSquareIcon,
     CursorArrowRaysIcon,
-    UsersIcon,
-    BoltIcon,
-    CubeTransparentIcon
+    CubeTransparentIcon,
+    CheckBadgeIcon
 } from '@heroicons/react/24/solid'
-
-import {
-    ArrowPathIcon,
-    ChevronRightIcon,
-    CloudArrowUpIcon,
-    Cog6ToothIcon,
-    FingerPrintIcon,
-    LockClosedIcon,
-    ServerIcon,
-  } from '@heroicons/react/20/solid'
-  import {  } from '@heroicons/react/24/outline'
 
 
 const features = [
@@ -305,30 +292,30 @@ const tiers = [
 
 const primaryFeatures = [
     {
-      name: 'No account required',
-      description:
-        'It takes no more than 2 minutes to create a contest on random.win',
-      href: '#',
-      icon: BoltIcon,
-    },
-    {
       name: 'Fully decentralized',
       description:
-        'Your contest runs entirely on the blockchain to make sure the winner is provably random',
+        'Your contest runs entirely on the blockchain to make sure the winner selection is transparent for everyone',
       href: '#',
       icon: CubeTransparentIcon,
     },
     {
+        name: 'Proof of randomness',
+        description:
+          'Our numbers are provably random whereas random.org can send you fake random numbers if they want to',
+        href: '#',
+        icon: CheckBadgeIcon,
+      },
+    {
       name: 'One-click verification',
       description:
-        'Your followers can check the winner on the blockchain itself in a single click',
+        'Your followers don\'t need to trust anyone, they can check the winners themselves on the blockchain',
       href: '#',
       icon: CursorArrowRaysIcon,
     },
   ]
   const secondaryFeatures = [
     {
-        name: 'Verifiable randomness.',
+        name: 'Provably random.',
         description:
             'Our random numbers are generated with Chainlink VRF which is the global leader in verifiable randomness.',
         icon: ShieldCheckIcon,
@@ -354,21 +341,21 @@ const primaryFeatures = [
     {
         name: 'Increased engagement.',
         description:
-            'Encourage your followers to participate by running a fully transparent contest.',
+            'Encourage more people to participate by running a fully transparent contest.',
         icon: UserGroupIcon,
     },
     {
         name: 'Cutting-edge technologies.',
         description:
-            'Our algorithm combines Ethereum, IPFS, and Chainlink VRF, which are among the most trusted technologies in web3.',
+            'Our algorithm combines Ethereum, IPFS, and Chainlink VRF, which are the most advanced web3 technologies.',
         icon: RocketLaunchIcon,
     },
 ]
   const stats = [
-    { id: 1, name: 'Developers on the platform', value: '8,000+' },
-    { id: 2, name: 'Daily requests', value: '900m+' },
-    { id: 3, name: 'Uptime guarantee', value: '99.9%' },
-    { id: 4, name: 'Projects deployed', value: '12m' },
+    { id: 1, name: 'Influencers', value: '20+' },
+    { id: 2, name: 'Contests deployed', value: '500+' },
+    { id: 3, name: 'Total participants', value: '200,000+' },
+    { id: 4, name: 'Uptime guarantee', value: '99.9%' },
   ]
  
 
@@ -464,9 +451,9 @@ export default function Example() {
                 >
                   Launch contest
                 </Link>
-                <Link href="https://www.verify.win/bafkreiamidpvgvp35l67uuioe6e2qwbfq4u2e5qbu5mrz64osy46wuthdm" className="text-sm font-semibold leading-6 text-white">
+                {/* <Link href="https://www.verify.win/bafkreiamidpvgvp35l67uuioe6e2qwbfq4u2e5qbu5mrz64osy46wuthdm" className="text-sm font-semibold leading-6 text-white">
                   View an example <span aria-hidden="true">→</span>
-                </Link>
+                </Link> */}
               </div>
             </div>
             {/* <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
@@ -565,10 +552,10 @@ export default function Example() {
 
             {/* Feature section */}
         <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
+          <div className="mx-auto max-w-3xl text-center">
             {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Deploy faster</h2> */}
             <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-                Don&apos;t Trust, Verify.
+                Much better than random.org
             </p>
             {/* <p className="mt-6 text-lg leading-8 text-gray-300">
               Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
@@ -603,26 +590,26 @@ export default function Example() {
         <div className="mt-32 sm:mt-56">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl sm:text-center">
-              <h2 className="text-base font-semibold leading-7 text-indigo-400">Everything you need</h2>
-              <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">No server? No problem.</p>
-              <p className="mt-6 text-lg leading-8 text-gray-300">
+              {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Everything you need</h2> */}
+              <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">The ultimate user experience</p>
+              {/* <p className="mt-6 text-lg leading-8 text-gray-300">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque,
                 iste dolor cupiditate blanditiis.
-              </p>
+              </p> */}
             </div>
           </div>
           <div className="relative overflow-hidden pt-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <img
-                src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
+              <Image
+                src={demoOrientExpressGifImg}
                 alt="App screenshot"
-                className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-white/10"
+                className="rounded-xl shadow-2xl ring-1 ring-white/10"
                 width={2432}
                 height={1442}
               />
-              <div className="relative" aria-hidden="true">
+              {/* <div className="relative" aria-hidden="true">
                 <div className="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-gray-900 pt-[7%]" />
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 md:mt-24 lg:px-8">
@@ -640,27 +627,7 @@ export default function Example() {
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
-            <h2 className="text-base font-semibold leading-8 text-indigo-400">Our track record</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Trusted by thousands of developers&nbsp;worldwide
-            </p>
-            <p className="mt-6 text-lg leading-8 text-gray-300">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste
-              dolor cupiditate blanditiis ratione.
-            </p>
-          </div>
-          <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 text-white sm:mt-20 sm:grid-cols-2 sm:gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.id} className="flex flex-col gap-y-3 border-l border-white/10 pl-6">
-                <dt className="text-sm leading-6">{stat.name}</dt>
-                <dd className="order-first text-3xl font-semibold tracking-tight">{stat.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+        
 
         
 
@@ -673,11 +640,11 @@ export default function Example() {
             {/* Concours Lépine */}
             <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                 <div className="relative mx-auto max-w-2xl text-center">
-                    <p className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                    <p className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
                         An award-winning product 🏆
                     </p>
                     <p className="mt-6 text-lg leading-8 text-gray-300">
-                        Built by the same team behind <Link href="https://www.verifiabledraws.com/" target="_blank" className="hover:underline">Verifiable Draws</Link> which won the Gold Medal at Concours Lépine in 2023. Concours Lépine is the most famous innovation competition in France.
+                        Built by the same team behind <Link href="https://www.verifiabledraws.com/" target="_blank" className="hover:underline">Verifiable Draws</Link> which won the Gold Medal at Concours Lépine, the most famous innovation competition in France.
                     </p>
 
                     <Image
@@ -748,6 +715,32 @@ export default function Example() {
                     ))}
                 </ul>
             </div>
+
+
+
+
+{/* Stats */}
+<div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8 text-center">
+          <div className="relative mx-auto max-w-xl lg:max-w-3xl text-center">
+            {/* <h2 className="text-base font-semibold leading-8 text-indigo-400">Our track record</h2> */}
+            <p className="mt-2 text-3xl font-bold tracking-tight text-white text-center sm:text-5xl">
+              Trusted by influencers worldwide
+            </p>
+            {/* <p className="mt-6 text-lg leading-8 text-gray-300">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste
+              dolor cupiditate blanditiis ratione.
+            </p> */}
+          </div>
+          <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 text-white sm:mt-20 sm:grid-cols-2 sm:gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.id} className="flex flex-col gap-y-3 border-l border-white/10 pl-6">
+                <dt className="text-sm leading-6">{stat.name}</dt>
+                <dd className="order-first text-3xl font-semibold tracking-tight">{stat.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
 
 
             {/* Powered By  */}
@@ -1040,24 +1033,23 @@ export default function Example() {
           </div>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Boost your brand image.
+              Stop claiming to be an honest person.
               <br />
-              Start using Random.win today.
+              Prove it.
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
-              Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur
-              commodo do ea.
+              Random.win is the only random picker on the internet which enables a full transparency of the drawing process for all the participants. 
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
-                href="#"
+                href="/launch-draw"
                 className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 Launch contest
               </a>
-              <a href="#" className="text-sm font-semibold leading-6 text-white">
+              {/* <a href="#" className="text-sm font-semibold leading-6 text-white">
                 Contact us <span aria-hidden="true">→</span>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
