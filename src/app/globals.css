@@ -167,3 +167,7 @@ svg path {
     transform: translate(0px, 0px);
     filter: contrast(667%) grayscale(100%) invert(100%);
 }
+
+.logos {
+    filter: contrast(100%) grayscale(100%) invert(100%);
+}

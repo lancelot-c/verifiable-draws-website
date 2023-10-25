@@ -34,14 +34,24 @@ import {
     ShieldCheckIcon,
     ShieldExclamationIcon,
     SparklesIcon,
-    CursorArrowRaysIcon,
     UserGroupIcon,
-    ArrowTopRightOnSquareIcon
+    ArrowTopRightOnSquareIcon,
+    CursorArrowRaysIcon,
+    UsersIcon,
+    BoltIcon,
+    CubeTransparentIcon
 } from '@heroicons/react/24/solid'
 
 import {
+    ArrowPathIcon,
     ChevronRightIcon,
+    CloudArrowUpIcon,
+    Cog6ToothIcon,
+    FingerPrintIcon,
+    LockClosedIcon,
+    ServerIcon,
   } from '@heroicons/react/20/solid'
+  import {  } from '@heroicons/react/24/outline'
 
 
 const features = [
@@ -207,17 +217,17 @@ const useCases = [
 
 const videos = [
     {
-        description: 'Watch our founder Lancelot Chardonnet pitch the project at Concours Lépine [in French]',
+        description: 'Our founder Lancelot Chardonnet pitches the project [in French]',
         imageUrl: lepineStandImg,
         videoUrl: 'https://www.youtube.com/watch?v=JbHc2hHOk1s',
     },
     {
-        description: 'Watch the ending ceremony of Concours Lépine [in French]',
+        description: 'Concours Lépine ending ceremony [in French]',
         imageUrl: lepineRemisePrixImg,
         videoUrl: 'https://www.youtube.com/watch?v=4oVa9vfy-cE',
     },
     {
-        description: 'Watch Insight Media\'s video about Verifiable Draws [in French]',
+        description: 'Swiss journalists from Insight Media are talking about us [in French]',
         imageUrl: insightMediaImg,
         videoUrl: 'https://www.linkedin.com/posts/insightch_algorithme-blockchain-activity-7092194795837603841-J68n',
     }
@@ -290,6 +300,77 @@ const tiers = [
         cta: 'Get started today',
     }
 ]
+
+
+
+const primaryFeatures = [
+    {
+      name: 'No account required',
+      description:
+        'It takes no more than 2 minutes to create a contest on random.win',
+      href: '#',
+      icon: BoltIcon,
+    },
+    {
+      name: 'Fully decentralized',
+      description:
+        'Your contest runs entirely on the blockchain to make sure the winner is provably random',
+      href: '#',
+      icon: CubeTransparentIcon,
+    },
+    {
+      name: 'One-click verification',
+      description:
+        'Your followers can check the winner on the blockchain itself in a single click',
+      href: '#',
+      icon: CursorArrowRaysIcon,
+    },
+  ]
+  const secondaryFeatures = [
+    {
+        name: 'Verifiable randomness.',
+        description:
+            'Our random numbers are generated with Chainlink VRF which is the global leader in verifiable randomness.',
+        icon: ShieldCheckIcon,
+    },
+    {
+        name: 'Top notch brand image.',
+        description:
+            'Being transparent with your followers is the best way you can boost your brand image.',
+        icon: SparklesIcon,
+    },
+    {
+        name: 'Say goodbye to disputes.',
+        description:
+            'Prevent anyone from challenging your contest by displaying a proof of randomness.',
+        icon: ScaleIcon,
+    },
+    {
+        name: 'Better user experience.',
+        description:
+            'Let your followers check the winner themselves without them having to trust you.',
+        icon: CursorArrowRaysIcon,
+    },
+    {
+        name: 'Increased engagement.',
+        description:
+            'Encourage your followers to participate by running a fully transparent contest.',
+        icon: UserGroupIcon,
+    },
+    {
+        name: 'Cutting-edge technologies.',
+        description:
+            'Our algorithm combines Ethereum, IPFS, and Chainlink VRF, which are among the most trusted technologies in web3.',
+        icon: RocketLaunchIcon,
+    },
+]
+  const stats = [
+    { id: 1, name: 'Developers on the platform', value: '8,000+' },
+    { id: 2, name: 'Daily requests', value: '900m+' },
+    { id: 3, name: 'Uptime guarantee', value: '99.9%' },
+    { id: 4, name: 'Projects deployed', value: '12m' },
+  ]
+ 
 
 
 
@@ -430,7 +511,7 @@ export default function Example() {
 
             {/* Logo cloud */}
             <div className="mx-auto max-w-7xl pt-32 px-6 lg:px-8 lg:pt-0">
-                <div className="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5  grayscale-[90%]">
+                <div className="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5  logos">
                     
                     <Image
                         className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
@@ -480,226 +561,123 @@ export default function Example() {
 
 
 
+            
+
             {/* Feature section */}
-            <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
-                <div className="mx-auto max-w-xl text-center">
-                    {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Stop using shady software</h2> */}
-                    <h2 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                        Meet the Holy Grail of random draw algorithms
-                    </h2>
-                    <p className="mt-6 text-lg leading-8 text-gray-600">
-                        The only proven way to get random draws that are 100% reliable.
-                    </p>
+        <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Deploy faster</h2> */}
+            <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">
+                Don't Trust, Verify.
+            </p>
+            {/* <p className="mt-6 text-lg leading-8 text-gray-300">
+              Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
+              accusamus quisquam.
+            </p> */}
+          </div>
+          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+            <dl className="grid mx-auto max-w-md grid-cols-1 gap-x-16 gap-y-16 lg:max-w-5xl lg:grid-cols-3">
+              {primaryFeatures.map((feature) => (
+                <div key={feature.name} className="flex flex-col">
+                  <dt className="text-xl font-semibold leading-7 text-white">
+                    <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg ">
+                      <feature.icon className="h-10 w-10 text-indigo-500" aria-hidden="true" />
+                    </div>
+                    {feature.name}
+                  </dt>
+                  <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-300">
+                    <p className="flex-auto">{feature.description}</p>
+                    {/* <p className="mt-6">
+                      <a href={feature.href} className="text-sm font-semibold leading-6 text-indigo-400">
+                        Learn more <span aria-hidden="true">→</span>
+                      </a>
+                    </p> */}
+                  </dd>
                 </div>
-                <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-                    <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-                        {features.map((feature) => (
-                            <div key={feature.name} className="relative pl-16">
-                                <dt className="text-base font-semibold leading-7 text-gray-900">
-                                    <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                                        <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
-                                    </div>
-                                    {feature.name}
-                                </dt>
-                                <dd className="mt-2 text-base leading-7 text-gray-600">{feature.description}</dd>
-                            </div>
-                        ))}
-                    </dl>
-                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+
+        {/* Feature section */}
+        <div className="mt-32 sm:mt-56">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-2xl sm:text-center">
+              <h2 className="text-base font-semibold leading-7 text-indigo-400">Everything you need</h2>
+              <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">No server? No problem.</p>
+              <p className="mt-6 text-lg leading-8 text-gray-300">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque,
+                iste dolor cupiditate blanditiis.
+              </p>
             </div>
-
-
-
-
-            <div className="bg-white mt-32 sm:mt-56">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto max-w-4xl text-center">
-                        {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2> */}
-                        <h2 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                            Current random draw solutions are vulnerable to malicious attacks
-                        </h2>
-                        {/* <p className="mt-6 text-lg leading-8 text-gray-600">
-                            Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum
-                            pulvinar et feugiat blandit at. In mi viverra elit nunc.
-                        </p> */}
-                    </div>
-
-                    <div className="relative overflow-hidden pt-16">
-                        <div className="mx-auto max-w-7xl px-0 lg:px-8">
-                            <Image
-                                src={featuresBadImg}
-                                alt=""
-                                className="w-full rounded-2xl bg-gray-100 object-cover"
-                            />
-                        </div>
-                    </div>
-
-
-                    <div className="mx-auto mt-8 max-w-2xl sm:mt-16 sm:max-w-none">
-                        <dl className="grid max-w-xl grid-cols-1 gap-x-16 gap-y-8 sm:max-w-none sm:grid-cols-3">
-                            {featuresBad.map((feature) => (
-                                <div key={feature.description} className="relative pl-9">
-                                    <dt className="inline text-base font-semibold leading-7 text-gray-900">
-                                        <feature.icon className="absolute left-1 top-1 h-5 w-5 text-[#ea6a5d]" aria-hidden="true" />
-                                        {feature.name}
-                                    </dt>{' '}
-                                    <dd className="inline text-base leading-7 text-gray-600">
-                                        {feature.description}
-                                    </dd>
-                                </div>
-                            ))}
-                        </dl>
-                    </div>
-
-
-                </div>
+          </div>
+          <div className="relative overflow-hidden pt-16">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+              <img
+                src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
+                alt="App screenshot"
+                className="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-white/10"
+                width={2432}
+                height={1442}
+              />
+              <div className="relative" aria-hidden="true">
+                <div className="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-gray-900 pt-[7%]" />
+              </div>
             </div>
-
-
-
-            <div className="bg-white py-24 sm:py-32 mt-32 sm:mt-46">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto max-w-2xl lg:max-w-none">
-                        <div className="text-center">
-                            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                                Scams and attacks happen all the time
-                            </h1>
-                            <p className="mt-4 text-lg leading-8 text-gray-600">
-                                Here are just a few cases where people didn&apos;t use Verifiable Draws and got in trouble.
-                            </p>
-                        </div>
-                        <dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
-                            {hallOfShame.map((company, index) => (
-                                <div key={company.name} className="flex flex-col items-center bg-[#ea6a5d] p-8">
-                                    <div>
-                                        <Image
-                                            src={company.image}
-                                            alt=""
-                                            className={`object-scale-down h-24 ${ index === 0 ? 'rounded-full w-24' : 'w-36'}`}
-                                        />
-                                    </div>
-
-                                    <div className="text-xl font-semibold tracking-tight text-white mt-4">{company.name}</div>
-                                    
-                                    <Link href={company.url} target="_blank" className="flex items-center justify-center hover:underline text-xs font-semibold leading-6 text-white mt-2">
-                                        {company.website}
-                                        <ArrowTopRightOnSquareIcon className="h-4 w-4 inline ml-1" aria-hidden="true" />
-                                        {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                                        </svg> */}
-                                    </Link>
-                                </div>
-                            ))}
-                        </dl>
-                        <div className="text-center">
-                            <p className="mt-16 text-lg leading-8 text-gray-600">
-                                Stay safe, secure your draws with Verifiable Draws.
-                            </p>
-                        </div>
-                        
-                    </div>
+          </div>
+          <div className="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 md:mt-24 lg:px-8">
+            <dl className="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-10 text-base leading-7 text-gray-300 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
+              {secondaryFeatures.map((feature) => (
+                <div key={feature.name} className="relative pl-9">
+                  <dt className="inline font-semibold text-white">
+                    <feature.icon className="absolute left-1 top-1 h-5 w-5 text-indigo-500" aria-hidden="true" />
+                    {feature.name}
+                  </dt>{' '}
+                  <dd className="inline">{feature.description}</dd>
                 </div>
-            </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
+            <h2 className="text-base font-semibold leading-8 text-indigo-400">Our track record</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Trusted by thousands of developers&nbsp;worldwide
+            </p>
+            <p className="mt-6 text-lg leading-8 text-gray-300">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste
+              dolor cupiditate blanditiis ratione.
+            </p>
+          </div>
+          <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 text-white sm:mt-20 sm:grid-cols-2 sm:gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.id} className="flex flex-col gap-y-3 border-l border-white/10 pl-6">
+                <dt className="text-sm leading-6">{stat.name}</dt>
+                <dd className="order-first text-3xl font-semibold tracking-tight">{stat.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        
 
 
+      
 
-
-            <div className="bg-white mt-32 sm:mt-56">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto max-w-4xl text-center">
-                        {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2> */}
-                        <h2 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                            Verifiable Draws eliminates the risks of traditional random draw solutions
-                        </h2>
-                        {/* <p className="mt-6 text-lg leading-8 text-gray-600">
-                            Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum
-                            pulvinar et feugiat blandit at. In mi viverra elit nunc.
-                        </p> */}
-                    </div>
-
-                    <div className="relative overflow-hidden pt-8 lg:pt-16">
-                        <div className="mx-auto max-w-7xl px-0 lg:px-8">
-                            <Image
-                                src={featuresCoolImg}
-                                alt=""
-                                className="w-full rounded-2xl bg-gray-100 object-cover"
-                            />
-                        </div>
-                    </div>
-
-
-                    <div className="mx-auto mt-8 max-w-2xl sm:mt-16 sm:max-w-none">
-                        <dl className="grid max-w-xl grid-cols-1 gap-x-16 gap-y-8 sm:max-w-none sm:grid-cols-3">
-                            {featuresCool.map((feature) => (
-                                <div key={feature.description} className="relative pl-9">
-                                    <dt className="inline text-base font-semibold leading-7 text-gray-900">
-                                        <feature.icon className="absolute left-1 top-1 h-5 w-5 text-[#007436]" aria-hidden="true" />
-                                        {feature.name}
-                                    </dt>{' '}
-                                    <dd className="inline text-base leading-7 text-gray-600">
-                                        {feature.description}
-                                    </dd>
-                                </div>
-                            ))}
-                        </dl>
-                    </div>
-
-                </div>
-            </div>
-
-
-
-
-            <div className="bg-white mt-32 sm:mt-56">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto max-w-3xl text-center">
-                        <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                            {/* Use cases */}
-                            Embrace verifiable draws across multiple use cases
-                        </p>
-                        {/* <p className="mt-6 text-lg leading-8 text-gray-600">
-          Build provably secure applications with <span className="italic">Verifiable Draws</span> across multiple use cases.
-          </p> */}
-                    </div>
-                    <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-10 gap-y-20 lg:max-w-full lg:grid-cols-4">
-                        {useCases.map((useCase) => (
-                            <article key={useCase.id} className="flex flex-col items-start">
-                                <div className="relative w-full">
-                                    <Image
-                                        src={useCase.imageUrl}
-                                        alt=""
-                                        className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                                    />
-                                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-                                </div>
-                                <div className="max-w-xl">
-                                    <div className="group relative">
-                                        <h3 className="mt-6 text-lg font-semibold leading-6 text-gray-900"> {/* group-hover:text-gray-600 */}
-                                            {/* <Link href={post.href}> */}
-                                            {/* <span className="absolute inset-0" /> */}
-                                            {useCase.title}
-                                            {/* </Link> */}
-                                        </h3>
-                                        <p className="mt-6 text-sm leading-6 text-gray-600">{useCase.description}</p>
-                                    </div>
-                                </div>
-                            </article>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-
+            
 
 
             {/* Concours Lépine */}
             <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                 <div className="relative mx-auto max-w-2xl text-center">
-                    <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                    <p className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                         An award-winning product 🏆
                     </p>
-                    <p className="mt-6 text-lg leading-8 text-gray-600">
-                        <span className="italic">Verifiable Draws</span> won a gold medal at Concours Lépine in 2023 which is the most famous innovation competition in France.
+                    <p className="mt-6 text-lg leading-8 text-gray-300">
+                        Built by the same team behind <Link href="https://www.verifiabledraws.com/" target="_blank" className="hover:underline">Verifiable Draws</Link> which won the Gold Medal at Concours Lépine in 2023. Concours Lépine is the most famous innovation competition in France.
                     </p>
 
                     <Image
@@ -715,7 +693,7 @@ export default function Example() {
                 >
                     {videos.map((video) => (
                         <li key={video.description}>
-                            <Link href={video.videoUrl} target="_blank" className="">
+                            <Link href={video.videoUrl} target="_blank" >
                                 <div className="relative w-full">
                                     <Image
                                         className="aspect-[3/2] w-full rounded-2xl object-cover"
@@ -729,11 +707,11 @@ export default function Example() {
                                 </div>
 
                                 {/* <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">{video.description}</h3> */}
-                                <p className="text-base mt-6 leading-7 text-gray-600 underline">{video.description}</p>
+                                <p className="text-base mt-6 leading-7 text-gray-300 ">{video.description}</p>
                                 <ul role="list" className="mt-6 flex gap-x-6">
                                     {
                                         (video.videoUrl.includes("youtube")) && (
-                                            <li className="text-gray-400">
+                                            <li className="text-gray-300">
                                                 {/* <Link href={video.videoUrl} target="_blank"> */}
                                                 <span className="sr-only">Youtube</span>
                                                 <svg className="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
@@ -750,7 +728,7 @@ export default function Example() {
 
                                     {
                                         (video.videoUrl.includes("linkedin")) && (
-                                            <li className="text-gray-400">
+                                            <li className="text-gray-300">
                                                 {/* <Link href={video.videoUrl} target="_blank" className="text-gray-400 hover:text-gray-500"> */}
                                                 <span className="sr-only">LinkedIn</span>
                                                 <svg className="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -773,7 +751,7 @@ export default function Example() {
 
 
             {/* Powered By  */}
-            <section className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+            {/* <section className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                 <div style={{ boxSizing: 'border-box', margin: '0px auto', maxWidth: '1200px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)' }}>
                     <h2 data-main-heading="true" className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl text-center">
                         Built on a foundation of decentralized,
@@ -1009,242 +987,83 @@ export default function Example() {
                                     </svg>
                                 </span>
                                 <span data-subtitle="true" style={{ boxSizing: 'border-box', fontSize: '14px', lineHeight: '21px', letterSpacing: '-0.14px', color: 'rgb(102, 102, 102)', margin: '0px', maxWidth: '440.918px', outlineColor: 'rgb(37, 99, 235)', borderWidth: '0px', borderStyle: 'solid', borderColor: 'rgb(234, 234, 234)' }}>
-                                    {/* Chainlink enhances smart contract capabilities by allowing access to data outside the blockchain and off-chain computing while keeping blockchain technology&apos;s security and reliability assurances. */}
                                     Chainlink VRF provides cryptographically secure randomness that cannot be manipulated by any user, node operator, or malicious actor.
                                 </span>
                             </div>
                         </Link>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
 
 
-            {/* Pricing section */}
-            <div className="py-24 sm:pt-48">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto max-w-4xl text-center">
-                        {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Pricing</h2> */}
-                        <p className="mt-2 mb-16 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                            Simple pricing, no commitment
-                        </p>
-                    </div>
-                    {/* <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
-                The more you buy, the cheaper it gets
-            </p> */}
+            
 
 
-                    {/* <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                        {tiers.map((tier) => (
-                            <div
-                                key={tier.id}
-                                className={classNames(
-                                    tier.featured ? 'bg-gray-900 ring-gray-900' : 'bg-white ring-gray-200',
-                                    'rounded-3xl p-8 ring-1 xl:p-10'
-                                )}
-                            >
-                                <h3
-                                    id={tier.id}
-                                    className={classNames(
-                                        tier.featured ? 'text-white' : 'text-gray-900',
-                                        'text-lg font-semibold leading-8'
-                                    )}
-                                >
-                                    {tier.name}
-                                </h3>
-                                <p className={classNames(tier.featured ? 'text-gray-300' : 'text-gray-600', 'mt-4 text-sm leading-6')}>
-                                    {tier.description}
-                                </p>
-                                <p className="mt-6 flex items-baseline gap-x-1">
-                                    <span
-                                        className={classNames(
-                                            tier.featured ? 'text-white' : 'text-gray-900',
-                                            'text-4xl font-bold tracking-tight'
-                                        )}
-                                    >
-                                        {tier.price}
-                                    </span>
-                                    {tier.id !== 'tier-enterprise' ? (
-                                        <span
-                                            className={classNames(
-                                                tier.featured ? 'text-gray-300' : 'text-gray-600',
-                                                'text-sm font-semibold leading-6'
-                                            )}
-                                        >
-                                            /draw
-                                        </span>
-                                    ) : null}
-                                </p>
-                                <Link
-                                    href={tier.href}
-                                    aria-describedby={tier.id}
-                                    className={classNames(
-                                        tier.featured
-                                            ? 'bg-white/10 text-white hover:bg-white/20 focus-visible:outline-white'
-                                            : 'bg-indigo-600 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-indigo-600',
-                                        'mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
-                                    )}
-                                >
-                                    {tier.cta}
-                                </Link>
-                                <ul
-                                    role="list"
-                                    className={classNames(
-                                        tier.featured ? 'text-gray-300' : 'text-gray-600',
-                                        'mt-8 space-y-3 text-sm leading-6 xl:mt-10'
-                                    )}
-                                >
-                                    {tier.features.map((feature) => (
-                                        <li key={feature.text} className="flex gap-x-3">
-                                            <CheckIcon
-                                                className={classNames(tier.featured ? 'text-white' : 'text-indigo-600', 'h-6 w-5 flex-none')}
-                                                aria-hidden="true"
-                                            />
-                                            {feature.text}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
-                    </div> */}
-
-
-<div className="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
-        {tiers.map((tier, tierIdx) => (
-          <div
-            key={tier.id}
-            className={classNames(
-              tier.featured ? 'relative bg-gray-900 shadow-2xl' : 'bg-white/60 sm:mx-8 lg:mx-0',
-              tier.featured
-                ? ''
-                : tierIdx === 0
-                ? 'rounded-t-3xl sm:rounded-b-none lg:rounded-tr-none lg:rounded-bl-3xl'
-                : 'sm:rounded-t-none lg:rounded-tr-3xl lg:rounded-bl-none',
-              'rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10'
-            )}
+{/* CTA section */}
+<div className="relative isolate mt-32 px-6 py-32 sm:mt-56 sm:py-40 lg:px-8">
+          <svg
+            className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+            aria-hidden="true"
           >
-            <h3
-              id={tier.id}
-              className={classNames(
-                tier.featured ? 'text-indigo-400' : 'text-indigo-600',
-                'text-base font-semibold leading-7'
-              )}
-            >
-              {tier.name}
-            </h3>
-            <p className="mt-4 flex items-baseline gap-x-2">
-              <span
-                className={classNames(
-                  tier.featured ? 'text-white' : 'text-gray-900',
-                  'text-5xl font-bold tracking-tight'
-                )}
+            <defs>
+              <pattern
+                id="1d4240dd-898f-445f-932d-e2872fd12de3"
+                width={200}
+                height={200}
+                x="50%"
+                y={0}
+                patternUnits="userSpaceOnUse"
               >
-                {tier.price}
-              </span>
-
-
-                {tier.id !== 'tier-enterprise' ? (
-                                        <span
-                                            className={classNames(
-                                                tier.featured ? 'text-gray-300' : 'text-gray-600',
-                                                'text-sm font-semibold leading-6'
-                                            )}
-                                        >
-                                            /draw
-                                        </span>
-                                    ) : null}
-
-
-            </p>
-            <p className={classNames(tier.featured ? 'text-gray-300' : 'text-gray-600', 'mt-6 text-base leading-7')}>
-              {tier.description}
-            </p>
-            <ul
-              role="list"
-              className={classNames(
-                tier.featured ? 'text-gray-300' : 'text-gray-600',
-                'mt-8 space-y-3 text-sm leading-6 sm:mt-10'
-              )}
-            >
-              {tier.features.map((feature) => (
-                <li key={feature.text} className="flex gap-x-3">
-                  <CheckIcon
-                    className={classNames(tier.featured ? 'text-indigo-400' : 'text-indigo-600', 'h-6 w-5 flex-none')}
-                    aria-hidden="true"
-                  />
-                  {feature.text}
-                </li>
-              ))}
-            </ul>
-            <a
-              href={tier.href}
-              aria-describedby={tier.id}
-              className={classNames(
-                tier.featured
-                  ? 'bg-indigo-500 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline-indigo-500'
-                  : 'text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300 focus-visible:outline-indigo-600',
-                'mt-8 block rounded-md py-2.5 px-3.5 text-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10'
-              )}
-            >
-              {tier.cta}
-            </a>
+                <path d="M.5 200V.5H200" fill="none" />
+              </pattern>
+            </defs>
+            <svg x="50%" y={0} className="overflow-visible fill-gray-800/20">
+              <path
+                d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
+                strokeWidth={0}
+              />
+            </svg>
+            <rect width="100%" height="100%" strokeWidth={0} fill="url(#1d4240dd-898f-445f-932d-e2872fd12de3)" />
+          </svg>
+          <div
+            className="absolute inset-x-0 top-10 -z-10 flex transform-gpu justify-center overflow-hidden blur-3xl"
+            aria-hidden="true"
+          >
+            <div
+              className="aspect-[1108/632] w-[69.25rem] flex-none bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+              style={{
+                clipPath:
+                  'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)',
+              }}
+            />
           </div>
-        ))}
-      </div>
-
-
-                </div>
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Boost your brand image.
+              <br />
+              Start using Random.win today.
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
+              Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur
+              commodo do ea.
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <a
+                href="#"
+                className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Launch contest
+              </a>
+              <a href="#" className="text-sm font-semibold leading-6 text-white">
+                Contact us <span aria-hidden="true">→</span>
+              </a>
             </div>
+          </div>
+        </div>
 
 
-
-
-
-            {/* CTA section */}
-            <div id="join-community" className="relative -z-10 mx-auto py-32 max-w-7xl px-6 sm:py-40 lg:px-8">
-                <div
-                    className="absolute inset-x-0 -top-72 -z-10 flex -translate-y-1/2 transform-gpu justify-center overflow-hidden blur-3xl sm:right-[calc(50%-6rem)] sm:translate-y-0 sm:transform-gpu sm:justify-end"
-                    aria-hidden="true"
-                >
-                    <div
-                        className="aspect-[1108/632] w-[69.25rem] flex-none bg-gradient-to-r from-[#ff80b5] to-[#9089fc] opacity-25"
-                        style={{
-                            clipPath:
-                                'polygon(73.6% 48.6%, 91.7% 88.5%, 100% 53.9%, 97.4% 18.1%, 92.5% 15.4%, 75.7% 36.3%, 55.3% 52.8%, 46.5% 50.9%, 45% 37.4%, 50.3% 13.1%, 21.3% 36.2%, 0.1% 0.1%, 5.4% 49.1%, 21.4% 36.4%, 58.9% 100%, 73.6% 48.6%)',
-                        }}
-                    />
-                </div>
-                <div className="mx-auto max-w-2xl text-center">
-                    <h2 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                        Looking for more ?
-                        <br />
-                        Join our community.
-                    </h2>
-                    <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-                        We invite you to join our Discord community where you will be able to talk to our team, follow the project latest news, and see what other people are using <span className="italic">Verifiable Draws</span> for.
-                    </p>
-                    <div className="mt-10 flex items-center justify-center gap-x-6">
-                        <Link
-                            href="https://discord.gg/3YjqW9MP7H"
-                            rel="noopener"
-                            target="_blank"
-                            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                            Open Discord
-                        </Link>
-                    </div>
-                </div>
-                <div
-                    className="absolute left-1/2 right-0 top-1/2 -z-10 hidden -translate-y-1/2 transform-gpu overflow-hidden blur-3xl sm:block"
-                    aria-hidden="true"
-                >
-                    <div className="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
-                        style={{
-                            clipPath:
-                                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                        }} />
-                </div>
-            </div>
+    
 
         
         </div>
