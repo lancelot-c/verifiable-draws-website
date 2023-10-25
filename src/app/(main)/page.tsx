@@ -568,7 +568,7 @@ export default function Example() {
           <div className="mx-auto max-w-2xl text-center">
             {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Deploy faster</h2> */}
             <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-                Don't Trust, Verify.
+                Don&apos;t Trust, Verify.
             </p>
             {/* <p className="mt-6 text-lg leading-8 text-gray-300">
               Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
