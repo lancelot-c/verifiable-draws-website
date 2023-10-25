@@ -301,7 +301,7 @@ const primaryFeatures = [
     {
         name: 'Proof of randomness',
         description:
-          'Our numbers are provably random whereas random.org can send you fake random numbers if they want to',
+          'Our numbers are provably random whereas random.org can send you fake numbers if they want to',
         href: '#',
         icon: CheckBadgeIcon,
       },
