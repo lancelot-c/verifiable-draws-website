@@ -26,7 +26,9 @@ import mcdonaldsLogoImg from '/public/img/McDonalds-logo.png'
 import bbcLogoImg from '/public/img/bbc-logo.webp'
 import randomWinLogoImg from '/public/img/random-win-logo.png'
 import heroDemoJpegImg from '/public/img/demo.jpeg'
-import demoOrientExpressGifImg from '/public/img/demo-orient-express.gif'
+import demoOrientExpressGifImg from '/public/img/demo-orient-express-with-captions.gif'
+import bmmTestlabsImg from '/public/img/bmm-testlabs.jpg'
+import gliRngImg from '/public/img/GLI-RNG.jpg'
 
 import {
     ScaleIcon,
@@ -206,20 +208,21 @@ const useCases = [
 
 const videos = [
     {
-        description: 'Our founder Lancelot Chardonnet pitches the project [in French]',
-        imageUrl: lepineStandImg,
-        videoUrl: 'https://www.youtube.com/watch?v=JbHc2hHOk1s',
+        description: 'Our smart contract and the random numbers it generates have been audited by Gaming Laboratories International, the most prestigious testing laboratory in the world.',
+        imageUrl: gliRngImg,
+        videoUrl: '',
+        // https://gaminglabs.com/services/igaming/random-number-generator-rng/
     },
     {
-        description: 'Concours Lépine ending ceremony [in French]',
+        description: 'Random.win is built by the same team behind VerifiableDraws.com which won the Gold Medal at Concours Lépine, the most famous innovation competition in France.',
         imageUrl: lepineRemisePrixImg,
         videoUrl: 'https://www.youtube.com/watch?v=4oVa9vfy-cE',
     },
     {
-        description: 'Swiss journalists from Insight Media are talking about us [in French]',
-        imageUrl: insightMediaImg,
-        videoUrl: 'https://www.linkedin.com/posts/insightch_algorithme-blockchain-activity-7092194795837603841-J68n',
-    }
+        description: 'Our algorithm relies on Chainlink VRF which have been granted the GLI-19 certification, the highest gaming certification in the world.',
+        imageUrl: bmmTestlabsImg,
+        videoUrl: 'https://bmm.com/bmm-testlabs-grants-the-first-compliance-certification-in-the-blockchain-industry-to-chainlink-vrf/',
+    },
 ]
 
 const tiers = [
@@ -310,7 +313,7 @@ const primaryFeatures = [
     {
       name: 'One-click verification',
       description:
-        'Your followers don\'t need to trust anyone, they can check the winners themselves on the blockchain',
+        'Your followers don\'t need to trust anyone, they can check the winners themselves on the blockchain if they want to',
       href: '#',
       icon: CursorArrowRaysIcon,
     },
@@ -334,8 +337,6 @@ const primaryFeatures = [
             'Being transparent with your followers is the best way you can boost your brand image.',
         icon: SparklesIcon,
     },
-    
-    
     {
         name: 'Provably random.',
         description:
@@ -348,21 +349,18 @@ const primaryFeatures = [
             'Let your followers check the winner themselves without them having to trust you.',
         icon: CursorArrowRaysIcon,
     },
-    
     {
         name: 'Say goodbye to disputes.',
         description:
             'Protect yourself from lawsuits by storing your proofs of randomness on the blockchain.',
         icon: ScaleIcon,
     },
-    
-    
 ]
   const stats = [
     { id: 1, name: 'Influencers', value: '20+' },
     { id: 2, name: 'Contests deployed', value: '500+' },
     { id: 3, name: 'Total participants', value: '200,000+' },
-    { id: 4, name: 'Uptime guarantee', value: '99.9%' },
+    // { id: 4, name: 'Uptime guarantee', value: '99.9%' },
   ]
  
 
@@ -562,7 +560,7 @@ export default function Example() {
           <div className="mx-auto max-w-3xl text-center">
             {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Deploy faster</h2> */}
             <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-                Don&apos;t trust, Verify
+                The ultimate random picker tool
             </p>
             {/* <p className="mt-6 text-lg leading-8 text-gray-300">
               Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
@@ -598,7 +596,9 @@ export default function Example() {
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl sm:text-center">
               {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Everything you need</h2> */}
-              <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">The ultimate user experience</p>
+              <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">
+              Don&apos;t trust, Verify
+              </p>
               {/* <p className="mt-6 text-lg leading-8 text-gray-300">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque,
                 iste dolor cupiditate blanditiis.
@@ -648,11 +648,11 @@ export default function Example() {
             <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                 <div className="relative mx-auto max-w-2xl text-center">
                     <p className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
-                        An award-winning product 🏆
+                        A battle-tested product 🏆
                     </p>
-                    <p className="mt-6 text-lg leading-8 text-gray-300">
-                        Built by the same team behind <Link href="https://www.verifiabledraws.com/" target="_blank" className="hover:underline">Verifiable Draws</Link> which won the Gold Medal at Concours Lépine, the most famous innovation competition in France.
-                    </p>
+                    {/* <p className="mt-6 text-lg leading-8 text-gray-300">
+                    Don't worry, we've got you covered
+                    </p> */}
 
                     <Image
                         className="gold-medal m-auto -z-10 absolute hidden lg:block"
@@ -683,10 +683,10 @@ export default function Example() {
                                 {/* <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">{video.description}</h3> */}
                                 <p className="text-base mt-6 leading-7 text-gray-300 ">{video.description}</p>
                                 <ul role="list" className="mt-6 flex gap-x-6">
-                                    {
-                                        (video.videoUrl.includes("youtube")) && (
+                                    {/* {
+                                        (video.videoUrl.includes("yyoutube")) && (
                                             <li className="text-gray-300">
-                                                {/* <Link href={video.videoUrl} target="_blank"> */}
+                                                
                                                 <span className="sr-only">Youtube</span>
                                                 <svg className="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                                                     <path
@@ -695,23 +695,20 @@ export default function Example() {
                                                         clipRule="evenodd"
                                                     />
                                                 </svg>
-                                                {/* </Link> */}
+                                                
                                             </li>
                                         )
-                                    }
+                                    } */}
 
                                     {
-                                        (video.videoUrl.includes("linkedin")) && (
+                                        (video.videoUrl) && (
                                             <li className="text-gray-300">
                                                 {/* <Link href={video.videoUrl} target="_blank" className="text-gray-400 hover:text-gray-500"> */}
-                                                <span className="sr-only">LinkedIn</span>
-                                                <svg className="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
+                                                <span className="sr-only">External link</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+</svg>
+
                                                 {/* </Link> */}
                                             </li>
                                         )
@@ -738,7 +735,7 @@ export default function Example() {
               dolor cupiditate blanditiis ratione.
             </p> */}
           </div>
-          <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 text-white sm:mt-20 sm:grid-cols-2 sm:gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-4">
+          <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 text-white sm:mt-20 sm:grid-cols-2 sm:gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             {stats.map((stat) => (
               <div key={stat.id} className="flex flex-col gap-y-3 border-l border-white/10 pl-6">
                 <dt className="text-sm leading-6">{stat.name}</dt>
@@ -1040,9 +1037,9 @@ export default function Example() {
           </div>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Stop claiming to be an honest person.
-              <br />
-              Prove it.
+              Rely on proofs, not promises.
+              {/* <br />
+              Just give it to them. */}
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
               Random.win is the only random picker on the internet which enables a full transparency of the drawing process for all the participants. 
