@@ -65,7 +65,7 @@ export default function CheckoutForm(
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                return_url: "http://localhost:3000/launch-draw#share",
+                return_url: "http://localhost:3000/launch-contest#share",
             },
             redirect: "if_required"
         });

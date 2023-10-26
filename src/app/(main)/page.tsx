@@ -37,7 +37,9 @@ import {
     UserGroupIcon,
     CursorArrowRaysIcon,
     CubeTransparentIcon,
-    CheckBadgeIcon
+    CheckBadgeIcon,
+    BoltIcon,
+    MagnifyingGlassCircleIcon
 } from '@heroicons/react/24/solid'
 
 
@@ -224,7 +226,7 @@ const tiers = [
     // {
     //     name: 'Hobby',
     //     id: 'tier-hobby',
-    //     href: '/launch-draw',
+    //     href: '/launch-contest',
     //     price: '0',
     //     description: 'Try our software for free on a test blockchain',
     //     features: [
@@ -238,7 +240,7 @@ const tiers = [
     {
         name: 'Personal',
         id: 'tier-basic',
-        href: '/launch-draw',
+        href: '/launch-contest',
         price: '29€',
         description: 'Try the most advanced random draw algorithm currently on the market at an affordable price.',
         features: [
@@ -255,7 +257,7 @@ const tiers = [
     // {
     //     name: 'Pro',
     //     id: 'tier-pro',
-    //     href: '/launch-draw',
+    //     href: '/launch-contest',
     //     price: '9€',
     //     description: 'Same as Basic but with 100x more participants to reach a larger audience.',
     //     features: [
@@ -292,19 +294,19 @@ const tiers = [
 
 const primaryFeatures = [
     {
+        name: 'No account required',
+        description:
+          'It takes no more than 2 minutes to create a contest on random.win',
+        href: '#',
+        icon: BoltIcon,
+      },
+    {
       name: 'Fully decentralized',
       description:
         'Your contest runs entirely on the blockchain to make sure the winner selection is transparent for everyone',
       href: '#',
       icon: CubeTransparentIcon,
     },
-    {
-        name: 'Proof of randomness',
-        description:
-          'Our numbers are provably random whereas random.org can send you fake numbers if they want to',
-        href: '#',
-        icon: CheckBadgeIcon,
-      },
     {
       name: 'One-click verification',
       description:
@@ -315,10 +317,16 @@ const primaryFeatures = [
   ]
   const secondaryFeatures = [
     {
-        name: 'Provably random.',
+        name: 'Verifiable.',
         description:
-            'Our random numbers are generated with Chainlink VRF which is the global leader in verifiable randomness.',
-        icon: ShieldCheckIcon,
+            'Our code is public and cannot be manipulated by anyone, not even by us, because it lives on the blockchain.',
+        icon: MagnifyingGlassCircleIcon,
+    },
+    {
+        name: 'Increased engagement.',
+        description:
+            'Encourage more people to participate by running fully transparent contests.',
+        icon: UserGroupIcon,
     },
     {
         name: 'Top notch brand image.',
@@ -326,11 +334,13 @@ const primaryFeatures = [
             'Being transparent with your followers is the best way you can boost your brand image.',
         icon: SparklesIcon,
     },
+    
+    
     {
-        name: 'Say goodbye to disputes.',
+        name: 'Provably random.',
         description:
-            'Prevent anyone from challenging your contest by displaying a proof of randomness.',
-        icon: ScaleIcon,
+            'We rely on Chainlink VRF to generate a public proof of randomness on the blockchain for each contest.',
+        icon: ShieldCheckIcon,
     },
     {
         name: 'Better user experience.',
@@ -338,18 +348,15 @@ const primaryFeatures = [
             'Let your followers check the winner themselves without them having to trust you.',
         icon: CursorArrowRaysIcon,
     },
+    
     {
-        name: 'Increased engagement.',
+        name: 'Say goodbye to disputes.',
         description:
-            'Encourage more people to participate by running a fully transparent contest.',
-        icon: UserGroupIcon,
+            'Protect yourself from lawsuits by storing your proofs of randomness on the blockchain.',
+        icon: ScaleIcon,
     },
-    {
-        name: 'Cutting-edge technologies.',
-        description:
-            'Our algorithm combines Ethereum, IPFS, and Chainlink VRF, which are the most advanced web3 technologies.',
-        icon: RocketLaunchIcon,
-    },
+    
+    
 ]
   const stats = [
     { id: 1, name: 'Influencers', value: '20+' },
@@ -446,7 +453,7 @@ export default function Example() {
               </p> 
               <div className="mt-10 flex items-center gap-x-6">
                 <Link
-                  href="/launch-draw"
+                  href="/launch-contest"
                   className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
                 >
                   Launch contest
@@ -555,7 +562,7 @@ export default function Example() {
           <div className="mx-auto max-w-3xl text-center">
             {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Deploy faster</h2> */}
             <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-                Much better than random.org
+                Don&apos;t trust, Verify
             </p>
             {/* <p className="mt-6 text-lg leading-8 text-gray-300">
               Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
@@ -1042,7 +1049,7 @@ export default function Example() {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
-                href="/launch-draw"
+                href="/launch-contest"
                 className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 Launch contest
