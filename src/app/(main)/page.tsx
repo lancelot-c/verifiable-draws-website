@@ -320,15 +320,9 @@ const primaryFeatures = [
   ]
   const secondaryFeatures = [
     {
-        name: 'Verifiable.',
-        description:
-            'Our code is public and cannot be manipulated by anyone, not even by us, because it lives on the blockchain.',
-        icon: MagnifyingGlassCircleIcon,
-    },
-    {
         name: 'Increased engagement.',
         description:
-            'Encourage more people to participate by running fully transparent contests.',
+            'Encourage more people to participate by proving to them that they have a chance to win.',
         icon: UserGroupIcon,
     },
     {
@@ -338,10 +332,10 @@ const primaryFeatures = [
         icon: SparklesIcon,
     },
     {
-        name: 'Provably random.',
+        name: 'Say goodbye to disputes.',
         description:
-            'We rely on Chainlink VRF to generate a public proof of randomness on the blockchain for each contest.',
-        icon: ShieldCheckIcon,
+            'Protect yourself from lawsuits by storing proofs of randomness on the blockchain.',
+        icon: ScaleIcon,
     },
     {
         name: 'Better user experience.',
@@ -350,11 +344,21 @@ const primaryFeatures = [
         icon: CursorArrowRaysIcon,
     },
     {
-        name: 'Say goodbye to disputes.',
+        name: 'Verifiable.',
         description:
-            'Protect yourself from lawsuits by storing your proofs of randomness on the blockchain.',
-        icon: ScaleIcon,
+            'Our code is public and cannot be manipulated by anyone, not even by us, because it lives on the blockchain.',
+        icon: MagnifyingGlassCircleIcon,
     },
+    
+    
+    {
+        name: 'Provably random.',
+        description:
+            'We rely on Chainlink VRF to generate a public proof of randomness on the blockchain for each contest.',
+        icon: ShieldCheckIcon,
+    },
+    
+    
 ]
   const stats = [
     { id: 1, name: 'Influencers', value: '20+' },
@@ -447,7 +451,7 @@ export default function Example() {
                 The best way to organize contests
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Random.win enables you to organize social media contests in the most transparent way by randomly drawing the winners on the Ethereum blockchain.
+                Random.win enables you to organize social media contests in <span className="font-bold">the most transparent way</span> by picking random numbers directly from the blockchain.
               </p> 
               <div className="mt-10 flex items-center gap-x-6">
                 <Link
@@ -597,12 +601,14 @@ export default function Example() {
             <div className="mx-auto max-w-2xl sm:text-center">
               {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Everything you need</h2> */}
               <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-              Don&apos;t trust, Verify
+              You <span className="underline">don&apos;t need</span> to verify,
+              <br />
+              but if you want you can
+              {/* Don&apos;t trust, Verify */}
               </p>
-              {/* <p className="mt-6 text-lg leading-8 text-gray-300">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque,
-                iste dolor cupiditate blanditiis.
-              </p> */}
+              <p className="mt-6 text-lg leading-8 text-gray-300">
+                It only takes a few seconds. 
+              </p>
             </div>
           </div>
           <div className="relative overflow-hidden pt-16">
