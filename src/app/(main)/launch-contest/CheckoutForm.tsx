@@ -117,12 +117,12 @@ export default function CheckoutForm(
                     </svg>
                 )}
 
-                {isLoading ? "Processing..." : "Pay 29,00€ and deploy the draw"}
+                {isLoading ? "Processing..." : "Pay 29,00€ and deploy the contest"}
             </button>
 
                     <p className="text-center text-xs text-gray-400 py-4">
                         Powered by Stripe.<br />
-                        Verifiable Draws does not store your payment details.
+                        Random.win does not store your payment details.
                     </p>
 
             {/* Show any error or success messages */}

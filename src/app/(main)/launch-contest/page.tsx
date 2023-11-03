@@ -21,7 +21,7 @@ const stripePromise = loadStripe(stripePublicKey);
 
 
 const steps = [
-    { name: 'Draw name and rules', href: '#step1' },
+    { name: 'Contest name and rules', href: '#step1' },
     { name: 'Participants', href: '#step2' },
     { name: 'Schedule', href: '#step3' },
     { name: 'Purchase', href: '#step4' },
@@ -156,12 +156,12 @@ export default function Page() {
     const { register, trigger, getValues, formState: { errors, isValid } } = useForm<FormInputs>({
         defaultValues: {
             step1: {
-                name: '',
-                rules: ''
+                name: drawNamePlaceholder,
+                rules: drawRulesPlaceholder
             },
             step2: {
-                participants: '',
-                nbWinners: undefined
+                participants: drawParticipantsPlaceholder,
+                nbWinners: 1
             },
             step3: {
                 scheduledAt: scheduledAtDefaultValue
@@ -310,10 +310,11 @@ export default function Page() {
         clientSecret,
         fonts: [{ cssSrc: 'https://fonts.googleapis.com/css?family=Inter' }],
         appearance: {
-            theme: 'stripe',
+            theme: 'night',
             variables: {
                 fontFamily: 'Inter',
                 colorPrimary: '#4f46e5', // = Tailwind indigo-600 color
+                colorPrimaryText: '#ffffff',
             },
             disableAnimations: false,
             labels: 'above'
@@ -391,8 +392,8 @@ export default function Page() {
 
 
 
-            <h2 className="mt-0 text-4xl font-bold tracking-tight mb-16 text-gray-900 sm:text-5xl text-center">
-                Launch a verifiable draw
+            <h2 className="mt-0 text-4xl font-bold tracking-tight mb-16 text-white sm:text-5xl text-center">
+                Launch a contest
             </h2>
 
             <nav aria-label="Progress">
@@ -408,7 +409,7 @@ export default function Page() {
                                     ${isValid && selectedStep !== shareStep ? '' : 'pointer-events-none'}`}
                                 >
                                     <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-800">Step {index + 1}</span>
-                                    <span className="text-sm font-medium">{step.name}</span>
+                                    <span className="text-sm font-medium text-gray-300">{step.name}</span>
                                 </Link>
                             ) : selectedStep === index + 1 ? (
                                 // Ongoing step
@@ -418,7 +419,7 @@ export default function Page() {
                                     aria-current="step"
                                 >
                                     <span className="text-sm font-medium text-indigo-600">Step {index + 1}</span>
-                                    <span className="text-sm font-medium">{step.name}</span>
+                                    <span className="text-sm font-medium text-gray-300">{step.name}</span>
                                 </Link>
                             ) : currentStep >= index + 1 ? (
                                 // Upcoming available step
@@ -429,7 +430,7 @@ export default function Page() {
                                     ${isValid ? '' : 'pointer-events-none'}`}
                                 >
                                     <span className="text-sm font-medium text-indigo-300 group-hover:text-indigo-600">Step {index + 1}</span>
-                                    <span className="text-sm font-medium">{step.name}</span>
+                                    <span className="text-sm font-medium text-gray-300">{step.name}</span>
                                 </Link>
                             ) : (
                                 // Upcoming unavailable step
@@ -437,8 +438,8 @@ export default function Page() {
                                     href={step.href}
                                     className="pointer-events-none group flex flex-col border-l-4 border-gray-200 py-2 pl-4 hover:border-gray-300 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                                 >
-                                    <span className="text-sm font-medium text-gray-500 group-hover:text-gray-700">Step {index + 1}</span>
-                                    <span className="text-sm font-medium">{step.name}</span>
+                                    <span className="text-sm font-medium text-white group-hover:text-gray-700">Step {index + 1}</span>
+                                    <span className="text-sm font-medium text-gray-300">{step.name}</span>
                                 </Link>
                             )}
                         </li>
@@ -452,16 +453,15 @@ export default function Page() {
                     (selectedStep === 1) && (
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-4">
-                                <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
                                     Name
                                 </label>
                                 <div className="mt-2">
-                                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset sm:max-w-md">
+                                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-600 focus-within:ring-2 focus-within:ring-inset sm:max-w-md">
                                         <input
                                             type="text"
                                             id="name"
-                                            placeholder={drawNamePlaceholder}
-                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
+                                            className={`bg-[#30313C] text-white block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
                                             ${errors.step1?.name && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
                                             {...register("step1.name", {
                                                 required: 'Name is required',
@@ -470,21 +470,20 @@ export default function Page() {
                                         />
                                     </div>
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">This will be the title of the page we will create for your draw.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-300">This will be the title of the page we will create for your contest.</p>
                             </div>
 
 
 
                             <div className="col-span-full">
-                                <label htmlFor="rules" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="rules" className="block text-sm font-medium leading-6 text-white">
                                     Rules
                                 </label>
                                 <div className="mt-2">
                                     <textarea
                                         rows={10}
                                         id="rules"
-                                        placeholder={drawRulesPlaceholder}
-                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
+                                        className={`bg-[#30313C] text-white block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
                                         ${errors.step1?.rules && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
                                         {...register("step1.rules", {
                                             required: 'Rules are required',
@@ -492,7 +491,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">Explain what are the prizes to win, how many winners will be picked, and remind everyone what they needed to do in order to be included in the list of participants for this draw.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-300">Explain what are the prizes to win, how many winners will be picked, and remind everyone what they needed to do in order to be included in the list of participants for this contest.</p>
                             </div>
 
                         </div>
@@ -505,15 +504,14 @@ export default function Page() {
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                             <div className="col-span-full">
-                                <label htmlFor="participants" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="participants" className="block text-sm font-medium leading-6 text-white">
                                     List of participants
                                 </label>
                                 <div className="mt-2">
                                     <textarea
                                         rows={10}
                                         id="participants"
-                                        placeholder={drawParticipantsPlaceholder}
-                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
+                                        className={`bg-[#30313C] text-white block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
                                         ${errors.step2?.participants && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
                                         {...register("step2.participants", {
                                             required: 'List of participants is required',
@@ -521,14 +519,14 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">
+                                <p className="mt-3 text-sm leading-6 text-gray-300">
                                     Type one participant per line using anything that can uniquely identify the participant: Instagram username, Telegram username, first name + last name, phone number, email address, ...
                                     Choose what fits best for your use case.
                                 </p>
                             </div>
 
                             <div className="sm:col-span-2">
-                                <label htmlFor="nbWinners" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="nbWinners" className="block text-sm font-medium leading-6 text-white">
                                     Number of winners
                                 </label>
                                 <div className="mt-2">
@@ -536,16 +534,15 @@ export default function Page() {
                                         type="number"
                                         id="nbWinners"
                                         min="0"
-                                        placeholder={drawNbWinnersPlaceholder}
-                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
+                                        className={`bg-[#30313C] text-white block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
                                         ${errors.step2?.nbWinners && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
                                         {...register("step2.nbWinners", {
-                                            required: 'Number of participants to draw is required',
+                                            required: 'Number of winners is required',
                                             onBlur: () => { trigger("step2.nbWinners"); },
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">This is the number of participants that the algorithm will randomly select. Make sure it matches with what you have written in your rules at the previous step.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-300">This is the number of participants that the algorithm will randomly select. Make sure it matches with what you have written in your rules at the previous step.</p>
                             </div>
                         </div>
                     )
@@ -556,8 +553,8 @@ export default function Page() {
                         <div className="mt-10">
 
                             <div className="text-center">
-                                <label htmlFor="scheduledAt" className="block text-sm font-normal leading-6 text-gray-900">
-                                Choose the date and time at which the draw will happen.<br />
+                                <label htmlFor="scheduledAt" className="block text-sm font-normal leading-6 text-white">
+                                Choose the date and time at which the random draw will happen.<br />
                                 ({(Intl.DateTimeFormat().resolvedOptions().timeZone)} time zone detected)
                                 </label>
                                 <div className="mt-2">
@@ -565,7 +562,7 @@ export default function Page() {
                                         type="datetime-local"
                                         id="scheduledAt"
                                         min={scheduledAtMinValue}
-                                        className={`block m-auto rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
+                                        className={`bg-[#30313C] text-white block m-auto rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
                                         ${errors.step3?.scheduledAt && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
                                         {...register("step3.scheduledAt", {
                                             required: 'Scheduled date and time is required',
@@ -583,8 +580,8 @@ export default function Page() {
                                     </div>
                                     <div className="ml-3 flex-1 md:flex md:justify-between">
                                         <p className="text-sm text-blue-700">
-                                            At the end of this form we will create a web page for your draw and give you the link to access it. Please note that you will have to share this link to the participants before the draw happens.
-                                            By doing so, the participants will have the guarantee that you did not know the result of the draw in advance. {/* which means that you will be <Link href="https://messari.io/report/credible-neutrality-as-a-guiding-principle" rel="noopener" target="_blank" className="underline">credibly neutral</Link>. */}
+                                            At the end of this form we will create a web page for your contest and give you the link to access it. Please note that you will have to share this link to the participants before the random draw happens.
+                                            By doing so, the participants will have the guarantee that you did not know the result of the contest in advance. {/* which means that you will be <Link href="https://messari.io/report/credible-neutrality-as-a-guiding-principle" rel="noopener" target="_blank" className="underline">credibly neutral</Link>. */}
                                             That&apos;s why as a good practice we recommend you to choose a date and time which is at least 6 hours in the future from now.
                                         </p>
                                     </div>
@@ -599,12 +596,12 @@ export default function Page() {
                 to prevent re-rendering when the user switch between steps */}
                 <div className={`flex flex-wrap justify-center justify-items-center items-center mt-10 w-full ${selectedStep === paymentStep ? '' : 'hidden'}`}>
 
-                    <p className="max-w-[600px] mt-0 px-8 sm:px-24 py-16 border-b lg:border-b-0 lg:border-r border-gray-200 text-md font-light tracking-wide text-gray-800 sm:text-md text-center">
-                        Because it is end-to-end decentralized, <span className="italic">Verifiable Draws</span> is the only draw platform which prevents all kinds of fraud.
+                    <p className="max-w-[600px] mt-0 px-8 sm:px-24 py-16 border-b lg:border-b-0 lg:border-r border-gray-200 text-md font-light tracking-wide text-white sm:text-md text-center">
+                        Because it is end-to-end decentralized, Random.win is the only platform which prevents all kinds of fraud in social media contests.
                         <br /><br />
                         Therefore, by choosing us, you are contributing to make the world a better place and inspiring others to do the same.
                         <br /><br />
-                        This is the last step before deploying your draw.<br />
+                        This is the last step before deploying your contest.<br />
                         The decentralized world awaits you. ✨
                     </p>
 
@@ -656,7 +653,7 @@ export default function Page() {
                                             </div>
                                             <div className="ml-3">
                                                 <h3 className="text-sm font-medium text-yellow-800">
-                                                    Deploying the draw on IPFS and Ethereum.
+                                                    Deploying the contest on IPFS and Ethereum.
                                                 </h3>
                                                 <div className="mt-2 text-sm text-yellow-700">
                                                     <p>
@@ -680,7 +677,7 @@ export default function Page() {
                                                 <CheckCircleIcon className="h-5 w-5 text-green-400" aria-hidden="true" />
                                             </div>
                                             <div className="ml-3">
-                                                <p className="text-sm font-medium text-green-800">Draw successfully uploaded to verify.win/{ cid }</p>
+                                                <p className="text-sm font-medium text-green-800">Contest successfully uploaded to verify.win/{ cid }</p>
                                             </div>
                                         </div>
                                     </div>
@@ -713,9 +710,9 @@ export default function Page() {
                                 {
                                     (drawLinks.length > 0 && !deployError) && (
                                     <div className="text-center">
-                                        <p className="mt-8 text-md">
-                                            Your draw has successfully been deployed to the blockchain. 🎉<br />
-                                            You can now share the following link to the participants so that they can access the draw details and see the winners when they are announced.
+                                        <p className="mt-8 text-md text-white">
+                                            Your contest has successfully been deployed to the blockchain. 🎉<br />
+                                            You can now share the following link to the participants so that they can access the contest details and see the winners when they are announced.
                                         </p>
 
 
@@ -739,7 +736,7 @@ export default function Page() {
                                             </div>
                                         ))}
 
-                                        <p className="mt-8 text-md">
+                                        <p className="mt-8 text-md text-white">
                                             If you need further assistance please ask on <Link href="https://discord.gg/3YjqW9MP7H" rel="noopener" target="_blank" className="underline">our Discord server</Link>, we will be happy to help you.<br />
                                             Thank you for using our service and helping to make the world more decentralized and transparent.
                                         </p>
@@ -756,7 +753,7 @@ export default function Page() {
                         (selectedStep > 1 && selectedStep < steps.length && selectedStep !== paymentStep) && (
                             <button
                                 onClick={previousStep}
-                                className="text-sm font-semibold leading-6 text-gray-900"
+                                className="text-sm font-semibold leading-6 text-gray-300"
                             >
                                 Back
                             </button>

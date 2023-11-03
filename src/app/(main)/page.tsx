@@ -208,18 +208,18 @@ const useCases = [
 
 const videos = [
     {
-        description: 'Our smart contract and the random numbers it generates have been audited by Gaming Laboratories International, the most prestigious testing laboratory in the world.',
+        description: 'Our smart contract and the random numbers it generates have been audited by Gaming Laboratories International.',
         imageUrl: gliRngImg,
         videoUrl: '',
         // https://gaminglabs.com/services/igaming/random-number-generator-rng/
     },
     {
-        description: 'Random.win is built by the same team behind VerifiableDraws.com which won the Gold Medal at Concours Lépine, the most famous innovation competition in France.',
+        description: 'Random.win is built by the same team behind VerifiableDraws.com which won the Gold Medal at Concours Lépine, the biggest innovation competition in France.',
         imageUrl: lepineRemisePrixImg,
         videoUrl: 'https://www.youtube.com/watch?v=4oVa9vfy-cE',
     },
     {
-        description: 'Our algorithm relies on Chainlink VRF which have been granted the GLI-19 certification, the highest gaming certification in the world.',
+        description: 'Our algorithm relies on Chainlink VRF which has received the GLI-19 certification through BMM Testlabs. This enables regulated iGaming apps to use our app as a verifiable RNG.',
         imageUrl: bmmTestlabsImg,
         videoUrl: 'https://bmm.com/bmm-testlabs-grants-the-first-compliance-certification-in-the-blockchain-industry-to-chainlink-vrf/',
     },
@@ -304,18 +304,18 @@ const primaryFeatures = [
         icon: BoltIcon,
       },
     {
-      name: 'Fully decentralized',
+      name: 'Fully transparent',
       description:
-        'Your contest runs entirely on the blockchain to make sure the winner selection is transparent for everyone',
+        'Your contest runs entirely on the blockchain to make sure the list of participants and the winner selection is transparent for everyone',
       href: '#',
       icon: CubeTransparentIcon,
     },
     {
-      name: 'One-click verification',
+      name: 'Provably random',
       description:
-        'Your followers don\'t need to trust anyone, they can check the winners themselves on the blockchain if they want to',
+        'There is an actual proof that the winner of your contest was selected randomly',
       href: '#',
-      icon: CursorArrowRaysIcon,
+      icon: ShieldCheckIcon,
     },
   ]
   const secondaryFeatures = [
@@ -349,16 +349,12 @@ const primaryFeatures = [
             'Our code is public and cannot be manipulated by anyone, not even by us, because it lives on the blockchain.',
         icon: MagnifyingGlassCircleIcon,
     },
-    
-    
     {
         name: 'Provably random.',
         description:
-            'We rely on Chainlink VRF to generate a public proof of randomness on the blockchain for each contest.',
+            'We generate a public proof of randomness on the blockchain for each contest.',
         icon: ShieldCheckIcon,
     },
-    
-    
 ]
   const stats = [
     { id: 1, name: 'Influencers', value: '20+' },
@@ -451,7 +447,7 @@ export default function Example() {
                 The best way to organize contests
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Random.win enables you to organize social media contests in <span className="font-bold">the most transparent way</span> by picking random numbers directly from the blockchain.
+                Random.win enables you to organize social media contests without relying on trust by leveraging the blockchain.
               </p> 
               <div className="mt-10 flex items-center gap-x-6">
                 <Link
@@ -564,7 +560,7 @@ export default function Example() {
           <div className="mx-auto max-w-3xl text-center">
             {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Deploy faster</h2> */}
             <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-                The ultimate random picker tool
+                The ultimate random picker
             </p>
             {/* <p className="mt-6 text-lg leading-8 text-gray-300">
               Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
