@@ -48,7 +48,7 @@ type FormInputs = {
     },
 }
 
-const drawNamePlaceholder = '4 tickets to win for a VR attraction';
+const drawNamePlaceholder = 'Win a Holiday to The Maldives';
 
 const drawRulesPlaceholder =
 `Insight Media is giving away 4 tickets for Hurricane 360, an innovative VR attraction in Geneva.
@@ -57,15 +57,7 @@ As a reminder, the rules to participate in this contest were:
 
 ✅ Follow our Instagram account @insight_media_ch & like the Instagram post for this contest
 ✅ Mention in the comments between 1 and 4 friends with whom you would like to share this experience with
-
-The contest is now closed.
-We have collected 69 valid participations and will now proceed to a provably fair and random draw thanks to Verifiable Draws.
-Good luck 💙🤞
-
-Disclaimer:
-• Only people older than 16 years old can participate in this contest
-• This promotion is done in collaboration with the entertainment center @airloopswiss
-⚠️ Beware of scammers, we will never ask you to click on a link to claim your prize. Only respond to DMs from our official account @insight_media_ch ⚠️`;
+`;
 
 const drawParticipantsPlaceholder = `@jeys23
 @happy_lance
