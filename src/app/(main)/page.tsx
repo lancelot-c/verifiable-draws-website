@@ -309,14 +309,14 @@ const primaryFeatures = [
     {
       name: 'Fully transparent',
       description:
-        'Your contest runs entirely on the blockchain to make sure the list of participants and the random draw algorithm is transparent for everyone',
+        'The algorithm which selects the winner is transparent because it runs entirely on the blockchain',
       href: '#',
       icon: CubeTransparentIcon,
     },
     {
       name: 'Provably random',
       description:
-        'There is an actual proof that the winner of your contest was selected randomly. This proof is generated on the blockchain and is therefore accessible by anyone.',
+        'There is an actual proof that the winner of your contest was selected randomly',
       href: '#',
       icon: ShieldCheckIcon,
     },
