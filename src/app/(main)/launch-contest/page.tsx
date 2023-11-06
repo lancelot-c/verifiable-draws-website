@@ -51,13 +51,8 @@ type FormInputs = {
 const drawNamePlaceholder = 'Win a Holiday to The Maldives';
 
 const drawRulesPlaceholder =
-`Insight Media is giving away 4 tickets for Hurricane 360, an innovative VR attraction in Geneva.
-The contest was originally launched on our Instagram post here: https://www.instagram.com/p/CtWEirCoglU
-As a reminder, the rules to participate in this contest were:
-
-✅ Follow our Instagram account @insight_media_ch & like the Instagram post for this contest
-✅ Mention in the comments between 1 and 4 friends with whom you would like to share this experience with
-`;
+`To take part in this contest the only thing you have to do is to follow my Instagram account @happy_lance and like this Instagram post: https://www.instagram.com/p/Ct7jt-motWO6svTyXoQbbpDfU3F-kv6XTXXqEY0/
+Then, one person will be randomly selected among the participants to win a 2-week holiday for 2 people to The Maldives.`;
 
 const drawParticipantsPlaceholder = `@jeys23
 @happy_lance
@@ -483,7 +478,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-300">Explain what are the prizes to win, how many winners will be picked, and remind everyone what they needed to do in order to be included in the list of participants for this contest.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-300">Explain what people needed to do in order to participate in this contest.</p>
                             </div>
 
                         </div>
@@ -512,8 +507,7 @@ export default function Page() {
                                     />
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-300">
-                                    Type one participant per line using anything that can uniquely identify the participant: Instagram username, Telegram username, first name + last name, phone number, email address, ...
-                                    Choose what fits best for your use case.
+                                    Type one username per line.
                                 </p>
                             </div>
 
@@ -534,7 +528,7 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-300">This is the number of participants that the algorithm will randomly select. Make sure it matches with what you have written in your rules at the previous step.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-300">This is the number of participants that the algorithm will randomly select.</p>
                             </div>
                         </div>
                     )
@@ -589,7 +583,7 @@ export default function Page() {
                 <div className={`flex flex-wrap justify-center justify-items-center items-center mt-10 w-full ${selectedStep === paymentStep ? '' : 'hidden'}`}>
 
                     <p className="max-w-[600px] mt-0 px-8 sm:px-24 py-16 border-b lg:border-b-0 lg:border-r border-gray-200 text-md font-light tracking-wide text-white sm:text-md text-center">
-                        Because it is end-to-end decentralized, Random.win is the only platform which prevents all kinds of fraud in social media contests.
+                        Because it is 100% decentralized, Random.win is the only platform which prevents all kinds of fraud in social media contests.
                         <br /><br />
                         Therefore, by choosing us, you are contributing to make the world a better place and inspiring others to do the same.
                         <br /><br />
