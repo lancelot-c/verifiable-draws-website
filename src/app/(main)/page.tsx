@@ -601,11 +601,11 @@ export default function Example() {
             <div className="mx-auto max-w-2xl sm:text-center">
               {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Everything you need</h2> */}
               <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-              Publish our link in your story, that's it.
+              Publish our link in your story, that&apos;s it.
               </p>
               <p className="mt-6 text-lg leading-8 text-gray-300">
                 When the participations for your contest are closed, come to our website.
-                We generate a link that you just need to share in your story. Then your followers can access the winners simply by clicking on this link, and they can even verify the winners directly on the blockchain in one more click if they don&apos;t trust you.
+                We will generate a link for your contest that you just need to share in your story. Then your followers can access the winners simply by clicking on this link, and if they want to, they can even verify the result themselves directly by asking our smart contract on the blockchain. No trust needed. ✨
               </p>
             </div>
           </div>
