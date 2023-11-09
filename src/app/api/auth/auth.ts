@@ -9,7 +9,8 @@ export const config = {
     providers: [
         FacebookProvider({
             clientId: process.env.FACEBOOK_CLIENT_ID as string,
-            clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+            authorization: `https://www.facebook.com/v11.0/dialog/oauth?scope=email&config_id=${process.env.FACEBOOK_CONFIG_ID}`,
         })
       ],
     secret: process.env.SECRET,
