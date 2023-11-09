@@ -12,7 +12,7 @@ export const config = {
             clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string
         })
       ],
-    secret: process.env.NEXT_PUBLIC_SECRET,
+    secret: process.env.SECRET,
 } satisfies NextAuthOptions
 
 
