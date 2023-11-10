@@ -15,6 +15,10 @@ export const config = {
       ],
     secret: process.env.SECRET,
     callbacks: {
+        async signIn({ user, account, profile, email, credentials }) {
+            debugger;
+            return true;
+        },
         async session({ session, token, user }) {
             debugger;
         //   session.user.id = token.id;
