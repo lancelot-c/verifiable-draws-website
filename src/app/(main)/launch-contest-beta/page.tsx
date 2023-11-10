@@ -24,19 +24,20 @@ const stripePromise = loadStripe(stripePublicKey);
 
 
 const steps = [
-    { name: 'Contest name and rules', href: '#step1' },
-    { name: 'Participants', href: '#step2' },
-    { name: 'Schedule', href: '#step3' },
+    { name: 'Connect to Instagram', href: '#step1' },
+    { name: 'Contest details', href: '#step2' },
+    { name: 'Schedule the random draw', href: '#step3' },
     { name: 'Purchase', href: '#step4' },
-    { name: 'Share the link', href: '#step5' },
+    { name: 'Share the link in your story', href: '#step5' },
 ]
 
 type FormInputs = {
     step1?: {
-        name: string
-        rules: string
+        
     },
     step2?: {
+        name: string
+        rules: string,
         participants: string
         nbWinners: number
     },
@@ -146,10 +147,11 @@ export default function Page() {
     const { register, trigger, getValues, formState: { errors, isValid } } = useForm<FormInputs>({
         defaultValues: {
             step1: {
-                name: drawNamePlaceholder,
-                rules: drawRulesPlaceholder
+                
             },
             step2: {
+                name: drawNamePlaceholder,
+                rules: drawRulesPlaceholder,
                 participants: drawParticipantsPlaceholder,
                 nbWinners: 1
             },
@@ -211,7 +213,7 @@ export default function Page() {
 
         let ignore = false;
 
-        const [drawTitle, drawRules, drawParticipants, drawNbWinners] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners"]);
+        const [drawTitle, drawRules, drawParticipants, drawNbWinners] = getValues(["step2.name", "step2.rules", "step2.participants", "step2.nbWinners"]);
         const drawScheduledAt = Math.ceil(getTimestampFromIso(getValues("step3.scheduledAt")) / 1000); // in seconds
         setDeployInProgress(true);
 
@@ -315,7 +317,7 @@ export default function Page() {
 
     async function onPaymentSuccess(paymentIntent: PaymentIntent) {
 
-        const [drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners", "step3.scheduledAt"]);
+        const [drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt] = getValues(["step2.name", "step2.rules", "step2.participants", "step2.nbWinners", "step3.scheduledAt"]);
 
         if (!drawTitle || !drawRules || !drawParticipants || !drawNbWinners || !drawScheduledAt) {
             return;
@@ -441,13 +443,20 @@ export default function Page() {
             <div className="mt-12">
                 {
                     (selectedStep === 1) && (
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div className="mt-10">
 
-                        <SessionProvider>
-                            <LoginBtn></LoginBtn>
-                        </SessionProvider>
+                            <SessionProvider>
+                                <LoginBtn></LoginBtn>
+                            </SessionProvider>
+
+                        </div>
+                    )
+                }
 
 
+                {
+                    (selectedStep === 2) && (
+                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">                            
 
                             <div className="sm:col-span-4">
                                 <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
@@ -459,18 +468,16 @@ export default function Page() {
                                             type="text"
                                             id="name"
                                             className={`bg-[#30313C] text-white block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
-                                            ${errors.step1?.name && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                            {...register("step1.name", {
+                                            ${errors.step2?.name && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                            {...register("step2.name", {
                                                 required: 'Name is required',
-                                                onBlur: () => { trigger("step1.name"); },
+                                                onBlur: () => { trigger("step2.name"); },
                                             })}
                                         />
                                     </div>
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-300">This will be the title of the page we will create for your contest.</p>
                             </div>
-
-
 
                             <div className="col-span-full">
                                 <label htmlFor="rules" className="block text-sm font-medium leading-6 text-white">
@@ -481,24 +488,15 @@ export default function Page() {
                                         rows={10}
                                         id="rules"
                                         className={`bg-[#30313C] text-white block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
-                                        ${errors.step1?.rules && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                        {...register("step1.rules", {
+                                        ${errors.step2?.rules && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step2.rules", {
                                             required: 'Rules are required',
-                                            onBlur: () => { trigger("step1.rules"); },
+                                            onBlur: () => { trigger("step2.rules"); },
                                         })}
                                     />
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-300">Explain what people needed to do in order to participate in this contest.</p>
                             </div>
-
-                        </div>
-                    )
-                }
-
-
-                {
-                    (selectedStep === 2) && (
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">                            
 
                             <div className="col-span-full">
                                 <label htmlFor="participants" className="block text-sm font-medium leading-6 text-white">
@@ -749,7 +747,7 @@ export default function Page() {
                         (selectedStep > 1 && selectedStep < steps.length && selectedStep !== paymentStep) && (
                             <button
                                 onClick={previousStep}
-                                className="text-sm font-semibold leading-6 text-gray-300"
+                                className="rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white/20"
                             >
                                 Back
                             </button>
