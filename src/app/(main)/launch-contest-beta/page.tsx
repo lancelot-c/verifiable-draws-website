@@ -9,7 +9,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { CheckCircleIcon, InformationCircleIcon, XCircleIcon } from '@heroicons/react/20/solid'
 import CheckoutForm from "./CheckoutForm";
 import LoginBtn from "./login-btn";
-import { SessionProvider } from "next-auth/react"
+import { SessionProvider } from 'next-auth/react';
 
 const websiteBasePaths = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? ['http://localhost:3000/ipfs?cid='] : ['http://verify.win/']
 const stripePublicKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
@@ -176,7 +176,10 @@ export default function Page() {
     const [deployInProgress, setDeployInProgress] = useState<boolean>(false);
     const [drawLinks, setDrawLinks] = useState<string[]>([]);
     const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | undefined>(undefined);
- 
+
+    const [accessToken, setAccessToken] = useState<string>('');
+
+
     useEffect(() => {
         if (currentStep !== paymentStep) {
             return;
@@ -303,7 +306,7 @@ export default function Page() {
     }
 
     function retrieveContest() {
-        console.log("Retrieving contest");
+        console.log(`Retrieving contest details with access token = ${accessToken}`);
     }
 
 
@@ -455,8 +458,8 @@ export default function Page() {
                         <div className="mt-10">
 
                             <SessionProvider>
-                                <LoginBtn></LoginBtn>
-                            </SessionProvider>
+                                <LoginBtn setAccessToken={setAccessToken}></LoginBtn>
+                            </SessionProvider> 
 
 
                             <div className="sm:col-span-4">

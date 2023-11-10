@@ -1,9 +1,11 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 
-export default function LoginBtn() {
+export default function LoginBtn({ setAccessToken }: { setAccessToken: (a: string) => void}) {
   const { data: session } = useSession()
   if (session) {
     console.log('Signed in with session: ', session)
+    setAccessToken((session?.user as any).accessToken);
+
     return (
       <div className="flex flex-col text-center">
         <div className="text-white mb-4">
