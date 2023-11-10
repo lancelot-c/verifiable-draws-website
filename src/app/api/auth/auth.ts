@@ -14,26 +14,13 @@ export const config = {
         })
       ],
     secret: process.env.SECRET,
-    callbacks: {
-        async signIn({ user, account, profile, email, credentials }) {
-            debugger;
-            return true;
+    callbacks: { //  =====> Add Below Callbacks <=====
+        jwt: async ({ token, user }) => {
+          return { ...token, ...user };
         },
-        async session({ session, token, user }) {
-            debugger;
-        //   session.user.id = token.id;
-        //   session.accessToken = token.accessToken;
+        session: async ({ session, token }) => {
+          session.user = token;
           return session;
-        },
-        async jwt({ token, user, account, profile }) {
-            debugger;
-          if (user) {
-            token.id = user.id;
-          }
-          if (account) {
-            token.accessToken = account.access_token;
-          }
-          return token;
         },
       },
 } satisfies NextAuthOptions

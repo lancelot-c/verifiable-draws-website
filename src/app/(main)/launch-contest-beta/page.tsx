@@ -33,7 +33,8 @@ const steps = [
 
 type FormInputs = {
     step1?: {
-        
+        signedInAs: string
+        postUrl: string
     },
     step2?: {
         name: string
@@ -147,7 +148,7 @@ export default function Page() {
     const { register, trigger, getValues, formState: { errors, isValid } } = useForm<FormInputs>({
         defaultValues: {
             step1: {
-                
+
             },
             step2: {
                 name: drawNamePlaceholder,
@@ -280,6 +281,10 @@ export default function Page() {
             return;
         }
 
+        if (currentStep === 1) {
+            retrieveContest();
+        }
+
         if (selectedStep + 1 > currentStep) {
             setCurrentStep(currentStep + 1 as StepNumber)
         }
@@ -295,6 +300,10 @@ export default function Page() {
 
             setSelectedStep(stepNumber)
         }
+    }
+
+    function retrieveContest() {
+        console.log("Retrieving contest");
     }
 
 
@@ -448,6 +457,28 @@ export default function Page() {
                             <SessionProvider>
                                 <LoginBtn></LoginBtn>
                             </SessionProvider>
+
+
+                            <div className="sm:col-span-4">
+                                <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
+                                    Paste the URL of your Instagram contest post
+                                </label>
+                                <div className="mt-2">
+                                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-600 focus-within:ring-2 focus-within:ring-inset sm:max-w-md">
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            className={`bg-[#30313C] text-white block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
+                                            ${errors.step1?.postUrl && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                            {...register("step1.postUrl", {
+                                                required: 'Post URL is required',
+                                                onBlur: () => { trigger("step1.postUrl"); },
+                                            })}
+                                        />
+                                    </div>
+                                </div>
+                                <p className="mt-3 text-sm leading-6 text-gray-300">We will automatically retrieve the list of participants from your post</p>
+                            </div>
 
                         </div>
                     )
