@@ -10,9 +10,6 @@ import { CheckCircleIcon, InformationCircleIcon, XCircleIcon } from '@heroicons/
 import CheckoutForm from "./CheckoutForm";
 import LoginBtn from "./login-btn";
 import { SessionProvider } from "next-auth/react"
-// import { getServerSession } from "next-auth/next"
-// import { config } from "../../api/auth/auth"
-// const fbSession = await getServerSession(config)
 
 const websiteBasePaths = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? ['http://localhost:3000/ipfs?cid='] : ['http://verify.win/']
 const stripePublicKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
@@ -446,28 +443,10 @@ export default function Page() {
                     (selectedStep === 1) && (
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
-<SessionProvider>
-    <LoginBtn></LoginBtn>
-</SessionProvider>
+                        <SessionProvider>
+                            <LoginBtn></LoginBtn>
+                        </SessionProvider>
 
-{/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
-
-                            <div className="instagram">
-                                <Link
-                                    href="#"
-                                    rel="noopener"
-                                    target="_blank"
-                                    className=""
-                                >
-                                    <button
-                                        type="button"
-                                        className="inline-flex items-center gap-x-2 rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                    >
-                                        <CheckCircleIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-                                        Connect to Instagram (via Facebook)
-                                    </button>
-                                </Link>
-                            </div>
 
 
                             <div className="sm:col-span-4">
