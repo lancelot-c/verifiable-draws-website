@@ -305,8 +305,16 @@ export default function Page() {
         }
     }
 
-    function retrieveContest() {
-        console.log(`Retrieving contest details with access token = ${accessToken}`);
+    async function retrieveContest() {
+        const apiVersion = 'v18.0'
+        const igMediaId = getValues("step1.postUrl");
+        const fields = 'id,media_type,media_url,owner,timestamp';
+
+        console.log(`Retrieving contest details from Instagram post ${igMediaId} with access token = ${accessToken}`);
+        
+        const graphApiResponse = await fetch(`https://graph.facebook.com/${apiVersion}/${igMediaId}?fields=${fields}&access_token=${accessToken}`);
+        console.log(`graphApiResponse`, graphApiResponse);
+        debugger;
     }
 
 
