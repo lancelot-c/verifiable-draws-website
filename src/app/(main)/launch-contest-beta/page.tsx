@@ -6,7 +6,7 @@ import Link from 'next/link'
 import React from "react";
 import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { CheckCircleIcon, InformationCircleIcon, XCircleIcon } from '@heroicons/react/20/solid'
+import { CheckCircleIcon, InformationCircleIcon, XCircleIcon, ArrowRightIcon } from '@heroicons/react/20/solid'
 import CheckoutForm from "./CheckoutForm";
 import LoginBtn from "./login-btn";
 import { SessionProvider } from 'next-auth/react';
@@ -178,6 +178,8 @@ export default function Page() {
     const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | undefined>(undefined);
 
     const [accessToken, setAccessToken] = useState<string>('');
+    const [loadingContest, setLoadingContest] = useState<boolean>(false);
+
 
 
     useEffect(() => {
@@ -284,12 +286,6 @@ export default function Page() {
             return;
         }
 
-        if (currentStep === 1) {
-            if (accessToken) {
-                retrieveContest();
-            }
-        }
-
         if (selectedStep + 1 > currentStep) {
             setCurrentStep(currentStep + 1 as StepNumber)
         }
@@ -314,9 +310,9 @@ export default function Page() {
 
         console.log(`Retrieving contest details from Instagram post ${igMediaId} with access token = ${accessToken}`);
         
+        setLoadingContest(true)
         const graphApiResponse = await fetch(`https://graph.facebook.com/${apiVersion}/${igMediaId}?fields=${fields}&access_token=${accessToken}`);
         console.log(`graphApiResponse`, graphApiResponse);
-        debugger;
     }
 
 
@@ -494,22 +490,47 @@ export default function Page() {
                             </div>
 
 
-                            <div className={`sm:col-span-4 ${accessToken ? '' : 'hidden'}`}>
+                            <div className={`sm:col-span-4 ${accessToken ? '' : ''}`}>
                                 <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
                                     Paste the URL of your Instagram contest post
                                 </label>
-                                <div className="mt-2">
+                                <div className="flex mt-2">
                                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-600 focus-within:ring-2 focus-within:ring-inset sm:max-w-md">
                                         <input
                                             type="text"
                                             id="name"
-                                            className={`bg-[#30313C] text-white block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
+                                            className={`bg-[#30313C] text-white block w-96 rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
                                             ${errors.step1?.postUrl && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
                                             {...register("step1.postUrl", {
                                                 onBlur: () => { trigger("step1.postUrl"); },
                                             })}
                                         />
                                     </div>
+
+                                    <div>
+                                        {
+                                            (loadingContest) ? (
+                                                <button
+                                                    type="button"
+                                                    className="ml-4 rounded-full bg-indigo-600 p-2 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                                >
+                                                    <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                    </svg> 
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    onClick={() => retrieveContest()}
+                                                    type="button"
+                                                    className="ml-4 rounded-full bg-indigo-600 p-2 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                                >
+                                                    <ArrowRightIcon className="h-5 w-5" aria-hidden="true" />
+                                                </button>
+                                            )
+                                        }
+                                    </div>
+
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-300">We will automatically retrieve the list of participants from your post</p>
                             </div>
@@ -819,7 +840,7 @@ export default function Page() {
                         )
                     }
                     {
-                        (selectedStep < steps.length && selectedStep !== paymentStep && (selectedStep === 1 && accessToken || selectedStep > 1)) && (
+                        (selectedStep < steps.length && selectedStep !== paymentStep && selectedStep > 1) && (
                             <button
                                 type="button"
                                 onClick={async () => { await nextStep(`step${selectedStep}`) }}
