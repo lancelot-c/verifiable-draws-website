@@ -180,7 +180,7 @@ export default function Page() {
 
     const [accessToken, setAccessToken] = useState<string>('');
     const [loadingMedia, setLoadingMedia] = useState<boolean>(false);
-    const [mediaUrls, setMediaUrls] = useState<string[]>([]);
+    const [media, setMedia] = useState<any[]>([]);
 
 
 
@@ -325,15 +325,31 @@ export default function Page() {
 
     async function retrieveMedia() {
 
-        console.log(`Retrieving Instagram media with access token = ${accessToken}`);
         setLoadingMedia(true)
-
+        console.log(`Retrieving Instagram media with access token = ${accessToken}`);
+        
+        // GET FACEBOOK PAGE ID
         let res: any = await fetch(`https://graph.facebook.com/v18.0/me/accounts?access_token=${accessToken}`);
         let body = await res.json();
         console.log(`body`, body);
-
         const appId = body.data[0].id
         console.log(`appId`, appId);
+
+
+        // GET INSTAGRAM BUSINESS ACCOUNT ID
+        res = await fetch(`https://graph.facebook.com/v18.0/${appId}?fields=instagram_business_account&access_token=${accessToken}`);
+        body = await res.json();
+        console.log(`body`, body);
+        const instagramAccountId = body.instagram_business_account.id
+        console.log(`instagramAccountId`, instagramAccountId);
+
+        // GET ALL MEDIA
+        res = await fetch(`https://graph.facebook.com/v18.0/${instagramAccountId}/media?fields=caption,comments_count,like_count,media_url,thumbnail_url&access_token=${accessToken}`);
+        body = await res.json();
+        console.log(`body`, body);
+        setMedia(body.data)
+        console.log(`media`, body.data);
+
         setLoadingMedia(false)
 
     }
@@ -522,8 +538,8 @@ export default function Page() {
                                                 </div>
                                             ) : (
                                                 <div>
-                                                    {mediaUrls.map((mediaUrl) => (
-                                                        <Image key={mediaUrl} src={mediaUrl} alt="Media" />
+                                                    {media.map((m: any) => (
+                                                        <Image key={m.id} src={m.thumbnail_url || m.media_url} alt={m.caption} title={m.caption} />
                                                     ))}
                                                 </div>
                                             )
