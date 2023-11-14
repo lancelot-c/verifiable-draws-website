@@ -5,7 +5,7 @@ export default function LoginBtn({ setAccessToken }: { setAccessToken: (a: strin
   const { data: session } = useSession()
   if (session) {
     console.log('Signed in with session: ', session)
-    setAccessToken((session?.user as any).accessToken);
+    setAccessToken((session?.user as any).access_token);
 
     return (
       <div className="flex flex-col text-center">

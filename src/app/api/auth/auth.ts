@@ -16,16 +16,9 @@ export const config = {
     secret: process.env.SECRET,
     callbacks: { //  =====> Add Below Callbacks <=====
         jwt: async ({ token, user, account }) => {
-            console.log('JWT CALLBACK');
-            console.log('token = ', token);
-            console.log('user = ', user);
-            console.log('account = ', account);
           return { ...token, ...user, ...account };
         },
         session: async ({ session, token }) => {
-            console.log('SESSION CALLBACK');
-            console.log('session = ', session);
-            console.log('token = ', token);
           session.user = token;
           return session;
         },
