@@ -473,7 +473,7 @@ export default function Page() {
                                     How do you want to retrieve the list of participants ?
                                 </div>
 
-                                <div className="flex justify-evenly items-start">
+                                <div className="flex justify-evenly items-start mb-12">
                                 
                                     <LoginBtn setAccessToken={setAccessToken}></LoginBtn>
 
@@ -490,7 +490,7 @@ export default function Page() {
                             </div>
 
 
-                            <div className={`sm:col-span-4 ${accessToken ? '' : ''}`}>
+                            <div className={`sm:col-span-4 ${accessToken ? '' : 'hidden'}`}>
                                 <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
                                     Paste the URL of your Instagram contest post
                                 </label>
