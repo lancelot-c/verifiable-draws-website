@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from "react";
 import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe-js";
@@ -178,7 +179,8 @@ export default function Page() {
     const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | undefined>(undefined);
 
     const [accessToken, setAccessToken] = useState<string>('');
-    const [loadingContest, setLoadingContest] = useState<boolean>(false);
+    const [loadingMedia, setLoadingMedia] = useState<boolean>(false);
+    const [mediaUrls, setMediaUrls] = useState<string[]>([]);
 
 
 
@@ -274,6 +276,24 @@ export default function Page() {
         };
     }, [currentStep, paymentIntent, getValues])
 
+
+    useEffect(() => {
+
+        if (!accessToken) {
+            return;
+        }
+
+        let ignore = false;
+
+        retrieveMedia();
+
+        return () => {
+            ignore = true;
+        };
+
+    }, [accessToken])
+
+
     function previousStep() {
         setSelectedStep(selectedStep - 1 as StepNumber)
     }
@@ -303,16 +323,18 @@ export default function Page() {
         }
     }
 
-    async function retrieveContest() {
-        const apiVersion = 'v18.0'
-        const igMediaId = getValues("step1.postUrl");
-        const fields = 'id,media_type,media_url,owner,timestamp';
+    async function retrieveMedia() {
 
-        console.log(`Retrieving contest details from Instagram post ${igMediaId} with access token = ${accessToken}`);
-        
-        setLoadingContest(true)
-        const graphApiResponse = await fetch(`https://graph.facebook.com/${apiVersion}/${igMediaId}?fields=${fields}&access_token=${accessToken}`);
+        console.log(`Retrieving Instagram media with access token = ${accessToken}`);
+        setLoadingMedia(true)
+
+        let graphApiResponse: any = await fetch(`https://graph.facebook.com/v18.0/me/accounts?access_token=${accessToken}`);
         console.log(`graphApiResponse`, graphApiResponse);
+
+        const appId = graphApiResponse.data[0].id
+        console.log(`appId`, appId);
+        setLoadingMedia(false)
+
     }
 
 
@@ -507,7 +529,26 @@ export default function Page() {
                                         />
                                     </div>
 
-                                    <div>
+                                    {/* Manually select the post among tiles */}
+                                    <div className={`${accessToken ? '' : 'hidden'}`}>
+                                        {
+                                            (loadingMedia) ? (
+                                                <div>
+                                                    Loading your media...
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    {mediaUrls.map((mediaUrl) => (
+                                                        <Image src={mediaUrl} alt="Media" />
+                                                    ))}
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+
+
+                                    {/* Manually type the post URL */}
+                                    {/* <div>
                                         {
                                             (loadingContest) ? (
                                                 <button
@@ -529,7 +570,7 @@ export default function Page() {
                                                 </button>
                                             )
                                         }
-                                    </div>
+                                    </div> */}
 
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-300">We will automatically retrieve the list of participants from your post</p>
