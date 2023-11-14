@@ -539,7 +539,7 @@ export default function Page() {
                                             ) : (
                                                 <div>
                                                     {media.map((m: any) => (
-                                                        <Image key={m.id} src={m.thumbnail_url || m.media_url} alt={m.caption} title={m.caption} />
+                                                        <Image key={m.id} src={m.thumbnail_url ? m.thumbnail_url : m.media_url} alt={m.caption} title={m.caption} />
                                                     ))}
                                                 </div>
                                             )
