@@ -24,7 +24,7 @@ const stripePromise = loadStripe(stripePublicKey);
 
 
 const steps = [
-    { name: 'Connect to Instagram', href: '#step1' },
+    { name: 'Choose source', href: '#step1' },
     { name: 'Contest details', href: '#step2' },
     { name: 'Schedule the random draw', href: '#step3' },
     { name: 'Purchase', href: '#step4' },
@@ -33,8 +33,8 @@ const steps = [
 
 type FormInputs = {
     step1?: {
-        signedInAs: string
-        postUrl: string
+        signedInAs?: string
+        postUrl?: string
     },
     step2?: {
         name: string
@@ -285,7 +285,9 @@ export default function Page() {
         }
 
         if (currentStep === 1) {
-            retrieveContest();
+            if (accessToken) {
+                retrieveContest();
+            }
         }
 
         if (selectedStep + 1 > currentStep) {
@@ -371,8 +373,13 @@ export default function Page() {
         return url.replace('http://', '').replace('https://', '').replace('www.', '');
     }
 
+    function manuallyEnter() {
+        nextStep('step1')
+    }
+
     return (
         <div className="mx-auto max-w-7xl px-6 pt-24 sm:pt-32 lg:px-8 min-h-full">
+            <SessionProvider>
 
             {/* Background gradients */}
             <div
@@ -465,12 +472,29 @@ export default function Page() {
                     (selectedStep === 1) && (
                         <div className="mt-10">
 
-                            <SessionProvider>
-                                <LoginBtn setAccessToken={setAccessToken}></LoginBtn>
-                            </SessionProvider> 
+                            <div className="flex flex-col text-center">
+                                <div className="block text-lg font-normal leading-6 text-white mb-12">
+                                    How do you want to retrieve the list of participants ?
+                                </div>
+
+                                <div className="flex justify-evenly items-start">
+                                
+                                    <LoginBtn setAccessToken={setAccessToken}></LoginBtn>
+
+                                    <button
+                                        onClick={manuallyEnter}
+                                        type="button"
+                                        className="rounded-full bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                    >
+                                        Manually enter the list
+                                    </button>
+
+                                </div>
+
+                            </div>
 
 
-                            <div className="sm:col-span-4">
+                            <div className={`sm:col-span-4 ${accessToken ? '' : 'hidden'}`}>
                                 <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
                                     Paste the URL of your Instagram contest post
                                 </label>
@@ -482,7 +506,6 @@ export default function Page() {
                                             className={`bg-[#30313C] text-white block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
                                             ${errors.step1?.postUrl && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
                                             {...register("step1.postUrl", {
-                                                required: 'Post URL is required',
                                                 onBlur: () => { trigger("step1.postUrl"); },
                                             })}
                                         />
@@ -796,7 +819,7 @@ export default function Page() {
                         )
                     }
                     {
-                        (selectedStep < steps.length && selectedStep !== paymentStep) && (
+                        (selectedStep < steps.length && selectedStep !== paymentStep && (selectedStep === 1 && accessToken || selectedStep > 1)) && (
                             <button
                                 type="button"
                                 onClick={async () => { await nextStep(`step${selectedStep}`) }}
@@ -823,6 +846,8 @@ export default function Page() {
 
             </div>
 
+
+            </SessionProvider>
         </div>
     )
 }
