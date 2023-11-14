@@ -179,7 +179,7 @@ export default function Page() {
     const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | undefined>(undefined);
 
     const [accessToken, setAccessToken] = useState<string>('');
-    const [loadingMedia, setLoadingMedia] = useState<boolean>(false);
+    // const [loadingMedia, setLoadingMedia] = useState<boolean>(false);
     const [media, setMedia] = useState<any[]>([]);
 
 
@@ -325,7 +325,7 @@ export default function Page() {
 
     async function retrieveMedia() {
 
-        setLoadingMedia(true)
+        // setLoadingMedia(true)
         console.log(`Retrieving Instagram media with access token = ${accessToken}`);
         
         // GET FACEBOOK PAGE ID
@@ -350,7 +350,7 @@ export default function Page() {
         setMedia(body.data)
         console.log(`media`, body.data);
 
-        setLoadingMedia(false)
+        // setLoadingMedia(false)
 
     }
 
@@ -532,14 +532,16 @@ export default function Page() {
                             {/* Manually select the post among tiles */}
                             <div className={`${accessToken ? '' : 'hidden'}`}>
                                         {
-                                            (loadingMedia) ? (
+                                            (!media || media.length === 0) ? (
                                                 <div className="text-white">
                                                     Loading your media...
                                                 </div>
                                             ) : (
                                                 <div>
                                                     {media.map((m: any) => (
-                                                        <Image key={m.id} src={m.thumbnail_url ? m.thumbnail_url : m.media_url} alt={m.caption} title={m.caption} />
+                                                        <div key={m.id}>
+                                                            <img src={m.thumbnail_url ? m.thumbnail_url : m.media_url} alt={m.caption} title={m.caption} />
+                                                        </div>
                                                     ))}
                                                 </div>
                                             )
