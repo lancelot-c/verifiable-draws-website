@@ -20,8 +20,8 @@ export default function LoginBtn({ setAccessToken }: { setAccessToken: (a: strin
         </div>
 
         <div className="text-xs text-white mb-4">
-            Connected as {session?.user?.name}.<br />
-            <Link href="#" onClick={() => signOut()} className="underline">Sign out.</Link>
+            Connected as {session?.user?.name}<br />
+            <Link href="#" onClick={() => signOut()} className="underline">Sign out</Link>
         </div>
       </div>
     )

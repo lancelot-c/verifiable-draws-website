@@ -328,10 +328,11 @@ export default function Page() {
         console.log(`Retrieving Instagram media with access token = ${accessToken}`);
         setLoadingMedia(true)
 
-        let graphApiResponse: any = await fetch(`https://graph.facebook.com/v18.0/me/accounts?access_token=${accessToken}`);
-        console.log(`graphApiResponse`, graphApiResponse);
+        let res: any = await fetch(`https://graph.facebook.com/v18.0/me/accounts?access_token=${accessToken}`);
+        let body = await res.json();
+        console.log(`body`, body);
 
-        const appId = graphApiResponse.data[0].id
+        const appId = body.data[0].id
         console.log(`appId`, appId);
         setLoadingMedia(false)
 
@@ -512,7 +513,26 @@ export default function Page() {
                             </div>
 
 
-                            <div className={`sm:col-span-4 ${accessToken ? '' : 'hidden'}`}>
+                            {/* Manually select the post among tiles */}
+                            <div className={`${accessToken ? '' : 'hidden'}`}>
+                                        {
+                                            (loadingMedia) ? (
+                                                <div className="text-white">
+                                                    Loading your media...
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    {mediaUrls.map((mediaUrl) => (
+                                                        <Image key={mediaUrl} src={mediaUrl} alt="Media" />
+                                                    ))}
+                                                </div>
+                                            )
+                                        }
+                            </div>
+
+
+                            {/* Manually type the post URL */}
+                            {/* <div className={`sm:col-span-4 ${accessToken ? '' : 'hidden'}`}>
                                 <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
                                     Paste the URL of your Instagram contest post
                                 </label>
@@ -529,26 +549,11 @@ export default function Page() {
                                         />
                                     </div>
 
-                                    {/* Manually select the post among tiles */}
-                                    <div className={`${accessToken ? '' : 'hidden'}`}>
-                                        {
-                                            (loadingMedia) ? (
-                                                <div>
-                                                    Loading your media...
-                                                </div>
-                                            ) : (
-                                                <div>
-                                                    {mediaUrls.map((mediaUrl) => (
-                                                        <Image key={mediaUrl} src={mediaUrl} alt="Media" />
-                                                    ))}
-                                                </div>
-                                            )
-                                        }
-                                    </div>
+                                    
 
 
-                                    {/* Manually type the post URL */}
-                                    {/* <div>
+                                    
+                                    <div>
                                         {
                                             (loadingContest) ? (
                                                 <button
@@ -570,11 +575,11 @@ export default function Page() {
                                                 </button>
                                             )
                                         }
-                                    </div> */}
+                                    </div>
 
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-300">We will automatically retrieve the list of participants from your post</p>
-                            </div>
+                            </div> */}
 
                         </div>
                     )
