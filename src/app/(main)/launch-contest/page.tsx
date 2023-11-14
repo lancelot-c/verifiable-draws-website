@@ -539,7 +539,7 @@ export default function Page() {
                                             ) : (
                                                 <div>
                                                     {mediaUrls.map((mediaUrl) => (
-                                                        <Image src={mediaUrl} alt="Media" />
+                                                        <Image key={mediaUrl} src={mediaUrl} alt="Media" />
                                                     ))}
                                                 </div>
                                             )
