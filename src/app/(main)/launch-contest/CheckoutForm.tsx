@@ -117,7 +117,7 @@ export default function CheckoutForm(
                     </svg>
                 )}
 
-                {isLoading ? "Processing..." : "Pay 29,00€ and deploy the contest"}
+                {isLoading ? "Processing..." : "Pay 4,00€ and deploy the contest"}
             </button>
 
                     <p className="text-center text-xs text-gray-400 py-4">

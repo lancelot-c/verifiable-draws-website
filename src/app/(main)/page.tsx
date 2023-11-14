@@ -228,73 +228,7 @@ const videos = [
     },
 ]
 
-const tiers = [
-    // {
-    //     name: 'Hobby',
-    //     id: 'tier-hobby',
-    //     href: '/launch-contest',
-    //     price: '0',
-    //     description: 'Try our software for free on a test blockchain',
-    //     features: [
-    //         { included: false, text: 'Non secure randomness, for testing purposes only'},
-    //         { included: true, text: 'Up to 10 participants'},
-    //         { included: true, text: '1 winner only'},
-    //         { included: true, text: 'Schedule draw at custom date and time'},
-    //         { included: true, text: '48-hour support response time'},
-    //     ],
-    // },
-    {
-        name: 'Personal',
-        id: 'tier-basic',
-        href: '/launch-contest',
-        price: '29€',
-        description: 'Try the most advanced random draw algorithm currently on the market at an affordable price.',
-        features: [
-            // { included: true, text: 'Provably-fair and verifiable randomness' },
-            // { included: true, text: 'Is secure enough to protect a billion dollar lottery against any kind of attack' },
-            { included: true, text: 'Up to 1 000 participants' },
-            { included: true, text: 'Up to 10 winners' },
-            { included: true, text: 'Schedule draw at custom date and time' },
-            { included: true, text: '48-hour support response time' },
-        ],
-        featured: false,
-        cta: 'Launch draw',
-    },
-    // {
-    //     name: 'Pro',
-    //     id: 'tier-pro',
-    //     href: '/launch-contest',
-    //     price: '9€',
-    //     description: 'Same as Basic but with 100x more participants to reach a larger audience.',
-    //     features: [
-    //         { included: true, text: 'Provably-fair and verifiable randomness' },
-    //         // { included: true, text: 'Is secure enough to protect a billion dollar lottery against any kind of attack' },
-    //         { included: true, text: 'Up to 100 000 participants' },
-    //         { included: true, text: 'Up to 100 winners' },
-    //         { included: true, text: 'Schedule draw at custom date and time' },
-    //         { included: true, text: '24-hour support response time' },
-    //     ],
-    //     featured: false,
-    //     cta: 'Launch draw',
-    // },
-    {
-        name: 'Enterprise',
-        id: 'tier-enterprise',
-        href: '/contact',
-        price: 'Custom',
-        description: 'We provide custom plans for companies engaged in large-scale operations.',
-        features: [
-            { included: true, text: 'White-labelling, bring your own template' },
-            { included: true, text: 'API access' },
-            { included: true, text: 'Private draws' },
-            { included: true, text: 'Unlimited participants' },
-            { included: true, text: 'Unlimited winners' },
-            { included: true, text: 'Priority support' },
-        ],
-        featured: true,
-        cta: 'Get started today',
-    }
-]
+
 
 
 

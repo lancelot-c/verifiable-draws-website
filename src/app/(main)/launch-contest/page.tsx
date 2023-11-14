@@ -6,8 +6,11 @@ import Link from 'next/link'
 import React from "react";
 import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { CheckCircleIcon, InformationCircleIcon, XCircleIcon } from '@heroicons/react/20/solid'
+import { CheckCircleIcon, InformationCircleIcon, XCircleIcon, ArrowRightIcon } from '@heroicons/react/20/solid'
 import CheckoutForm from "./CheckoutForm";
+import LoginBtn from "./login-btn";
+import { SessionProvider } from 'next-auth/react';
+
 const websiteBasePaths = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? ['http://localhost:3000/ipfs?cid='] : ['http://verify.win/']
 const stripePublicKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
 
@@ -21,19 +24,21 @@ const stripePromise = loadStripe(stripePublicKey);
 
 
 const steps = [
-    { name: 'Contest name and rules', href: '#step1' },
-    { name: 'Participants', href: '#step2' },
-    { name: 'Schedule', href: '#step3' },
+    { name: 'Choose source', href: '#step1' },
+    { name: 'Contest details', href: '#step2' },
+    { name: 'Schedule the random draw', href: '#step3' },
     { name: 'Purchase', href: '#step4' },
-    { name: 'Share the link', href: '#step5' },
+    { name: 'Share the link in your story', href: '#step5' },
 ]
 
 type FormInputs = {
     step1?: {
-        name: string
-        rules: string
+        signedInAs?: string
+        postUrl?: string
     },
     step2?: {
+        name: string
+        rules: string,
         participants: string
         nbWinners: number
     },
@@ -143,10 +148,11 @@ export default function Page() {
     const { register, trigger, getValues, formState: { errors, isValid } } = useForm<FormInputs>({
         defaultValues: {
             step1: {
-                name: drawNamePlaceholder,
-                rules: drawRulesPlaceholder
+
             },
             step2: {
+                name: drawNamePlaceholder,
+                rules: drawRulesPlaceholder,
                 participants: drawParticipantsPlaceholder,
                 nbWinners: 1
             },
@@ -170,7 +176,12 @@ export default function Page() {
     const [deployInProgress, setDeployInProgress] = useState<boolean>(false);
     const [drawLinks, setDrawLinks] = useState<string[]>([]);
     const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | undefined>(undefined);
- 
+
+    const [accessToken, setAccessToken] = useState<string>('');
+    const [loadingContest, setLoadingContest] = useState<boolean>(false);
+
+
+
     useEffect(() => {
         if (currentStep !== paymentStep) {
             return;
@@ -208,7 +219,7 @@ export default function Page() {
 
         let ignore = false;
 
-        const [drawTitle, drawRules, drawParticipants, drawNbWinners] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners"]);
+        const [drawTitle, drawRules, drawParticipants, drawNbWinners] = getValues(["step2.name", "step2.rules", "step2.participants", "step2.nbWinners"]);
         const drawScheduledAt = Math.ceil(getTimestampFromIso(getValues("step3.scheduledAt")) / 1000); // in seconds
         setDeployInProgress(true);
 
@@ -292,6 +303,18 @@ export default function Page() {
         }
     }
 
+    async function retrieveContest() {
+        const apiVersion = 'v18.0'
+        const igMediaId = getValues("step1.postUrl");
+        const fields = 'id,media_type,media_url,owner,timestamp';
+
+        console.log(`Retrieving contest details from Instagram post ${igMediaId} with access token = ${accessToken}`);
+        
+        setLoadingContest(true)
+        const graphApiResponse = await fetch(`https://graph.facebook.com/${apiVersion}/${igMediaId}?fields=${fields}&access_token=${accessToken}`);
+        console.log(`graphApiResponse`, graphApiResponse);
+    }
+
 
     const options: StripeElementsOptions = {
         clientSecret,
@@ -312,7 +335,7 @@ export default function Page() {
 
     async function onPaymentSuccess(paymentIntent: PaymentIntent) {
 
-        const [drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners", "step3.scheduledAt"]);
+        const [drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt] = getValues(["step2.name", "step2.rules", "step2.participants", "step2.nbWinners", "step3.scheduledAt"]);
 
         if (!drawTitle || !drawRules || !drawParticipants || !drawNbWinners || !drawScheduledAt) {
             return;
@@ -346,8 +369,13 @@ export default function Page() {
         return url.replace('http://', '').replace('https://', '').replace('www.', '');
     }
 
+    function manuallyEnter() {
+        nextStep('step1')
+    }
+
     return (
         <div className="mx-auto max-w-7xl px-6 pt-24 sm:pt-32 lg:px-8 min-h-full">
+            <SessionProvider>
 
             {/* Background gradients */}
             <div
@@ -438,7 +466,84 @@ export default function Page() {
             <div className="mt-12">
                 {
                     (selectedStep === 1) && (
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div className="mt-10">
+
+                            <div className="flex flex-col text-center">
+                                <div className="block text-lg font-normal leading-6 text-white mb-12">
+                                    How do you want to retrieve the list of participants ?
+                                </div>
+
+                                <div className="flex justify-evenly items-start mb-12">
+                                
+                                    <LoginBtn setAccessToken={setAccessToken}></LoginBtn>
+
+                                    <button
+                                        onClick={manuallyEnter}
+                                        type="button"
+                                        className="rounded-full bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                    >
+                                        Manually enter the list
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <div className={`sm:col-span-4 ${accessToken ? '' : 'hidden'}`}>
+                                <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
+                                    Paste the URL of your Instagram contest post
+                                </label>
+                                <div className="flex mt-2">
+                                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-600 focus-within:ring-2 focus-within:ring-inset sm:max-w-md">
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            className={`bg-[#30313C] text-white block w-96 rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
+                                            ${errors.step1?.postUrl && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                            {...register("step1.postUrl", {
+                                                onBlur: () => { trigger("step1.postUrl"); },
+                                            })}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        {
+                                            (loadingContest) ? (
+                                                <button
+                                                    type="button"
+                                                    className="ml-4 rounded-full bg-indigo-600 p-2 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                                >
+                                                    <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                    </svg> 
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    onClick={() => retrieveContest()}
+                                                    type="button"
+                                                    className="ml-4 rounded-full bg-indigo-600 p-2 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                                >
+                                                    <ArrowRightIcon className="h-5 w-5" aria-hidden="true" />
+                                                </button>
+                                            )
+                                        }
+                                    </div>
+
+                                </div>
+                                <p className="mt-3 text-sm leading-6 text-gray-300">We will automatically retrieve the list of participants from your post</p>
+                            </div>
+
+                        </div>
+                    )
+                }
+
+
+                {
+                    (selectedStep === 2) && (
+                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">                            
+
                             <div className="sm:col-span-4">
                                 <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
                                     Name
@@ -449,18 +554,16 @@ export default function Page() {
                                             type="text"
                                             id="name"
                                             className={`bg-[#30313C] text-white block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
-                                            ${errors.step1?.name && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                            {...register("step1.name", {
+                                            ${errors.step2?.name && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                            {...register("step2.name", {
                                                 required: 'Name is required',
-                                                onBlur: () => { trigger("step1.name"); },
+                                                onBlur: () => { trigger("step2.name"); },
                                             })}
                                         />
                                     </div>
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-300">This will be the title of the page we will create for your contest.</p>
                             </div>
-
-
 
                             <div className="col-span-full">
                                 <label htmlFor="rules" className="block text-sm font-medium leading-6 text-white">
@@ -471,24 +574,15 @@ export default function Page() {
                                         rows={10}
                                         id="rules"
                                         className={`bg-[#30313C] text-white block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
-                                        ${errors.step1?.rules && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                        {...register("step1.rules", {
+                                        ${errors.step2?.rules && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step2.rules", {
                                             required: 'Rules are required',
-                                            onBlur: () => { trigger("step1.rules"); },
+                                            onBlur: () => { trigger("step2.rules"); },
                                         })}
                                     />
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-300">Explain what people needed to do in order to participate in this contest.</p>
                             </div>
-
-                        </div>
-                    )
-                }
-
-
-                {
-                    (selectedStep === 2) && (
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                             <div className="col-span-full">
                                 <label htmlFor="participants" className="block text-sm font-medium leading-6 text-white">
@@ -592,13 +686,7 @@ export default function Page() {
                     </p>
 
                     <div className="min-w-[300px] max-w-[800px] flex-auto px-8 sm:px-24 py-16">
-                        {/* <p className="mt-0 text-xl font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-xl text-center">
-                            Purchase a single draw
-                        </p>
-
-                        <p className="mt-0 text-base font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-base text-center">
-                            Total: 29,00€
-                        </p> */}
+                        
 
                         {clientSecret && (
                             <Elements options={options} stripe={stripePromise}>
@@ -739,14 +827,14 @@ export default function Page() {
                         (selectedStep > 1 && selectedStep < steps.length && selectedStep !== paymentStep) && (
                             <button
                                 onClick={previousStep}
-                                className="text-sm font-semibold leading-6 text-gray-300"
+                                className="rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white/20"
                             >
                                 Back
                             </button>
                         )
                     }
                     {
-                        (selectedStep < steps.length && selectedStep !== paymentStep) && (
+                        (selectedStep < steps.length && selectedStep !== paymentStep && selectedStep > 1) && (
                             <button
                                 type="button"
                                 onClick={async () => { await nextStep(`step${selectedStep}`) }}
@@ -773,6 +861,8 @@ export default function Page() {
 
             </div>
 
+
+            </SessionProvider>
         </div>
     )
 }
