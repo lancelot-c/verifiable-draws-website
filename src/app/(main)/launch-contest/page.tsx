@@ -133,6 +133,14 @@ const drawParticipantsPlaceholder = `@jeys23
 const drawNbWinnersPlaceholder = '4';
 
 
+type Media = {
+    id: string,
+    caption: string,
+    media_url: string,
+    thumbnail_url?: string,
+    like_count?: number,
+    comments_count?: number
+}
 
 export default function Page() {
 
@@ -146,7 +154,7 @@ export default function Page() {
     const scheduledAtMinValue = dt_min.toISOString().slice(0, 16);
     const scheduledAtDefaultValue = dt_default.toISOString().slice(0, 16);
 
-    const { register, trigger, getValues, formState: { errors, isValid } } = useForm<FormInputs>({
+    const { register, trigger, getValues, setValue, formState: { errors, isValid } } = useForm<FormInputs>({
         defaultValues: {
             step1: {
 
@@ -179,8 +187,8 @@ export default function Page() {
     const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | undefined>(undefined);
 
     const [accessToken, setAccessToken] = useState<string>('');
-    // const [loadingMedia, setLoadingMedia] = useState<boolean>(false);
-    const [media, setMedia] = useState<any[]>([]);
+    const [media, setMedia] = useState<Media[]>([]);
+    const [selectedMedia, setSelectedMedia] = useState<Media | undefined>(undefined);
 
 
 
@@ -294,6 +302,23 @@ export default function Page() {
     }, [accessToken])
 
 
+    useEffect(() => {
+
+        if (!selectedMedia) {
+            return;
+        }
+
+        let ignore = false;
+
+        retrieveContestDetails(selectedMedia)
+
+        return () => {
+            ignore = true;
+        };
+
+    }, [selectedMedia])
+
+
     function previousStep() {
         setSelectedStep(selectedStep - 1 as StepNumber)
     }
@@ -352,6 +377,21 @@ export default function Page() {
 
         // setLoadingMedia(false)
 
+    }
+
+    async function retrieveContestDetails(media: Media) {
+
+        // GET USERNAMES
+        let res = await fetch(`https://graph.facebook.com/v18.0/${media.id}?fields=comments{username}&access_token=${accessToken}`);
+        let body = await res.json();
+        console.log(`body`, body);
+        const usernames = new Set<string>(body.comments.data.map((comment: any) => comment.username));
+
+        // EDIT FORM INPUTS
+        setValue('step2.rules', media.caption);
+        setValue('step2.participants', Array.from(usernames).join('\n'));
+
+        nextStep('step1')
     }
 
 
@@ -537,9 +577,9 @@ export default function Page() {
                                                 Loading your media...
                                             </div>
                                         ) : (
-                                            <div className="flex flex-row flex-wrap">
+                                            <div className="flex flex-row flex-wrap justify-center md:justify-start">
                                                 {media.map((m: any) => (
-                                                    <figure className="grow min-w-[150px] bg-[transparent] border border-[transparent] relative before:content-[''] before:pt-[100%] before:block" key={m.id}>
+                                                    <figure onClick={() => { setSelectedMedia(m) }} className="grow min-w-[150px] max-w-[150px] bg-[transparent] box-decoration-clone hover:cursor-pointer hover:bg-gradient-to-r from-indigo-200 to-pink-200 border-2 border-[transparent] relative before:content-[''] before:pt-[100%] before:block" key={m.id}>
                                                         <img src={m.thumbnail_url ? m.thumbnail_url : m.media_url} alt={m.caption} title={m.caption} className="block absolute top-0 w-full h-full object-cover object-center" />
                                                     </figure>
                                                 ))}
