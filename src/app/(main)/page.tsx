@@ -241,16 +241,16 @@ const primaryFeatures = [
         icon: BoltIcon,
       },
     {
-      name: 'Fully transparent',
+      name: '100% decentralized',
       description:
-        'The algorithm which selects the winner is transparent because it runs entirely on the blockchain',
+        'Our algorithm is completely transparent because it runs entirely on the blockchain',
       href: '#',
       icon: CubeTransparentIcon,
     },
     {
       name: 'Provably random',
       description:
-        'There is an actual proof that the winner of your contest was selected randomly',
+        'A proof of randomness is generated and stored on the blockchain for each contest',
       href: '#',
       icon: ShieldCheckIcon,
     },
@@ -384,7 +384,7 @@ export default function Example() {
                 The best way to organize contests
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Random.win enables you to organize social media contests without relying on trust by leveraging the blockchain.
+                Random.win enables you to organize social media contests which are completely transparent and provably random by running them on the blockchain.
               </p> 
               <div className="mt-10 flex items-center gap-x-6">
                 <Link
@@ -497,8 +497,7 @@ export default function Example() {
           <div className="mx-auto max-w-3xl text-center">
             {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Deploy faster</h2> */}
             <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-                The ultimate tool
-                <br />for your contests
+                The ultimate contest platform
             </p>
             {/* <p className="mt-6 text-lg leading-8 text-gray-300">
               Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in

@@ -368,7 +368,13 @@ export default function Page() {
         let res = await fetch(`https://graph.facebook.com/v18.0/${media.id}?fields=comments{username}&access_token=${accessToken}`);
         let body = await res.json();
         console.log(`body`, body);
-        const usernames = new Set<string>(body.comments.data.map((comment: any) => comment.username));
+        let usernames = new Set<string>()
+
+        // If the post has some comments
+        if (body.comments) {
+            usernames = new Set<string>(body.comments.data.map((comment: any) => comment.username));
+        }
+        
 
         // EDIT FORM INPUTS
         setValue('step2.rules', media.caption);
