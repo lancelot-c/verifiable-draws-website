@@ -1,32 +1,14 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import goldMedalImg from '/public/img/medaille-or-lepine-500w.png'
-import mainHeroImg from '/public/img/world-hero.webp'
-import lepineStandImg from '/public/img/lepine-stand.jpeg'
 import lepineRemisePrixImg from '/public/img/lepine-photo-officielle-cropped.jpeg'
-import insightMediaImg from '/public/img/insight-media.png'
-import giveawayImg from '/public/img/giveaway.webp'
-import lotteryImg from '/public/img/lottery-ticket.jpeg'
-import olympicGamesImg from '/public/img/fifa-draw.jpeg'
-import featuresBadImg from '/public/img/features-bad.png'
-import featuresCoolImg from '/public/img/features-cool.png'
-import casinoMachineImg from '/public/img/text-to-win.webp'
 import fdjLogoImg from '/public/img/fdj-logo-300w.png'
 import insightMediaLogoImg from '/public/img/insight-media-logo.png'
 import morningLogoImg from '/public/img/morning-logo.png'
-import ipfsLogoImg from '/public/img/ipfs-logo-without-text.svg'
 import tf1LogoImg from '/public/img/tf1-logo-300w.png'
-import ethereumLogoImg from '/public/img/ethereum-logo-100w.png'
-import chainlinkLogoImg from '/public/img/chainlink-logo-100w.png'
 import fidealisLogoImg from '/public/img/fidealis-logo-300w.png'
-import kastelCoLogoImg from '/public/img/kastel-co-logo-300w.png'
-import kimLogoImg from '/public/img/kim-kardashian.jpg'
-import fifaLogoImg from '/public/img/fifa-logo.png'
-import mcdonaldsLogoImg from '/public/img/McDonalds-logo.png'
-import bbcLogoImg from '/public/img/bbc-logo.webp'
 import randomWinLogoImg from '/public/img/random-win-logo.png'
 import heroDemoJpegImg from '/public/img/step1.jpeg'
-import demoOrientExpressGifImg from '/public/img/demo-orient-express-with-captions.gif'
 import bmmTestlabsImg from '/public/img/bmm-testlabs.jpg'
 import gliRngImg from '/public/img/GLI-RNG.jpg'
 import step1Img from '/public/img/step1.jpeg'
@@ -35,178 +17,15 @@ import step3Img from '/public/img/step3.gif'
 
 import {
     ScaleIcon,
-    RocketLaunchIcon,
     ShieldCheckIcon,
-    ShieldExclamationIcon,
     SparklesIcon,
     UserGroupIcon,
     CursorArrowRaysIcon,
     CubeTransparentIcon,
-    CheckBadgeIcon,
     BoltIcon,
-    MagnifyingGlassCircleIcon
+    MagnifyingGlassCircleIcon,
+    CurrencyDollarIcon
 } from '@heroicons/react/24/solid'
-
-
-const features = [
-    {
-        name: 'Provably fair and random',
-        description:
-            'Rely on an algorithm secured by cryptographic proofs which cannot be manipulated by anyone, not even by us.',
-        icon: ShieldCheckIcon,
-    },
-    {
-        name: 'Top notch brand image',
-        description:
-            'Boost your brand image by using a transparent algorithm and showing your users that transparency matters to you.',
-        icon: SparklesIcon,
-    },
-    {
-        name: 'Say goodbye to disputes',
-        description:
-            'Prevent anyone from challenging your draw results by displaying easy-to-verify proofs which certify that your draws are performed in a fair and random way.',
-        icon: ScaleIcon,
-    },
-    {
-        name: 'Better user experience',
-        description:
-            'Empower your participants by letting them follow the draw in real time through a customized web page.',
-        icon: CursorArrowRaysIcon,
-    },
-    {
-        name: 'Increased engagement',
-        description:
-            'Grow your user base by ensuring trustworthy and fair outcomes that are verifiable.',
-        icon: UserGroupIcon,
-    },
-    {
-        name: 'Cutting-edge technologies',
-        description:
-            'Stay at the forefront of innovation by using the most advanced random draw algorithm currently on the market.',
-        icon: RocketLaunchIcon,
-    },
-]
-
-const featuresBad = [
-    {
-        name: 'No proof.',
-        description:
-            'The participants don\'t have a proof certifying that the draw was performed in a fair and random way, they have to take the organizer\'s word for it.',
-        icon: ShieldExclamationIcon,
-    },
-    {
-        name: 'Fake security.',
-        description:
-            'Most random draw websites are not open-source, and even when they are, it does not guarantee that the open-sourced code is the actual code that is running on the website. Therefore these websites are unverifiable and can\'t be trusted.',
-        icon: ShieldExclamationIcon,
-    },
-    {
-        name: 'Easy to manipulate.',
-        description:
-            'Most solutions don\'t tell how they generate randomness or they rely on centralized services like random.org. It is extremely easy for these services to send you a malicious random number and you won\'t be able to detect it.',
-        icon: ShieldExclamationIcon,
-    },
-]
-
-const hallOfShame = [
-    {
-        name: 'Kim Kardashian sued for fake lottery scam on Instagram',
-        image: kimLogoImg,
-        website: 'TMZ',
-        url: 'https://www.tmz.com/2022/09/15/kim-kardashian-scott-disick-sued-scam-lottery-lawsuit/'
-    },
-    {
-        name: 'Michel Platini admits the World Cup 98 draw was rigged',
-        image: fifaLogoImg,
-        website: 'The Washington Post',
-        url: 'https://www.washingtonpost.com/news/early-lead/wp/2018/05/18/former-uefa-boss-michel-platini-says-1998-world-cup-draw-was-fixed/'
-    },
-    {
-        name: 'McDonald\'s fooled on its own lucky draw game for more than 10 years',
-        image: mcdonaldsLogoImg,
-        website: 'Daily Beast',
-        url: 'https://www.thedailybeast.com/how-an-ex-cop-rigged-mcdonalds-monopoly-game-and-stole-millions'
-    },
-    {
-        name: 'BBC fined by regulators for fake quizzes and contests',
-        image: bbcLogoImg,
-        website: 'Reuters',
-        url: 'https://www.reuters.com/article/us-britain-bbc-idUSL065561320080730'
-    }
-]
-
-const featuresCool = [
-    {
-        name: 'Provably fair results.',
-        description:
-            'The participants have an actual proof which certifies that the draw was performed in a fair and random way. They can check the results themselves using our provided link without communicating with the draw organizer.',
-        icon: ShieldCheckIcon,
-    },
-    {
-        name: 'Tamper-proof website.',
-        description:
-            'All draws are stored on our website verify.win using IPFS, the leading decentralized storage solution, which means that not only the code is open-source, but it\'s also verifiable and impossible for anyone to change it, even for us.',
-        icon: ShieldCheckIcon,
-    },
-    {
-        name: 'On-chain verifiable randomness.',
-        description:
-            'The randomness is generated in our smart contract using Chainlink VRF which provides cryptographically secure randomness for your draw.',
-        icon: ShieldCheckIcon,
-    },
-]
-
-
-const useCases = [
-    {
-        id: 1,
-        title: 'Social media giveaways',
-        href: '#',
-        description:
-            'Increase the engagement on your giveaways by displaying a full transparency of the winner selection process.',
-        imageUrl: giveawayImg
-    },
-    {
-        id: 2,
-        title: 'TV contests',
-        href: '#',
-        description:
-            'Stand out from your competitors and regain the public interest in your TV Shows by letting your viewers know that your contests are transparent and secure thanks to blockchain technology.',
-        imageUrl: casinoMachineImg
-    },
-    {
-        id: 3,
-        title: 'Lotteries',
-        href: '#',
-        description:
-            'Add transparency and best in class security to your lottery by selecting the winning numbers with a verifiable draw that anyone can audit.',
-        imageUrl: lotteryImg
-    },
-    {
-        id: 4,
-        title: 'Championships',
-        href: '#',
-        description:
-            'Most championships, like the Olympic games and the FIFA World Cup, are using random draws to decide competition brackets. Make this process verifiable to prevent corruption.',
-        imageUrl: olympicGamesImg
-    },
-    //   {
-    //     id: 5,
-    //     title: 'Public entities',
-    //     href: '#',
-    //     description:
-    //       'Increase the trust in your public institutions by proving to your citizens that you are not corrupted.',
-    //     imageUrl: publidGoodsImg
-    //   },
-    //   {
-    //     id: 6,
-    //     title: 'Custom',
-    //     href: '#',
-    //     description:
-    //       'Random draw is one of the oldest algorithm on Earth',
-    //     imageUrl: publidGoodsImg
-    //   }
-]
 
 
 const videos = [
@@ -287,10 +106,10 @@ const primaryFeatures = [
         icon: MagnifyingGlassCircleIcon,
     },
     {
-        name: 'Provably random.',
+        name: 'Incredibly cheap.',
         description:
-            'We generate a public proof of randomness on the blockchain for each contest.',
-        icon: ShieldCheckIcon,
+            'In France, certifying a contest with a state official (huissier de justice) cost at least 150€. We only charge 4€ per contest while offering a better protection.',
+        icon: CurrencyDollarIcon,
     },
 ]
   const stats = [
@@ -299,13 +118,6 @@ const primaryFeatures = [
     { id: 3, name: 'Total participants', value: '200,000+' },
     // { id: 4, name: 'Uptime guarantee', value: '99.9%' },
   ]
- 
-
-
-
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
-}
 
 
 export default function Example() {
