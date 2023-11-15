@@ -540,14 +540,14 @@ export default function Page() {
 
 
                                 {/* Manually select the post among tiles */}
-                                <div className={`${accessToken ? '' : 'hidden'}`}>
+                                <div className={`text-white text-center ${accessToken ? '' : 'hidden'}`}>
 
-                                    <div className="block text-lg font-normal leading-6 text-white text-center mb-12">
+                                    <div className="block text-lg font-normal leading-6">
                                         Click on your contest post
                                     </div>
-                                    {/* <div className="block text-md font-normal leading-6 text-gray-300 mb-12">
-                                        We will retrieve all the people who commented your post and add them as participants
-                                    </div> */}
+                                    <div className="block text-xs font-normal leading-6 text-gray-300 mb-12">
+                                        We will add everyone who commented your post as a participant
+                                    </div>
 
                                     {
                                         (!media || media.length === 0) ? (
