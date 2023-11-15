@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
+import randomWinLogoImg from '/public/img/random-win-logo.png'
 import Link from 'next/link'
 import React from "react";
 import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe-js";
@@ -26,7 +27,7 @@ const stripePromise = loadStripe(stripePublicKey);
 
 const steps = [
     { name: 'Choose source', href: '#step1' },
-    { name: 'Contest details', href: '#step2' },
+    { name: 'Edit contest details', href: '#step2' },
     { name: 'Schedule the random draw', href: '#step3' },
     { name: 'Purchase', href: '#step4' },
     { name: 'Share the link in your story', href: '#step5' },
@@ -318,13 +319,12 @@ export default function Page() {
     }
 
     function goToStep(stepNumber: StepNumber) {
-        return () => {
-            if (stepNumber > currentStep) {
-                setCurrentStep(stepNumber)
-            }
 
-            setSelectedStep(stepNumber)
+        if (stepNumber > currentStep) {
+            setCurrentStep(stepNumber)
         }
+
+        setSelectedStep(stepNumber)
     }
 
     async function retrieveMedia() {
@@ -406,7 +406,7 @@ export default function Page() {
         }
 
         setPaymentIntent(paymentIntent)
-        goToStep(5)();
+        goToStep(5);
     }
 
     function validateScheduledAtFn() {
@@ -434,41 +434,26 @@ export default function Page() {
     }
 
     function manuallyEnter() {
-        nextStep('step1')
+        nextStep('step1', true)
     }
 
     return (
-        <div className="mx-auto max-w-7xl px-6 pt-24 sm:pt-32 lg:px-8 min-h-full">
+        <div className="mx-auto max-w-7xl pt-24 sm:pt-16 px-6 lg:px-8 min-h-full">
             <SessionProvider>
 
-                {/* Background gradients */}
-                <div
-                    className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-                    aria-hidden="true"
-                >
-                    <div
-                        className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                        style={{
-                            clipPath:
-                                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                        }}
+                
+
+                {/* Logo */}
+                <Link href="/" className="flex lg:flex-1 items-center">
+                    <Image
+                        className="h-8 w-auto"
+                        src={randomWinLogoImg}
+                        alt="Random.win"
                     />
-                </div>
-
-                <div
-                    className="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(20%)]"
-                    aria-hidden="true"
-                >
-                    <div
-                        className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-                        style={{
-                            clipPath:
-                                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                        }}
-                    />
-                </div>
-
-
+                    <div className="text-lg ml-3 font-semibold leading-6 text-white">
+                        Random.win
+                    </div>
+                </Link>
 
 
                 <h2 className="mt-0 text-4xl font-bold tracking-tight mb-16 text-white sm:text-5xl text-center">
@@ -506,7 +491,7 @@ export default function Page() {
                                         href={step.href}
                                         onClick={() => { goToStep(index + 1 as StepNumber) }}
                                         className={`group flex flex-col border-l-4 border-indigo-300 py-2 pl-4 hover:border-indigo-600 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
-                                    ${isValid ? '' : 'pointer-events-none'}`}
+                                    ${isValid ? '' : ''}`}
                                     >
                                         <span className="text-sm font-medium text-indigo-300 group-hover:text-indigo-600">Step {index + 1}</span>
                                         <span className="text-sm font-medium text-gray-300">{step.name}</span>
@@ -532,7 +517,7 @@ export default function Page() {
                         (selectedStep === 1) && (
                             <div className="mt-10">
 
-                                <div className="flex flex-col text-center">
+                                <div className="flex flex-col text-center mt-32">
                                     <div className="block text-lg font-normal leading-6 text-white mb-12">
                                         How do you want to retrieve the list of participants ?
                                     </div>

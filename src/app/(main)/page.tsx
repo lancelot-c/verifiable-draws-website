@@ -14,6 +14,7 @@ import gliRngImg from '/public/img/GLI-RNG.jpg'
 import step1Img from '/public/img/step1.jpeg'
 import step2Img from '/public/img/step2.jpeg'
 import step3Img from '/public/img/step3.gif'
+import insightMediaImg from '/public/img/insight-media.png'
 
 import {
     ScaleIcon,
@@ -30,21 +31,21 @@ import {
 
 const videos = [
     {
-        description: 'Our smart contract and the random numbers it generates have been audited by Gaming Laboratories International.',
+        description: 'Our smart contract and the random numbers it generates have been audited by Gaming Labs, the most prestigious gaming laboratory in the world.',
         imageUrl: gliRngImg,
         videoUrl: '',
         // https://gaminglabs.com/services/igaming/random-number-generator-rng/
     },
     {
-        description: 'Random.win is built by the same team behind VerifiableDraws.com which won the Gold Medal at Concours Lépine, the biggest innovation competition in France.',
+        description: 'We have won the Gold Medal at Concours Lépine in 2023. Concours Lépine is the biggest innovation competition in France.',
         imageUrl: lepineRemisePrixImg,
-        videoUrl: 'https://www.youtube.com/watch?v=4oVa9vfy-cE',
+        videoUrl: 'https://www.youtube.com/watch?v=JbHc2hHOk1s',
     },
     {
-        description: 'Our algorithm relies on Chainlink VRF which has received the GLI-19 certification through BMM Testlabs. This enables regulated iGaming apps to use our app as a verifiable RNG.',
-        imageUrl: bmmTestlabsImg,
-        videoUrl: 'https://bmm.com/bmm-testlabs-grants-the-first-compliance-certification-in-the-blockchain-industry-to-chainlink-vrf/',
-    },
+        description: 'Swiss journalists from Insight Media made a video about us to promote the solution in Switzerland.',
+        imageUrl: insightMediaImg,
+        videoUrl: 'https://www.linkedin.com/posts/insightch_algorithme-blockchain-activity-7092194795837603841-J68n',
+    }
 ]
 
 
@@ -178,7 +179,7 @@ export default function Example() {
               <div className="text-lg ml-3 font-semibold leading-6 text-white">
               Random.win
                 </div>
-                </div>
+            </div>
               
               
               {/* <div className="mt-24 sm:mt-32 lg:mt-16">
@@ -484,7 +485,7 @@ export default function Example() {
             <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                 <div className="relative mx-auto max-w-2xl text-center">
                     <p className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
-                        A battle-tested product 🏆
+                        An award-winning product 🏆
                     </p>
                     {/* <p className="mt-6 text-lg leading-8 text-gray-300">
                     Don't worry, we've got you covered
