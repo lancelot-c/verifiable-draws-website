@@ -571,13 +571,21 @@ export default function Page() {
 
                                 {/* Manually select the post among tiles */}
                                 <div className={`${accessToken ? '' : 'hidden'}`}>
+
+                                    <div className="block text-lg font-normal leading-6 text-white mb-12">
+                                        Click on your contest post
+                                    </div>
+                                    {/* <div className="block text-md font-normal leading-6 text-gray-300 mb-12">
+                                        We will retrieve all the people who commented your post and add them as participants
+                                    </div> */}
+
                                     {
                                         (!media || media.length === 0) ? (
-                                            <div className="text-white">
+                                            <div className="text-white text-center">
                                                 Loading your media...
                                             </div>
                                         ) : (
-                                            <div className="flex flex-row flex-wrap justify-center md:justify-start">
+                                            <div className="flex flex-row flex-wrap justify-center">
                                                 {media.map((m: any) => (
                                                     <figure onClick={() => { setSelectedMedia(m) }} className="grow min-w-[150px] max-w-[150px] bg-[transparent] box-decoration-clone hover:cursor-pointer hover:bg-gradient-to-r from-indigo-200 to-pink-200 border-2 border-[transparent] relative before:content-[''] before:pt-[100%] before:block" key={m.id}>
                                                         <img src={m.thumbnail_url ? m.thumbnail_url : m.media_url} alt={m.caption} title={m.caption} className="block absolute top-0 w-full h-full object-cover object-center" />
@@ -587,94 +595,6 @@ export default function Page() {
                                         )
                                     }
                                 </div>
-
-                                {/*
-                                
-                                *{
-                                    padding: 0;
-                                    margin: 0;
-                                }
-                                .gallery{
-                                    display:flex;
-                                    flex-flow: wrap;
-                                }
-
-                                .gallery-item{
-                                    flex-grow: 1;
-                                    min-width: 150px;
-                                    background: #eee;
-                                    border:1px solid #fff;
-                                    position: relative;
-                                }
-
-                                .gallery-item:before{
-                                    content: "";
-                                    padding-top: 100%;
-                                    display: block;
-                                }
-
-                                .gallery-item__image{
-                                    display: block;
-                                    position: absolute;
-                                    top: 0;
-                                    width: 100%;
-                                    height: 100%;
-                                    object-fit: cover;
-                                    object-position: center;
-                                }
-                                
-                                */}
-
-
-                                {/* Manually type the post URL */}
-                                {/* <div className={`sm:col-span-4 ${accessToken ? '' : 'hidden'}`}>
-                                <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
-                                    Paste the URL of your Instagram contest post
-                                </label>
-                                <div className="flex mt-2">
-                                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-600 focus-within:ring-2 focus-within:ring-inset sm:max-w-md">
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            className={`bg-[#30313C] text-white block w-96 rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
-                                            ${errors.step1?.postUrl && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                            {...register("step1.postUrl", {
-                                                onBlur: () => { trigger("step1.postUrl"); },
-                                            })}
-                                        />
-                                    </div>
-
-                                    
-
-
-                                    
-                                    <div>
-                                        {
-                                            (loadingContest) ? (
-                                                <button
-                                                    type="button"
-                                                    className="ml-4 rounded-full bg-indigo-600 p-2 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                                >
-                                                    <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                    </svg> 
-                                                </button>
-                                            ) : (
-                                                <button
-                                                    onClick={() => retrieveContest()}
-                                                    type="button"
-                                                    className="ml-4 rounded-full bg-indigo-600 p-2 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                                >
-                                                    <ArrowRightIcon className="h-5 w-5" aria-hidden="true" />
-                                                </button>
-                                            )
-                                        }
-                                    </div>
-
-                                </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-300">We will automatically retrieve the list of participants from your post</p>
-                            </div> */}
 
                             </div>
                         )
