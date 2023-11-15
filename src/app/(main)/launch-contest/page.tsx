@@ -34,8 +34,7 @@ const steps = [
 
 type FormInputs = {
     step1?: {
-        signedInAs?: string
-        postUrl?: string
+
     },
     step2?: {
         name: string
@@ -303,9 +302,9 @@ export default function Page() {
         setSelectedStep(selectedStep - 1 as StepNumber)
     }
 
-    async function nextStep(inputsToValidate: keyof FormInputs) {
+    async function nextStep(inputsToValidate: keyof FormInputs, skipValidation = false) {
 
-        if (!isValid) {
+        if (!skipValidation && !isValid) {
             await trigger([inputsToValidate]);
             console.log(errors)
             return;
@@ -377,7 +376,7 @@ export default function Page() {
         setValue('step2.rules', media.caption);
         setValue('step2.participants', Array.from(usernames).join('\n'));
 
-        nextStep('step1')
+        nextStep('step1', true)
     }
 
 
@@ -484,7 +483,7 @@ export default function Page() {
                                     // Completed step
                                     <Link
                                         href={step.href}
-                                        onClick={goToStep(index + 1 as StepNumber)}
+                                        onClick={() => { goToStep(index + 1 as StepNumber) }}
                                         className={`group flex flex-col border-l-4 border-indigo-600 py-2 pl-4 hover:border-indigo-800 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
                                     ${selectedStep !== shareStep ? '' : 'pointer-events-none'}`}
                                     >
@@ -505,7 +504,7 @@ export default function Page() {
                                     // Upcoming available step
                                     <Link
                                         href={step.href}
-                                        onClick={goToStep(index + 1 as StepNumber)}
+                                        onClick={() => { goToStep(index + 1 as StepNumber) }}
                                         className={`group flex flex-col border-l-4 border-indigo-300 py-2 pl-4 hover:border-indigo-600 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
                                     ${isValid ? '' : 'pointer-events-none'}`}
                                     >
