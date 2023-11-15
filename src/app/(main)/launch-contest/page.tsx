@@ -54,7 +54,7 @@ type FormInputs = {
     },
 }
 
-const drawNamePlaceholder = 'Win a Holiday to The Maldives';
+const drawNamePlaceholder = 'My great contest';
 
 const drawRulesPlaceholder =
     `To take part in this contest the only thing you have to do is to follow my Instagram account @happy_lance and like this Instagram post: https://www.instagram.com/p/Ct7jt-motWO6svTyXoQbbpDfU3F-kv6XTXXqEY0/
@@ -130,7 +130,7 @@ const drawParticipantsPlaceholder = `@jeys23
 @giusepperealennelcuore
 @aloisius_gonzaga_agung`;
 
-const drawNbWinnersPlaceholder = '4';
+const drawNbWinnersPlaceholder = 1;
 
 
 type Media = {
@@ -163,7 +163,7 @@ export default function Page() {
                 name: drawNamePlaceholder,
                 rules: drawRulesPlaceholder,
                 participants: drawParticipantsPlaceholder,
-                nbWinners: 1
+                nbWinners: drawNbWinnersPlaceholder
             },
             step3: {
                 scheduledAt: scheduledAtDefaultValue
@@ -572,7 +572,7 @@ export default function Page() {
                                 {/* Manually select the post among tiles */}
                                 <div className={`${accessToken ? '' : 'hidden'}`}>
 
-                                    <div className="block text-lg font-normal leading-6 text-white mb-12">
+                                    <div className="block text-lg font-normal leading-6 text-white text-center mb-12">
                                         Click on your contest post
                                     </div>
                                     {/* <div className="block text-md font-normal leading-6 text-gray-300 mb-12">
@@ -628,7 +628,7 @@ export default function Page() {
 
                                 <div className="col-span-full">
                                     <label htmlFor="rules" className="block text-sm font-medium leading-6 text-white">
-                                        Rules
+                                        Description
                                     </label>
                                     <div className="mt-2">
                                         <textarea
@@ -740,7 +740,7 @@ export default function Page() {
                         <p className="max-w-[600px] mt-0 px-8 sm:px-24 py-16 border-b lg:border-b-0 lg:border-r border-gray-200 text-md font-light tracking-wide text-white sm:text-md text-center">
                             Because it is 100% decentralized, Random.win is the only platform which prevents all kinds of fraud in social media contests.
                             <br /><br />
-                            Therefore, by choosing us, you are contributing to make the world a better place and inspiring others to do the same.
+                            Therefore, by choosing us, you are contributing to make the world a better place and inspiring other influencers to do the same.
                             <br /><br />
                             This is the last step before deploying your contest.<br />
                             The decentralized world awaits you. ✨
