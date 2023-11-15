@@ -57,8 +57,9 @@ type FormInputs = {
 const drawNamePlaceholder = 'My great contest';
 
 const drawRulesPlaceholder =
-    `To take part in this contest the only thing you have to do is to follow my Instagram account @happy_lance and like this Instagram post: https://www.instagram.com/p/Ct7jt-motWO6svTyXoQbbpDfU3F-kv6XTXXqEY0/
-Then, one person will be randomly selected among the participants to win a 2-week holiday for 2 people to The Maldives.`;
+    `The participants for this contest are all the people who mentioned 2 of their friends in the comments of this Instagram post: https://www.instagram.com/p/Ct7jt-motWO6svTyXoQbbpDfU3F-kv6XTXXqEY0/
+We will now randomly select one lucky winner among the participants.
+This person will win a 2-week holiday to The Maldives.`;
 
 const drawParticipantsPlaceholder = `@jeys23
 @happy_lance
@@ -160,9 +161,9 @@ export default function Page() {
 
             },
             step2: {
-                name: drawNamePlaceholder,
-                rules: drawRulesPlaceholder,
-                participants: drawParticipantsPlaceholder,
+                name: '',
+                rules: '',
+                participants: '',
                 nbWinners: drawNbWinnersPlaceholder
             },
             step3: {
@@ -188,7 +189,6 @@ export default function Page() {
 
     const [accessToken, setAccessToken] = useState<string>('');
     const [media, setMedia] = useState<Media[]>([]);
-    const [selectedMedia, setSelectedMedia] = useState<Media | undefined>(undefined);
 
 
 
@@ -300,23 +300,6 @@ export default function Page() {
         };
 
     }, [accessToken])
-
-
-    useEffect(() => {
-
-        if (!selectedMedia) {
-            return;
-        }
-
-        let ignore = false;
-
-        retrieveContestDetails(selectedMedia)
-
-        return () => {
-            ignore = true;
-        };
-
-    }, [selectedMedia])
 
 
     function previousStep() {
@@ -587,7 +570,7 @@ export default function Page() {
                                         ) : (
                                             <div className="flex flex-row flex-wrap justify-center">
                                                 {media.map((m: any) => (
-                                                    <figure onClick={() => { setSelectedMedia(m) }} className="grow min-w-[150px] max-w-[150px] bg-[transparent] box-decoration-clone hover:cursor-pointer hover:bg-gradient-to-r from-indigo-200 to-pink-200 border-2 border-[transparent] relative before:content-[''] before:pt-[100%] before:block" key={m.id}>
+                                                    <figure onClick={() => { retrieveContestDetails(m) }} className="grow min-w-[150px] max-w-[150px] bg-[transparent] box-decoration-clone hover:cursor-pointer hover:bg-gradient-to-r from-indigo-200 to-pink-200 border-2 border-[transparent] relative before:content-[''] before:pt-[100%] before:block" key={m.id}>
                                                         <img src={m.thumbnail_url ? m.thumbnail_url : m.media_url} alt={m.caption} title={m.caption} className="block absolute top-0 w-full h-full object-cover object-center" />
                                                     </figure>
                                                 ))}
@@ -620,6 +603,7 @@ export default function Page() {
                                                     required: 'Name is required',
                                                     onBlur: () => { trigger("step2.name"); },
                                                 })}
+                                                placeholder={drawNamePlaceholder}
                                             />
                                         </div>
                                     </div>
@@ -640,6 +624,7 @@ export default function Page() {
                                                 required: 'Rules are required',
                                                 onBlur: () => { trigger("step2.rules"); },
                                             })}
+                                            placeholder={drawRulesPlaceholder}
                                         />
                                     </div>
                                     <p className="mt-3 text-sm leading-6 text-gray-300">Explain what people needed to do in order to participate in this contest.</p>
@@ -659,6 +644,7 @@ export default function Page() {
                                                 required: 'List of participants is required',
                                                 onBlur: () => { trigger("step2.participants"); },
                                             })}
+                                            placeholder={drawParticipantsPlaceholder}
                                         />
                                     </div>
                                     <p className="mt-3 text-sm leading-6 text-gray-300">
