@@ -537,10 +537,10 @@ export default function Page() {
                                                 Loading your media...
                                             </div>
                                         ) : (
-                                            <div className="gallery flex">
+                                            <div className="flex flex-row flex-wrap">
                                                 {media.map((m: any) => (
-                                                    <figure className="gallery-item grow min-w-[150px] bg-[#eee] border border-[#fff] relative before:content-[''] before:pt-[100%] before:block" key={m.id}>
-                                                        <img src={m.thumbnail_url ? m.thumbnail_url : m.media_url} alt={m.caption} title={m.caption} className="gallery-item__image block absolute top-0 w-full h-full object-cover object-center" />
+                                                    <figure className="grow min-w-[150px] bg-[transparent] border border-[transparent] relative before:content-[''] before:pt-[100%] before:block" key={m.id}>
+                                                        <img src={m.thumbnail_url ? m.thumbnail_url : m.media_url} alt={m.caption} title={m.caption} className="block absolute top-0 w-full h-full object-cover object-center" />
                                                     </figure>
                                                 ))}
                                             </div>
