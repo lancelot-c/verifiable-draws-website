@@ -78,7 +78,7 @@ const primaryFeatures = [
     {
         name: 'Increased engagement.',
         description:
-            'Encourage more people to participate by proving to them that they have a chance to win.',
+            'Encourage more people to participate in your contests by proving to them that they have a chance to win.',
         icon: UserGroupIcon,
     },
     {
