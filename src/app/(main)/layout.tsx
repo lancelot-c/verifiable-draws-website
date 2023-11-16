@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
     title: 'The best way to organize contests',
-    description: 'Random.win enables you to organize social media contests in the most transparent way by randomly drawing the winners on the Ethereum blockchain.',
+    description: 'Random.win enables you to organize social media contests which are completely transparent and provably random.',
 }
 
 const navigation: any[] = [
