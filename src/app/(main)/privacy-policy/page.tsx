@@ -50,7 +50,7 @@ export default function PrivacyPolicy() {
 
                 <p className="mb-4"><span className="font-bold">Contact Information:</span> For privacy-related questions or concerns, please contact us at lancelot@borr.tech​</p>
 
-                <p className="mb-4">This policy outlines the core principles of how we handle your data. If you have any questions or need further information, don't hesitate to reach out to us.</p>
+                <p className="mb-4">This policy outlines the core principles of how we handle your data. If you have any questions or need further information, don&apos;t hesitate to reach out to us.</p>
 
             </div>
             
