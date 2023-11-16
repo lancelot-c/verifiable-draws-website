@@ -197,7 +197,7 @@ export default function Example() {
                 The best way to organize contests
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Random.win enables you to organize social media contests which are completely transparent and provably random by running them on the blockchain.
+                Random.win enables you to organize social media contests which are completely transparent and provably random.
               </p> 
               <div className="mt-10 flex items-center gap-x-6">
                 <Link

@@ -8,7 +8,7 @@ import Link from 'next/link'
 import React from "react";
 import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { CheckCircleIcon, InformationCircleIcon, XCircleIcon, ArrowRightIcon } from '@heroicons/react/20/solid'
+import { CheckCircleIcon, InformationCircleIcon, XCircleIcon } from '@heroicons/react/20/solid'
 import CheckoutForm from "./CheckoutForm";
 import LoginBtn from "./login-btn";
 import { SessionProvider } from 'next-auth/react';
