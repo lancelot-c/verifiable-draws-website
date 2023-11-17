@@ -52,7 +52,7 @@ const videos = [
     {
         description: 'Swiss journalists from Insight Media made a video about us to promote the solution in Switzerland.',
         imageUrl: insightMediaImg,
-        videoUrl: 'https://www.linkedin.com/posts/insightch_algorithme-blockchain-activity-7092194795837603841-J68n',
+        videoUrl: 'https://www.instagram.com/reel/CwS0Ip6IBp-/',
     }
 ]
 
@@ -69,7 +69,7 @@ const primaryFeatures = [
         icon: BoltIcon,
       },
     {
-      name: 'Fully transparent',
+      name: '100% decentralized',
       description:
         'The random draw for your contest is completely transparent because it runs entirely on the blockchain',
       href: '#',
@@ -211,7 +211,7 @@ export default function Example() {
                 The best way to organize contests
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Random.win enables you to organize social media contests which are completely transparent and provably random.
+                Random.win enables you to organize social media contests and maximize the benefits you get out of them.
               </p> 
               <div className="mt-10 flex items-center gap-x-6">
                 <Link
@@ -220,9 +220,9 @@ export default function Example() {
                 >
                   Launch contest
                 </Link>
-                {/* <Link href="https://www.verify.win/bafkreiamidpvgvp35l67uuioe6e2qwbfq4u2e5qbu5mrz64osy46wuthdm" className="text-sm font-semibold leading-6 text-white">
-                  View an example <span aria-hidden="true">→</span>
-                </Link> */}
+                <Link href="#benefits" className="text-sm font-semibold leading-6 text-white">
+                  See benefits <span aria-hidden="true">→</span>
+                </Link>
               </div>
             </div>
             {/* <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
@@ -356,7 +356,7 @@ export default function Example() {
         </div>
 
         {/* Feature section */}
-        <div className="mt-32 sm:mt-56">
+        <div id="benefits" className="pt-32 sm:pt-56">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl sm:text-center">
               {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Everything you need</h2> */}
@@ -892,7 +892,7 @@ export default function Example() {
               Just give it to them. */}
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
-            Random.win is the only contest platform which provides a full transparency of the random draw for all the participants.
+            Random.win is the only contest platform which is provably random. All other platforms only claim to be random without being able to prove it.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
