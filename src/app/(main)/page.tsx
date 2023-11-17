@@ -99,7 +99,7 @@ const primaryFeatures = [
     {
         name: 'Say goodbye to disputes.',
         description:
-            'Protect yourself from haters and lawsuits by storing proofs of randomness on the blockchain.',
+            'Protect yourself from haters and lawsuits challenging the result of your contest by having a proof of randomness that you can show to anyone.',
         icon: ScaleIcon,
     },
     {
