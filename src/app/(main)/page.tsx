@@ -26,7 +26,8 @@ import {
     CubeTransparentIcon,
     BoltIcon,
     MagnifyingGlassCircleIcon,
-    CurrencyDollarIcon
+    CurrencyDollarIcon,
+    CheckBadgeIcon
 } from '@heroicons/react/24/solid'
 
 
@@ -46,7 +47,7 @@ const videos = [
     {
         description: 'Random.win has won the Gold Medal at Concours Lépine in 2023. Concours Lépine is the biggest innovation competition in France.',
         imageUrl: lepineRemisePrixImg,
-        videoUrl: 'https://www.youtube.com/watch?v=JbHc2hHOk1s',
+        videoUrl: 'https://www.youtube.com/watch?v=4oVa9vfy-cE',
     },
     {
         description: 'Swiss journalists from Insight Media made a video about us to promote the solution in Switzerland.',
@@ -63,14 +64,14 @@ const primaryFeatures = [
     {
         name: 'No account required',
         description:
-          'It takes no more than 2 minutes to create a contest on random.win',
+          'Log in with your Instagram account or create a contest without any account. It takes no more than 2 minutes to create a contest on random.win.',
         href: '#',
         icon: BoltIcon,
       },
     {
-      name: '100% decentralized',
+      name: 'Fully transparent',
       description:
-        'Our algorithm is completely transparent because it runs entirely on the blockchain',
+        'The random draw for your contest is completely transparent because it runs entirely on the blockchain',
       href: '#',
       icon: CubeTransparentIcon,
     },
@@ -86,38 +87,44 @@ const primaryFeatures = [
     {
         name: 'Increased engagement.',
         description:
-            'Encourage more people to participate in your contests by proving to them that they have a chance to win.',
+            'Encourage more people to participate by proving to them that your contests are not a scam.',
         icon: UserGroupIcon,
     },
     {
         name: 'Top notch brand image.',
         description:
-            'Being transparent with your followers is the best way you can boost your brand image.',
+            'Being transparent with your followers is the best way you can boost your brand image and improve your reputation.',
         icon: SparklesIcon,
     },
     {
         name: 'Say goodbye to disputes.',
         description:
-            'Protect yourself from lawsuits by storing proofs of randomness on the blockchain.',
+            'Protect yourself from haters and lawsuits by storing proofs of randomness on the blockchain.',
         icon: ScaleIcon,
     },
     {
         name: 'Better user experience.',
         description:
-            'Let your followers check the winner themselves without them having to trust you.',
+            'Enable an interactive experience with your followers by letting them check the winner themselves without them having to trust you.',
         icon: CursorArrowRaysIcon,
-    },
-    {
-        name: 'Verifiable.',
-        description:
-            'Our code is public and cannot be manipulated by anyone, not even by us, because it lives on the blockchain.',
-        icon: MagnifyingGlassCircleIcon,
     },
     {
         name: 'Incredibly cheap.',
         description:
-            'In France, certifying a contest with a state official (huissier de justice) cost at least 150€. We only charge 4€ per contest while offering a better protection.',
+            'In Europe, certifying the randomness of a contest with a judicial officer cost at least 100€. We only charge 4€ per contest while offering a better protection.',
         icon: CurrencyDollarIcon,
+    },
+    {
+        name: 'Verifiable.',
+        description:
+            'Our code is public and cannot be manipulated by anyone, not even by us, because it lives on the blockchain. It means we could not rig your contest even if we wanted to.',
+        icon: MagnifyingGlassCircleIcon,
+    },
+    {
+        name: 'GDPR compliant.',
+        description:
+            'Even though our algorithm runs on the Ethereum blockchain, your followers personal data stay private and never touch the blockchain.',
+        icon: CheckBadgeIcon,
     },
 ]
   const stats = [
@@ -354,11 +361,10 @@ export default function Example() {
             <div className="mx-auto max-w-2xl sm:text-center">
               {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Everything you need</h2> */}
               <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-5xl">
-              Publish our link in your story, that&apos;s it.
+                    Unlock a myriad of benefits
               </p>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                When the participations for your contest are closed, come to our website.
-                We will generate a link for your contest that you just need to share in your story. Then your followers can access the winners simply by clicking on this link, and if they want to, they can even verify the result themselves directly by asking our smart contract on the blockchain. No trust needed. ✨
+                It&apos;s so much more than being transparent. Running your contests on the blockchain enables you to have an edge over your competitors by unlocking a wide range of benefits for your brand.
               </p>
             </div>
           </div>
@@ -492,7 +498,7 @@ export default function Example() {
             <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
                 <div className="relative mx-auto max-w-2xl text-center">
                     <p className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
-                        A battle-tested product 🏆
+                        An award-winning product 🏆
                     </p>
                     {/* <p className="mt-6 text-lg leading-8 text-gray-300">
                     Don't worry, we've got you covered
@@ -886,7 +892,7 @@ export default function Example() {
               Just give it to them. */}
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
-              Random.win is the only contest platform which enables a full transparency of the drawing process for all the participants. 
+            Random.win is the only contest platform which provides a full transparency of the random draw for all the participants.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a

@@ -61,75 +61,75 @@ const drawRulesPlaceholder =
 We will now randomly select one lucky winner among the participants.
 This person will win a 2-week holiday to The Maldives.`;
 
-const drawParticipantsPlaceholder = `@jeys23
-@happy_lance
-@mappingfestival
-@sarah.bounab
-@fit_fondation_
-@cassandra_11.80
-@elnaz_elie
-@flyingjuliette
-@27.horses
-@_h_lo_
-@julianinha_10
-@myflixbox
-@basile_schl
-@walidpanerai
-@fiorellacaye
-@marieguillou_
-@aline.hnh
-@kwn_yayou
-@dianafpc6155
-@jaey.music
-@mitch_schnitzbauer
-@m.l.k._av
-@carolineruchat
-@gesinemar
-@cyril_ratl
-@marta82_pa
-@lara.koch
-@tsuki_lyn
-@droux_ch
-@piccasso_ink
-@shay.gnv
-@el.aldair
-@sak0ch_
-@s.e.b.a.7.7
-@stasia.ds
-@merylsup
-@natalia_olszewskaa
-@lucielogean
-@henriboulet
-@nico_zimmv
-@poses_attitude
-@ceciletyty
-@itscamq
-@nanahy
-@low.maf
-@itwasntk
-@katia.cmrng
-@el_dominicano.gnv
-@nourskd
-@chill_mlk
-@benj.online
-@meylinn.pr
-@ajlaave_you
-@aude456331
-@sara_kkar
-@crochetonique
-@emman_wild
-@cokoch
-@vitg1234
-@ceciilia_0949
-@alexia_ratl
-@melodymcv
-@marieclaudebruchez
-@monicafornes
-@marion_florquin
-@mister.idris
-@estellebubu3005
-@giusepperealennelcuore
-@aloisius_gonzaga_agung`;
+const drawParticipantsPlaceholder = `jeys23
+happy_lance
+mappingfestival
+sarah.bounab
+fit_fondation_
+cassandra_11.80
+elnaz_elie
+flyingjuliette
+27.horses
+_h_lo_
+julianinha_10
+myflixbox
+basile_schl
+walidpanerai
+fiorellacaye
+marieguillou_
+aline.hnh
+kwn_yayou
+dianafpc6155
+jaey.music
+mitch_schnitzbauer
+m.l.k._av
+carolineruchat
+gesinemar
+cyril_ratl
+marta82_pa
+lara.koch
+tsuki_lyn
+droux_ch
+piccasso_ink
+shay.gnv
+el.aldair
+sak0ch_
+s.e.b.a.7.7
+stasia.ds
+merylsup
+natalia_olszewskaa
+lucielogean
+henriboulet
+nico_zimmv
+poses_attitude
+ceciletyty
+itscamq
+nanahy
+low.maf
+itwasntk
+katia.cmrng
+el_dominicano.gnv
+nourskd
+chill_mlk
+benj.online
+meylinn.pr
+ajlaave_you
+aude456331
+sara_kkar
+crochetonique
+emman_wild
+cokoch
+vitg1234
+ceciilia_0949
+alexia_ratl
+melodymcv
+marieclaudebruchez
+monicafornes
+marion_florquin
+mister.idris
+estellebubu3005
+giusepperealennelcuore
+aloisius_gonzaga_agung`;
 
 const drawNbWinnersPlaceholder = 1;
 
@@ -635,7 +635,8 @@ export default function Page() {
                                         />
                                     </div>
                                     <p className="mt-3 text-sm leading-6 text-gray-300">
-                                        Type one username per line.
+                                        Type one username per line.<br />
+                                        If you want some participants to have twice more chance of winning, just enter their usernames twice in two separate lines.
                                     </p>
                                 </div>
 
@@ -654,9 +655,13 @@ export default function Page() {
                                                 required: 'Number of winners is required',
                                                 onBlur: () => { trigger("step2.nbWinners"); },
                                             })}
+                                            placeholder={drawNbWinnersPlaceholder.toString()}
                                         />
                                     </div>
-                                    <p className="mt-3 text-sm leading-6 text-gray-300">This is the number of participants that the algorithm will randomly select.</p>
+                                    <p className="mt-3 text-sm leading-6 text-gray-300">
+                                    {/* Don&apos;t hesitate to */}
+                                        If you want to, you can choose a number which is a bit higher than the real number of winners in case you find out after the contest that a winner has broken the rules and should therefore be disqualified in favour of another winner.
+                                    </p>
                                 </div>
                             </div>
                         )
@@ -694,8 +699,8 @@ export default function Page() {
                                         </div>
                                         <div className="ml-3 flex-1 md:flex md:justify-between">
                                             <p className="text-sm text-blue-700">
-                                                At the end of this form we will create a web page for your contest and give you the link to access it. Please note that you will have to share this link to the participants before the random draw happens.
-                                                By doing so, the participants will have the guarantee that you did not know the result of the contest in advance. {/* which means that you will be <Link href="https://messari.io/report/credible-neutrality-as-a-guiding-principle" rel="noopener" target="_blank" className="underline">credibly neutral</Link>. */}
+                                                At the end of this form we will create a web page for your contest and give you the link to access it. You will have to share this link in your story BEFORE the random draw happens.
+                                                By doing so, the participants will have the proof that you did not know the result of the contest in advance. {/* which means that you will be <Link href="https://messari.io/report/credible-neutrality-as-a-guiding-principle" rel="noopener" target="_blank" className="underline">credibly neutral</Link>. */}
                                                 That&apos;s why as a good practice we recommend you to choose a date and time which is at least 6 hours in the future from now.
                                             </p>
                                         </div>
@@ -820,7 +825,7 @@ export default function Page() {
                                         <div className="text-center">
                                             <p className="mt-8 text-md text-white">
                                                 Your contest has successfully been deployed to the blockchain. 🎉<br />
-                                                You can now share the following link to the participants so that they can access the contest details and see the winners when they are announced.
+                                                You can now share the following link in your story so that they can access the contest details and see the winners when they are announced.
                                             </p>
 
 
