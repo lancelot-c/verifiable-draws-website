@@ -123,7 +123,7 @@ const primaryFeatures = [
     {
         name: 'GDPR compliant.',
         description:
-            'Even though our algorithm runs on the Ethereum blockchain, your followers personal data stay private and never touch the blockchain.',
+            'Even though our algorithm runs on the public Ethereum blockchain, your followers personal data stay private and never touch the blockchain.',
         icon: CheckBadgeIcon,
     },
 ]
