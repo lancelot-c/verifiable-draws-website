@@ -284,7 +284,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
     <div className="md:flex md:items-center md:justify-between">
 
-        <div>
+        <div className="flex items-center justify-center sm:justify-start">
                 <Link href="privacy-policy" className="text-xs hover:text-white mr-4">
                     Privacy policy
                 </Link>
@@ -298,12 +298,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Link>
         </div>
 
-        <div className=" flex flex-col space-x-6">
+        <div className=" flex flex-col space-x-6 mt-4 sm:mt-0">
             
 
-            <div className="flex items-center justify-end">
+            <div className="flex items-center justify-center sm:justify-end">
                 {footerNavigation.social.map((item) => (
-                    <Link key={item.name} href={item.href} rel="noopener" target="_blank" className="hover:text-white pl-4">
+                    <Link key={item.name} href={item.href} rel="noopener" target="_blank" className="hover:text-white pl-0 sm:pl-4 pr-4 sm:pr-0">
                     <span className="sr-only">{item.name}</span>
                     <item.icon className="h-6 w-6" aria-hidden="true" />
                     </Link>
@@ -314,7 +314,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </div>
     
 
-    <div className="mt-4 text-xs leading-5 text-gray-400">
+    <div className="flex items-center justify-center sm:justify-start mt-4 text-center sm:text-left text-xs leading-5 text-gray-400">
         Made with ❤️ and 🥖 in Paris, France 🇫🇷<br />
         &copy; 2023 Borr Technologies SAS. All rights reserved.
     </div>

@@ -438,7 +438,7 @@ export default function Page() {
     }
 
     return (
-        <div className="mx-auto max-w-7xl pt-24 sm:pt-16 px-6 lg:px-8 min-h-full">
+        <div className="mx-auto max-w-7xl pt-8 md:pt-16 px-6 lg:px-8 min-h-full">
             <SessionProvider>
 
                 
@@ -456,7 +456,7 @@ export default function Page() {
                 </Link>
 
 
-                <h2 className="mt-0 text-4xl font-bold tracking-tight mb-16 text-white sm:text-5xl text-center">
+                <h2 className="my-16 text-4xl font-bold tracking-tight text-white sm:text-5xl text-center">
                     Launch a contest
                 </h2>
 
