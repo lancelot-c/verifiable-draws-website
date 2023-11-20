@@ -59,8 +59,8 @@ export async function POST(request: Request) {
         const paymentIntentId: string = body.paymentIntentId
         const code: string = body.code
         
-        // Me, Insight Media, Morning, Smartplay
-        const validCodes = ['siegfried', 'zatzikhoven', 'goodmorning', 'arandomlotterycompany'] // These codes get free draws
+        // Me, Insight Media, Morning, Smartplay, Instagram ads
+        const validCodes = ['siegfried', 'zatzikhoven', 'goodmorning', 'BR32'] // These codes get free draws
         const testCodes: string[] = [];
         let codeUsed = false;
         let testMode = false;
