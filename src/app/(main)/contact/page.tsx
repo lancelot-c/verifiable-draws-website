@@ -83,7 +83,7 @@ export default function Example() {
 
 
     return (
-        <div className="mx-auto max-w-7xl pt-24 sm:pt-16 px-6 lg:px-8 min-h-full mb-16">
+        <div className="mx-auto max-w-7xl pt-8 md:pt-16 px-6 lg:px-8 min-h-full mb-16">
             
 
             {/* Logo */}
@@ -100,7 +100,7 @@ export default function Example() {
 
             
             <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl  mb-8">
+                <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl  mb-8 mt-16">
                     Contact us
                 </h2>
                 <p className="text-lg leading-8 text-gray-300">

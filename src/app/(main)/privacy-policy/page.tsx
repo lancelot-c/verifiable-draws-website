@@ -8,7 +8,7 @@ import randomWinLogoImg from '/public/img/random-win-logo.png'
 export default function PrivacyPolicy() {
 
     return (
-        <div className="mx-auto max-w-7xl pt-24 sm:pt-16 px-6 lg:px-8 min-h-full">
+        <div className="mx-auto max-w-7xl pt-8 md:pt-16 px-6 lg:px-8 min-h-full">
 
             {/* Logo */}
             <Link href="/" className="flex lg:flex-1 items-center">
@@ -24,7 +24,7 @@ export default function PrivacyPolicy() {
 
 
             <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-8">
+                <h2 className="my-16 text-4xl font-bold tracking-tight text-white sm:text-5xl">
                     Privacy policy
                 </h2>
                 <p className="text-md leading-8 text-gray-300">
@@ -32,7 +32,7 @@ export default function PrivacyPolicy() {
                 </p>
             </div>
 
-            <div className="mx-auto max-w-2xl mt-16 text-white">
+            <div className="mx-auto max-w-2xl my-16 text-white">
 
                 <p className="mb-4"><span className="font-bold">Data Collection:</span> We collect essential data, such as contact information and usage details, to improve our services and ensure smooth communication.</p>
 
