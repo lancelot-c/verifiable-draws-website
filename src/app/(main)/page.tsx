@@ -122,7 +122,7 @@ const primaryFeatures = [
         icon: CheckBadgeIcon,
     },
     {
-        name: 'Allow bigger prizes.',
+        name: 'Big prizes allowed.',
         description:
             'Organize contests with prizes worth millions of dollars without the fear of something going wrong because blockchain technology is extremely secure and impossible to hack without leaving a trace.',
         icon: GiftIcon,
