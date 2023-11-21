@@ -825,7 +825,7 @@ export default function Page() {
                                         <div className="text-center">
                                             <p className="mt-8 text-md text-white">
                                                 Your contest has successfully been deployed to the blockchain. 🎉<br />
-                                                You can now share the following link in your story so that they can access the contest details and see the winners when they are announced.
+                                                You can now share the following link in your story so that your followers can access the contest page and see the winners when they are announced.
                                             </p>
 
 
@@ -851,7 +851,7 @@ export default function Page() {
 
                                             <p className="mt-8 text-md text-white">
                                                 If you need further assistance please ask on <Link href="https://discord.gg/3YjqW9MP7H" rel="noopener" target="_blank" className="underline">our Discord server</Link>, we will be happy to help you.<br />
-                                                Thank you for using our service and helping to make the world more decentralized and transparent.
+                                                Thank you for using our service and helping to make social media more responsible and transparent.
                                             </p>
                                         </div>
                                     )

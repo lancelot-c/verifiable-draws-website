@@ -124,13 +124,13 @@ const primaryFeatures = [
     {
         name: 'Allow bigger prizes.',
         description:
-            'The Ethereum blockchain is so robust and secure that you could easily organize a contest with prizes worth a billion dollar without the fear of something going wrong.',
+            'Organize contests with prizes worth millions of dollars without the fear of something going wrong because blockchain technology is extremely secure and impossible to hack without leaving a trace.',
         icon: GiftIcon,
     },
     {
         name: 'Verifiable.',
         description:
-            'Our code is public and cannot be manipulated by anyone, not even by us, because the blockchain is tamper-proof. It means we could not rig your contest even if we wanted to.',
+            'Our code is public and cannot be manipulated by anyone, not even by us, because our smart contract is tamper-proof. It means we could not rig your contest even if we wanted to.',
         icon: MagnifyingGlassCircleIcon,
     },
     
@@ -219,7 +219,7 @@ export default function Example() {
                 The best way to organize contests
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Random.win enables you to organize social media contests and maximize the benefits you get out of them.
+                Random.win enables you to maximize the benefits you get from your social media contests by running them on the blockchain.
               </p> 
               <div className="mt-10 flex items-center justify-center lg:justify-start gap-x-6">
                 <Link
