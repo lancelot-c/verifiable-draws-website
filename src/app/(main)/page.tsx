@@ -16,6 +16,7 @@ import step1Img from '/public/img/step1.jpeg'
 import step2Img from '/public/img/step2.jpeg'
 import step3Img from '/public/img/step3.gif'
 import insightMediaImg from '/public/img/insight-media.png'
+import kastelCoImg from '/public/img/kastel-co-logo-1872w.png'
 
 import {
     ScaleIcon,
@@ -291,14 +292,14 @@ export default function Example() {
 
                     <Image
                         className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src={fdjLogoImg}
-                        alt="FDJ"
+                        src={tf1LogoImg}
+                        alt="TF1"
                     />
 
                     <Image
                         className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-                        src={tf1LogoImg}
-                        alt="TF1"
+                        src={kastelCoImg}
+                        alt="KastelCo"
                     />
                     
                     <Image
