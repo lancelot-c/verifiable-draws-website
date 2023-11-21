@@ -65,7 +65,7 @@ const primaryFeatures = [
     {
         name: 'No account required',
         description:
-          'Log in with your Instagram account or don\'t log in at all. It takes no more than 2 minutes to create a contest on random.win.',
+          'Log in with your Instagram account or start without any account. It takes no more than 2 minutes to create a contest on random.win.',
         href: '#',
         icon: BoltIcon,
       },
