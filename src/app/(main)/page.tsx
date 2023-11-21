@@ -72,7 +72,7 @@ const primaryFeatures = [
     {
       name: '100% decentralized',
       description:
-        'The random draw for your contest is completely transparent because it runs on the blockchain',
+        'The random draw for your contest is completely transparent because it runs on the Ethereum blockchain',
       href: '#',
       icon: CubeTransparentIcon,
     },
