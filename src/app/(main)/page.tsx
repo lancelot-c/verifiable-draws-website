@@ -45,16 +45,16 @@ const videos = [
         imageUrl: lepineRemisePrixImg,
         videoUrl: 'https://www.youtube.com/watch?v=4oVa9vfy-cE',
     },
-    {
-        description: 'Our smart contract and the random numbers it generates have been audited by Gaming Labs, which has the most experienced and robust RNG testing methodologies in the world.',
-        imageUrl: gliRngImg,
-        videoUrl: 'https://gaminglabs.com/services/igaming/random-number-generator-rng/',
-    },
     // {
-    //     description: 'Swiss journalists from Insight Media made a video about us to promote the solution in Switzerland.',
-    //     imageUrl: insightMediaImg,
-    //     videoUrl: 'https://www.instagram.com/reel/CwS0Ip6IBp-/',
-    // }
+    //     description: 'Our smart contract and the random numbers it generates have been audited by Gaming Labs, which has the most experienced and robust RNG testing methodologies in the world.',
+    //     imageUrl: gliRngImg,
+    //     videoUrl: 'https://gaminglabs.com/services/igaming/random-number-generator-rng/',
+    // },
+    {
+        description: 'Swiss journalists from Insight Media made a video about us to promote the solution in Switzerland.',
+        imageUrl: insightMediaImg,
+        videoUrl: 'https://www.instagram.com/reel/CwS0Ip6IBp-/',
+    }
 ]
 
 
