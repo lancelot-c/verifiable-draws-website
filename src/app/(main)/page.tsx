@@ -375,7 +375,7 @@ export default function Example() {
                     Unlock a myriad of benefits
               </p>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                We are organizing your random draw on the blockchain so that your contest is completely transparent for your followers. However, it&apos;s so much more than being transparent. Blockchain enables you to have an edge over your competitors by unlocking a wide range of benefits for your business.
+                Running your contests on the blockchain enables you to have an edge over your competitors by unlocking a wide range of benefits for your business.
               </p>
             </div>
           </div>
