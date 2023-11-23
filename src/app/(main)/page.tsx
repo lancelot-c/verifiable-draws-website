@@ -90,7 +90,7 @@ const primaryFeatures = [
     {
         name: 'Increased engagement.',
         description:
-            'Encourage more people to participate by proving to them that your contests are not a scam and that they actually have a real chance to win.',
+            'Encourage more people to participate in your contest by proving to them that it is not a scam and that they actually have a real chance to win.',
         icon: UserGroupIcon,
     },
     {
@@ -127,7 +127,7 @@ const primaryFeatures = [
     {
         name: 'Big prizes allowed.',
         description:
-            'Organize contests with prizes worth millions of dollars without the fear of something going wrong because blockchain technology is extremely secure and impossible to hack without leaving a trace.',
+            'Safely put any amount of money at stake by leveraging Ethereum robust security model that relies on cryptographic principles, making it resistant to tampering and fraud.',
         icon: GiftIcon,
     },
     {
