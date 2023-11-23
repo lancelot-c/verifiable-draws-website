@@ -17,6 +17,8 @@ import step2Img from '/public/img/step2.jpeg'
 import step3Img from '/public/img/step3.gif'
 import insightMediaImg from '/public/img/insight-media.png'
 import kastelCoImg from '/public/img/kastel-co-logo-1872w.png'
+import ethereumLogoImg from '/public/img/ethereum-logo-1024w.png'
+import polygonLogoImg from '/public/img/polygon-logo.png'
 
 import {
     ScaleIcon,
@@ -292,7 +294,7 @@ export default function Example() {
 
                     <Image
                         className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src={tf1LogoImg}
+                        src={polygonLogoImg}
                         alt="TF1"
                     />
 
