@@ -14,7 +14,7 @@ module.exports = {
         return [
             {
                 source: '/',
-                destination: 'https://www.verifiabledraws.com/',
+                destination: 'https://www.random.win/',
                 permanent: true,
             },
         ]
