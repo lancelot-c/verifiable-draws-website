@@ -222,17 +222,17 @@ export default function Example() {
                 The best way to organize contests
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Random.win enables you to maximize the benefits you get from your social media contests by running them on the blockchain.
+                Random.win enables you to organize contests where the winners are picked in a transparent and provably random way thanks to blockchain technology.
               </p> 
               <div className="mt-10 flex items-center justify-center lg:justify-start gap-x-6">
                 <Link
                   href="/launch-contest"
                   className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
                 >
-                  Launch contest
+                  Get started
                 </Link>
                 <Link href="#benefits" className="text-sm font-semibold leading-6 text-white">
-                  See benefits <span aria-hidden="true">→</span>
+                  Learn more <span aria-hidden="true">→</span>
                 </Link>
               </div>
             </div>
@@ -906,15 +906,15 @@ export default function Example() {
             Random.win is the only contest platform which is provably random. All other platforms only claim to be random without being able to prove it.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
+              <Link
                 href="/launch-contest"
                 className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                Launch contest
-              </a>
-              {/* <a href="#" className="text-sm font-semibold leading-6 text-white">
-                Contact us <span aria-hidden="true">→</span>
-              </a> */}
+                Get started
+              </Link>
+              <Link href="https://discord.gg/3YjqW9MP7H" rel="noopener" target="_blank" className="text-sm font-semibold leading-6 text-white">
+                Join our Discord <span aria-hidden="true">→</span>
+              </Link>
             </div>
           </div>
         </div>
