@@ -27,9 +27,9 @@ const stripePromise = loadStripe(stripePublicKey);
 
 const steps = [
     { name: 'Choose source', href: '#step1' },
-    { name: 'Edit contest details', href: '#step2' },
+    { name: 'Edit your contest details', href: '#step2' },
     { name: 'Schedule the random draw', href: '#step3' },
-    { name: 'Purchase', href: '#step4' },
+    { name: 'Payment', href: '#step4' },
     { name: 'Share the link in your story', href: '#step5' },
 ]
 
@@ -718,8 +718,8 @@ export default function Page() {
                         <p className="max-w-[600px] mt-0 px-8 sm:px-24 py-16 border-b lg:border-b-0 lg:border-r border-gray-200 text-md font-light tracking-wide text-white sm:text-md text-center">
                             <p>Congratulations, this is the last step before deploying your contest. 🚀</p>
                             <p className="font-semibold mt-16 mb-4">Did you know ?</p>
-                            <p className="mb-4">Random.win is the only contest platform on the internet which is fully transparent.</p>
-                            <p className="mb-4">Your participants will have an actual proof that your contest isn&apos;t rigged.</p>
+                            <p className="mb-4">Random.win is incredibly cheap. In Europe, certifying the randomness of a contest with a judicial officer cost at least 100€. We only charge 4€ per contest while offering a better protection.</p>
+                            {/* <p className="mb-4">Your participants will have an actual proof that your contest isn&apos;t rigged.</p> */}
                             {/* <p className="mb-4">That&apos;s why we are not slightly</p> */}
                         </p>
 
