@@ -716,12 +716,11 @@ export default function Page() {
                     <div className={`flex flex-wrap justify-center justify-items-center items-center mt-10 w-full ${selectedStep === paymentStep ? '' : 'hidden'}`}>
 
                         <p className="max-w-[600px] mt-0 px-8 sm:px-24 py-16 border-b lg:border-b-0 lg:border-r border-gray-200 text-md font-light tracking-wide text-white sm:text-md text-center">
-                            Because it is 100% decentralized, Random.win is the only platform which prevents all kinds of fraud in social media contests.
-                            <br /><br />
-                            Therefore, by choosing us, you are contributing to make the world a better place and inspiring other influencers to do the same.
-                            <br /><br />
-                            This is the last step before deploying your contest.<br />
-                            The decentralized world awaits you. ✨
+                            <p>Congratulations, this is the last step before deploying your contest. 🚀</p>
+                            <p className="font-semibold mt-16 mb-4">Did you know ?</p>
+                            <p className="mb-4">Random.win is the only contest platform on the internet which is fully transparent.</p>
+                            <p className="mb-4">Your participants will have an actual proof that your contest isn&apos;t rigged.</p>
+                            {/* <p className="mb-4">That&apos;s why we are not slightly</p> */}
                         </p>
 
                         <div className="min-w-[300px] max-w-[800px] flex-auto px-8 sm:px-24 py-16">
