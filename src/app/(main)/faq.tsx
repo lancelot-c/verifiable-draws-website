@@ -1,7 +1,6 @@
 "use client"
 import { Disclosure } from '@headlessui/react'
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
 
 export default function FAQ() {
 
@@ -49,10 +48,6 @@ export default function FAQ() {
                 `<a href="https://polygonscan.com/address/0x53aFbA99a9850Db9A203c4Af4A593e9021d18389#code" rel="noopener" target="_blank"><u>Here it is.</u></a>`,
         },
     ]
-
-    function replaceWithBr(str: String) {
-        return str.replace(/\n/g, "<br />")
-      }
 
     return (
         <div className="mx-auto max-w-7xl px-6 lg:px-8 mt-32  sm:mt-56">

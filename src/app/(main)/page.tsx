@@ -219,7 +219,7 @@ export default function Example() {
                 The best way to organize contests
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Random.win enables you to organize contests where winners are picked in a transparent and provably random way thanks to blockchain technology.
+                Random.win enables you to organize contests where winners are picked in a <span className="underline font-semibold">transparent and provably random</span> way thanks to blockchain technology.
               </p> 
               <div className="mt-10 flex items-center justify-center lg:justify-start gap-x-6">
                 <Link
