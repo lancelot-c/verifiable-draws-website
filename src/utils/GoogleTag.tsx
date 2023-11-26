@@ -47,14 +47,14 @@ export default function GoogleTag() {
     return (
         <div>
             {/* <!-- Google tag (gtag.js) --> */}
-            <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-11291367227"></Script>
+            <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-11424148435"></Script>
             <Script id="google-analytics">
                 {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag() { window.dataLayer.push(arguments) }
                     gtag('js', new Date());
 
-                    gtag('config', 'AW-11291367227');
+                    gtag('config', 'AW-11424148435');
                 `}
             </Script>
         </div>
