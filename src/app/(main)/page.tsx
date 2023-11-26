@@ -15,6 +15,7 @@ import step3Img from '/public/img/step3.gif'
 import insightMediaImg from '/public/img/insight-media.png'
 import kastelCoImg from '/public/img/kastel-co-logo-1872w.png'
 import polygonLogoImg from '/public/img/polygon-logo.png'
+import ethereumLogoImg from '/public/img/ef-logo.webp'
 
 import {
     ScaleIcon,
@@ -291,20 +292,20 @@ export default function Example() {
 
                     <Image
                         className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src={polygonLogoImg}
-                        alt="TF1"
+                        src={ethereumLogoImg}
+                        alt="Ethereum Foundation"
                     />
 
                     <Image
                         className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-                        src={kastelCoImg}
-                        alt="KastelCo"
+                        src={polygonLogoImg}
+                        alt="Polygon"
                     />
                     
                     <Image
                         className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                        src={fidealisLogoImg}
-                        alt="Fidealis"
+                        src={kastelCoImg}
+                        alt="KastelCo"
                     />
                 </div>
                 {/* <div className="mt-16 flex justify-center">

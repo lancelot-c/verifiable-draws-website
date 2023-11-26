@@ -6,7 +6,10 @@ import path from 'path'
 import axios from 'axios'
 import { Wallet, ethers } from 'ethers';
 import crypto from 'crypto'
-import { Web3Storage, getFilesFromPath } from 'web3.storage';
+
+import * as Client from '@web3-storage/w3up-client'
+import { filesFromPaths } from 'files-from-path'
+// import { getFilesFromPath } from 'web3.storage';
 import { buildNextResponseJson } from './../../../../utils/errorHandling';
 const filePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
 const network = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 'testnet' : 'mainnet';
@@ -19,6 +22,7 @@ let polygonscanAddress: string;
 let provider: ethers.JsonRpcProvider;
 let wallet: Wallet;
 setEthersParams(network)
+
 
 function setEthersParams(network: string) {
     gasStationURL = ((network === 'mainnet') ? process.env.MAINNET_GAS_STATION_URL : process.env.TESTNET_GAS_STATION_URL) as string;
@@ -274,37 +278,52 @@ async function generateDrawFile(drawTitle: string, drawRules: string, drawPartic
 
 async function pinInWeb3Storage(response: any, filepath: string, drawTitle: string): Promise<string> {
     console.log(`Uploading ${filepath} to IPFS...\n`);
+    return "lk"
 
-    const token = process.env.WEB3_STORAGE_API_TOKEN
+    // const token = process.env.WEB3_STORAGE_API_TOKEN
 
-    if (!token) {
-        throw new Error("A token is needed. You can create one on https://web3.storage")
-    }
+    // if (!token) {
+    //     throw new Error("A token is needed. You can create one on https://web3.storage")
+    // }
 
-    const storage = new Web3Storage({ token })
-    const files = []
+    // authorize your local agent to act on your behalf
+    const client = await Client.create()
+    await client.login("lancelot@borr.tech")
+    await client.setCurrentSpace('did:key:z6Mkj4sw6xv9kcUDJz65j8jbUbGuSntrouaZZGWMSeY1xABk') // select the relevant Space DID that is associated with your account
 
-    const pathFiles = await getFilesFromPath(filepath)
-    files.push(...pathFiles)
+    // lets go!
+    // const files = await filesFromPaths(pathToAdd)
+    
 
-    let resolve: Function;
-    const cidPromise: Promise<string> = new Promise((r) => {
-        resolve = r;
-    });
+    // const storage = new Web3Storage({ token })
+    // const files = []
 
-    const onRootCidReady = (rootCid: string) => {
-        console.log(`Root CID is ${rootCid}\n`)
-        response.cid = rootCid
-        resolve(rootCid);
-    };
+    // const pathFiles = await getFilesFromPath(filepath)
+    // files.push(...pathFiles)
+    const files = await filesFromPaths(filepath)
+    const cid = await client.uploadDirectory(files)
+    const stringCid = cid.toString()
 
-    storage.put(files, {
-        name: drawTitle,
-        wrapWithDirectory: false,
-        onRootCidReady
-    });
+    console.log(`Root CID is ${stringCid}\n`)
 
-    return cidPromise;
+    // let resolve: Function;
+    // const cidPromise: Promise<string> = new Promise((r) => {
+    //     resolve = r;
+    // });
+
+    // const onRootCidReady = (rootCid: string) => {
+    //     console.log(`Root CID is ${rootCid}\n`)
+    //     response.cid = rootCid
+    //     resolve(rootCid);
+    // };
+
+    // storage.put(files, {
+    //     name: drawTitle,
+    //     wrapWithDirectory: false,
+    //     onRootCidReady
+    // });
+
+    return stringCid;
 }
 
 async function pinInKV(cid: string, content: string) {
