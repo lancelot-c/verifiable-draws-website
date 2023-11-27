@@ -147,11 +147,13 @@ export default function Page() {
 
     const searchParams = useSearchParams()
     const dt_min = new Date();
-    const dt_default = new Date();
-    const safetyCushionMin = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? -1000000 : 0;
-    const safetyCushionDefault = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : (60 * 6);
+    
+    const safetyCushionMin = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : 0;
+    // const safetyCushionDefault = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : (60 * 6);
     dt_min.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionMin);
-    dt_default.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionDefault);
+    // dt_default.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionDefault);
+    // dt_default.setMinutes(0);
+    const dt_default = new Date(dt_min);
     const scheduledAtMinValue = dt_min.toISOString().slice(0, 16);
     const scheduledAtDefaultValue = dt_default.toISOString().slice(0, 16);
 
@@ -193,6 +195,14 @@ export default function Page() {
         if (currentStep !== paymentStep) {
             return;
         }
+
+        // Christmas offer
+        if (true) {
+            nextStep(`step5`);
+            return;
+        }
+
+        
 
         if (searchParams.has('code')) {
             nextStep(`step5`);
@@ -599,7 +609,7 @@ export default function Page() {
 
                                 <div className="col-span-full">
                                     <label htmlFor="rules" className="block text-sm font-medium leading-6 text-white">
-                                        Description
+                                        Rules
                                     </label>
                                     <div className="mt-2">
                                         <textarea
@@ -659,8 +669,8 @@ export default function Page() {
                                         />
                                     </div>
                                     <p className="mt-3 text-sm leading-6 text-gray-300">
-                                    {/* Don&apos;t hesitate to */}
-                                        If you want to, you can choose a number which is a bit higher than the real number of winners in case you find out after the contest that a winner has broken the rules and should therefore be disqualified in favour of another winner.
+                                        This is the number of participants that the algorithm will randomly select.
+                                        {/* If you want to, you can choose a number which is a bit higher than the real number of winners in case you find out after the contest that a winner has broken the rules and should therefore be disqualified in favour of another winner. */}
                                     </p>
                                 </div>
                             </div>
@@ -692,16 +702,17 @@ export default function Page() {
                                     </div>
                                 </div>
 
-                                <div className="rounded-md bg-blue-50 p-4 mt-8">
+                                <div className="rounded-md bg-indigo-900 p-4 mt-8">
                                     <div className="flex">
                                         <div className="flex-shrink-0">
-                                            <InformationCircleIcon className="h-5 w-5 text-blue-400" aria-hidden="true" />
+                                            <InformationCircleIcon className="h-5 w-5 text-gray-100" aria-hidden="true" />
                                         </div>
                                         <div className="ml-3 flex-1 md:flex md:justify-between">
-                                            <p className="text-sm text-blue-700">
-                                                At the end of this form we will create a web page for your contest and give you the link to access it. You will have to share this link in your story BEFORE the random draw happens.
-                                                By doing so, the participants will have the proof that you did not know the result of the contest in advance. {/* which means that you will be <Link href="https://messari.io/report/credible-neutrality-as-a-guiding-principle" rel="noopener" target="_blank" className="underline">credibly neutral</Link>. */}
-                                                That&apos;s why as a good practice we recommend you to choose a date and time which is at least 6 hours in the future from now.
+                                            <p className="text-sm text-gray-100">
+                                                We recommend you to choose a date and time a few hours in the future, so that your followers will be able to see the random draw in live on the blockchain when it happens.
+                                                {/* At the end of this form we will create a web page for your contest and give you the link to access it. You will have to share this link in your story BEFORE the random draw happens.
+                                                By doing so, the participants will have the proof that you did not know the result of the contest in advance.
+                                                That&apos;s why as a good practice we recommend you to choose a date and time which is at least 6 hours in the future from now. */}
                                             </p>
                                         </div>
                                     </div>
@@ -718,7 +729,7 @@ export default function Page() {
                         <p className="max-w-[600px] mt-0 px-8 sm:px-24 py-16 border-b lg:border-b-0 lg:border-r border-gray-200 text-md font-light tracking-wide text-white sm:text-md text-center">
                             <p>Congratulations, this is the last step before deploying your contest. 🚀</p>
                             <p className="font-semibold mt-16 mb-4">Did you know ?</p>
-                            <p className="mb-4">Random.win is incredibly cheap. In Europe, certifying the randomness of a contest with a judicial officer cost at least 100€. We only charge 4€ per contest while offering a better protection.</p>
+                            <p className="mb-4">Random.win is incredibly cheap. In Europe, certifying the randomness of a contest with a judicial officer cost at least 100€. We only charge 4€ per contest while offering many other benefits.</p>
                             {/* <p className="mb-4">Your participants will have an actual proof that your contest isn&apos;t rigged.</p> */}
                             {/* <p className="mb-4">That&apos;s why we are not slightly</p> */}
                         </p>

@@ -64,10 +64,11 @@ export async function POST(request: Request) {
         const testCodes: string[] = [];
         let codeUsed = false;
         let testMode = false;
+        const freeDraws = true;
 
-        if (code) {
+        if (code || freeDraws) {
 
-            if (validCodes.includes(code)) {
+            if (validCodes.includes(code) || freeDraws) {
                 codeUsed = true;
                 console.log(`code ${code} used`);
 
