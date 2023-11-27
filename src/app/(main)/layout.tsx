@@ -93,7 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       <body className={`bg-gray-900 ${inter.className}`}>
 
-    <div className="bg-gray-900 border-b border-gray-800 text-center text-white fixed w-full text-sm py-2 z-10">
+    <div className="bg-gray-900 border-b border-gray-800 text-center text-white fixed w-full text-sm p-2 z-10">
         <Link href="/launch-contest">
             Christmas offer
             <svg viewBox="0 0 2 2" className="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true">
