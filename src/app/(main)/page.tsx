@@ -261,7 +261,7 @@ export default function Example() {
                 Finally, a random picker you can trust
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Organize contests where the random draw is <span className="underline font-semibold">transparent and provably random</span> thanks to blockchain technology.
+                Organize contests that are <span className="underline font-semibold">transparent and provably random</span> thanks to blockchain technology.
               </p> 
               <div className="mt-10 flex items-center justify-center lg:justify-start gap-x-6">
                 <Link
