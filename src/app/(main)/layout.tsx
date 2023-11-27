@@ -95,11 +95,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
     <div className="bg-gray-900 border-b border-gray-800 text-center text-white fixed w-full text-sm p-2 z-10">
         <Link href="/launch-contest">
-            Christmas offer
+            {/* Christmas offer
+            <svg viewBox="0 0 2 2" className="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true">
+            <circle cx={1} cy={1} r={1} />
+          </svg> */}
+            Try Random.win for <span className="font-semibold">FREE</span> until December 25
             <svg viewBox="0 0 2 2" className="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true">
             <circle cx={1} cy={1} r={1} />
           </svg>
-            Try Random.win for <span className="font-semibold">FREE</span> until December 25 - <span className="font-semibold">Start today🎉</span>
+            <span className="font-semibold">Start today🎉</span>
         </Link>
     </div>
 
