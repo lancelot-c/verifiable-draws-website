@@ -439,7 +439,7 @@ export default function Example() {
                 Transparent by design
             </p>
             <p className="mt-6 text-lg leading-8 text-gray-300">
-                We encode transparency into the algorithm itself by relying only on smart contracts.
+                We encode transparency into our algorithm by relying only on smart contracts.
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
