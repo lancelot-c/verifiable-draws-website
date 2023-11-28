@@ -62,7 +62,7 @@ const primaryFeatures = [
     {
         name: 'Legal value',
         description:
-          'Ethereum smart contracts are recognized as a reliable source of truth in any legal system in the world.',
+          'Ethereum smart contracts are recognized as a reliable source of truth in all legal systems in the world.',
         href: '#',
         icon: ScaleIcon,
       },
@@ -258,10 +258,10 @@ export default function Example() {
                 </a>
               </div> */}
               <h1 className="mt-16 lg:mt-32 text-4xl font-bold tracking-tight text-white sm:text-6xl">
-                Finally, a random picker you can trust
+                The best way to organize contests
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Organize contests that are <span className="underline font-semibold">transparent and provably random</span> thanks to blockchain technology.
+                Transparent, fair, and provably random thanks to blockchain technology.
               </p> 
               <div className="mt-10 flex items-center justify-center lg:justify-start gap-x-6">
                 <Link
@@ -282,9 +282,9 @@ export default function Example() {
                         {/* <ArrowTopRightOnSquareIcon className="absolute left-1 top-1 h-5 w-5 text-indigo-500" aria-hidden="true" /> */}
                     </Link>
                 </div>
-                <div className="py-1">⚖️ Recognized by all jurisdictions in the world</div>
+                <div className="py-1">⚖️ Recognized by jurisdictions worldwide</div>
                 
-                <div className="py-1">🇫🇷 Our team has advised the French National Lottery</div>
+                <div className="py-1">🇫🇷 Our team has advised the French National Lottery, 4<sup>th</sup> largest lottery in the world</div>
                 {/* <div className="py-1">💸 Simple pricing, only 4€ per contest</div> */}
                 {/* <div className="py-1">🔒 Patented blockchain algorithm</div> */}
               </div>
@@ -387,7 +387,7 @@ export default function Example() {
                     <div className="mx-auto max-w-2xl lg:max-w-none">
                         <div className="text-center">
                             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
-                                Most contests are scams
+                                Most contests are rigged
                             </h1>
                             {/* <p className="mt-4 text-lg leading-8 text-gray-600">
                                 Here are just a few cases where people didn&apos;t use Verifiable Draws and got in trouble.
@@ -436,10 +436,10 @@ export default function Example() {
             {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Deploy faster</h2> */}
             <p className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
                 Enter Random.win:<br />
-                Transparent by design
+                Bulletproof contests at your fingertips
             </p>
             <p className="mt-6 text-lg leading-8 text-gray-300">
-                We encode transparency into our algorithm by relying only on smart contracts.
+                Eliminates risks of fraud by relying only on smart contracts.
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
