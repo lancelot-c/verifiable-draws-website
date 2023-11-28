@@ -279,7 +279,7 @@ export default function Example() {
               <div className="text-gray-300 text-sm mt-10">
 
               <div className="py-1">⚖️ Recognized by jurisdictions worldwide</div>
-              
+
                 <div className="py-1">
                     <Link rel="noopener" target="_blank" className="hover:underline" href="https://www.linkedin.com/posts/lancelotchardonnet_immense-fiert%C3%A9-davoir-remport%C3%A9-dimanche-activity-7061594682044096512-KOHt?utm_source=share&utm_medium=member_desktop">
                         🏆 Awarded Gold Medal at Concours Lépine 
@@ -759,18 +759,16 @@ export default function Example() {
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Rely on proofs, not promises.
-              {/* <br />
-              Just give it to them. */}
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
-            People don&apos;t trust promises that are backed by nothing but thin air.<br />Start using Random.win today!
+              All contest platforms on the internet claim to be transparent and random, but only Random.win can prove it. Start today!
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 href="/launch-contest"
                 className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                Get started
+                Launch contest
               </Link>
               <Link href="https://discord.gg/3YjqW9MP7H" rel="noopener" target="_blank" className="text-sm font-semibold leading-6 text-white">
                 Join our Discord <span aria-hidden="true">→</span>

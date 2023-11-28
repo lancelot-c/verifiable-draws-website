@@ -5,20 +5,20 @@ import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
 export default function FAQ() {
 
     const faqs = [
+        // {
+        //     question: "How is Random.win different?",
+        //     answer:
+        //         `There are many choices when it comes to choosing a randomness provider: Random.org, Lukky, Pickaw, RandomDraws.com, ...
+        //         <br /><br />
+        //         Every single one of them claims to be transparent and random. However, these claims are backed by nothing but thin air, and you have to take their word for it. Not only they cannot prove it to the contest organizer, but more importantly, they cannot prove it to the contest participants. Therefore, their added value is very limited.
+        //         <br /><br />
+        //         With Random.win, contest participants have the proof that the contest isn't rigged because they can verify the winner in a single click by simply asking our smart contract. Transparency by design. ✨
+        //         <br /><br />
+        //         This enables Random.win to be an order of magnitude better than any other randomness provider.
+        //         `,
+        // },
         {
-            question: "How is Random.win different?",
-            answer:
-                `There are many choices when it comes to choosing a randomness provider: Random.org, Lukky, Pickaw, RandomDraws.com, ...
-                <br /><br />
-                Every single one of them claims to be transparent and random. However, these claims are backed by nothing but thin air, and you have to take their word for it. Not only they cannot prove it to the contest organizer, but more importantly, they cannot prove it to the contest participants. Therefore, their added value is very limited.
-                <br /><br />
-                With Random.win, contest participants have the proof that the contest isn't rigged because they can verify the winner in a single click by simply asking our smart contract. Transparency by design. ✨
-                <br /><br />
-                This enables Random.win to be an order of magnitude better than any other randomness provider.
-                `,
-        },
-        {
-            question: "I don't really care about blockchain and transparency, why should I use your product?",
+            question: "I don't really care about blockchain and transparency, why should I use Random.win?",
             answer:
                 `Blockchain enables transparency.
                 <br /><br />
