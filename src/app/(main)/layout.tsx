@@ -12,8 +12,8 @@ import { XMarkIcon } from '@heroicons/react/20/solid'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-    title: 'Finally, a random picker you can trust',
-    description: 'Organize contests where the random draw is transparent and provably random thanks to blockchain technology.',
+    title: 'The best way to organize contests',
+    description: 'Transparent, fair, and provably random thanks to blockchain technology.',
 }
 
 

@@ -78,24 +78,25 @@ const hallOfShame = [
         website: 'TMZ',
         url: 'https://www.tmz.com/2022/09/15/kim-kardashian-scott-disick-sued-scam-lottery-lawsuit/'
     },
+    
+    {
+        name: 'BBC fined by regulators for fake quizzes and contests',
+        image: bbcLogoImg,
+        website: 'Reuters',
+        url: 'https://www.reuters.com/article/us-britain-bbc-idUSL065561320080730'
+    },
+    {
+        name: 'An ex-cop rigged McDonald’s Monopoly game and stole millions',
+        image: mcdonaldsLogoImg,
+        website: 'Daily Beast',
+        url: 'https://www.thedailybeast.com/how-an-ex-cop-rigged-mcdonalds-monopoly-game-and-stole-millions'
+    },
     {
         name: 'Michel Platini admits the World Cup 98 draw was rigged',
         image: fifaLogoImg,
         website: 'The Washington Post',
         url: 'https://www.washingtonpost.com/news/early-lead/wp/2018/05/18/former-uefa-boss-michel-platini-says-1998-world-cup-draw-was-fixed/'
     },
-    {
-        name: 'McDonald\'s fooled on its own lucky draw game for more than 10 years',
-        image: mcdonaldsLogoImg,
-        website: 'Daily Beast',
-        url: 'https://www.thedailybeast.com/how-an-ex-cop-rigged-mcdonalds-monopoly-game-and-stole-millions'
-    },
-    {
-        name: 'BBC fined by regulators for fake quizzes and contests',
-        image: bbcLogoImg,
-        website: 'Reuters',
-        url: 'https://www.reuters.com/article/us-britain-bbc-idUSL065561320080730'
-    }
 ]
 
 
