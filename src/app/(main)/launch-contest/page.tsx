@@ -479,10 +479,10 @@ export default function Page() {
                                     <Link
                                         href={step.href}
                                         onClick={() => { goToStep(index + 1 as StepNumber) }}
-                                        className={`group flex flex-col border-l-4 border-indigo-600 py-2 pl-4 hover:border-indigo-800 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
+                                        className={`group flex flex-col border-l-4 border-indigo-600 py-2 pl-4 hover:border-indigo-600 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
                                     ${selectedStep !== shareStep ? '' : 'pointer-events-none'}`}
                                     >
-                                        <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-800">Step {index + 1}</span>
+                                        <span className="text-sm font-medium text-indigo-500 group-hover:text-indigo-500">Step {index + 1}</span>
                                         <span className="text-sm font-medium text-gray-300">{step.name}</span>
                                     </Link>
                                 ) : selectedStep === index + 1 ? (
@@ -492,7 +492,7 @@ export default function Page() {
                                         className="pointer-events-none flex flex-col border-l-4 border-indigo-600 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                                         aria-current="step"
                                     >
-                                        <span className="text-sm font-medium text-indigo-600">Step {index + 1}</span>
+                                        <span className="text-sm font-medium text-indigo-500">Step {index + 1}</span>
                                         <span className="text-sm font-medium text-gray-300">{step.name}</span>
                                     </Link>
                                 ) : currentStep >= index + 1 ? (
@@ -500,19 +500,19 @@ export default function Page() {
                                     <Link
                                         href={step.href}
                                         onClick={() => { goToStep(index + 1 as StepNumber) }}
-                                        className={`group flex flex-col border-l-4 border-indigo-300 py-2 pl-4 hover:border-indigo-600 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
+                                        className={`group flex flex-col border-l-4 border-indigo-300 py-2 pl-4 hover:border-indigo-300 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4
                                     ${isValid ? '' : ''}`}
                                     >
-                                        <span className="text-sm font-medium text-indigo-300 group-hover:text-indigo-600">Step {index + 1}</span>
+                                        <span className="text-sm font-medium text-indigo-300 group-hover:text-indigo-300">Step {index + 1}</span>
                                         <span className="text-sm font-medium text-gray-300">{step.name}</span>
                                     </Link>
                                 ) : (
                                     // Upcoming unavailable step
                                     <Link
                                         href={step.href}
-                                        className="pointer-events-none group flex flex-col border-l-4 border-gray-200 py-2 pl-4 hover:border-gray-300 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
+                                        className="pointer-events-none group flex flex-col border-l-4 border-gray-200 py-2 pl-4 hover:border-gray-200 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                                     >
-                                        <span className="text-sm font-medium text-white group-hover:text-gray-700">Step {index + 1}</span>
+                                        <span className="text-sm font-medium text-white group-hover:text-gray-300">Step {index + 1}</span>
                                         <span className="text-sm font-medium text-gray-300">{step.name}</span>
                                     </Link>
                                 )}
