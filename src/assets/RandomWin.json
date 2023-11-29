@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "VerifiableDraws",
-  "sourceName": "contracts/VerifiableDraws.sol",
+  "contractName": "RandomWin",
+  "sourceName": "contracts/RandomWin.sol",
   "abi": [
 	{
 		"inputs": [],
@@ -379,6 +379,25 @@
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "contest_identifier",
+				"type": "string"
+			}
+		],
+		"name": "checkContestWinners",
+		"outputs": [
+			{
+				"internalType": "uint32[]",
+				"name": "",
+				"type": "uint32[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "bytes",
 				"name": "",
 				"type": "bytes"
@@ -471,7 +490,7 @@
 						"type": "bool"
 					}
 				],
-				"internalType": "struct VerifiableDraws.Draw",
+				"internalType": "struct RandomWin.Draw",
 				"name": "",
 				"type": "tuple"
 			}
@@ -530,25 +549,6 @@
 				"internalType": "uint256[]",
 				"name": "randomWords",
 				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "cid",
-				"type": "string"
-			}
-		],
-		"name": "getWinners",
-		"outputs": [
-			{
-				"internalType": "uint32[]",
-				"name": "",
-				"type": "uint32[]"
 			}
 		],
 		"stateMutability": "view",
