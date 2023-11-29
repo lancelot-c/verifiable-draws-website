@@ -149,11 +149,12 @@ export default function Page() {
     const dt_min = new Date();
     
     const safetyCushionMin = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : 0;
-    // const safetyCushionDefault = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : (60 * 6);
+    const safetyCushionDefault = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : 10;
     dt_min.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionMin);
-    // dt_default.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionDefault);
-    // dt_default.setMinutes(0);
+
     const dt_default = new Date(dt_min);
+    dt_default.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionDefault);
+    
     const scheduledAtMinValue = dt_min.toISOString().slice(0, 16);
     const scheduledAtDefaultValue = dt_default.toISOString().slice(0, 16);
 
@@ -188,6 +189,7 @@ export default function Page() {
 
     const [accessToken, setAccessToken] = useState<string>('');
     const [media, setMedia] = useState<Media[]>([]);
+    const freeDraws = true;
 
 
 
@@ -196,8 +198,8 @@ export default function Page() {
             return;
         }
 
-        // Christmas offer
-        if (true) {
+
+        if (freeDraws) {
             nextStep(`step5`);
             return;
         }
@@ -230,7 +232,8 @@ export default function Page() {
     }, [currentStep])
 
     useEffect(() => {
-        if (currentStep !== shareStep || (paymentIntent === undefined && !searchParams.has('code'))) {
+
+        if (currentStep !== shareStep || (paymentIntent === undefined && !searchParams.has('code') && !freeDraws)) {
             return;
         }
 
@@ -251,9 +254,9 @@ export default function Page() {
                 drawNbWinners,
                 drawScheduledAt
             }
-        } else if (paymentIntent) {
+        } else if (paymentIntent || freeDraws) {
             jsonBody = {
-                paymentIntentId: paymentIntent.id,
+                paymentIntentId: paymentIntent?.id || "undefined",
                 drawTitle,
                 drawRules,
                 drawParticipants,
@@ -776,7 +779,7 @@ export default function Page() {
                                                 </div>
                                                 <div className="ml-3">
                                                     <h3 className="text-sm font-medium text-yellow-800">
-                                                        Deploying the contest on IPFS and Ethereum.
+                                                        Deploying the contest on Ethereum.
                                                     </h3>
                                                     <div className="mt-2 text-sm text-yellow-700">
                                                         <p>

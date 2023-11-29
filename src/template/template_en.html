@@ -96,11 +96,19 @@
             margin: 48px 0px;
         }
 
+        .winners {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .winners h2 {
-            background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            text-align: center;
+            color: #ffffff;
+            background-image: linear-gradient(to left, violet, indigo, blue, green, #969668, orange, red);
             width: 265px;
+            margin-block-start: -0.9em;
+            margin-block-end: 0.83em;
         }
 
         .winners ul {
@@ -250,7 +258,7 @@
 
         @media (max-width: 399px) {
             .main {
-                padding: 0px 16px;
+                padding: 0px 8px;
             }
 
             .modal-inner {
@@ -460,7 +468,7 @@
 
 
             winners.forEach(winner => {
-                winnersListElement.innerHTML += `<li value="${winner}">${drawParticipants[winner-1]}</li>`;
+                winnersListElement.innerHTML += `<li>${drawParticipants[winner-1]}</li>`;
             });
         }
 
@@ -496,7 +504,7 @@
 
         <div class="certified">
             <p class="txt">
-                <span class="icon">⚖️</span>Provably-fair and verifiable randomness<br />
+                <span class="icon">⚖️</span>Proof of randomness on the blockchain<br />
                 Powered by <a href="https://www.random.win/" target="_blank">Random.win</a>
             </p>
         </div>
@@ -524,7 +532,7 @@
         <hr />
 
         <div class="draw-parameter winners">
-            <h2>Draw winner<span class="plural-winners"></span>:</h2>
+            <h2>Draw winner<span class="plural-winners"></span></h2>
             <ul class="draw-parameter__value winners__list">
             </ul>
             <p class="draw-parameter__value verify-sentence">

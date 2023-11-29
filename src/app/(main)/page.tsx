@@ -73,14 +73,14 @@ const primaryFeatures = [
 
 const hallOfShame = [
     {
-        name: 'Kim Kardashian sued for fake lottery scam on Instagram',
+        name: 'Kim Kardashian sued over scam lottery on Instagram',
         image: kimLogoImg,
         website: 'TMZ',
         url: 'https://www.tmz.com/2022/09/15/kim-kardashian-scott-disick-sued-scam-lottery-lawsuit/'
     },
     
     {
-        name: 'BBC fined by regulators for fake quizzes and contests',
+        name: 'BBC fined by regulators for fake quizzes and competitions',
         image: bbcLogoImg,
         website: 'Reuters',
         url: 'https://www.reuters.com/article/us-britain-bbc-idUSL065561320080730'
@@ -92,7 +92,7 @@ const hallOfShame = [
         url: 'https://www.thedailybeast.com/how-an-ex-cop-rigged-mcdonalds-monopoly-game-and-stole-millions'
     },
     {
-        name: 'Michel Platini admits the World Cup 98 draw was rigged',
+        name: 'Former UEFA boss Michel Platini says 1998 World Cup draw was fixed',
         image: fifaLogoImg,
         website: 'The Washington Post',
         url: 'https://www.washingtonpost.com/news/early-lead/wp/2018/05/18/former-uefa-boss-michel-platini-says-1998-world-cup-draw-was-fixed/'
@@ -443,7 +443,7 @@ export default function Example() {
                 Bulletproof contests at your fingertips
             </p>
             <p className="mt-6 text-lg leading-8 text-gray-300">
-                Eliminates risks of fraud by relying only on smart contracts.
+                Eliminate all risks of fraud by relying on smart contracts.
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
