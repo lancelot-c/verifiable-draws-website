@@ -41,7 +41,7 @@ export default function FAQ() {
             `Every contest created on our platform is stored on our domain verify.win with the format verify.win/[contest-identifier]
             <br /><br />
             Contest identifiers are unique text strings which can be used by the participants to query our smart contract on the blockchain.
-            By <a href="https://polygonscan.com/address/0x5c51b1c7864814E6d8582Ba4604921949e1228e4#readContract#F1" rel="noopener" target="_blank"><u>calling the function “getWinners” on our smart contract</u></a> with the contest identifier as a parameter, they will get the winner for their contest in a completely trustless way. ✨`,
+            By <a href="https://polygonscan.com/address/0x5c51b1c7864814E6d8582Ba4604921949e1228e4#readContract#F1" rel="noopener" target="_blank"><u>calling the function “checkContestWinners” on our smart contract</u></a> with the contest identifier as a parameter, they will get the winner for their contest in a completely trustless way. ✨`,
         },
         {
             question: "Where is your smart contract?",

@@ -95,7 +95,7 @@ export default function Page() {
 
         setTimeout(() => {
 
-            fetch(`https://www.verifiabledraws.com/api/smart-contract/getWinners?network=${network}&contractAddress=${contractAddress}&cid=${cid}`)
+            fetch(`https://www.verifiabledraws.com/api/smart-contract/checkContestWinners?network=${network}&contractAddress=${contractAddress}&cid=${cid}`)
                 .then(res => res.json())
                 .then(data => {
                     if (!ignore) {
@@ -369,7 +369,7 @@ export default function Page() {
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
                         All lotteries claim that they are random but you cannot be sure about it because they perform their draws in a non-verifiable way.<br /><br />
-                        We perform all of our draws on the blockchain to make sure they are provably random and verifiable by anyone.<br /><br />To verify the winning numbers for this draw, simply <Link href="https://polygonscan.com/address/0x5c51b1c7864814E6d8582Ba4604921949e1228e4#readContract#F1" target="_blank" className="underline hover:text-gray-500">go to the Verifiable Draws smart contract</Link> and call the function <code className="bg-[#eff1f2] m-0 py-1 px-2 rounded-md whitespace-break-spaces break-words">getWinners</code> with <code className="bg-[#eff1f2] m-0 py-1 px-2 rounded-md whitespace-break-spaces break-words">{ cid }</code> which is the identifier for this draw.
+                        We perform all of our draws on the blockchain to make sure they are provably random and verifiable by anyone.<br /><br />To verify the winning numbers for this draw, simply <Link href="https://polygonscan.com/address/0x5c51b1c7864814E6d8582Ba4604921949e1228e4#readContract#F1" target="_blank" className="underline hover:text-gray-500">go to the Verifiable Draws smart contract</Link> and call the function <code className="bg-[#eff1f2] m-0 py-1 px-2 rounded-md whitespace-break-spaces break-words">checkContestWinners</code> with <code className="bg-[#eff1f2] m-0 py-1 px-2 rounded-md whitespace-break-spaces break-words">{ cid }</code> which is the identifier for this draw.
                         {/* padding: 0.2em 0.4em;
                         margin: 0;
                         white-space: break-spaces;
