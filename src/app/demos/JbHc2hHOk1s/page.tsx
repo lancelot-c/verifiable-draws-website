@@ -95,7 +95,7 @@ export default function Page() {
 
         setTimeout(() => {
 
-            fetch(`https://www.verifiabledraws.com/api/smart-contract/checkContestWinners?network=${network}&contractAddress=${contractAddress}&cid=${cid}`)
+            fetch(`https://www.verifiabledraws.com/api/smart-contract/getWinners?network=${network}&contractAddress=${contractAddress}&cid=${cid}`)
                 .then(res => res.json())
                 .then(data => {
                     if (!ignore) {
