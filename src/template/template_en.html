@@ -1,6 +1,6 @@
 <!-- 
-    © 2023 Verifiable Draws
-    https://www.verifiabledraws.com/
+    © 2023 Random.win
+    https://www.random.win/
 
     This code is licensed under AGPL v3 license,
     see https://www.gnu.org/licenses/agpl-3.0.en.html for details.
@@ -356,7 +356,7 @@
 
 
         // Fetch storage proofs
-        const statusResponse = await fetch(`https://www.verifiabledraws.com/api/draw/status?cid=${cid}`)
+        const statusResponse = await fetch(`https://www.random.win/api/draw/status?cid=${cid}`)
         const drawStatus = await statusResponse.json();
         const drawDeals = drawStatus.deals;
         console.log('Filecoin deals (proofs of storage) = ');
@@ -438,7 +438,7 @@
         async function checkDrawResult() {
 
             // You can verify that the returned randomness match the one at {{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F5
-            let smartContractCall = await fetch(`https://www.verifiabledraws.com/api/smart-contract/getWinners?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
+            let smartContractCall = await fetch(`https://www.random.win/api/smart-contract/getWinners?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
             const jsonResponse = await smartContractCall.json();
             const winners = jsonResponse.winners;
             console.log(`winners = ${winners}`);
