@@ -16,7 +16,7 @@
     <link rel="icon" href="https://bafybeie7ofmzyrq57ynizbtrbwtmhfvj53fiik7ironn2hzstwk54uewty.ipfs.w3s.link/favicon.ico" />
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="https://bafybeig72t45uiohr53ctwhw2nl4ec5sm5atc6atskhywbn6hmaroh6fly.ipfs.w3s.link/styles.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="https://bafybeig72t45uiohr53ctwhw2nl4ec5sm5atc6atskhywbn6hmaroh6fly.ipfs.w3s.link/styles.css" /> -->
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -181,9 +181,19 @@
             display: none;
         }
 
+        .occuredAt {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
         .drawOngoing {
             z-index: -10;
             position: relative;
+        }
+
+        .scheduledAt {
+            flex-shrink: 0;
         }
 
         /* Modal */
@@ -204,12 +214,14 @@
 
         .modal-inner {
             background-color: white;
+            max-width: 60%;
             margin: auto;
             font-size: 1.1em;
             line-height: 1.6em;
             overflow: scroll;
             overflow-wrap: break-word;
             height: 100%;
+            padding: 2em;
         }
 
         .modal-header {
@@ -524,15 +536,16 @@
                         <p>Draw in progress, please wait...</p>
                     </div>
                 </div>
-                <p class="occuredAt">
-                    This draw occured on<br /><span class="var_scheduledAtString"></span>
-                </p>
+                <div class="occuredAt">
+                    <div style="margin-right:4px;">This draw occured on</div>
+                    <div class="var_scheduledAtString"></div>
+                </div>
             </div>
         </div>
         <hr />
 
         <div class="draw-parameter winners">
-            <h2>Draw winner<span class="plural-winners"></span></h2>
+            <h2>Draw winner<span class="plural-winners"></span>:</h2>
             <ul class="draw-parameter__value winners__list">
             </ul>
             <p class="draw-parameter__value verify-sentence">
@@ -574,13 +587,18 @@
                 </span>
             </div>
             <p>
-                All lotteries claim that they select their winners randomly but you cannot be sure about it because they perform their lottery drawings in a non-verifiable way.
+                
+                All giveaways, contests, and lotteries claim that they select their winners randomly but you cannot be sure about it because they perform their random draws in a non-verifiable way.
+            
             </p>
             <p>
                 This draw was performed on the blockchain to make sure it is provably random and verifiable by anyone.
             </p>
             <p>
-                To verify the winners for this draw, simply go to <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F1" target="_blank">the Random.win smart contract</a> and call the function <code>checkContestWinners</code> with <code><span class="var_cid"></span></code> which is the identifier for this draw.
+                To verify the winners for this draw, simply go to <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F1" target="_blank">the Random.win smart contract</a> and call the function <code>checkContestWinners</code> with the parameter <code><span class="var_cid"></span></code> which is the identifier for this draw.
+            </p>
+            <p>
+
             </p>
         </div>
     </div>
