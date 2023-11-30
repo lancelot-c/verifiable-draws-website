@@ -11,7 +11,7 @@ import heroDemoJpegImg from '/public/img/step1.jpeg'
 import chainlinkVrfImg from '/public/img/chainlink-vrf.avif'
 import step1Img from '/public/img/step1.jpeg'
 import step2Img from '/public/img/step2.jpeg'
-import step3Img from '/public/img/step3.gif'
+import step3Img from '/public/img/step3.jpeg'
 import insightMediaImg from '/public/img/insight-media.png'
 import kastelCoImg from '/public/img/kastel-co-logo-1872w.png'
 import polygonLogoImg from '/public/img/polygon-logo.png'
@@ -271,8 +271,8 @@ export default function Example() {
                 >
                   Launch contest
                 </Link>
-                <Link href="#benefits" className="text-sm font-semibold leading-6 text-white">
-                  See benefits <span aria-hidden="true">→</span>
+                <Link href="https://www.verify.win/bafkreib3q5oqnkabu7dzflkf7ghzmcaqtsovxnxzv3wwwfjrrvqvdf2nde" className="text-sm font-semibold leading-6 text-white">
+                  View an example <span aria-hidden="true">→</span>
                 </Link>
               </div>
               
@@ -476,11 +476,11 @@ export default function Example() {
             <div className="mx-auto max-w-2xl">
               {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Everything you need</h2> */}
               <p className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
-                    Unlock a myriad of benefits
+                    Unlock a myriad of benefits for your business
               </p>
-              <p className="mt-6 text-lg leading-8 text-gray-300">
+              {/* <p className="mt-6 text-lg leading-8 text-gray-300">
                 Running your contests on smart contracts enables you to have an edge over your competitors by unlocking a wide range of benefits for your business.
-              </p>
+              </p> */}
             </div>
           </div>
           {/* <div className="relative overflow-hidden pt-16">
@@ -498,7 +498,7 @@ export default function Example() {
             </div>
           </div> */}
 
-<div className="flex justify-evenly mt-16">
+{/* <div className="flex justify-evenly mt-16">
 
             <div className="">
               <svg viewBox="0 0 366 729" role="img" className="mx-auto w-[22.875rem] max-w-full drop-shadow-xl">
@@ -581,7 +581,7 @@ export default function Example() {
               </svg>
             </div>
 
-            </div>
+            </div> */}
 
 
           <div className="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 md:mt-24 lg:px-8">
