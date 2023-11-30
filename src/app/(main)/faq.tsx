@@ -2,6 +2,9 @@
 import { Disclosure } from '@headlessui/react'
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
 
+
+const mainnetContractAddress = process.env.MAINNET_CONTRACT_ADDRESS as string;
+
 export default function FAQ() {
 
     const faqs = [
@@ -41,12 +44,12 @@ export default function FAQ() {
             `Every contest created on our platform is stored on our domain verify.win with the format verify.win/[contest-identifier]
             <br /><br />
             Contest identifiers are unique text strings which can be used by the participants to query our smart contract on the blockchain.
-            By <a href="https://polygonscan.com/address/0x5c51b1c7864814E6d8582Ba4604921949e1228e4#readContract#F1" rel="noopener" target="_blank"><u>calling the function “checkContestWinners” on our smart contract</u></a> with the contest identifier as a parameter, they will get the winner for their contest in a completely trustless way. ✨`,
+            By <a href="https://polygonscan.com/address/${mainnetContractAddress}#readContract#F1" rel="noopener" target="_blank"><u>calling the function “checkContestWinners” on our smart contract</u></a> with the contest identifier as a parameter, they will get the winner for their contest in a completely trustless way. ✨`,
         },
         {
             question: "Where is your smart contract?",
             answer:
-                `<a href="https://polygonscan.com/address/0x5c51b1c7864814E6d8582Ba4604921949e1228e4#code" rel="noopener" target="_blank"><u>Here it is.</u></a>`,
+                `<a href="https://polygonscan.com/address/${mainnetContractAddress}#code" rel="noopener" target="_blank"><u>Here it is.</u></a>`,
         },
     ]
 
