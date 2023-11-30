@@ -373,7 +373,7 @@
         console.log('Filecoin deals (proofs of storage) = ');
         console.log(drawDeals);
 
-        document.getElementsByClassName("var_drawParticipants")[0].innerHTML = drawParticipants.map(p => `<li>${p}</li>`).join('');
+        document.getElementsByClassName("var_drawParticipants")[0].innerHTML = drawParticipants.map((p, i) => `<li id="${i+1}">${p}</li>`).join('');
 
         const drawNbParticipants = {{ drawNbParticipants }};
         populateDom('drawNbParticipants', drawNbParticipants)
@@ -479,7 +479,7 @@
 
 
             winners.forEach(winner => {
-                winnersListElement.innerHTML += `<li>${drawParticipants[winner-1]}</li>`;
+                winnersListElement.innerHTML += `<li>${drawParticipants[winner-1]} <a href="#${winner}">(#${winner})</a></li>`;
             });
         }
 
@@ -586,18 +586,13 @@
                 </span>
             </div>
             <p>
-                
                 All giveaways, contests, and lotteries claim that they select their winners randomly but you cannot be sure about it because they perform their random draws in a non-verifiable way.
-            
             </p>
             <p>
                 This draw was performed on the blockchain to make sure it is provably random and verifiable by anyone.
             </p>
             <p>
                 To verify the winners for this draw, simply go to <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F1" target="_blank">the Random.win smart contract</a> and call the function <code>checkContestWinners</code> with the parameter <code><span class="var_cid"></span></code> which is the identifier for this draw.
-            </p>
-            <p>
-
             </p>
         </div>
     </div>
