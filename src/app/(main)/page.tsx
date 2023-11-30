@@ -440,7 +440,8 @@ export default function Example() {
             {/* <h2 className="text-base font-semibold leading-7 text-indigo-400">Deploy faster</h2> */}
             <p className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
                 Enter Random.win:<br />
-                Bulletproof contests at your fingertips
+                Contests that are impossible to rig
+                {/* Bulletproof contests at your fingertips */}
             </p>
             <p className="mt-6 text-lg leading-8 text-gray-300">
                 Eliminate all risks of fraud by relying on smart contracts.
