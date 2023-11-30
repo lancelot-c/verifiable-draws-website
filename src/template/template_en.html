@@ -340,7 +340,7 @@
         // Handling time
         const timestamp = {{ drawScheduledAt }}; // in sec
         const scheduledAt = new Date(timestamp * 1000);
-        const scheduledAtString = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(scheduledAt);
+        const scheduledAtString = new Intl.DateTimeFormat('en-US', { dateStyle: 'short', timeStyle: 'short' }).format(scheduledAt);
         populateDom('scheduledAtString', scheduledAtString)
         const scheduledAtElmt = document.getElementsByClassName("scheduledAt")[0];
         const loadingElmt = document.getElementsByClassName("drawOngoing")[0];
