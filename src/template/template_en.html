@@ -105,10 +105,11 @@
         .winners h2 {
             text-align: center;
             color: #ffffff;
-            background-image: linear-gradient(to left, violet, indigo, blue, green, #969668, orange, red);
-            width: 265px;
+            background-image: linear-gradient(to left, violet, indigo, blue, green, #969668, #dc8e00, red);
+            width: 150px;
             margin-block-start: -0.9em;
             margin-block-end: 0.83em;
+            padding: 0px 10px;
         }
 
         .winners ul {
@@ -373,7 +374,7 @@
         console.log('Filecoin deals (proofs of storage) = ');
         console.log(drawDeals);
 
-        document.getElementsByClassName("var_drawParticipants")[0].innerHTML = drawParticipants.map((p, i) => `<li id="${i+1}">${p}</li>`).join('');
+        document.getElementsByClassName("var_drawParticipants")[0].innerHTML = drawParticipants.map(p => `<li>${p}</li>`).join('');
 
         const drawNbParticipants = {{ drawNbParticipants }};
         populateDom('drawNbParticipants', drawNbParticipants)
@@ -479,7 +480,7 @@
 
 
             winners.forEach(winner => {
-                winnersListElement.innerHTML += `<li>${drawParticipants[winner-1]} <a href="#${winner}">(#${winner})</a></li>`;
+                winnersListElement.innerHTML += `<li>${drawParticipants[winner-1]}</li>`;
             });
         }
 
@@ -544,7 +545,7 @@
         <hr />
 
         <div class="draw-parameter winners">
-            <h2>Draw winner<span class="plural-winners"></span>:</h2>
+            <h2>Winner<span class="plural-winners"></span>:</h2>
             <ul class="draw-parameter__value winners__list">
             </ul>
             <p class="draw-parameter__value verify-sentence">
@@ -593,6 +594,9 @@
             </p>
             <p>
                 To verify the winners for this draw, simply go to <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F1" target="_blank">the Random.win smart contract</a> and call the function <code>checkContestWinners</code> with the parameter <code><span class="var_cid"></span></code> which is the identifier for this draw.
+            </p>
+            <p>
+                The winning numbers you get from this function can then be matched to the names of the winners by looking at the list of participants on this page. 
             </p>
         </div>
     </div>
