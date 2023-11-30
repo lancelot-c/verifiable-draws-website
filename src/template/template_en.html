@@ -77,7 +77,11 @@
             margin-right: 16px;
         }
 
-        ul {
+        .no-leading-zero {
+            list-style: decimal;
+        }
+
+        .leading-zero {
             list-style: decimal-leading-zero;
         }
 
@@ -106,10 +110,10 @@
             text-align: center;
             color: #ffffff;
             background-image: linear-gradient(to left, violet, indigo, blue, green, #969668, #dc8e00, red);
-            width: 150px;
+            width: 155px;
             margin-block-start: -0.9em;
             margin-block-end: 0.83em;
-            padding: 0px 10px;
+            padding: 0px 15px;
         }
 
         .winners ul {
@@ -546,7 +550,7 @@
 
         <div class="draw-parameter winners">
             <h2>Winner<span class="plural-winners"></span>:</h2>
-            <ul class="draw-parameter__value winners__list">
+            <ul class="draw-parameter__value winners__list no-leading-zero">
             </ul>
             <p class="draw-parameter__value verify-sentence">
                 You don't trust this result ? 
@@ -566,7 +570,7 @@
 
         <div class="draw-parameter">
             <h2><span class="var_drawNbParticipants"></span> Participants:</h2>
-            <ul class="draw-parameter__value var_drawParticipants">
+            <ul class="draw-parameter__value var_drawParticipants leading-zero">
             </ul>
         </div>
 
