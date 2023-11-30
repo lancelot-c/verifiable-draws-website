@@ -182,7 +182,6 @@
         }
 
         .occuredAt {
-            display: flex;
             flex-direction: row;
             flex-wrap: wrap;
         }
@@ -461,7 +460,7 @@
             console.log(`We have some winners 🎉`);
             loadingElmt.style.display = 'none';
             scheduledAtElmt.style.display = 'none';
-            occuredAtElmt.style.display = 'block';
+            occuredAtElmt.style.display = 'flex';
 
             // Launch fireworks animation
             fireworksElmt = document.querySelector('.fireworks');

@@ -153,7 +153,7 @@ export default function Page() {
     dt_min.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionMin);
 
     const dt_default = new Date(dt_min);
-    dt_default.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionDefault);
+    // dt_default.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionDefault);
     
     const scheduledAtMinValue = dt_min.toISOString().slice(0, 16);
     const scheduledAtDefaultValue = dt_default.toISOString().slice(0, 16);
@@ -837,13 +837,13 @@ export default function Page() {
                                     (drawLinks.length > 0 && !deployError) && (
                                         <div className="text-center">
                                             <p className="mt-8 text-md text-white">
-                                                Your contest has successfully been deployed to the blockchain. 🎉<br />
-                                                You can now share the following link in your story so that your followers can access the contest page and see the winners when they are announced.
+                                                Your contest has successfully been deployed. 🎉<br />
+                                                You can now share the following link in your story so that your followers can follow the random draw live on the blockchain.
                                             </p>
 
 
                                             {drawLinks.map((drawLink) => (
-                                                <div key={drawLink} className="rounded-md bg-white/50 ring-2 ring-indigo-800 my-12 px-8 py-4 text-xl flex justify-center">
+                                                <div key={drawLink} className="bg-[#30313C] text-white rounded-md ring-2 ring-inset ring-indigo-600 my-12 px-8 py-4 text-xl flex justify-center">
                                                     <div className="text-ellipsis overflow-hidden mx-2">
                                                         {shortenUrl(drawLink)}
                                                     </div>
@@ -863,8 +863,8 @@ export default function Page() {
                                             ))}
 
                                             <p className="mt-8 text-md text-white">
-                                                If you need further assistance please ask on <Link href="https://discord.gg/3YjqW9MP7H" rel="noopener" target="_blank" className="underline">our Discord server</Link>, we will be happy to help you.<br />
-                                                Thank you for using our service and helping to make social media more responsible and transparent.
+                                                If you need further assistance, do not hesitate to contact us, we will be happy to help you.<br />
+                                                {/* Thank you for using our service and helping to make social media more responsible and transparent. */}
                                             </p>
                                         </div>
                                     )
