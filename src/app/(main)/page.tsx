@@ -499,7 +499,7 @@ export default function Example() {
             </div>
           </div> */}
 
-{/* <div className="flex justify-evenly mt-16">
+<div className="flex justify-evenly mt-16">
 
             <div className="">
               <svg viewBox="0 0 366 729" role="img" className="mx-auto w-[22.875rem] max-w-full drop-shadow-xl">
@@ -582,7 +582,7 @@ export default function Example() {
               </svg>
             </div>
 
-            </div> */}
+            </div>
 
 
           <div className="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 md:mt-24 lg:px-8">
