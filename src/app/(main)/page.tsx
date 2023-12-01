@@ -271,7 +271,7 @@ export default function Example() {
                 >
                   Launch contest
                 </Link>
-                <Link href="https://www.verify.win/bafkreib3q5oqnkabu7dzflkf7ghzmcaqtsovxnxzv3wwwfjrrvqvdf2nde" className="text-sm font-semibold leading-6 text-white">
+                <Link href="https://www.verify.win/bafkreicdy6hmzwjfia6zzip4ppvwqellghr4bihstapppthowjcik2glwi" className="text-sm font-semibold leading-6 text-white">
                   View an example <span aria-hidden="true">→</span>
                 </Link>
               </div>
