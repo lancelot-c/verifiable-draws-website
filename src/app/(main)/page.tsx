@@ -282,7 +282,7 @@ export default function Example() {
 
                 <div className="py-1">
                     <Link rel="noopener" target="_blank" className="hover:underline" href="https://www.linkedin.com/posts/lancelotchardonnet_immense-fiert%C3%A9-davoir-remport%C3%A9-dimanche-activity-7061594682044096512-KOHt?utm_source=share&utm_medium=member_desktop">
-                        🏆 Awarded Gold Medal at Concours Lépine, France's biggest innovation competition
+                        🏆 Awarded Gold Medal at Concours Lépine, France&apos;s biggest innovation competition
                         {/* <ArrowTopRightOnSquareIcon className="absolute left-1 top-1 h-5 w-5 text-indigo-500" aria-hidden="true" /> */}
                     </Link>
                 </div>
