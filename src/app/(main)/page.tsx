@@ -282,13 +282,13 @@ export default function Example() {
 
                 <div className="py-1">
                     <Link rel="noopener" target="_blank" className="hover:underline" href="https://www.linkedin.com/posts/lancelotchardonnet_immense-fiert%C3%A9-davoir-remport%C3%A9-dimanche-activity-7061594682044096512-KOHt?utm_source=share&utm_medium=member_desktop">
-                        🏆 Awarded Gold Medal at Concours Lépine 
+                        🏆 Awarded Gold Medal at Concours Lépine, France's biggest innovation competition
                         {/* <ArrowTopRightOnSquareIcon className="absolute left-1 top-1 h-5 w-5 text-indigo-500" aria-hidden="true" /> */}
                     </Link>
                 </div>
                 
                 
-                <div className="py-1">🇫🇷 Our team has advised the French National Lottery, 4<sup>th</sup> largest lottery in the world</div>
+                <div className="py-1">🇫🇷 Our team has advised FDJ, the 4<sup>th</sup> largest lottery in the world</div>
                 {/* <div className="py-1">💸 Simple pricing, only 4€ per contest</div> */}
                 {/* <div className="py-1">🔒 Patented blockchain algorithm</div> */}
               </div>
