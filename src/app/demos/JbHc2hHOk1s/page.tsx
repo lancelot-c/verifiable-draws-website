@@ -10,7 +10,7 @@ import { Fireworks } from '@fireworks-js/react'
 import type { FireworksHandlers } from '@fireworks-js/react'
 const network = 'polygon-mainnet';
 
-const mainnetContractAddress = process.env.MAINNET_CONTRACT_ADDRESS as string;
+const mainnetContractAddress = process.env.NEXT_PUBLIC_MAINNET_CONTRACT_ADDRESS as string;
 
 export default function Page() {
 

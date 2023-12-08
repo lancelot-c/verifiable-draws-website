@@ -25,7 +25,7 @@ function setEthersParams(network: string) {
     providerBaseURL = ((network === 'mainnet') ? process.env.MAINNET_API_URL : process.env.TESTNET_API_URL) as string;
     providerKey = ((network === 'mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY) as string;
     providerURL = `${providerBaseURL}${providerKey}`;
-    contractAddress = ((network === 'mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
+    contractAddress = ((network === 'mainnet') ? process.env.NEXT_PUBLIC_MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
     polygonscanAddress = (network === 'mainnet') ? "https://polygonscan.com" : "https://mumbai.polygonscan.com";
     provider = new ethers.JsonRpcProvider(providerURL)
 

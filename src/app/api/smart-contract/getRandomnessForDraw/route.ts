@@ -20,7 +20,7 @@ export async function GET(request: Request) {
         throw new Error(`Network ${network} is not supported.`)
     }
 
-    const expectedContractAddress = ((network === 'polygon-mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
+    const expectedContractAddress = ((network === 'polygon-mainnet') ? process.env.NEXT_PUBLIC_MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
     if (contractAddress !== expectedContractAddress) {
         throw new Error(`Wrong contract address. Expected ${expectedContractAddress}, got ${contractAddress}.`)
     }
