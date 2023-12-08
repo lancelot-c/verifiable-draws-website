@@ -3,7 +3,7 @@ import { Disclosure } from '@headlessui/react'
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline'
 
 
-const mainnetContractAddress = process.env.MAINNET_CONTRACT_ADDRESS as string;
+const mainnetContractAddress = process.env.NEXT_PUBLIC_MAINNET_CONTRACT_ADDRESS as string;
 
 export default function FAQ() {
 
