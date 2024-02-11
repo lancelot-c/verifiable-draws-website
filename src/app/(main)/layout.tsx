@@ -42,7 +42,7 @@ const footerNavigation = {
       { name: 'Privacy', href: '#' },
       { name: 'Terms', href: '#' },
     ],
-    social: [
+    social:  [
         {
                         name: 'Discord',
                         href: 'https://discord.gg/3YjqW9MP7H',
