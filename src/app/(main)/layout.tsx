@@ -243,7 +243,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </div>
                         <p className="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">
                             Verifiable Draws is a product of Borr Technologies, a registered French company.<br />
-                            &copy; 2023 Borr Technologies. All rights reserved.
+                            &copy; 2024 Borr Technologies. All rights reserved.
                         </p>
                     </div>
                 </div>

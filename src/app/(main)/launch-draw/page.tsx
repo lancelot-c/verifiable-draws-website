@@ -147,7 +147,7 @@ export default function Page() {
                 participants: '',
                 nbWinners: drawNbWinnersPlaceholder
             },
-            step3: {
+            step2: {
                 scheduledAt: scheduledAtDefaultValue
             }
         }
