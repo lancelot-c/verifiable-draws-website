@@ -5,9 +5,9 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import React from "react";
 import { loadStripe, StripeElementsOptions, PaymentIntent } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
 import { CheckCircleIcon, InformationCircleIcon, XCircleIcon } from '@heroicons/react/20/solid'
-import CheckoutForm from "./CheckoutForm";
+// import CheckoutForm from "./CheckoutForm";
 const websiteBasePaths = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? ['http://localhost:3000/ipfs?cid='] : ['http://verify.win/']
 const stripePublicKey = (process.env.NEXT_PUBLIC_STRIPE_ENV === 'test') ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_TEST : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_PROD;
 
@@ -17,55 +17,38 @@ if (!stripePublicKey) {
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
-const stripePromise = loadStripe(stripePublicKey);
+// const stripePromise = loadStripe(stripePublicKey);
 
 
 const steps = [
-    { name: 'Draw name and rules', href: '#step1' },
-    { name: 'Participants', href: '#step2' },
-    { name: 'Schedule', href: '#step3' },
-    { name: 'Purchase', href: '#step4' },
-    { name: 'Share the link', href: '#step5' },
+    { name: 'Edit your draw details', href: '#step1' },
+    // { name: 'Participants', href: '#step2' },
+    { name: 'Schedule the random draw', href: '#step2' },
+    // { name: 'Purchase', href: '#step4' },
+    { name: 'Share the link', href: '#step3' },
 ]
 
 type FormInputs = {
     step1?: {
         name: string
-        rules: string
-    },
-    step2?: {
+        rules: string,
         participants: string
         nbWinners: number
     },
-    step3?: {
+    step2?: {
         scheduledAt: string
     },
-    step4?: {
-
-    },
-    step5?: {
+    step3?: {
 
     },
 }
 
-const drawNamePlaceholder = '4 tickets to win for a VR attraction';
+const drawNamePlaceholder = 'My great contest';
 
 const drawRulesPlaceholder =
-`Insight Media is giving away 4 tickets for Hurricane 360, an innovative VR attraction in Geneva.
-The contest was originally launched on our Instagram post here: https://www.instagram.com/p/CtWEirCoglU
-As a reminder, the rules to participate in this contest were:
-
-✅ Follow our Instagram account @insight_media_ch & like the Instagram post for this contest
-✅ Mention in the comments between 1 and 4 friends with whom you would like to share this experience with
-
-The contest is now closed.
-We have collected 69 valid participations and will now proceed to a provably fair and random draw thanks to Verifiable Draws.
-Good luck 💙🤞
-
-Disclaimer:
-• Only people older than 16 years old can participate in this contest
-• This promotion is done in collaboration with the entertainment center @airloopswiss
-⚠️ Beware of scammers, we will never ask you to click on a link to claim your prize. Only respond to DMs from our official account @insight_media_ch ⚠️`;
+`The participants for this contest are all the people who mentioned 2 of their friends in the comments of this Instagram post: https://www.instagram.com/p/Ct7jt-motWO6svTyXoQbbpDfU3F-kv6XTXXqEY0/
+We will now randomly select one lucky winner among the participants.
+This person will win a 2-week holiday to The Maldives.`;
 
 const drawParticipantsPlaceholder = `@jeys23
 @happy_lance
@@ -137,7 +120,7 @@ const drawParticipantsPlaceholder = `@jeys23
 @giusepperealennelcuore
 @aloisius_gonzaga_agung`;
 
-const drawNbWinnersPlaceholder = '4';
+const drawNbWinnersPlaceholder = 1;
 
 
 
@@ -145,11 +128,14 @@ export default function Page() {
 
     const searchParams = useSearchParams()
     const dt_min = new Date();
-    const dt_default = new Date();
-    const safetyCushionMin = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? -1000000 : 0;
-    const safetyCushionDefault = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : (60 * 6);
+    
+    const safetyCushionMin = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : 0;
+    const safetyCushionDefault = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 0 : 10;
     dt_min.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionMin);
-    dt_default.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionDefault);
+
+    const dt_default = new Date(dt_min);
+    // dt_default.setMinutes(dt_min.getMinutes() - dt_min.getTimezoneOffset() + safetyCushionDefault);
+    
     const scheduledAtMinValue = dt_min.toISOString().slice(0, 16);
     const scheduledAtDefaultValue = dt_default.toISOString().slice(0, 16);
 
@@ -157,11 +143,9 @@ export default function Page() {
         defaultValues: {
             step1: {
                 name: '',
-                rules: ''
-            },
-            step2: {
+                rules: '',
                 participants: '',
-                nbWinners: undefined
+                nbWinners: drawNbWinnersPlaceholder
             },
             step3: {
                 scheduledAt: scheduledAtDefaultValue
@@ -170,10 +154,10 @@ export default function Page() {
     });
 
     const showErrorsOnBlur = true
-    type StepNumber = 1 | 2 | 3 | 4 | 5
+    type StepNumber = 1 | 2 | 3
     const startAtStep = 1
-    const paymentStep = 4
-    const shareStep = 5
+    // const paymentStep = 4
+    const shareStep = 3
 
     const [currentStep, setCurrentStep] = useState<StepNumber>(startAtStep)
     const [selectedStep, setSelectedStep] = useState<StepNumber>(currentStep)
@@ -184,35 +168,35 @@ export default function Page() {
     const [drawLinks, setDrawLinks] = useState<string[]>([]);
     const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | undefined>(undefined);
  
-    useEffect(() => {
-        if (currentStep !== paymentStep) {
-            return;
-        }
+    // useEffect(() => {
+    //     if (currentStep !== paymentStep) {
+    //         return;
+    //     }
 
-        if (searchParams.has('code')) {
-            nextStep(`step5`);
-            return;
-        }
+    //     if (searchParams.has('code')) {
+    //         nextStep(`step3`);
+    //         return;
+    //     }
 
-        let ignore = false;
+    //     let ignore = false;
 
-        fetch("/api/payment/create", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({}),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (!ignore) {
-                    setClientSecret(data.clientSecret)
-                }
-            });
+    //     fetch("/api/payment/create", {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({}),
+    //     })
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             if (!ignore) {
+    //                 setClientSecret(data.clientSecret)
+    //             }
+    //         });
 
-        return () => {
-            ignore = true;
-        };
+    //     return () => {
+    //         ignore = true;
+    //     };
 
-    }, [currentStep])
+    // }, [currentStep])
 
     useEffect(() => {
         if (currentStep !== shareStep || (paymentIntent === undefined && !searchParams.has('code'))) {
@@ -221,8 +205,8 @@ export default function Page() {
 
         let ignore = false;
 
-        const [drawTitle, drawRules, drawParticipants, drawNbWinners] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners"]);
-        const drawScheduledAt = Math.ceil(getTimestampFromIso(getValues("step3.scheduledAt")) / 1000); // in seconds
+        const [drawTitle, drawRules, drawParticipants, drawNbWinners] = getValues(["step1.name", "step1.rules", "step1.participants", "step1.nbWinners"]);
+        const drawScheduledAt = Math.ceil(getTimestampFromIso(getValues("step2.scheduledAt")) / 1000); // in seconds
         setDeployInProgress(true);
 
         let jsonBody = {};
@@ -306,36 +290,36 @@ export default function Page() {
     }
 
 
-    const options: StripeElementsOptions = {
-        clientSecret,
-        fonts: [{ cssSrc: 'https://fonts.googleapis.com/css?family=Inter' }],
-        appearance: {
-            theme: 'stripe',
-            variables: {
-                fontFamily: 'Inter',
-                colorPrimary: '#4f46e5', // = Tailwind indigo-600 color
-            },
-            disableAnimations: false,
-            labels: 'above'
-        },
-        loader: 'always',
-    };
+    // const options: StripeElementsOptions = {
+    //     clientSecret,
+    //     fonts: [{ cssSrc: 'https://fonts.googleapis.com/css?family=Inter' }],
+    //     appearance: {
+    //         theme: 'stripe',
+    //         variables: {
+    //             fontFamily: 'Inter',
+    //             colorPrimary: '#4f46e5', // = Tailwind indigo-600 color
+    //         },
+    //         disableAnimations: false,
+    //         labels: 'above'
+    //     },
+    //     loader: 'always',
+    // };
 
 
-    async function onPaymentSuccess(paymentIntent: PaymentIntent) {
+    // async function onPaymentSuccess(paymentIntent: PaymentIntent) {
 
-        const [drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners", "step3.scheduledAt"]);
+    //     const [drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt] = getValues(["step1.name", "step1.rules", "step2.participants", "step2.nbWinners", "step3.scheduledAt"]);
 
-        if (!drawTitle || !drawRules || !drawParticipants || !drawNbWinners || !drawScheduledAt) {
-            return;
-        }
+    //     if (!drawTitle || !drawRules || !drawParticipants || !drawNbWinners || !drawScheduledAt) {
+    //         return;
+    //     }
 
-        setPaymentIntent(paymentIntent)
-        goToStep(5)();
-    }
+    //     setPaymentIntent(paymentIntent)
+    //     goToStep(5)();
+    // }
 
     function validateScheduledAtFn() {
-        return getTimestampFromIso(getValues("step3.scheduledAt")) >= getTimestampFromIso(scheduledAtMinValue)
+        return getTimestampFromIso(getValues("step2.scheduledAt")) >= getTimestampFromIso(scheduledAtMinValue)
     }
 
     // get timestamp in ms from partial iso string
@@ -492,17 +476,10 @@ export default function Page() {
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">Explain what are the prizes to win, how many winners will be picked, and remind everyone what they needed to do in order to be included in the list of participants for this draw.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">Explain what people needed to do in order to participate in this draw.</p>
                             </div>
 
-                        </div>
-                    )
-                }
 
-
-                {
-                    (selectedStep === 2) && (
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                             <div className="col-span-full">
                                 <label htmlFor="participants" className="block text-sm font-medium leading-6 text-gray-900">
@@ -514,16 +491,16 @@ export default function Page() {
                                         id="participants"
                                         placeholder={drawParticipantsPlaceholder}
                                         className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6
-                                        ${errors.step2?.participants && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                        {...register("step2.participants", {
+                                        ${errors.step1?.participants && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step1.participants", {
                                             required: 'List of participants is required',
-                                            onBlur: () => { trigger("step2.participants"); },
+                                            onBlur: () => { trigger("step1.participants"); },
                                         })}
                                     />
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-600">
-                                    Type one participant per line using anything that can uniquely identify the participant: Instagram username, Telegram username, first name + last name, phone number, email address, ...
-                                    Choose what fits best for your use case.
+                                    Type one username per line.<br />
+                                    If you want some participants to have twice more chance of winning, just enter their usernames twice in two separate lines.
                                 </p>
                             </div>
 
@@ -536,28 +513,39 @@ export default function Page() {
                                         type="number"
                                         id="nbWinners"
                                         min="0"
-                                        placeholder={drawNbWinnersPlaceholder}
+                                        placeholder={drawNbWinnersPlaceholder.toString()}
                                         className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
-                                        ${errors.step2?.nbWinners && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                        {...register("step2.nbWinners", {
+                                        ${errors.step1?.nbWinners && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step1.nbWinners", {
                                             required: 'Number of participants to draw is required',
-                                            onBlur: () => { trigger("step2.nbWinners"); },
+                                            onBlur: () => { trigger("step1.nbWinners"); },
                                         })}
                                     />
                                 </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">This is the number of participants that the algorithm will randomly select. Make sure it matches with what you have written in your rules at the previous step.</p>
+                                <p className="mt-3 text-sm leading-6 text-gray-600">This is the number of participants that the algorithm will randomly select.</p>
                             </div>
+
                         </div>
                     )
                 }
 
+
+                {/* {
+                    (selectedStep === 2) && (
+                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+                            
+                        </div>
+                    )
+                } */}
+
                 {
-                    (selectedStep === 3) && (
+                    (selectedStep === 2) && (
                         <div className="mt-10">
 
                             <div className="text-center">
                                 <label htmlFor="scheduledAt" className="block text-sm font-normal leading-6 text-gray-900">
-                                Choose the date and time at which the draw will happen.<br />
+                                Choose the date and time at which the random draw will happen.<br />
                                 ({(Intl.DateTimeFormat().resolvedOptions().timeZone)} time zone detected)
                                 </label>
                                 <div className="mt-2">
@@ -566,11 +554,11 @@ export default function Page() {
                                         id="scheduledAt"
                                         min={scheduledAtMinValue}
                                         className={`block m-auto rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
-                                        ${errors.step3?.scheduledAt && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
-                                        {...register("step3.scheduledAt", {
+                                        ${errors.step2?.scheduledAt && showErrorsOnBlur ? 'ring-red-600' : 'focus:ring-indigo-600'}`}
+                                        {...register("step2.scheduledAt", {
                                             required: 'Scheduled date and time is required',
                                             validate: validateScheduledAtFn,
-                                            onBlur: () => { trigger("step3.scheduledAt"); },
+                                            onBlur: () => { trigger("step2.scheduledAt"); },
                                         })}
                                     ></input>
                                 </div>
@@ -583,9 +571,7 @@ export default function Page() {
                                     </div>
                                     <div className="ml-3 flex-1 md:flex md:justify-between">
                                         <p className="text-sm text-blue-700">
-                                            At the end of this form we will create a web page for your draw and give you the link to access it. Please note that you will have to share this link to the participants before the draw happens.
-                                            By doing so, the participants will have the guarantee that you did not know the result of the draw in advance. {/* which means that you will be <Link href="https://messari.io/report/credible-neutrality-as-a-guiding-principle" rel="noopener" target="_blank" className="underline">credibly neutral</Link>. */}
-                                            That&apos;s why as a good practice we recommend you to choose a date and time which is at least 6 hours in the future from now.
+                                            We recommend you to choose a date and time a few hours in the future, so that your followers will be able to see the random draw in live on the blockchain when it happens.
                                         </p>
                                     </div>
                                 </div>
@@ -597,7 +583,7 @@ export default function Page() {
 
                 {/* Payment step, hidden by default but needs to always be in the DOM
                 to prevent re-rendering when the user switch between steps */}
-                <div className={`flex flex-wrap justify-center justify-items-center items-center mt-10 w-full ${selectedStep === paymentStep ? '' : 'hidden'}`}>
+                {/* <div className={`flex flex-wrap justify-center justify-items-center items-center mt-10 w-full ${selectedStep === paymentStep ? '' : 'hidden'}`}>
 
                     <p className="max-w-[600px] mt-0 px-8 sm:px-24 py-16 border-b lg:border-b-0 lg:border-r border-gray-200 text-md font-light tracking-wide text-gray-800 sm:text-md text-center">
                         Because it is end-to-end decentralized, <span className="italic">Verifiable Draws</span> is the only draw platform which prevents all kinds of fraud.
@@ -609,13 +595,13 @@ export default function Page() {
                     </p>
 
                     <div className="min-w-[300px] max-w-[800px] flex-auto px-8 sm:px-24 py-16">
-                        {/* <p className="mt-0 text-xl font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-xl text-center">
+                        <p className="mt-0 text-xl font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-xl text-center">
                             Purchase a single draw
                         </p>
 
                         <p className="mt-0 text-base font-normal tracking-tight sm:mb-4 text-gray-800 sm:text-base text-center">
                             Total: 29,00€
-                        </p> */}
+                        </p>
 
                         {clientSecret && (
                             <Elements options={options} stripe={stripePromise}>
@@ -624,13 +610,13 @@ export default function Page() {
                         )}
                     </div>
 
-                </div>
+                </div> */}
 
                 {
-                    (selectedStep === 5) && (
+                    (selectedStep === 3) && (
                         <div className="mt-10">
 
-                            <div className="rounded-md bg-green-50 p-4">
+                            {/* <div className="rounded-md bg-green-50 p-4">
                                 <div className="flex">
                                     <div className="flex-shrink-0">
                                         <CheckCircleIcon className="h-5 w-5 text-green-400" aria-hidden="true" />
@@ -639,7 +625,7 @@ export default function Page() {
                                         <p className="text-sm font-medium text-green-800">Payment successful</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
                             
                             
@@ -753,7 +739,7 @@ export default function Page() {
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                     {
-                        (selectedStep > 1 && selectedStep < steps.length && selectedStep !== paymentStep) && (
+                        (selectedStep > 1 && selectedStep < steps.length) && (
                             <button
                                 onClick={previousStep}
                                 className="text-sm font-semibold leading-6 text-gray-900"
@@ -763,7 +749,7 @@ export default function Page() {
                         )
                     }
                     {
-                        (selectedStep < steps.length && selectedStep !== paymentStep) && (
+                        (selectedStep < steps.length) && (
                             <button
                                 type="button"
                                 onClick={async () => { await nextStep(`step${selectedStep}`) }}
