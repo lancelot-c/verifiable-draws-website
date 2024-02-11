@@ -16,14 +16,14 @@ export async function GET(request: Request) {
         throw new Error("'network', 'contractAddress', and 'cid' parameters are required.")
     }
 
-    if (network !== "polygon-mainnet" && network !== "polygon-mumbai") {
-        throw new Error(`Network ${network} is not supported.`)
-    }
+    // if (network !== "polygon-mainnet" && network !== "arbitrumSepolia") {
+    //     throw new Error(`Network ${network} is not supported.`)
+    // }
 
-    const expectedContractAddress = ((network === 'polygon-mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
-    if (contractAddress !== expectedContractAddress) {
-        throw new Error(`Wrong contract address. Expected ${expectedContractAddress}, got ${contractAddress}.`)
-    }
+    // const expectedContractAddress = ((network === 'polygon-mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
+    // if (contractAddress !== expectedContractAddress) {
+    //     throw new Error(`Wrong contract address. Expected ${expectedContractAddress}, got ${contractAddress}.`)
+    // }
 
     if (!process.env.WALLET_PRIVATE_KEY) {
         throw new Error("process.env.WALLET_PRIVATE_KEY not found.")
