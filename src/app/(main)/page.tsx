@@ -236,15 +236,14 @@ const tiers = [
         name: 'Personal',
         id: 'tier-basic',
         href: '/launch-draw',
-        price: '29€',
-        description: 'Try the most advanced random draw algorithm currently on the market at an affordable price.',
+        price: '0€',
+        description: 'Try the most advanced random draw algorithm currently on the market for free.',
         features: [
             // { included: true, text: 'Provably-fair and verifiable randomness' },
             // { included: true, text: 'Is secure enough to protect a billion dollar lottery against any kind of attack' },
             { included: true, text: 'Up to 1 000 participants' },
-            { included: true, text: 'Up to 10 winners' },
-            { included: true, text: 'Schedule draw at custom date and time' },
-            { included: true, text: '48-hour support response time' },
+            { included: true, text: 'Limited to 1 winner per draw' },
+            { included: true, text: 'Limited to 1 draw per day' },
         ],
         featured: false,
         cta: 'Launch draw',
@@ -422,9 +421,9 @@ export default function Example() {
                     <h2 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                         Meet the Holy Grail of random draw algorithms
                     </h2>
-                    <p className="mt-6 text-lg leading-8 text-gray-600">
+                    {/* <p className="mt-6 text-lg leading-8 text-gray-600">
                         The only proven way to get random draws that are 100% reliable.
-                    </p>
+                    </p> */}
                 </div>
                 <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
                     <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
@@ -1078,7 +1077,7 @@ export default function Example() {
               </span>
 
 
-                {tier.id !== 'tier-enterprise' ? (
+                {/* {tier.id !== 'tier-enterprise' ? (
                                         <span
                                             className={classNames(
                                                 tier.featured ? 'text-gray-300' : 'text-gray-600',
@@ -1087,7 +1086,7 @@ export default function Example() {
                                         >
                                             /draw
                                         </span>
-                                    ) : null}
+                                    ) : null} */}
 
 
             </p>

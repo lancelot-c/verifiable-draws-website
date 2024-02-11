@@ -43,7 +43,7 @@ const navigation: any[] = [
         },
         {
             name: 'Instagram',
-            href: 'https://www.instagram.com/verifiable.draws/',
+            href: 'https://www.instagram.com/random_win_/',
             icon: (props: any) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                     <path
@@ -242,7 +242,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             ))}
                         </div>
                         <p className="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">
-                            Verifiable Draws is a product of <Link href="https://www.borr.tech/" target="_blank" className="underline hover:text-gray-500">Borr Technologies</Link>, a registered French company.<br />
+                            Verifiable Draws is a product of Borr Technologies, a registered French company.<br />
                             &copy; 2023 Borr Technologies. All rights reserved.
                         </p>
                     </div>
