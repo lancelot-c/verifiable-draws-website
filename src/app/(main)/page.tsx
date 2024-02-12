@@ -237,13 +237,13 @@ const tiers = [
         id: 'tier-basic',
         href: '/launch-draw',
         price: '0€',
-        description: 'Try the most advanced random draw algorithm currently on the market for free.',
+        description: 'For non-commercial use only.',
         features: [
             // { included: true, text: 'Provably-fair and verifiable randomness' },
             // { included: true, text: 'Is secure enough to protect a billion dollar lottery against any kind of attack' },
-            { included: true, text: 'Up to 1 000 participants' },
-            { included: true, text: 'Limited to 1 winner per draw' },
-            { included: true, text: 'Limited to 1 draw per day' },
+            { included: true, text: 'Up to 100 000 participants' },
+            { included: true, text: 'Up to 4 winners' },
+            { included: true, text: 'Secured by Arbitrum testnet' },
         ],
         featured: false,
         cta: 'Launch draw',
@@ -272,12 +272,13 @@ const tiers = [
         price: 'Custom',
         description: 'We provide custom plans for companies engaged in large-scale operations.',
         features: [
-            { included: true, text: 'White-labelling, bring your own template' },
-            { included: true, text: 'API access' },
-            { included: true, text: 'Private draws' },
             { included: true, text: 'Unlimited participants' },
             { included: true, text: 'Unlimited winners' },
-            { included: true, text: 'Priority support' },
+            { included: true, text: 'Secured by Arbitrum mainnet' },
+            { included: true, text: 'White-labelling, bring your own template' },
+            { included: true, text: 'API access' },
+            // { included: true, text: 'Private draws' },
+            { included: true, text: '24/7 priority support' },
         ],
         featured: true,
         cta: 'Get started today',
@@ -960,7 +961,7 @@ export default function Example() {
                     <div className="mx-auto max-w-4xl text-center">
                         {/* <h2 className="text-base font-semibold leading-7 text-indigo-600">Pricing</h2> */}
                         <p className="mt-2 mb-16 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-                            Simple pricing, no commitment
+                            Simple pricing
                         </p>
                     </div>
                     {/* <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">
