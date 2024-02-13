@@ -69,7 +69,7 @@ export async function GET(request: Request) {
             await kv.set(`randomness_${cid}`, bytes);
             console.log(`Added ${cid} : ${bytes} in the KV store.`)
         }
-        
+    
     }
 
     
