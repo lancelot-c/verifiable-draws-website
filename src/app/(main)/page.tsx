@@ -241,8 +241,8 @@ const tiers = [
         features: [
             // { included: true, text: 'Provably-fair and verifiable randomness' },
             // { included: true, text: 'Is secure enough to protect a billion dollar lottery against any kind of attack' },
-            { included: true, text: 'Unlimited participants' },
-            { included: true, text: 'Unlimited winners' },
+            { included: true, text: 'Up to 100 000 participants' },
+            { included: true, text: 'Up to 4 winners' },
             { included: true, text: 'Secured by Arbitrum testnet' },
         ],
         featured: false,
