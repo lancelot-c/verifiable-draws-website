@@ -209,26 +209,22 @@ export default function Page() {
         const drawScheduledAt = Math.ceil(getTimestampFromIso(getValues("step2.scheduledAt")) / 1000); // in seconds
         setDeployInProgress(true);
 
-        let jsonBody = {};
+        let jsonBody = {
+            drawTitle,
+            drawRules,
+            drawParticipants,
+            drawNbWinners,
+            drawScheduledAt,
+            code: '',
+            paymentIntentId: ''
+        };
 
-        if (searchParams.has('code')) {
-            jsonBody = {
-                code: searchParams.get('code'),
-                drawTitle,
-                drawRules,
-                drawParticipants,
-                drawNbWinners,
-                drawScheduledAt
-            }
+        const hasCode = true; // replace by searchParams.has('code')
+
+        if (hasCode) { 
+            jsonBody.code = searchParams.get('code') as string;
         } else if (paymentIntent) {
-            jsonBody = {
-                paymentIntentId: paymentIntent.id,
-                drawTitle,
-                drawRules,
-                drawParticipants,
-                drawNbWinners,
-                drawScheduledAt
-            }
+            jsonBody.paymentIntentId = paymentIntent?.id as string;
         }
 
         fetch("/api/draw/deploy", {
