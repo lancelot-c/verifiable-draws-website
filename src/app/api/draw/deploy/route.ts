@@ -1,6 +1,6 @@
 import Stripe from 'stripe'
 import { kv } from "@vercel/kv";
-import FormData from 'form-data'
+// import Hash from 'ipfs-only-hash'
 import fs from 'fs';
 const fsPromises = fs.promises;
 import path from 'path'
@@ -8,6 +8,11 @@ import axios from 'axios'
 import { Wallet, ethers } from 'ethers';
 import crypto from 'crypto'
 import { buildNextResponseJson } from './../../../../utils/errorHandling';
+import { unixfs } from "@helia/unixfs"
+import { BlackHoleBlockstore } from "blockstore-core/black-hole"
+import { fixedSize } from "ipfs-unixfs-importer/chunker"
+import { balanced } from "ipfs-unixfs-importer/layout"
+const pinataSDK = require('@pinata/sdk');
 const filePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
 const network = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 'testnet' : 'testnet';
 let gasStationURL: string;
@@ -191,17 +196,17 @@ async function createDraw(
     const drawNbParticipants = drawParticipantsArray.length;
 
     // Generate draw file
-    const [drawFilepath, content] = await generateDrawFile(drawTitle, drawRules, drawParticipantsArray, drawNbParticipants, drawNbWinners, drawScheduledAt);
+    const [cid, content] = await generateDrawFile(drawTitle, drawRules, drawParticipantsArray, drawNbParticipants, drawNbWinners, drawScheduledAt);
 
     // Pin draw file on IPFS
-    const cid = await pinFileToIPFS(drawFilepath, drawTitle);
+    // const cid = await pinFileToIPFS(drawFilepath, drawTitle);
     await pinInKV(cid, content);
 
     // Rename draw file to match IPFS CID
     // await renameFileToCid(drawFilepath, cid);
 
     // Delete temp file
-    deleteTmpDrawFile(drawFilepath);
+    // deleteTmpDrawFile(drawFilepath);
 
     // Publish draw on smart contract
     await publishOnSmartContract(cid, drawScheduledAt, drawNbParticipants, drawNbWinners);
@@ -248,52 +253,102 @@ async function generateDrawFile(drawTitle: string, drawRules: string, drawPartic
         .replaceAll('{{ drawParticipants }}', drawParticipantsList)
         .replaceAll('{{ drawNbWinners }}', drawNbWinners.toString());
 
-    const fileHash = sha256(newContent);
-    const drawTempFilepath = `/tmp/${fileHash}.html`;
-    console.log(`drawTempFilepath = ${drawTempFilepath}`);
+    const cid = await calculateCidFromString(newContent);
+    // const drawTempFilepath = `/tmp/${fileHash}.html`;
+    // console.log(`drawTempFilepath = ${drawTempFilepath}`);
 
-    await fsPromises.writeFile(drawTempFilepath, newContent, 'utf8');
+    // await fsPromises.writeFile(drawTempFilepath, newContent, 'utf8');
 
-    return [drawTempFilepath, newContent];
+    return [cid, newContent];
 
 }
 
 async function pinFileToIPFS(filepath: string, filename: string): Promise<string> {
     console.log(`Uploading ${filepath} to IPFS...\n`);
 
+    let cid;
 
-    const formData = new FormData();
-    
-    const file = fs.createReadStream(filepath)
-    formData.append('file', file)
-    
-    const pinataMetadata = JSON.stringify({
-      name: filename,
-    });
-    formData.append('pinataMetadata', pinataMetadata);
-    
-    const pinataOptions = JSON.stringify({
-      cidVersion: 1,
-    })
-    formData.append('pinataOptions', pinataOptions);
-    let res: any;
+    // *** Using Pinata ***
+    // ⚠️ As of February 2024 you have to pay 20€/month to upload .html files on Pinata, it isn't allowed on their free plan
 
-    try{
-        res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
-            maxBodyLength: Infinity,
-            headers: {
-                'Content-Type': `multipart/form-data; boundary=${formData.getBoundary()}`,
-                Authorization: process.env.PINATA_API_JWT
-            }
-        });
-        console.log(res.data);
+    const pinata = new pinataSDK({ pinataJWTKey: process.env.PINATA_API_JWT});
 
-    } catch (error) {
-        console.log(error);
-    }
+    const readableStreamForFile = fs.createReadStream(filepath);
+    const options = {
+        pinataMetadata: {
+            name: filename,
+        },
+        pinataOptions: {
+            cidVersion: 1
+        }
+    };
+    const res = await pinata.pinFileToIPFS(readableStreamForFile, options)
+    console.log(`Pinata response:`, res)
+    cid = res.IpfsHash
 
-    return Promise.resolve(res.IpfsHash);
+    // *** Using ipfs-only-hash ***
+    // cid = await Hash.of('data')
+
+    // *** Using @helia/unixfs ***
+    // cid = await calculateCidFromFile(filepath);
+
+    return cid;
 }
+
+// From https://www.turfemon.com/pre-calculate-cid
+async function calculateCidFromBytes(bytes: Uint8Array) {
+	const unixFs = unixfs({
+	  blockstore: new BlackHoleBlockstore(),
+	})
+	
+	const cid = await unixFs.addBytes(bytes, {
+	  cidVersion: 0,
+	  rawLeaves: false,
+	  leafType: "file",
+	  layout: balanced({
+	    maxChildrenPerNode: 174,
+	  }),
+	  chunker: fixedSize({
+	    chunkSize: 262144,
+	  }),
+	})
+	
+	const cidv0 = cid.toV0().toString() // QmPK1s...
+	const cidv1 = cid.toV1().toString() // b45165...
+
+    return cidv1;
+}
+
+
+async function calculateCidFromFile(filepath: string) {
+
+	let resolve: Function;
+    const cidPromise: Promise<string> = new Promise((r) => {
+        resolve = r;
+    });
+
+    fs.readFile(filepath, 'utf8', async (err, data) => {
+
+        const calculatedCid = await calculateCidFromString(data);
+        console.log(`Calculated CID is ${calculatedCid}\n`)
+        resolve(calculatedCid);
+
+        if (err) {
+            console.error('Error while reading template', err);
+        }
+    });
+
+    return cidPromise;
+}
+
+
+async function calculateCidFromString(str: string) {
+
+	const textEncoder = new TextEncoder()
+    const uint8Array = textEncoder.encode(str)
+    return await calculateCidFromBytes(uint8Array);
+}
+
 
 async function pinInKV(cid: string, content: string) {
     await kv.set(`content_${cid}`, content);
