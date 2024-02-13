@@ -280,15 +280,16 @@ async function pinFileToIPFS(filepath: string, filename: string): Promise<string
 
     try{
         res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
-            maxBodyLength: 10000000000000000000,
+            maxBodyLength: Infinity,
             headers: {
-            'Content-Type': `multipart/form-data; boundary=${formData.getBoundary()}`,
-            Authorization: process.env.PINATA_API_JWT
-        }
-      });
-      console.log(res.data);
+                'Content-Type': `multipart/form-data; boundary=${formData.getBoundary()}`,
+                Authorization: process.env.PINATA_API_JWT
+            }
+        });
+        console.log(res.data);
+
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
 
     return Promise.resolve(res.IpfsHash);
