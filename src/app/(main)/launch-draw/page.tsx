@@ -571,7 +571,7 @@ export default function Page() {
                                     </div>
                                     <div className="ml-3 flex-1 md:flex md:justify-between">
                                         <p className="text-sm text-blue-700">
-                                            We recommend you to choose a date and time a few minutes in the future, so that your followers will be able to see the random draw in live on the blockchain when it happens.
+                                            We recommend you to choose a date and time a few minutes in the future, so that the draw participants will be able to see the random draw in live on the blockchain when it happens.
                                         </p>
                                     </div>
                                 </div>
