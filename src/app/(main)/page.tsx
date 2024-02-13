@@ -236,7 +236,7 @@ const tiers = [
         name: 'Personal',
         id: 'tier-basic',
         href: '/launch-draw',
-        price: '0€',
+        price: '$0',
         description: 'For non-commercial use only.',
         features: [
             // { included: true, text: 'Provably-fair and verifiable randomness' },
@@ -1078,7 +1078,7 @@ export default function Example() {
               </span>
 
 
-                {/* {tier.id !== 'tier-enterprise' ? (
+                {tier.id !== 'tier-enterprise' ? (
                                         <span
                                             className={classNames(
                                                 tier.featured ? 'text-gray-300' : 'text-gray-600',
@@ -1087,7 +1087,7 @@ export default function Example() {
                                         >
                                             /draw
                                         </span>
-                                    ) : null} */}
+                                    ) : null}
 
 
             </p>
