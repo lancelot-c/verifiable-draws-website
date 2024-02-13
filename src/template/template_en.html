@@ -16,7 +16,7 @@
     <link rel="icon" href="https://bafybeigotrptu2ge7ykwvd5xek5qphaui3wlekqggl5qnt425n6t4ekgfy.ipfs.w3s.link/favicon.ico" />
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="https://bafybeig72t45uiohr53ctwhw2nl4ec5sm5atc6atskhywbn6hmaroh6fly.ipfs.w3s.link/styles.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="https://bafybeig72t45uiohr53ctwhw2nl4ec5sm5atc6atskhywbn6hmaroh6fly.ipfs.w3s.link/styles.css" /> -->
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,7 +77,11 @@
             margin-right: 16px;
         }
 
-        ul {
+        .no-leading-zero {
+            list-style: decimal;
+        }
+
+        .leading-zero {
             list-style: decimal-leading-zero;
         }
 
@@ -96,11 +100,20 @@
             margin: 48px 0px;
         }
 
+        .winners {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .winners h2 {
-            background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            width: 265px;
+            text-align: center;
+            color: #ffffff;
+            background-image: linear-gradient(to left, violet, indigo, blue, green, #969668, #dc8e00, red);
+            width: 200px;
+            margin-block-start: -0.9em;
+            margin-block-end: 0.83em;
+            padding: 0px 15px;
         }
 
         .winners ul {
@@ -173,9 +186,18 @@
             display: none;
         }
 
+        .occuredAt {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
         .drawOngoing {
             z-index: -10;
             position: relative;
+        }
+
+        .scheduledAt {
+            flex-shrink: 0;
         }
 
         /* Modal */
@@ -196,12 +218,14 @@
 
         .modal-inner {
             background-color: white;
+            max-width: 60%;
             margin: auto;
             font-size: 1.1em;
             line-height: 1.6em;
             overflow: scroll;
             overflow-wrap: break-word;
             height: 100%;
+            padding: 2em;
         }
 
         .modal-header {
@@ -297,9 +321,9 @@
         const url = window.location.href;
 
         // In test mode the url is http://localhost:3000/ipfs?cid=XXX whereas in production the url is https://www.verify.win/XXX
-        const isTestMode = url.includes("=");
-        const pageSegments = isTestMode ? url.split("=") : url.split("/");
-        let cid = pageSegments[pageSegments.length - 1].replace('#', '');
+        const isTestMode = url.includes("?cid=");
+        const segments = isTestMode ? url.split("=") : url.split("/"); // ?fbclid=PAAabGKid7j7Nz_P6F5_M6JQkvD05JmT3XqZiZVpxODq-fLit68qwc2FeAdXA%23
+        let cid = segments[segments.length - 1].replace('#', '');
         const network = '{{ network }}';
         const contractAddress = '{{ contractAddress }}';
         const drawParticipants = [{{ drawParticipants }}];
@@ -310,7 +334,7 @@
         // Handling time
         const timestamp = {{ drawScheduledAt }}; // in sec
         const scheduledAt = new Date(timestamp * 1000);
-        const scheduledAtString = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(scheduledAt);
+        const scheduledAtString = new Intl.DateTimeFormat('en-US', { dateStyle: 'short', timeStyle: 'short' }).format(scheduledAt);
         populateDom('scheduledAtString', scheduledAtString)
         const scheduledAtElmt = document.getElementsByClassName("scheduledAt")[0];
         const loadingElmt = document.getElementsByClassName("drawOngoing")[0];
@@ -423,8 +447,8 @@
 
         async function checkDrawResult() {
 
-            // You can verify that the returned randomness match the one at {{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F5
-            let smartContractCall = await fetch(`https://www.verifiabledraws.com/api/smart-contract/getWinners?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
+            // You can verify that the returned randomness match the one at {{ etherscanAddress }}/address/{{ contractAddress }}#readContract#F5
+            let smartContractCall = await fetch(`https://www.verifiabledraws.com/api/smart-contract/checkDrawWinners?network=${network}&contractAddress=${contractAddress}&cid=${cid}`);
             const jsonResponse = await smartContractCall.json();
             const winners = jsonResponse.winners;
             console.log(`winners = ${winners}`);
@@ -435,7 +459,7 @@
             console.log(`We have some winners 🎉`);
             loadingElmt.style.display = 'none';
             scheduledAtElmt.style.display = 'none';
-            occuredAtElmt.style.display = 'block';
+            occuredAtElmt.style.display = 'flex';
 
             // Launch fireworks animation
             fireworksElmt = document.querySelector('.fireworks');
@@ -490,7 +514,7 @@
 
         <div class="certified">
             <p class="txt">
-                <span class="icon">⚖️</span>Provably-fair and verifiable randomness<br />
+                <span class="icon">⚖️</span>Proof of randomness on the blockchain<br />
                 Powered by <a href="https://www.verifiabledraws.com/" target="_blank">Verifiable Draws</a>
             </p>
         </div>
@@ -510,16 +534,17 @@
                         <p>Draw in progress, please wait...</p>
                     </div>
                 </div>
-                <p class="occuredAt">
-                    This draw occured on <span class="var_scheduledAtString"></span>
-                </p>
+                <div class="occuredAt">
+                    <div style="margin-right:4px;">This draw occured on</div>
+                    <div class="var_scheduledAtString"></div>
+                </div>
             </div>
         </div>
         <hr />
 
         <div class="draw-parameter winners">
-            <h2>Draw winner<span class="plural-winners"></span>:</h2>
-            <ul class="draw-parameter__value winners__list">
+            <h2>Winner<span class="plural-winners"></span>:</h2>
+            <ul class="draw-parameter__value winners__list no-leading-zero">
             </ul>
             <p class="draw-parameter__value verify-sentence">
                 You don't trust this result ?
@@ -539,7 +564,7 @@
 
         <div class="draw-parameter">
             <h2><span class="var_drawNbParticipants"></span> Participants:</h2>
-            <ul class="draw-parameter__value var_drawParticipants">
+            <ul class="draw-parameter__value var_drawParticipants leading-zero">
             </ul>
         </div>
 
@@ -566,12 +591,12 @@
                 This is extremely powerful because the decentralization of the blockchain guarantees you that this draw is 100% fair and random, and that no one was able to cheat, neither the draw organiser, nor the developers behind the blockchain algorithm.
             </p>
             <p>
-                Simply go to <a href="{{ polygonscanAddress }}/address/{{ contractAddress }}#readContract#F7" target="_blank">the Verifiable Draws smart contract</a> 
-                and call the function <code>getWinners</code> with parameter <code><span class="var_cid"></span></code> which is the identifier for this draw that you can also find in this page URL.
+                To verify the winners for this draw, simply go to <a href="{{ etherscanAddress }}/address/{{ contractAddress }}#readContract#F1" target="_blank">the Verifiable Draws smart contract</a> 
+                and call the function <code>checkContestWinners</code> with the parameter <code><span class="var_cid"></span></code> which is the identifier for this draw that you can also find in this page's URL.
             </p>
-            <p>
-                The list of numbers you get from the function corresponds to the positions of the winners in the initial list of participants.
-            </p>
+            <!-- <p>
+                The numbers you get from the function correspond to the positions of the winners in the list of participants.
+            </p> -->
             <p>
                 <img src="https://bafybeifxp4znipawdv2jaaryk7se64dnqser2rmheafjcwxlm3zzy57nem.ipfs.w3s.link/draw-verification.gif" class="verification-gif" />
             </p>

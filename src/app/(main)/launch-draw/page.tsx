@@ -199,7 +199,7 @@ export default function Page() {
     // }, [currentStep])
 
     useEffect(() => {
-        if (currentStep !== shareStep || (paymentIntent === undefined && !searchParams.has('code'))) {
+        if (currentStep !== shareStep) {
             return;
         }
 

@@ -29,7 +29,7 @@ export async function GET(request: Request) {
         throw new Error("process.env.WALLET_PRIVATE_KEY not found.")
     }
 
-    console.log(`api/smart-contract/getWinners called with network = ${network}, contractAddress = ${contractAddress}, and cid = ${cid}`);
+    console.log(`api/smart-contract/checkDrawWinners called with network = ${network}, contractAddress = ${contractAddress}, and cid = ${cid}`);
 
     let winners: number[] = [];
     const cachedWinners: number[] | null = await kv.get(`winners_${cid}`);
@@ -62,7 +62,7 @@ export async function GET(request: Request) {
         );
 
         try {
-            let scResponse = await contract.getWinners(cid);
+            let scResponse = await contract.checkDrawWinners(cid);
             const winnersString = (new String(scResponse)).toString(); // Force cast to String
             winners = winnersString.split(',').map(winner => Number(winner));
         } catch (err: any) {

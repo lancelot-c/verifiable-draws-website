@@ -1,21 +1,21 @@
 import Stripe from 'stripe'
 import { kv } from "@vercel/kv";
+import FormData from 'form-data'
 import fs from 'fs';
 const fsPromises = fs.promises;
 import path from 'path'
 import axios from 'axios'
 import { Wallet, ethers } from 'ethers';
 import crypto from 'crypto'
-import { Web3Storage, getFilesFromPath } from 'web3.storage';
 import { buildNextResponseJson } from './../../../../utils/errorHandling';
 const filePath = path.join(process.cwd(), `src/assets/${process.env.CONTRACT_NAME}.json`);
-const network = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 'testnet' : 'mainnet';
+const network = (process.env.NEXT_PUBLIC_APP_ENV === 'test') ? 'testnet' : 'testnet';
 let gasStationURL: string;
 let providerBaseURL: string;
 let providerKey: string;
 let providerURL: string;
 let contractAddress: string;
-let polygonscanAddress: string;
+let etherscanAddress: string;
 let provider: ethers.JsonRpcProvider;
 let wallet: Wallet;
 setEthersParams(network)
@@ -26,7 +26,7 @@ function setEthersParams(network: string) {
     providerKey = ((network === 'mainnet') ? process.env.MAINNET_API_KEY : process.env.TESTNET_API_KEY) as string;
     providerURL = `${providerBaseURL}${providerKey}`;
     contractAddress = ((network === 'mainnet') ? process.env.MAINNET_CONTRACT_ADDRESS : process.env.TESTNET_CONTRACT_ADDRESS) as string;
-    polygonscanAddress = (network === 'mainnet') ? "https://polygonscan.com" : "https://mumbai.polygonscan.com";
+    etherscanAddress = (network === 'mainnet') ? "https://polygonscan.com" : "https://sepolia.arbiscan.io";
     provider = new ethers.JsonRpcProvider(providerURL)
 
     if (!process.env.WALLET_PRIVATE_KEY) {
@@ -57,13 +57,13 @@ export async function POST(request: Request) {
 
         const body = await request.json()
         const paymentIntentId: string = body.paymentIntentId
-        const code: string = body.code
+        const code: string = 'siegfried'
         
         // Me, Insight Media, Morning, Smartplay
         const validCodes = ['siegfried', 'zatzikhoven', 'goodmorning', 'arandomlotterycompany'] // These codes get free draws
         const testCodes: string[] = [];
         let codeUsed = false;
-        let testMode = false;
+        let testMode = true;
 
         if (code) {
 
@@ -96,7 +96,7 @@ export async function POST(request: Request) {
         const drawNbWinners: number = body.drawNbWinners;
         const drawScheduledAt: number = body.drawScheduledAt;
 
-        await createDraw(response, drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt, testMode);
+        response.cid = await createDraw(drawTitle, drawRules, drawParticipants, drawNbWinners, drawScheduledAt, testMode);
 
         if (codeUsed) {
 
@@ -170,7 +170,6 @@ async function kvRetryGet(paymentIntentId: string, delay = 3000, retries = 3): P
 }
 
 async function createDraw(
-    response: any,
     drawTitle: string,
     drawRules: string,
     drawParticipants: string,
@@ -190,13 +189,12 @@ async function createDraw(
     // Compute entropy needed
     const drawParticipantsArray = drawParticipants.split('\n').filter(n => n);
     const drawNbParticipants = drawParticipantsArray.length;
-    const entropyNeeded = await computeEntropyNeeded(drawNbParticipants, drawNbWinners);
 
     // Generate draw file
     const [drawFilepath, content] = await generateDrawFile(drawTitle, drawRules, drawParticipantsArray, drawNbParticipants, drawNbWinners, drawScheduledAt);
 
     // Pin draw file on IPFS
-    const cid = await pinInWeb3Storage(response, drawFilepath, drawTitle);
+    const cid = await pinFileToIPFS(drawFilepath, drawTitle);
     await pinInKV(cid, content);
 
     // Rename draw file to match IPFS CID
@@ -206,7 +204,7 @@ async function createDraw(
     deleteTmpDrawFile(drawFilepath);
 
     // Publish draw on smart contract
-    await publishOnSmartContract(cid, drawScheduledAt, drawNbParticipants, drawNbWinners, entropyNeeded);
+    await publishOnSmartContract(cid, drawScheduledAt, drawNbParticipants, drawNbWinners);
 
     return cid
 
@@ -228,18 +226,6 @@ function deleteTmpDrawFile(drawFilepath: string) {
     });
 }
 
-async function computeEntropyNeeded(nbParticipants: number, nbWinners: number): Promise<number> {
-
-    let entropyNeeded = 0;
-
-    // Optimised using Information Theory
-    for (let i = 0; i < nbWinners; i++) {
-        entropyNeeded += Math.ceil(Math.log2(nbParticipants - i) / 8); // in bytes
-    }
-
-    console.log(`${entropyNeeded} bytes of entropy needed\n`);
-    return entropyNeeded;
-}
 
 async function generateDrawFile(drawTitle: string, drawRules: string, drawParticipantsArray: string[], drawNbParticipants: number, drawNbWinners: number, unix_timestamp: number) {
     const templateFilepath = path.join(process.cwd(), '/src/template/template_en.html');
@@ -254,7 +240,7 @@ async function generateDrawFile(drawTitle: string, drawRules: string, drawPartic
     const newContent = content
         .replaceAll('{{ network }}', network)
         .replaceAll('{{ contractAddress }}', contractAddress)
-        .replaceAll('{{ polygonscanAddress }}', polygonscanAddress)
+        .replaceAll('{{ etherscanAddress }}', etherscanAddress)
         .replaceAll('{{ drawTitle }}', drawTitle)
         .replaceAll('{{ drawScheduledAt }}', unix_timestamp.toString())
         .replaceAll('{{ drawRules }}', drawRules.replaceAll('\n', '<br />'))
@@ -272,47 +258,48 @@ async function generateDrawFile(drawTitle: string, drawRules: string, drawPartic
 
 }
 
-async function pinInWeb3Storage(response: any, filepath: string, drawTitle: string): Promise<string> {
+async function pinFileToIPFS(filepath: string, filename: string): Promise<string> {
     console.log(`Uploading ${filepath} to IPFS...\n`);
 
-    const token = process.env.WEB3_STORAGE_API_TOKEN
 
-    if (!token) {
-        throw new Error("A token is needed. You can create one on https://web3.storage")
+    const formData = new FormData();
+    
+    const file = fs.createReadStream(filepath)
+    formData.append('file', file)
+    
+    const pinataMetadata = JSON.stringify({
+      name: filename,
+    });
+    formData.append('pinataMetadata', pinataMetadata);
+    
+    const pinataOptions = JSON.stringify({
+      cidVersion: 1,
+    })
+    formData.append('pinataOptions', pinataOptions);
+    let res: any;
+
+    try{
+        res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
+            maxBodyLength: 10000000000000000000,
+            headers: {
+            'Content-Type': `multipart/form-data; boundary=${formData.getBoundary()}`,
+            Authorization: process.env.PINATA_API_JWT
+        }
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
     }
 
-    const storage = new Web3Storage({ token })
-    const files = []
-
-    const pathFiles = await getFilesFromPath(filepath)
-    files.push(...pathFiles)
-
-    let resolve: Function;
-    const cidPromise: Promise<string> = new Promise((r) => {
-        resolve = r;
-    });
-
-    const onRootCidReady = (rootCid: string) => {
-        console.log(`Root CID is ${rootCid}\n`)
-        response.cid = rootCid
-        resolve(rootCid);
-    };
-
-    storage.put(files, {
-        name: drawTitle,
-        wrapWithDirectory: false,
-        onRootCidReady
-    });
-
-    return cidPromise;
+    return Promise.resolve(res.IpfsHash);
 }
 
 async function pinInKV(cid: string, content: string) {
     await kv.set(`content_${cid}`, content);
 }
 
-async function publishOnSmartContract(v1CidString: string, scheduledAt: number, nbParticipants: number, nbWinners: number, entropyNeeded: number) {
-    console.log(`Publish draw ${v1CidString} on smart contract ${contractAddress}, scheduled at ${scheduledAt}, needing ${entropyNeeded} entropy\n`);
+async function publishOnSmartContract(v1CidString: string, scheduledAt: number, nbParticipants: number, nbWinners: number) {
+    console.log(`Publish draw ${v1CidString} on smart contract ${contractAddress}, scheduled at ${scheduledAt}\n`);
 
     const jsonData = await fsPromises.readFile(filePath);
     const abi = JSON.parse(jsonData.toString()).abi;
@@ -326,7 +313,7 @@ async function publishOnSmartContract(v1CidString: string, scheduledAt: number, 
     await setOptimalGas();
 
     try {
-        await contract.launchDraw(v1CidString, scheduledAt, nbParticipants, nbWinners, entropyNeeded, {
+        await contract.launchDraw(v1CidString, scheduledAt, nbParticipants, nbWinners, {
             maxFeePerGas,
             maxPriorityFeePerGas,
         });
