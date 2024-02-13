@@ -364,14 +364,6 @@
         populateDom('network', network)
         populateDom('contractAddress', contractAddress)
 
-
-        // Fetch storage proofs
-        const statusResponse = await fetch(`https://www.verifiabledraws.com/api/draw/status?cid=${cid}`)
-        const drawStatus = await statusResponse.json();
-        const drawDeals = drawStatus.deals;
-        console.log('Filecoin deals (proofs of storage) = ');
-        console.log(drawDeals);
-
         document.getElementsByClassName("var_drawParticipants")[0].innerHTML = drawParticipants.map(p => `<li>${p}</li>`).join('');
 
         const drawNbParticipants = {{ drawNbParticipants }};
