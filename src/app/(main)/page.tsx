@@ -237,7 +237,7 @@ const tiers = [
         id: 'tier-basic',
         href: '/launch-draw',
         price: '$0',
-        description: 'For non-commercial use only.',
+        description: 'Try the most advanced random draw algorithm currently on the market for free.',
         features: [
             // { included: true, text: 'Provably-fair and verifiable randomness' },
             // { included: true, text: 'Is secure enough to protect a billion dollar lottery against any kind of attack' },
