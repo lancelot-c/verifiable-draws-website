@@ -277,7 +277,7 @@ const tiers = [
             { included: true, text: 'Secured by Arbitrum mainnet' },
             { included: true, text: 'White-labelling, bring your own template' },
             { included: true, text: 'API access' },
-            // { included: true, text: 'Private draws' },
+            { included: true, text: 'Private draws' },
             { included: true, text: '24/7 priority support' },
         ],
         featured: true,
