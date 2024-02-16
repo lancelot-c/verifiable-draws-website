@@ -8,7 +8,7 @@ module.exports = {
         if (isServer) {
             config.externals.push({ bufferutil: "bufferutil", "utf-8-validate": "utf-8-validate", });
         }
-        return config;
+        return config; 
     },
     // ⬇ Only works in production, not in dev, that's a known Next.JS bug : https://github.com/vercel/next.js/issues/40549 
     rewrites: async () => {
